@@ -2,9 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${title}"/>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
 </head>
-<body>
+<body class="text-center">
+
+<main class="form-signin w-100 m-auto">
+
+    <div class="form-floating">
+    <form>
+        <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+        <h1 class="h3 mb-3 fw-normal"><ya-tr-span data-index="0-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Please sign in" data-translation="Пожалуйста, войдите" data-type="trSpan">Пожалуйста, войдите</ya-tr-span></h1>
+
+        <div class="form-floating">
+            <select id="vvod" name="privet" class="form-control" required >
+
+                <option disabled selected></option>
+
+                <option value="<?=$result[1]?>"><?=$result[1]?></option>
+
+            </select>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Пароль">
+            <label for="floatingPassword"><ya-tr-span data-index="2-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Password" data-translation="Пароль" data-type="trSpan">Пароль</ya-tr-span></label>
+        </div>
+
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
+            <ya-tr-span data-index="3-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Sign in" data-translation="Вход" data-type="trSpan">Вход</ya-tr-span></button>
+        <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
+    </form>
+    </div>
+</main>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 <p th:text="'Hello, ' + ${title} + '!'" />
 </body>
 </html>
