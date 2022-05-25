@@ -12,15 +12,27 @@
 
 <main class="form-signin w-100 m-auto">
 
-    <div class="form-floating">
-    <form>
+
+    <form action="/entrance" method="post">
+
         <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
         <h1 class="h3 mb-3 fw-normal"><ya-tr-span data-index="0-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Please sign in" data-translation="Пожалуйста, войдите" data-type="trSpan">Пожалуйста, войдите</ya-tr-span></h1>
 
 
+            <div class="form-floating" th:object="${test}">
+                <select class="form-control" id="login" name="login">
+                    <option value="">Select Test Order</option>
+                    <option th:each="test : ${tests}" th:value="${test.login}" th:text="${test.login}"></option>
+                </select>
+            </div>
+
+
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Пароль">
-            <label for="floatingPassword"><ya-tr-span data-index="2-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Password" data-translation="Пароль" data-type="trSpan">Пароль</ya-tr-span></label>
+            <input type="password" class="form-control" id="password" placeholder="Пароль">
+            <label for="password">
+                <ya-tr-span data-index="2-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Password" data-translation="Пароль" data-type="trSpan">
+                    Пароль</ya-tr-span>
+            </label>
         </div>
 
 
@@ -35,6 +47,6 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<p th:text="'Hello, ' + ${title} + '!'" />
+
 </body>
 </html>
