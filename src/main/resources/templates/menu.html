@@ -11,12 +11,13 @@
 <body class="text-center">
 
 <main class="d-flex flex-nowrap">
+
     <h1 class="visually-hidden"><ya-tr-span data-index="0-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Sidebars examples" data-translation="Примеры боковых панелей" data-type="trSpan">Примеры боковых панелей</ya-tr-span></h1>
 
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
             <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <span class="fs-4"><ya-tr-span data-index="1-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Sidebar" data-translation="Боковая панель" data-type="trSpan">Боковая панель</ya-tr-span></span>
+            <span class="fs-4"><ya-tr-span data-index="1-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Sidebar" data-translation="Боковая панель" data-type="trSpan" th:text="${login}"><p th:text="'Hello, ' + ${login} + '!'" /></ya-tr-span></span>
         </a>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
@@ -25,8 +26,8 @@
                     <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg><ya-tr-span data-index="2-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" Home " data-translation=" Главная " data-type="trSpan">  Главная  </ya-tr-span></a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
-                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg><ya-tr-span data-index="3-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" Dashboard " data-translation=" Информационная панель " data-type="trSpan">  Информационная панель  </ya-tr-span></a>
+                <a href="/promo" class="nav-link text-white">
+                    <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#promo"></use></svg><ya-tr-span data-index="3-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" Dashboard " data-translation=" Промо " data-type="trSpan">  Промо  </ya-tr-span></a>
             </li>
             <li>
                 <a href="#" class="nav-link text-white">
@@ -81,6 +82,16 @@
     </div>
 
     <div class="b-example-divider b-example-vr"></div>
+    <div class="card-body">
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            </div>
+            <small class="text-muted">9 mins</small>
+        </div>
+    </div>
 </main>
 
 

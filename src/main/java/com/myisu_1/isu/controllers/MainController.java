@@ -14,26 +14,31 @@ import java.util.List;
 
 @Controller
 public class MainController {
+    List<authorization_tt> tests;
+    List<authorization_tt> test;
 
     @Autowired
 
     private PostRepositoriy postRepositoriy;
 
     @GetMapping("/")
-    public String home (Model model) {
+    public String home(Model model) {
         Iterable<authorization_tt> post = postRepositoriy.findAll();
-
-        List<authorization_tt> test = new ArrayList<>();
+        test = new ArrayList<>();
         model.addAttribute("test", post);
-        List<authorization_tt> tests = (List<authorization_tt>) postRepositoriy.findAll();
+        tests = (List<authorization_tt>) postRepositoriy.findAll();
         model.addAttribute("tests", tests);
         return "home";
     }
 
-    @PostMapping ("/entrance")
-    public String entrance (Model model) {
-
-        return "menu";
+    @PostMapping("/entrance")
+    public String entrance(@RequestParam String login, @RequestParam String pasword, Model model) {
+        model.addAttribute("login", login);
+        for (int i = 1; i < tests.size(); i++) {
+            if (login.equals(tests.get(i).getLogin()) & pasword.equals(tests.get(i).getPasword())) {
+                return "menu";
+            }
+        }
+        return "";
     }
-
 }

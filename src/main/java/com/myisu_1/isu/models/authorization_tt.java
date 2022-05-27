@@ -20,6 +20,22 @@ public class authorization_tt {
     private String simBee;
     private String simMf;
 
+    public authorization_tt(int id, String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf) {
+        this.id = id;
+        this.login = login;
+        this.pasword = pasword;
+        this.name = name;
+        this.clusterT2 = clusterT2;
+        this.clusterRtk = clusterRtk;
+        this.simT2 = simT2;
+        this.simMts = simMts;
+        this.simBee = simBee;
+        this.simMf = simMf;
+    }
+
+    public authorization_tt() {
+    }
+
     public int getId() {
         return id;
     }
