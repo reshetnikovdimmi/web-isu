@@ -21,8 +21,8 @@
       background-color: #fafafa;
       height: 200px;
       width: 100%;
-
-
+      font-size: 11px;
+      color: #2f5687;
 }
 #main_2{
       background-color: #fafafa;
@@ -32,13 +32,7 @@
 
 }
 
-#menu{
-    background-color: #ddd;
 
-    font-size: 11px;
-
-
-}
 #content{
     background-color: #eee;
     width: 100%;
@@ -48,13 +42,12 @@
     background-color: #ccc;
 }
 .container{
-
      width: 100%;
 
 }
  .grid-container {
-
-                display: inline-grid;
+    color: #2f5687;
+    display: inline-grid;
             }
 
             .grid-item {
@@ -62,5 +55,4 @@
                 text-align:center;
                 font-size: 1.1em;
 
-                color: white;
             }
