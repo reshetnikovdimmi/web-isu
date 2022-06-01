@@ -36,6 +36,7 @@ public class MainController {
         model.addAttribute("login", login);
         for (int i = 1; i < tests.size(); i++) {
             if (login.equals(tests.get(i).getLogin()) & pasword.equals(tests.get(i).getPasword())) {
+
                 return "menu";
             }
         }

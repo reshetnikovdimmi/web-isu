@@ -14,13 +14,13 @@
  #sidebar{
      background-color: #bbb;
      float: right;
-     width: 30%;
+     width: 33%;
 
 }
 #main{
       background-color: #fafafa;
       height: 200px;
-      margin-right: 50%;
+      width: 50%;
 
 
 }
@@ -34,15 +34,33 @@
 
 #menu{
     background-color: #ddd;
-    width: 100px;
+    width: 100%;
+    border: solid 2px #000;
+    font-size: 11px;
+
 }
 #content{
     background-color: #eee;
-    width: 450px;
+    width: 100%;
+    border: solid 2px #000;
 }
 #footer{
     background-color: #ccc;
 }
-#container{
-    position: static;
+.container{
+     display: inline-block;
+     width: 100%;
+     box-sizing: border-box;
 }
+ .grid-container {
+                border: solid 2px #000;
+                display: inline-grid;
+            }
+
+            .grid-item {
+                box-sizing: border-box;
+                text-align:center;
+                font-size: 1.1em;
+
+                color: white;
+            }

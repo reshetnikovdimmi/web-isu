@@ -9,7 +9,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/CSS/promo.css}" />
 </head>
-<body class="text-center">
+<body class="d-flex h-100 text-center text-white bg-dark">
 
 <main>
 
@@ -60,10 +60,80 @@
         <div id="sidebar">Правый сайдбар</div>
     </div>
     <div id="main" style="position: absolute">
-        <div id="menu">Меню</div>
+
+
+                        <form method="post" >
+                          <div id="menu">
+                            <div class="grid-container">
+                                <div class="grid-item color1">
+                                    <label>Choose pizza</label>
+                                    <select >
+                                        <option value="">Введите имя</option>
+                                        <option >pizza
+                                        </option>
+                                    </select>
+                                    <label >Select dips</label>
+                                    <select>
+
+                                        <option value="">Введите имя
+                                        <option >pizza
+                                        </option>
+
+                                    </select>
+                                </div>
+                                <div class="grid-item color2">
+                                    <label >Select dips</label>
+                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
+                                    <label >Select dips</label>
+                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
+                                </div>
+                                <div class="grid-item color3">
+                                    <label >Select dips</label>
+                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
+                                    <label >Select dips</label>
+                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
+                                </div>
+                                <div class="grid-item color4">
+                                    <label >Select dips</label>
+                                    <input type="checkbox" name="java"/>
+                                    <label >Select dips</label>
+                                    <input type="checkbox" name="java"/>
+                                    <label >Select dips</label>
+                                    <input type="checkbox" name="java"/>
+                                    <label >Select dips</label>
+                                    <input type="checkbox" name="java"/>
+
+                                <div class="grid-item color1">
+                                    <label >Select dips</label>
+                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
+                                </div>
+                            </div>
+
+
+
+                            </div>
+                            <button type="submit">Submit form</button>
+                        </form>
+
+
+
+
+
+
+        <div id="content"><label>До</label>
+            <label >Select dips</label>
+            <select>
+                <option value="">Введите имя
+                <option >pizza
+                </option>
+            </select>
+            <input type="date" class="date" value="<?=$Do?>" id="date" name="date_do"/>
+            <label>До</label>
+            <input type="date" class="date" value="<?=$Do?>" id="date" name="date_do"/></div>
         <div id="content">Основное содержимое</div>
+
     </div>
-    </div>
+
 
 
 </main>
@@ -72,7 +142,10 @@
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/bootstrap-select-1.13.9/dist/js/bootstrap-select.js}"></script>
 
 </body>
 </html>
