@@ -59,11 +59,9 @@
         <div id="sidebar">Правый сайдбар</div>
         <div id="sidebar">Правый сайдбар</div>
     </div>
-    <div id="main" style="position: absolute">
-
-
+    <div id="main" >
                         <form method="post" >
-                          <div id="menu">
+                          <div id="menu" style="position: relative">
                             <div class="grid-container">
                                 <div class="grid-item color1">
                                     <label>Choose pizza</label>
@@ -102,24 +100,15 @@
                                     <input type="checkbox" name="java"/>
                                     <label >Select dips</label>
                                     <input type="checkbox" name="java"/>
-
+                                </div>
                                 <div class="grid-item color1">
                                     <label >Select dips</label>
                                     <input type="text" name="userName" placeholder="Введите имя" size="18" />
                                 </div>
                             </div>
-
-
-
+                              <button type="submit">Submit form</button>
                             </div>
-                            <button type="submit">Submit form</button>
                         </form>
-
-
-
-
-
-
         <div id="content"><label>До</label>
             <label >Select dips</label>
             <select>
@@ -129,12 +118,14 @@
             </select>
             <input type="date" class="date" value="<?=$Do?>" id="date" name="date_do"/>
             <label>До</label>
-            <input type="date" class="date" value="<?=$Do?>" id="date" name="date_do"/></div>
+            <input type="date" class="date" value="<?=$Do?>" id="date" name="date_do"/>
+            <button type="submit">Submit form</button>
+        </div>
         <div id="content">Основное содержимое</div>
 
     </div>
 
-
+    </div>
 
 </main>
 

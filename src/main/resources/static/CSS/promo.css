@@ -14,46 +14,46 @@
  #sidebar{
      background-color: #bbb;
      float: right;
-     width: 33%;
+     width: 33.33%;
 
 }
 #main{
       background-color: #fafafa;
       height: 200px;
-      width: 50%;
+      width: 100%;
 
 
 }
 #main_2{
       background-color: #fafafa;
       height: 200px;
-      margin-left: 50%;
+      margin-left: 45%;
 
 
 }
 
 #menu{
     background-color: #ddd;
-    width: 100%;
-    border: solid 2px #000;
+
     font-size: 11px;
+
 
 }
 #content{
     background-color: #eee;
     width: 100%;
-    border: solid 2px #000;
+
 }
 #footer{
     background-color: #ccc;
 }
 .container{
-     display: inline-block;
+
      width: 100%;
-     box-sizing: border-box;
+
 }
  .grid-container {
-                border: solid 2px #000;
+
                 display: inline-grid;
             }
 
