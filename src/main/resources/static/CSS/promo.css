@@ -27,7 +27,7 @@
 #main_2{
       background-color: #fafafa;
       height: 200px;
-      margin-left: 45%;
+      margin-left: 58%;
 
 
 }
@@ -46,13 +46,10 @@
 
 }
  .grid-container {
-    color: #2f5687;
     display: inline-grid;
-            }
+ }
 
-            .grid-item {
-                box-sizing: border-box;
-                text-align:center;
-                font-size: 1.1em;
+ .grid-item {
 
-            }
+
+ }

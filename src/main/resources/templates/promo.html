@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
-    <title th:text="${title}"/>
 
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js "></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-          crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/CSS/promo.css}" />
+    <title th:text="${title}"/>
 </head>
+
+
 <body class="d-flex h-100 text-center text-white bg-dark">
 
 <main>
@@ -61,85 +61,159 @@
     </div>
     <div id="main" >
         <div id="content">
-                        <form method="post" >
-                          <div id="menu" style="position: relative">
+                        <form  action="/add_phone" method="post">
+                          <div id="menu">
                             <div class="grid-container">
-                                <div class="grid-item color1">
-                                    <label>Choose pizza</label>
-                                    <select >
-                                        <option value="">Введите имя</option>
-                                        <option >pizza
+                                <div class="grid-item color1" th:object="${phone}">
+                                    <label>Бренд</label>
+                                    <select id="brend" name="brend" >
+                                        <option value="">----</option>
+                                        <option th:each="phone : ${phones}"
+                                                th:value="${phone.one}"
+                                                th:text="${phone.one}">
                                         </option>
                                     </select>
-                                    <label >Select dips</label>
-                                    <select>
+                                    <label >Модель</label>
+                                    <select id="models" name="models">
 
-                                        <option value="">Введите имя
+                                        <option value="">----
                                         <option >pizza
                                         </option>
 
                                     </select>
                                 </div>
                                 <div class="grid-item color2">
-                                    <label >Select dips</label>
-                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
-                                    <label >Select dips</label>
-                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
+                                    <label >Цена</label>
+                                    <input type="text" name="price" id="price" placeholder="Введите имя">
+                                    <label >Promo цена</label>
+                                    <input type="text" name="Promo_price" placeholder="Введите имя"  />
                                 </div>
                                 <div class="grid-item color3">
-                                    <label >Select dips</label>
-                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
-                                    <label >Select dips</label>
-                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
+                                    <label >Начало</label>
+                                    <input type="date" class="date" name="start_date" placeholder="Введите имя"  />
+                                    <label >Конец</label>
+                                    <input type="date" class="date" name="end_date" placeholder="Введите имя"  />
                                 </div>
                                 <div class="grid-item color4">
-                                    <label >Select dips</label>
-                                    <input type="checkbox" name="java"/>
-                                    <label >Select dips</label>
-                                    <input type="checkbox" name="java"/>
-                                    <label >Select dips</label>
-                                    <input type="checkbox" name="java"/>
-                                    <label >Select dips</label>
-                                    <input type="checkbox" name="java"/>
+                                    <label >Marwel</label>
+                                    <input type="text" name="Marwel" id="Marwel" size = "5" />
+                                    <label >TFN</label>
+                                    <input type="text" name="TFN" size = "5" />
+                                    <label >ВВП</label>
+                                    <input type="text" name="ВВП" size = "5" />
+                                    <label >Merlion</label>
+                                    <input type="text" name="Merlion" size = "5" />
                                 </div>
-                                <div class="grid-item color1">
-                                    <label >Select dips</label>
-                                    <input type="text" name="userName" placeholder="Введите имя" size="18" />
-                                </div>
+
                             </div>
-                              <button type="submit">Submit form</button>
+                              <button type="submit">Сохранить</button>
                             </div>
                         </form>
         </div>
         <div id="content">
+            <form method="post" >
             <label >Select dips</label>
             <select>
+
                 <option value="">Введите имя
                 <option >pizza
                 </option>
+
             </select>
             <label>До</label>
-            <input type="date" class="date" value="<?=$Do?>" id="date" name="date_do"/>
+            <input type="date" class="date"  id="date" name="date_do"/>
             <label>До</label>
-            <input type="date" class="date" value="<?=$Do?>" id="date" name="date_do"/>
-            <button type="submit">Submit form</button>
+            <input type="date" class="date"  id="date" name="date_do"/>
+            <button type="submit">Поиск</button>
+            </form>
         </div>
-        <div id="content">Основное содержимое</div>
-
+        <div id="content">Основное содержимое
+<div class="container">
+    <div class="row">
+<table class="table">
+<thead>
+<tr>
+    <th>brend</th>
+    <th>models</th>
+    <th>price</th>
+    <th>price_promo</th>
+    <th>start_promo</th>
+    <th>end_promo</th>
+    <th>marwel</th>
+    <th>tfn</th>
+    <th>vvp</th>
+    <th>merlion</th>
+</tr>
+</thead>
+    <tbody>
+<tr th:each="promo : ${all_promo}">
+    <td th:text = "${promo.brend}"></td>
+    <td th:text = "${promo.models}"></td>
+    <td th:text = "${promo.price}"></td>
+    <td th:text = "${promo.price_promo}"></td>
+    <td th:text = "${promo.start_promo}"></td>
+    <td th:text = "${promo.end_promo}"></td>
+    <td th:text = "${promo.marwel}"></td>
+    <td th:text = "${promo.tfn}"></td>
+    <td th:text = "${promo.vvp}"></td>
+    <td th:text = "${promo.merlion}"></td>
+</tr>
+    </tbody>
+</table>
+    </div>
+</div>
     </div>
 
     </div>
-
+    </div>
 </main>
 
 
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{assets/bootstrap-select-1.13.9/dist/js/bootstrap-select.js}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#brend').on('change', function(){
+     var brend = $(this).val();
+       $.ajax({
+
+       	url: "/brend/" + brend,
+		type: "GET",
+
+	success: function(data) {
+
+    var data = JSON.parse(data);
+    			var s = '';
+				for(var i = 0; i < data.length; i++) {
+					s += '<option value="' + data[i].one + '">' + data[i].one + '</option>';
+					}
+				$('#models').html(s);
+				}
+	});
+   return false;
+  });
+
+     $('#models').on('change', function(){
+         var mode = $(this).val();
+
+s = mode.replace("/", "_");
+console.log(s);
+                $.ajax({
+
+                        type: "GET",
+                        url: "/mode/" + s,
+
+	                        success: function(data) {
+	                        console.log(data);
+                            $('#price').val(data);
+                        }
+
+                });
+        });
+
+ });
+</script>
 
 </body>
 </html>

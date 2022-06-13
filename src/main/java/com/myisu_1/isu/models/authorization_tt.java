@@ -20,6 +20,9 @@ public class authorization_tt {
     private String simBee;
     private String simMf;
 
+    public authorization_tt() {
+    }
+
     public authorization_tt(int id, String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf) {
         this.id = id;
         this.login = login;
@@ -33,7 +36,7 @@ public class authorization_tt {
         this.simMf = simMf;
     }
 
-    public authorization_tt() {
+    public authorization_tt(Iterable<Phone_Smart> all) {
     }
 
     public int getId() {
