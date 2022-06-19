@@ -1,11 +1,26 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
-
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-3.4.1.min.js "></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="css/style.css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/CSS/promo.css}" />
+    <script type="text/javascript" th:src="@{/JS/promo.js}"></script>
     <title th:text="${title}"/>
 </head>
 
@@ -65,6 +80,7 @@
                         <form  action="/add_phone" method="post">
                           <div id="menu">
                             <div class="grid-container">
+                                <input type="hidden" name="IDupdate" id="IDupdate" value="0">
                                 <div class="grid-item color1" th:object="${phone}">
                                     <label>Бренд</label>
                                     <select id="brend" name="brend" >
@@ -76,34 +92,30 @@
                                     </select>
                                     <label >Модель</label>
                                     <select id="models" name="models">
-
-                                        <option value="">----
-                                        <option >pizza
-                                        </option>
-
+                                        <option value="">---</option>
                                     </select>
                                 </div>
                                 <div class="grid-item color2">
                                     <label >Цена</label>
                                     <input type="text" name="price" id="price" placeholder="Введите имя">
                                     <label >Promo цена</label>
-                                    <input type="text" name="Promo_price" placeholder="Введите имя"  />
+                                    <input type="text" name="Promo_price" id="Promo_price" placeholder="Введите имя"  />
                                 </div>
                                 <div class="grid-item color3">
                                     <label >Начало</label>
-                                    <input type="date" class="date" name="start_date" placeholder="Введите имя"  />
+                                    <input type="date"  class="date" name="start_date" id="start_date" placeholder="Введите имя"  />
                                     <label >Конец</label>
-                                    <input type="date" class="date" name="end_date" placeholder="Введите имя"  />
+                                    <input type="date"  class="date" name="end_date" id="end_date" placeholder="Введите имя"  />
                                 </div>
                                 <div class="grid-item color4">
                                     <label >Marwel</label>
                                     <input type="text" name="Marwel" id="Marwel" size = "5" />
                                     <label >TFN</label>
-                                    <input type="text" name="TFN" size = "5" />
+                                    <input type="text" name="TFN" id="TFN" size = "5" />
                                     <label >ВВП</label>
-                                    <input type="text" name="ВВП" size = "5" />
+                                    <input type="text" name="ВВП" id="ВВП" size = "5" />
                                     <label >Merlion</label>
-                                    <input type="text" name="Merlion" size = "5" />
+                                    <input type="text" name="Merlion" id="Merlion" size = "5" />
                                 </div>
 
                             </div>
@@ -112,25 +124,27 @@
                         </form>
         </div>
         <div id="content">
-            <form method="post" >
+            <form action="/search" method="post" >
             <label >Select dips</label>
-            <select>
-
-                <option value="">Введите имя
-                <option >pizza
-                </option>
-
+            <select  id="searchModels" name="searchModels" >
+                <option th:each="phone : ${phones}"
+                        th:value="${phone.one}"
+                        th:text="${phone.one}"></option>
             </select>
             <label>До</label>
-            <input type="date" class="date"  id="date" name="date_do"/>
+            <input type="date" class="date"  id="startSearch" name="startSearch"/>
             <label>До</label>
-            <input type="date" class="date"  id="date" name="date_do"/>
+            <input type="date" class="date"  id="endSearch" name="endSearch"/>
             <button type="submit">Поиск</button>
+            </form>
+            <form action="/reset" method="post" >
+                <button type="submit">Сбросить</button>
             </form>
         </div>
         <div id="content">Основное содержимое
 <div class="container">
     <div class="row">
+
 <table class="table">
 <thead>
 <tr>
@@ -144,23 +158,35 @@
     <th>tfn</th>
     <th>vvp</th>
     <th>merlion</th>
+    <th>           </th>
+    <th>           </th>
 </tr>
 </thead>
     <tbody>
+
 <tr th:each="promo : ${all_promo}">
+
     <td th:text = "${promo.brend}"></td>
     <td th:text = "${promo.models}"></td>
     <td th:text = "${promo.price}"></td>
     <td th:text = "${promo.price_promo}"></td>
-    <td th:text = "${promo.start_promo}"></td>
-    <td th:text = "${promo.end_promo}"></td>
+    <td th:text = "${#dates.format (promo.startPromo, 'dd-MM-yyy')}"></td>
+    <td th:text = "${#dates.format (promo.endPromo, 'dd-MM-yyy')}"></td>
     <td th:text = "${promo.marwel}"></td>
     <td th:text = "${promo.tfn}"></td>
     <td th:text = "${promo.vvp}"></td>
     <td th:text = "${promo.merlion}"></td>
-</tr>
+
+    <td> <a th:href="@{/update/{id}(id = ${promo.id})}" class="btn btn-primary" > <span th:text="update"></span>
+    </a></td>
+    <form id="form" action="/delet" method="post">
+        <input type="hidden" id="ID" name="ID" th:value="${promo.id}">
+        <td> <button type="submit">delet</button></a></td>
+    </form>
+
     </tbody>
 </table>
+
     </div>
 </div>
     </div>
@@ -173,48 +199,7 @@
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#brend').on('change', function(){
-     var brend = $(this).val();
-       $.ajax({
 
-       	url: "/brend/" + brend,
-		type: "GET",
-
-	success: function(data) {
-
-    var data = JSON.parse(data);
-    			var s = '';
-				for(var i = 0; i < data.length; i++) {
-					s += '<option value="' + data[i].one + '">' + data[i].one + '</option>';
-					}
-				$('#models').html(s);
-				}
-	});
-   return false;
-  });
-
-     $('#models').on('change', function(){
-         var mode = $(this).val();
-
-s = mode.replace("/", "_");
-console.log(s);
-                $.ajax({
-
-                        type: "GET",
-                        url: "/mode/" + s,
-
-	                        success: function(data) {
-	                        console.log(data);
-                            $('#price').val(data);
-                        }
-
-                });
-        });
-
- });
-</script>
 
 </body>
 </html>

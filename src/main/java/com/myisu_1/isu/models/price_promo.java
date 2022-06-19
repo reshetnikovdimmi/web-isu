@@ -1,7 +1,8 @@
 package com.myisu_1.isu.models;
 
-import javax.persistence.*;
 
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class price_promo {
@@ -13,42 +14,43 @@ public class price_promo {
     String models;
     String price;
     String price_promo;
-    String start_promo;
-    String end_promo;
+    @Temporal(TemporalType.DATE)
+    Date startPromo;
+    @Temporal(TemporalType.DATE)
+    Date endPromo;
     String marwel;
+    String tfn;
+    String vvp;
+    String merlion;
 
-    public price_promo(String brend, String models, String price, String price_promo, String start_promo, String end_promo, String marwel, String tfn, String vvp, String merlion) {
+    public price_promo(String brend, String models, String price, String price_promo, Date startPromo, Date endPromo, String marwel, String tfn, String vvp, String merlion) {
         this.brend = brend;
         this.models = models;
         this.price = price;
         this.price_promo = price_promo;
-        this.start_promo = start_promo;
-        this.end_promo = end_promo;
+        this.startPromo = startPromo;
+        this.endPromo = endPromo;
         this.marwel = marwel;
         this.tfn = tfn;
         this.vvp = vvp;
         this.merlion = merlion;
     }
 
-    String tfn;
-    String vvp;
-    String merlion;
-
-    public price_promo() {
-    }
-
-    public price_promo(int id, String brend, String models, String price, String price_promo, String start_promo, String end_promo, String marwel, String tfn, String vvp, String merlion) {
+    public price_promo(int id, String brend, String models, String price, String price_promo, Date startPromo, Date endPromo, String marwel, String tfn, String vvp, String merlion) {
         this.id = id;
         this.brend = brend;
         this.models = models;
         this.price = price;
         this.price_promo = price_promo;
-        this.start_promo = start_promo;
-        this.end_promo = end_promo;
+        this.startPromo = startPromo;
+        this.endPromo = endPromo;
         this.marwel = marwel;
         this.tfn = tfn;
         this.vvp = vvp;
         this.merlion = merlion;
+    }
+
+    public price_promo() {
     }
 
     public int getId() {
@@ -91,20 +93,20 @@ public class price_promo {
         this.price_promo = price_promo;
     }
 
-    public String getStart_promo() {
-        return start_promo;
+    public Date getStartPromo() {
+        return startPromo;
     }
 
-    public void setStart_promo(String start_promo) {
-        this.start_promo = start_promo;
+    public void setStartPromo(Date startPromo) {
+        this.startPromo = startPromo;
     }
 
-    public String getEnd_promo() {
-        return end_promo;
+    public Date getEndPromo() {
+        return endPromo;
     }
 
-    public void setEnd_promo(String end_promo) {
-        this.end_promo = end_promo;
+    public void setEndPromo(Date endPromo) {
+        this.endPromo = endPromo;
     }
 
     public String getMarwel() {
