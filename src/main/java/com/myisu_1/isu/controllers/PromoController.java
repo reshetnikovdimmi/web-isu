@@ -117,6 +117,7 @@ public class PromoController {
             model.addAttribute("phones", Sorting(phon));
             all_promo = (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
             model.addAttribute("all_promo", all_promo);
+            model.addAttribute("current_promoMarwel", current_promoMarwel());
             return "promo";
         }else{
             price_promo pricePromo = new price_promo(brend, models, price, Promo_price, start_date, end_date, Marwel, TFN, ВВП, Merlion);
@@ -127,6 +128,7 @@ public class PromoController {
         model.addAttribute("phones", Sorting(phon));
         all_promo = (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
         model.addAttribute("all_promo", all_promo);
+        model.addAttribute("current_promoMarwel", current_promoMarwel());
         return "promo";
     }
 
@@ -139,12 +141,14 @@ public class PromoController {
 
         model.addAttribute("phones", Sorting(phon));
         model.addAttribute("all_promo", search(searchModels,startSearch,endSearch));
+        model.addAttribute("current_promoMarwel", current_promoMarwel());
         return "promo";
     }
     @PostMapping("/reset")
     public String reset( Model model) {
         model.addAttribute("phones", Sorting(phon));
         model.addAttribute("all_promo", all_promo);
+        model.addAttribute("current_promoMarwel", current_promoMarwel());
         return "promo";
     }
 
@@ -164,6 +168,7 @@ public class PromoController {
         model.addAttribute("phones", Sorting(phon));
         all_promo = (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
         model.addAttribute("all_promo", all_promo);
+        model.addAttribute("current_promoMarwel", current_promoMarwel());
         return "promo";
     }
     public List<Distinct> Sorting (HashSet<String> phon){
@@ -206,7 +211,7 @@ public class PromoController {
         List<MarvelPromo> current_promoMarwel = new ArrayList<>();
 
         Date endDate = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd", Locale.ENGLISH);
+
         promoMarwel = (List<MarvelPromo>) marwelPromoRepositoriy.findAll();
 for(int i = 1;i<promoMarwel.size();i++){
     if(promoMarwel.get(i).getStartPromo().getTime()<=endDate.getTime() && promoMarwel.get(i).getEndPromo().getTime() >= endDate.getTime()){

@@ -135,7 +135,7 @@
 
                             </div>
                         </div>
-                        <div class="col-6 col-md-4 themed-grid-col"><button type="submit">Сохранить</button></div>
+                        <div class="col-6 col-md-4 themed-grid-col"><button class="btn" type="submit">Сохранить</button></div>
                     </div>
                 </form>
                 <form action="/search" method="post" >
@@ -155,11 +155,11 @@
                                     <input type="date" class="date"  id="endSearch" name="endSearch"/></div>
                             </div>
                         </div>
-                        <div class="col-md-4 themed-grid-col"><button type="submit">Поиск</button></div>
+                        <div class="col-md-4 themed-grid-col"><button type="submit" class="btn">Поиск</button></div>
                     </div>
                 </form>
                 <form action="/reset" method="post" >
-                    <button type="submit">Сбросить</button>
+                    <button  type="submit" class="btn">Сбросить</button>
                 </form>
 
             </div>
@@ -199,11 +199,13 @@
                     <td th:text = "${promo.vvp}"></td>
                     <td th:text = "${promo.merlion}"></td>
 
-                    <td> <a th:href="@{/update/{id}(id = ${promo.id})}" class="btn btn-primary" > <span th:text="update"></span>
+                    <td> <a th:href="@{/update/{id}(id = ${promo.id})}" class="btn" > <span th:text="update"></span>
                     </a></td>
                     <form id="form" action="/delet" method="post">
                         <input type="hidden" id="ID" name="ID" th:value="${promo.id}">
-                        <td> <button type="submit">delet</button></a></td>
+
+                        <td> <button type="submit" class="btn">delet</button></td>
+
                     </form>
 
                 </tbody>
