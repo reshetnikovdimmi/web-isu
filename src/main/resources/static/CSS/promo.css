@@ -8,35 +8,6 @@
 }
 
 
- #header{
-  background-color: #ccc;
- }
- #sidebar{
-     background-color: #bbb;
-     float: right;
-     width: 33.33%;
-
-}
-#main{
-      background-color: #fafafa;
-      height: 200px;
-      width: 100%;
-      font-size: 11px;
-      color: #2f5687;
-}
-#main_2{
-      background-color: #fafafa;
-      height: 200px;
-      margin-left: 58%;
-
-
-}
-
-
-#content{
-    background-color: #eee;
-    width: 100%;
-
 }
 #footer{
     background-color: #ccc;
@@ -70,11 +41,11 @@ tbody {
 }
 
 tbody td, thead th {
-    width: 60px;
+    width: 140px;
 }
 
 thead th:last-child {
-    width: 70px; /* 140px + 16px scrollbar width */
+    width: 150px; /* 140px + 16px scrollbar width */
 }
 /* Стили для скролла */
 ::-webkit-scrollbar {
@@ -86,3 +57,13 @@ thead th:last-child {
 ::-webkit-scrollbar-thumb {
 	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
+
+    select {
+        width: 100%; /* Ширина списка в пикселах */
+       }
+    input {
+        width: 100%;
+        }
+    label {
+        font-size: 9px;
+    }

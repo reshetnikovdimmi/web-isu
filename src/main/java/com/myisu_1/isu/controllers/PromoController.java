@@ -2,10 +2,8 @@ package com.myisu_1.isu.controllers;
 
 
 import com.google.gson.Gson;
-import com.myisu_1.isu.models.Distinct;
-import com.myisu_1.isu.models.Phone_Smart;
-import com.myisu_1.isu.models.price_promo;
-import com.myisu_1.isu.models.retail_price;
+import com.myisu_1.isu.models.*;
+import com.myisu_1.isu.repo.MarwelPromoRepositoriy;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PriceRepositoriy;
 import com.myisu_1.isu.repo.PromoRepositoriy;
@@ -15,7 +13,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Date;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -26,6 +26,7 @@ public class PromoController {
     List<Phone_Smart> phone;
     List<retail_price> price;
     List<price_promo> all_promo;
+    List<MarvelPromo> promoMarwel;
     List<price_promo> search;
     Distinct distinct;
     HashSet<String> phon;
@@ -38,10 +39,13 @@ public class PromoController {
     private PriceRepositoriy priceRepositoriy;
     @Autowired
     private PromoRepositoriy promoRepositoriy;
+    @Autowired
+    private MarwelPromoRepositoriy marwelPromoRepositoriy;
 
    @GetMapping("/promo")
     public String Brend (Model model) {
        phone = new ArrayList<>();
+       promoMarwel = new ArrayList<>();
        model.addAttribute("phone", phone);
        phones = (List<Phone_Smart>) phoneRepositoriy.findAll();
        phon = new HashSet<>();
@@ -51,9 +55,12 @@ public class PromoController {
                 model.addAttribute("phones", Sorting(phon));
        all_promo = (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
        model.addAttribute("all_promo", all_promo);
+       model.addAttribute("current_promoMarwel", current_promoMarwel());
 
         return "promo";
     }
+
+
 
     @ResponseBody
     @RequestMapping(value = "brend/{brend}", method = RequestMethod.GET)
@@ -187,12 +194,41 @@ public class PromoController {
                 all_promo.get(i).getVvp(),
                 all_promo.get(i).getMerlion()));
 
-        System.out.println(searchModels + "-"+ startSearch +"-"+ endSearch);
+    //    System.out.println(searchModels + "-"+ startSearch +"-"+ endSearch);
     }
 }
 
         return search;
     }
 
+    private List<MarvelPromo> current_promoMarwel() {
+
+        List<MarvelPromo> current_promoMarwel = new ArrayList<>();
+
+        Date endDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-dd", Locale.ENGLISH);
+        promoMarwel = (List<MarvelPromo>) marwelPromoRepositoriy.findAll();
+for(int i = 1;i<promoMarwel.size();i++){
+    if(promoMarwel.get(i).getStartPromo().getTime()<=endDate.getTime() && promoMarwel.get(i).getEndPromo().getTime() >= endDate.getTime()){
+        MarvelPromo marvelPromo = new MarvelPromo();
+        current_promoMarwel.add(new MarvelPromo(
+                promoMarwel.get(i).getId(),
+                promoMarwel.get(i).getPromoCode(),
+                promoMarwel.get(i).getStartPromo(),
+                promoMarwel.get(i).getEndPromo(),
+                promoMarwel.get(i).getArticleNumber(),
+                promoMarwel.get(i).getVision(),
+                promoMarwel.get(i).getNewVision(),
+                promoMarwel.get(i).getDiscount(),
+                promoMarwel.get(i).getCompensation(),
+                promoMarwel.get(i).getCollecting(),
+                promoMarwel.get(i).getStatus()
+                ));
+
+    }
+}
+
+        return current_promoMarwel;
+    }
 
 }

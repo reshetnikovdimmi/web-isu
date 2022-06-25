@@ -25,7 +25,7 @@
 </head>
 
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="py-4">
 
 <main>
 
@@ -47,8 +47,8 @@
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg><ya-tr-span data-index="51-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" Dashboard " data-translation=" Информационная панель " data-type="trSpan">  Информационная панель  </ya-tr-span></a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
-                                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"></use></svg><ya-tr-span data-index="52-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" Orders " data-translation=" Заказы " data-type="trSpan">  Заказы  </ya-tr-span></a>
+                            <a href="/loading" class="nav-link text-white">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"></use></svg><ya-tr-span data-index="52-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value=" Orders " data-translation=" Заказы " data-type="trSpan">  Загрузки  </ya-tr-span></a>
                         </li>
                         <li>
                             <a href="#" class="nav-link text-white">
@@ -63,25 +63,28 @@
             </div>
         </div>
     </header>
-    <div class="container" id="container">
-    <div id="main_2" style="position: absolute">
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-        <div id="sidebar">Правый сайдбар</div>
-    </div>
-    <div id="main" >
-        <div id="content">
-                        <form  action="/add_phone" method="post">
-                          <div id="menu">
-                            <div class="grid-container">
-                                <input type="hidden" name="IDupdate" id="IDupdate" value="0">
-                                <div class="grid-item color1" th:object="${phone}">
+    <div class="container">
+
+
+        <hr class="my-4">
+
+
+        <div class="row mb-3">
+            <div class="col-6 themed-grid-col">
+                ADD
+                <form  action="/add_phone" method="post">
+                    <div class="row mb-3">
+                        <div class="col-md-8 themed-grid-col">
+                            <div class="row mb-3">
+                                <div class="col-6 themed-grid-col">
+                                    <input type="hidden" name="IDupdate" id="IDupdate" value="0">
+                                </div>
+                                <div class="col-6 themed-grid-col">
+
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6 themed-grid-col">
                                     <label>Бренд</label>
                                     <select id="brend" name="brend" >
                                         <option value="">----</option>
@@ -90,109 +93,158 @@
                                                 th:text="${phone.one}">
                                         </option>
                                     </select>
+                                </div>
+                                <div class="col-6 themed-grid-col">
                                     <label >Модель</label>
-                                    <select id="models" name="models">
+                                    <select id="models" name="models" >
                                         <option value="">---</option>
                                     </select>
                                 </div>
-                                <div class="grid-item color2">
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6 themed-grid-col">
                                     <label >Цена</label>
                                     <input type="text" name="price" id="price" placeholder="Введите имя">
+                                </div>
+                                <div class="col-6 themed-grid-col">
                                     <label >Promo цена</label>
                                     <input type="text" name="Promo_price" id="Promo_price" placeholder="Введите имя"  />
                                 </div>
-                                <div class="grid-item color3">
-                                    <label >Начало</label>
-                                    <input type="date"  class="date" name="start_date" id="start_date" placeholder="Введите имя"  />
-                                    <label >Конец</label>
-                                    <input type="date"  class="date" name="end_date" id="end_date" placeholder="Введите имя"  />
-                                </div>
-                                <div class="grid-item color4">
+                            </div>
+                            <div class="col-md-8 themed-grid-col">
+                                <div class="row">
+                                <div class="col-3 themed-grid-col">
                                     <label >Marwel</label>
-                                    <input type="text" name="Marwel" id="Marwel" size = "5" />
-                                    <label >TFN</label>
-                                    <input type="text" name="TFN" id="TFN" size = "5" />
-                                    <label >ВВП</label>
-                                    <input type="text" name="ВВП" id="ВВП" size = "5" />
-                                    <label >Merlion</label>
-                                    <input type="text" name="Merlion" id="Merlion" size = "5" />
+                                    <input type="text" name="Marwel" id="Marwel"  />
                                 </div>
+                                <div class="col-3 themed-grid-col">
+                                    <label >TFN</label>
+                                    <input type="text" name="TFN" id="TFN"  />
+                                </div>
+                                <div class="col-3 themed-grid-col">
+                                    <label >ВВП</label>
+                                    <input type="text" name="ВВП" id="ВВП" />
+                                </div>
+                                <div class="col-3 themed-grid-col">
+                                    <label >Merlion</label>
+                                    <input type="text" name="Merlion" id="Merlion"  />
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
 
                             </div>
-                              <button type="submit">Сохранить</button>
+                        </div>
+                        <div class="col-6 col-md-4 themed-grid-col"><button type="submit">Сохранить</button></div>
+                    </div>
+                </form>
+                <form action="/search" method="post" >
+                    <div class="row mb-3">
+                        <div class="col-md-8 themed-grid-col">
+
+                            <div class="row mb-3">
+                                <div class="col-6 col-md-4 themed-grid-col"> <label >Select dips</label>
+                                    <select  id="searchModels" name="searchModels" >
+                                        <option th:each="phone : ${phones}"
+                                                th:value="${phone.one}"
+                                                th:text="${phone.one}"></option>
+                                    </select></div>
+                                <div class="col-6 col-md-4 themed-grid-col"><label>До</label>
+                                    <input type="date" class="date"  id="startSearch" name="startSearch"/></div>
+                                <div class="col-6 col-md-4 themed-grid-col"><label>До</label>
+                                    <input type="date" class="date"  id="endSearch" name="endSearch"/></div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="col-md-4 themed-grid-col"><button type="submit">Поиск</button></div>
+                    </div>
+                </form>
+                <form action="/reset" method="post" >
+                    <button type="submit">Сбросить</button>
+                </form>
+
+            </div>
+
+            <div class="col-6 themed-grid-col">.col-6</div>
         </div>
-        <div id="content">
-            <form action="/search" method="post" >
-            <label >Select dips</label>
-            <select  id="searchModels" name="searchModels" >
-                <option th:each="phone : ${phones}"
-                        th:value="${phone.one}"
-                        th:text="${phone.one}"></option>
-            </select>
-            <label>До</label>
-            <input type="date" class="date"  id="startSearch" name="startSearch"/>
-            <label>До</label>
-            <input type="date" class="date"  id="endSearch" name="endSearch"/>
-            <button type="submit">Поиск</button>
-            </form>
-            <form action="/reset" method="post" >
-                <button type="submit">Сбросить</button>
-            </form>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>brend</th>
+                    <th>models</th>
+                    <th>price</th>
+                    <th>price_promo</th>
+                    <th>start_promo</th>
+                    <th>end_promo</th>
+                    <th>marwel</th>
+                    <th>tfn</th>
+                    <th>vvp</th>
+                    <th>merlion</th>
+                    <th>           </th>
+                    <th>           </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="promo : ${all_promo}">
+
+                    <td th:text = "${promo.brend}"></td>
+                    <td th:text = "${promo.models}"></td>
+                    <td th:text = "${promo.price}"></td>
+                    <td th:text = "${promo.price_promo}"></td>
+                    <td th:text = "${#dates.format (promo.startPromo, 'dd-MM-yyy')}"></td>
+                    <td th:text = "${#dates.format (promo.endPromo, 'dd-MM-yyy')}"></td>
+                    <td th:text = "${promo.marwel}"></td>
+                    <td th:text = "${promo.tfn}"></td>
+                    <td th:text = "${promo.vvp}"></td>
+                    <td th:text = "${promo.merlion}"></td>
+
+                    <td> <a th:href="@{/update/{id}(id = ${promo.id})}" class="btn btn-primary" > <span th:text="update"></span>
+                    </a></td>
+                    <form id="form" action="/delet" method="post">
+                        <input type="hidden" id="ID" name="ID" th:value="${promo.id}">
+                        <td> <button type="submit">delet</button></a></td>
+                    </form>
+
+                </tbody>
+            </table>
+
         </div>
-        <div id="content">Основное содержимое
-<div class="container">
-    <div class="row">
+        <div class="row mb-3">
+            <div class="col-6 themed-grid-col">
+                <h5 class="mt-4">Текущее PROMO MARWEL</h5>
+            <table class="table">
+                <thead>
+                <tr>
 
-<table class="table">
-<thead>
-<tr>
-    <th>brend</th>
-    <th>models</th>
-    <th>price</th>
-    <th>price_promo</th>
-    <th>start_promo</th>
-    <th>end_promo</th>
-    <th>marwel</th>
-    <th>tfn</th>
-    <th>vvp</th>
-    <th>merlion</th>
-    <th>           </th>
-    <th>           </th>
-</tr>
-</thead>
-    <tbody>
+                    <th>models</th>
+                    <th>price</th>
+                    <th>price_promo</th>
+                    <th>start_promo</th>
+                    <th>end_promo</th>
+                    <th>Compensation</th>
 
-<tr th:each="promo : ${all_promo}">
+                </tr>
+                </thead>
+                <tbody>
 
-    <td th:text = "${promo.brend}"></td>
-    <td th:text = "${promo.models}"></td>
-    <td th:text = "${promo.price}"></td>
-    <td th:text = "${promo.price_promo}"></td>
-    <td th:text = "${#dates.format (promo.startPromo, 'dd-MM-yyy')}"></td>
-    <td th:text = "${#dates.format (promo.endPromo, 'dd-MM-yyy')}"></td>
-    <td th:text = "${promo.marwel}"></td>
-    <td th:text = "${promo.tfn}"></td>
-    <td th:text = "${promo.vvp}"></td>
-    <td th:text = "${promo.merlion}"></td>
+                <tr th:each="current : ${current_promoMarwel}">
 
-    <td> <a th:href="@{/update/{id}(id = ${promo.id})}" class="btn btn-primary" > <span th:text="update"></span>
-    </a></td>
-    <form id="form" action="/delet" method="post">
-        <input type="hidden" id="ID" name="ID" th:value="${promo.id}">
-        <td> <button type="submit">delet</button></a></td>
-    </form>
+                    <td th:text = "${current.ArticleNumber}">fbf</td>
+                    <td th:text = "${current.Vision}"></td>
+                    <td th:text = "${current.NewVision}"></td>
+                    <td th:text = "${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
+                    <td th:text = "${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
+                    <td th:text = "${current.Compensation}"></td>
 
-    </tbody>
-</table>
-
-    </div>
-</div>
+                </tbody>
+            </table>
+            </div>
+            <div class="col-6 themed-grid-col">.col-6</div>
+        </div>
     </div>
 
-    </div>
-    </div>
+
 </main>
 
 
