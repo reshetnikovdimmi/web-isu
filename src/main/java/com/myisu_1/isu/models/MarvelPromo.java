@@ -24,6 +24,13 @@ import java.util.Date;
         private Date Collecting;
         private String Status;
 
+    public MarvelPromo(int id, String promoCode, Date collecting, String status) {
+        this.id = id;
+        PromoCode = promoCode;
+        Collecting = collecting;
+        Status = status;
+    }
+
     public MarvelPromo(int id, String promoCode, Date startPromo, Date endPromo, String articleNumber, int vision, int newVision, int discount, int compensation, Date collecting, String status) {
         this.id = id;
         PromoCode = promoCode;

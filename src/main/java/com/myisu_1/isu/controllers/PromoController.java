@@ -58,6 +58,7 @@ public class PromoController {
         model.addAttribute("current_promo", current_promo());
         model.addAttribute("startpromo", startpromo());
         model.addAttribute("endpromo", endpromo());
+        model.addAttribute("promoCode", promoCode());
 
         return "promo";
     }
@@ -325,6 +326,30 @@ public class PromoController {
             }
         }
         return endpromo;
+    }
+    private List<MarvelPromo> promoCode() {
+        List<MarvelPromo> promoCode = new ArrayList<>();
+
+        for (int i = 0; i < promoMarwel.size(); i++) {
+          //  if (promoMarwel.get(i).getEndPromo().getTime() == current_date().getTime()) {
+                promoCode.add(new MarvelPromo(
+                        promoMarwel.get(i).getId(),
+                        promoMarwel.get(i).getPromoCode(),
+                        promoMarwel.get(i).getStartPromo(),
+                        promoMarwel.get(i).getEndPromo(),
+                        promoMarwel.get(i).getArticleNumber(),
+                        promoMarwel.get(i).getVision(),
+                        promoMarwel.get(i).getNewVision(),
+                        promoMarwel.get(i).getDiscount(),
+                        promoMarwel.get(i).getCompensation(),
+                        promoMarwel.get(i).getCollecting(),
+                        promoMarwel.get(i).getStatus()
+
+                ));
+
+         //   }
+        }
+        return promoCode;
     }
     Date current_date(){
         int den, mes, god;

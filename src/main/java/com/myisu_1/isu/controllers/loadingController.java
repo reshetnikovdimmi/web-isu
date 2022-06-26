@@ -42,7 +42,6 @@ public class loadingController {
 
             XSSFRow row = worksheet.getRow(i);
 
-
             tempStudent.setId((int) row.getCell(0).getNumericCellValue());
             tempStudent.setPromoCode(row.getCell(1).getStringCellValue());
             tempStudent.setStartPromo(row.getCell(2).getDateCellValue());
