@@ -103,6 +103,16 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-6 themed-grid-col">
+                                    <label >Начало</label>
+                                    <input type="date"  class="date" name="start_date" id="start_date" placeholder="Введите имя"  />
+                                </div>
+                                <div class="col-6 themed-grid-col">
+                                    <label >Конец</label>
+                                    <input type="date"  class="date" name="end_date" id="end_date" placeholder="Введите имя"  />
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6 themed-grid-col">
                                     <label >Цена</label>
                                     <input type="text" name="price" id="price" placeholder="Введите имя">
                                 </div>
@@ -158,13 +168,99 @@
                         <div class="col-md-4 themed-grid-col"><button type="submit" class="btn">Поиск</button></div>
                     </div>
                 </form>
+                <div class="row">
                 <form action="/reset" method="post" >
                     <button  type="submit" class="btn">Сбросить</button>
                 </form>
+                </div>
+
 
             </div>
 
-            <div class="col-6 themed-grid-col">.col-6</div>
+            <div class="col-6 themed-grid-col">
+                <div class="row mb-3">
+                    <h8 class="mt-4">Текущее PROMO</h8>
+                    <table class="table">
+                        <thead>
+                        <tr>
+
+                            <th>models</th>
+                            <th>price</th>
+                            <th>price_promo</th>
+                            <th>start_promo</th>
+                            <th>end_promo</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="current : ${current_promo}">
+
+                            <td th:text = "${current.models}"></td>
+                            <td th:text = "${current.price}"></td>
+                            <td th:text = "${current.price_promo}"></td>
+                            <td th:text = "${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
+                            <td th:text = "${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6 themed-grid-col">
+                        <h8 class="mt-4">СТАРТ PROMO</h8>
+                        <table class="table">
+                            <thead>
+                            <tr>
+
+                                <th>models</th>
+                                <th>price</th>
+                                <th>price_promo</th>
+                                <th>end_promo</th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="start : ${startpromo}">
+
+                                <td th:text = "${start.models}"></td>
+                                <td th:text = "${start.price}"></td>
+                                <td th:text = "${start.price_promo}"></td>
+                                <td th:text = "${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+
+
+                            </tbody>
+                        </table></div>
+                    <div class="col-6 themed-grid-col">
+                        <h8 class="mt-4">КОНЕЦ PROMO</h8>
+                        <table class="table">
+                            <thead>
+                            <tr>
+
+                                <th>models</th>
+                                <th>price</th>
+                                <th>end_promo</th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="current : ${endpromo}">
+
+                                <td th:text = "${current.models}"></td>
+                                <td th:text = "${current.price}"></td>
+                                <td th:text = "${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
+
+
+                            </tbody>
+                        </table></div>
+                </div>
+
+            </div>
         </div>
         <div class="row">
             <table class="table">
@@ -204,7 +300,7 @@
                     <form id="form" action="/delet" method="post">
                         <input type="hidden" id="ID" name="ID" th:value="${promo.id}">
 
-                        <td> <button type="submit" class="btn">delet</button></td>
+                        <td> <button type="submit" >delet</button></td>
 
                     </form>
 
@@ -242,8 +338,64 @@
                 </tbody>
             </table>
             </div>
-            <div class="col-6 themed-grid-col">.col-6</div>
+            <div class="col-6 themed-grid-col">
+                <h5 class="mt-4">Текущее PROMO VVP</h5>
+                <table class="table">
+                    <thead>
+                    <tr>
+
+                        <th>models</th>
+                        <th>price</th>
+                        <th>price_promo</th>
+                        <th>start_promo</th>
+                        <th>end_promo</th>
+                        <th>Compensation</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="current : ${current_promoMarwel}">
+
+                        <td th:text = "${current.ArticleNumber}">fbf</td>
+                        <td th:text = "${current.Vision}"></td>
+                        <td th:text = "${current.NewVision}"></td>
+                        <td th:text = "${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
+                        <td th:text = "${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
+                        <td th:text = "${current.Compensation}"></td>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <div class="row">
+        <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
+        <table class="table">
+            <thead>
+            <tr>
+
+                <th>models</th>
+                <th>price</th>
+                <th>price_promo</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="current : ${current_promoMarwel}">
+
+                <td th:text = "${current.ArticleNumber}">fbf</td>
+                <td th:text = "${current.Vision}"></td>
+                <td th:text = "${current.NewVision}"></td>
+
+
+            </tbody>
+        </table>
+
+
+
+    </div>
     </div>
 
 
