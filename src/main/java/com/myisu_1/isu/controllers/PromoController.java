@@ -3,10 +3,7 @@ package com.myisu_1.isu.controllers;
 
 import com.google.gson.Gson;
 import com.myisu_1.isu.models.*;
-import com.myisu_1.isu.repo.MarwelPromoRepositoriy;
-import com.myisu_1.isu.repo.PhoneRepositoriy;
-import com.myisu_1.isu.repo.PriceRepositoriy;
-import com.myisu_1.isu.repo.PromoRepositoriy;
+import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +23,7 @@ public class PromoController {
     List<retail_price> price;
     List<price_promo> all_promo;
     List<MarvelPromo> promoMarwel;
+    List<ListOFgoods> promoVVP;
     List<price_promo> search;
     Distinct distinct;
     HashSet<String> phon;
@@ -40,6 +38,8 @@ public class PromoController {
     private PromoRepositoriy promoRepositoriy;
     @Autowired
     private MarwelPromoRepositoriy marwelPromoRepositoriy;
+    @Autowired
+    private ListOFgoodsRepositoriy listOFgoodsRepositoriy;
 
     @GetMapping("/promo")
     public String Brend(Model model) {
@@ -59,6 +59,7 @@ public class PromoController {
         model.addAttribute("startpromo", startpromo());
         model.addAttribute("endpromo", endpromo());
         model.addAttribute("promoCode", promoCode());
+        model.addAttribute("current_promoVVP", current_promoVVP());
 
         return "promo";
     }
@@ -123,6 +124,8 @@ public class PromoController {
             model.addAttribute("current_promo", current_promo());
             model.addAttribute("startpromo", startpromo());
             model.addAttribute("endpromo", endpromo());
+            model.addAttribute("promoCode", promoCode());
+            model.addAttribute("current_promoVVP", current_promoVVP());
             return "promo";
         } else {
             price_promo pricePromo = new price_promo(brend, models, price, Promo_price, start_date, end_date, Marwel, TFN, ВВП, Merlion);
@@ -137,6 +140,8 @@ public class PromoController {
         model.addAttribute("current_promo", current_promo());
         model.addAttribute("startpromo", startpromo());
         model.addAttribute("endpromo", endpromo());
+        model.addAttribute("promoCode", promoCode());
+        model.addAttribute("current_promoVVP", current_promoVVP());
         return "promo";
     }
 
@@ -153,6 +158,8 @@ public class PromoController {
         model.addAttribute("current_promo", current_promo());
         model.addAttribute("startpromo", startpromo());
         model.addAttribute("endpromo", endpromo());
+        model.addAttribute("promoCode", promoCode());
+        model.addAttribute("current_promoVVP", current_promoVVP());
         return "promo";
     }
 
@@ -164,6 +171,8 @@ public class PromoController {
         model.addAttribute("current_promo", current_promo());
         model.addAttribute("startpromo", startpromo());
         model.addAttribute("endpromo", endpromo());
+        model.addAttribute("promoCode", promoCode());
+        model.addAttribute("current_promoVVP", current_promoVVP());
         return "promo";
     }
 
@@ -188,6 +197,8 @@ public class PromoController {
         model.addAttribute("current_promo", current_promo());
         model.addAttribute("startpromo", startpromo());
         model.addAttribute("endpromo", endpromo());
+        model.addAttribute("promoCode", promoCode());
+        model.addAttribute("current_promoVVP", current_promoVVP());
         return "promo";
     }
 
@@ -259,6 +270,7 @@ public class PromoController {
     private List<price_promo> current_promo() {
         List<price_promo> current_promo = new ArrayList<>();
 
+
         for (int i = 0; i < all_promo.size(); i++) {
             if (all_promo.get(i).getStartPromo().getTime() <= current_date().getTime() && all_promo.get(i).getEndPromo().getTime() >= current_date().getTime()) {
                 current_promo.add(new price_promo(
@@ -279,6 +291,28 @@ public class PromoController {
         }
         return current_promo;
     }
+    private List<ListOFgoods> current_promoVVP() {
+        List<ListOFgoods> current_promoVVP = new ArrayList<>();
+        promoVVP = (List<ListOFgoods>) listOFgoodsRepositoriy.findAll();
+        System.out.println(promoVVP.size() +"------->");
+        for (int i = 0; i < promoVVP.size(); i++) {
+            if (promoVVP.get(i).getStartPromo().getTime() <= current_date().getTime() && promoVVP.get(i).getEndPromo().getTime() >= current_date().getTime()) {
+
+               current_promoVVP.add(new ListOFgoods(
+                       promoVVP.get(i).getId(),
+                       promoVVP.get(i).getModel(),
+                       promoVVP.get(i).getPrice(),
+                       promoVVP.get(i).getPricePromo(),
+                       promoVVP.get(i).getStartPromo(),
+                       promoVVP.get(i).getEndPromo(),
+                       promoVVP.get(i).getDiscountUE()
+                ));
+
+            }
+        }
+        return current_promoVVP;
+    }
+
     private List<price_promo> startpromo() {
 
         List<price_promo> startpromo = new ArrayList<>();

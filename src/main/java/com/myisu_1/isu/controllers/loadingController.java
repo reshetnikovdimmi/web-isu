@@ -1,6 +1,8 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.ListOFgoods;
 import com.myisu_1.isu.models.MarvelPromo;
+import com.myisu_1.isu.repo.ListOFgoodsRepositoriy;
 import com.myisu_1.isu.repo.MarwelPromoRepositoriy;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -22,6 +24,9 @@ public class loadingController {
 
     @Autowired
     private MarwelPromoRepositoriy marwelPromoRepositoriy;
+
+    @Autowired
+    private ListOFgoodsRepositoriy listOFgoodsRepositoriy;
 
 
     @GetMapping("/loading")
@@ -60,6 +65,37 @@ public class loadingController {
            // System.out.println(row.getCell(0).getNumericCellValue());
         }
         marwelPromoRepositoriy.saveAll(tempStudentList);
+        return "loading";
+    }
+    @PostMapping("/importVVP")
+    public String importVVP(@RequestParam("fileVVP") MultipartFile fileVVP) throws IOException {
+
+        List<ListOFgoods> listOFgoods = new ArrayList<ListOFgoods>();
+        XSSFWorkbook workbook = new XSSFWorkbook(fileVVP.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(1);
+        listOFgoodsRepositoriy.deleteAll();
+
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            ListOFgoods listOFgoods1 = new ListOFgoods();
+
+            XSSFRow row = worksheet.getRow(i);
+
+            listOFgoods1.setId((int) row.getCell(0).getNumericCellValue());
+            listOFgoods1.setModel(row.getCell(1).getStringCellValue());
+            listOFgoods1.setPrice((int) row.getCell(2).getNumericCellValue());
+            listOFgoods1.setPricePromo((int) row.getCell(3).getNumericCellValue());
+            listOFgoods1.setStartPromo( row.getCell(4).getDateCellValue());
+            listOFgoods1.setEndPromo( row.getCell(5).getDateCellValue());
+            listOFgoods1.setDiscountUE((int) row.getCell(6).getNumericCellValue());
+
+
+            listOFgoods.add(listOFgoods1);
+
+
+           //  System.out.println(row.getCell(2).getNumericCellValue());
+
+        }
+        listOFgoodsRepositoriy.saveAll(listOFgoods);
         return "loading";
     }
 

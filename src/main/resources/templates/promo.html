@@ -169,9 +169,16 @@
                     </div>
                 </form>
                 <div class="row">
+                    <div class="col-md-6 themed-grid-col">
                 <form action="/reset" method="post" >
                     <button  type="submit" class="btn">Сбросить</button>
                 </form>
+                    </div>
+                        <div class="col-md-6 themed-grid-col">
+                    <form id="" action="#" method="post">
+                        <button type="submit" class="btn">EXSEL</button>
+                    </form>
+                        </div>
                 </div>
 
 
@@ -355,14 +362,14 @@
                     </thead>
                     <tbody>
 
-                    <tr th:each="current : ${current_promoMarwel}">
+                    <tr th:each="current : ${current_promoVVP}">
 
-                        <td th:text = "${current.ArticleNumber}">fbf</td>
-                        <td th:text = "${current.Vision}"></td>
-                        <td th:text = "${current.NewVision}"></td>
+                        <td th:text = "${current.Model}"></td>
+                        <td th:text = "${current.Price}"></td>
+                        <td th:text = "${current.PricePromo}"></td>
                         <td th:text = "${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
                         <td th:text = "${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
-                        <td th:text = "${current.Compensation}"></td>
+                        <td th:text = "${current.DiscountUE}"></td>
 
                     </tbody>
                 </table>
@@ -385,7 +392,7 @@
 
             <tr th:each="current : ${promoCode}">
 
-                <td th:text = "${current.PromoCode}">fbf</td>
+                <td th:text = "${current.PromoCode}"></td>
                 <td th:text = "${current.Collecting}"></td>
                 <td th:text = "${current.Status}"></td>
 
