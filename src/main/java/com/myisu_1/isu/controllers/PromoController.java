@@ -2,14 +2,21 @@ package com.myisu_1.isu.controllers;
 
 
 import com.google.gson.Gson;
+import com.myisu_1.isu.exporte.ExselFileExporte;
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.repo.*;
+import org.apache.catalina.filters.ExpiresFilter;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.Date;
 
 import java.util.*;
@@ -63,7 +70,18 @@ public class PromoController {
 
         return "promo";
     }
+    @GetMapping("/exsel")
+    public void downloadExselFile(HttpServletResponse response) throws IOException {
 
+response.setContentType("application/octet-stream");
+response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
+
+        ByteArrayInputStream inputStream = ExselFileExporte.exportPrisePromoFile(startpromo(),phones,endpromo());
+
+        IOUtils.copy(inputStream, response.getOutputStream());
+
+
+    }
 
     @ResponseBody
     @RequestMapping(value = "brend/{brend}", method = RequestMethod.GET)
@@ -272,6 +290,7 @@ public class PromoController {
 
 
         for (int i = 0; i < all_promo.size(); i++) {
+           // System.out.println(all_promo.get(i).getStartPromo() +"+1");
             if (all_promo.get(i).getStartPromo().getTime() <= current_date().getTime() && all_promo.get(i).getEndPromo().getTime() >= current_date().getTime()) {
                 current_promo.add(new price_promo(
                         all_promo.get(i).getId(),
@@ -294,7 +313,7 @@ public class PromoController {
     private List<ListOFgoods> current_promoVVP() {
         List<ListOFgoods> current_promoVVP = new ArrayList<>();
         promoVVP = (List<ListOFgoods>) listOFgoodsRepositoriy.findAll();
-        System.out.println(promoVVP.size() +"------->");
+        //System.out.println(promoVVP.size() +"------->");
         for (int i = 0; i < promoVVP.size(); i++) {
             if (promoVVP.get(i).getStartPromo().getTime() <= current_date().getTime() && promoVVP.get(i).getEndPromo().getTime() >= current_date().getTime()) {
 
@@ -318,6 +337,7 @@ public class PromoController {
         List<price_promo> startpromo = new ArrayList<>();
 
         for (int i = 0; i < all_promo.size(); i++) {
+
             if (all_promo.get(i).getStartPromo().getTime() == current_date().getTime()) {
 
                 startpromo.add(new price_promo(
