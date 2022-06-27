@@ -71,7 +71,7 @@
 
         <div class="row mb-3">
             <div class="col-6 themed-grid-col">
-                ADD
+                <p th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}" />
                 <form  action="/add_phone" method="post">
                     <div class="row mb-3">
                         <div class="col-md-8 themed-grid-col">
