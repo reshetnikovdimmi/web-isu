@@ -25,12 +25,16 @@ public class ExselFileExporte {
             Row endPromoRowPromoRow = sheetEndPromo.createRow(0);
 
             CellStyle headlerCellStyle = workbook.createCellStyle();
-            headlerCellStyle.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+            headlerCellStyle.setFillForegroundColor(IndexedColors.DARK_YELLOW.getIndex());
             headlerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
             Cell startPromoRowCell = startPromoRow.createCell(0);
             startPromoRowCell.setCellValue("Наименование");
             startPromoRowCell.setCellStyle(headlerCellStyle);
+
+            Cell endPromoRowPromoCell = endPromoRowPromoRow.createCell(0);
+            endPromoRowPromoCell.setCellValue("Наименование");
+            endPromoRowPromoCell.setCellStyle(headlerCellStyle);
 
 
             startPromoRowCell = startPromoRow.createCell(1);
@@ -41,6 +45,10 @@ public class ExselFileExporte {
             startPromoRowCell.setCellValue("Новая цена");
             startPromoRowCell.setCellStyle(headlerCellStyle);
 
+            endPromoRowPromoCell = endPromoRowPromoRow.createCell(1);
+            endPromoRowPromoCell.setCellValue("Новая цена");
+            endPromoRowPromoCell.setCellStyle(headlerCellStyle);
+
             startPromoRowCell = startPromoRow.createCell(3);
             startPromoRowCell.setCellValue("До...");
             startPromoRowCell.setCellStyle(headlerCellStyle);
@@ -48,6 +56,10 @@ public class ExselFileExporte {
             startPromoRowCell = startPromoRow.createCell(4);
             startPromoRowCell.setCellValue("Примечание");
             startPromoRowCell.setCellStyle(headlerCellStyle);
+
+            endPromoRowPromoCell = endPromoRowPromoRow.createCell(2);
+            endPromoRowPromoCell.setCellValue("Примечание");
+            endPromoRowPromoCell.setCellStyle(headlerCellStyle);
 
             for (int i = 0; i<prisePromo.size();i++){
                 for (int j = 0; j<phones.size();j++) {
@@ -61,8 +73,18 @@ public class ExselFileExporte {
                       dataRow.createCell(4).setCellValue("Промо");
 
                   }
+                }
+            }
+            for (int i = 0; i<endpromo.size();i++){
+                for (int j = 0; j<phones.size();j++) {
+                    if(endpromo.get(i).getModels().equals(phones.get(j).getModel_GB())){
+                        count++;
+                        Row dataRowEnd = sheetEndPromo.createRow(count);
+                        dataRowEnd.createCell(0).setCellValue(phones.get(j).getModel());
+                        dataRowEnd.createCell(1).setCellValue(endpromo.get(i).getPrice());
+                        dataRowEnd.createCell(2).setCellValue("Конец промо");
 
-
+                    }
                 }
             }
 
@@ -71,6 +93,11 @@ public class ExselFileExporte {
             sheetStartPromo.autoSizeColumn(2);
             sheetStartPromo.autoSizeColumn(3);
             sheetStartPromo.autoSizeColumn(4);
+
+            sheetEndPromo.autoSizeColumn(0);
+            sheetEndPromo.autoSizeColumn(1);
+            sheetEndPromo.autoSizeColumn(2);
+
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
