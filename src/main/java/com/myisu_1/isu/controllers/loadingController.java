@@ -2,8 +2,11 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.ListOFgoods;
 import com.myisu_1.isu.models.MarvelPromo;
+import com.myisu_1.isu.models.Suppliers;
+import com.myisu_1.isu.models.price_promo;
 import com.myisu_1.isu.repo.ListOFgoodsRepositoriy;
 import com.myisu_1.isu.repo.MarwelPromoRepositoriy;
+import com.myisu_1.isu.repo.SuppliersRepositoriy;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Controller
 public class loadingController {
@@ -27,6 +34,9 @@ public class loadingController {
 
     @Autowired
     private ListOFgoodsRepositoriy listOFgoodsRepositoriy;
+
+    @Autowired
+    private SuppliersRepositoriy suppliersRepositoriy ;
 
 
     @GetMapping("/loading")
@@ -67,7 +77,7 @@ public class loadingController {
         marwelPromoRepositoriy.saveAll(tempStudentList);
         return "loading";
     }
-    @PostMapping("/importVVP")
+    @GetMapping("/importVVP")
     public String importVVP(@RequestParam("fileVVP") MultipartFile fileVVP) throws IOException {
 
         List<ListOFgoods> listOFgoods = new ArrayList<ListOFgoods>();
@@ -97,6 +107,45 @@ public class loadingController {
         }
         listOFgoodsRepositoriy.saveAll(listOFgoods);
         return "loading";
+    }
+
+    @PostMapping("/importsuppliers")
+    public String importsuppliers(@RequestParam("importsuppliers") MultipartFile importsuppliers,Model model) throws IOException {
+        int count = 0;
+        List<Suppliers> all_listSuppliers = (List<Suppliers>) suppliersRepositoriy.findAll();
+        List<Suppliers> listSuppliers = new ArrayList<Suppliers>();
+        XSSFWorkbook workbook = new XSSFWorkbook(importsuppliers.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+        System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+        long start = System.currentTimeMillis();
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            Suppliers listSuppliers1 = new Suppliers();
+
+            XSSFRow row = worksheet.getRow(i);
+
+            listSuppliers1.setImei(row.getCell(0).getStringCellValue());
+            listSuppliers1.setSuppliers(row.getCell(1).getStringCellValue());
+            listSuppliers.add(listSuppliers1);
+
+            for (int j = 1; j < all_listSuppliers.size(); j++) {
+
+                if (all_listSuppliers.get(j).getImei().equals(listSuppliers1.getImei())) {
+                    count++;
+                    suppliersRepositoriy.deleteById(all_listSuppliers.get(j).getId());
+                    System.out.println(count);
+                }
+            }
+        }
+
+        suppliersRepositoriy.saveAll(listSuppliers);
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        System.out.println(df.format(new Date(timeWorkCode)));
+
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+        System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+            return "loading";
     }
 
 }
