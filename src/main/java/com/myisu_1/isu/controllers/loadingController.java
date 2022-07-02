@@ -156,7 +156,7 @@ public class loadingController {
             }
         }
 
-        suppliersRepositoriy.saveAll(listSuppliers);
+        suppliersRepositoriy.saveAllAndFlush(listSuppliers);
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
