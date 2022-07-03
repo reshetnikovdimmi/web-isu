@@ -1,11 +1,9 @@
 package com.myisu_1.isu.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Sales implements Serializable {
@@ -15,6 +13,19 @@ public class Sales implements Serializable {
     private String imeis;
     private String shop;
     private String nomenclature;
+    @Temporal(TemporalType.DATE)
+    Date dateSales;
+
+    public Sales(int id, String imeis, String shop, String nomenclature, Date dateSales) {
+        this.id = id;
+        this.imeis = imeis;
+        this.shop = shop;
+        this.nomenclature = nomenclature;
+        this.dateSales = dateSales;
+    }
+
+    public Sales() {
+    }
 
     public int getId() {
         return id;
@@ -46,5 +57,13 @@ public class Sales implements Serializable {
 
     public void setNomenclature(String nomenclature) {
         this.nomenclature = nomenclature;
+    }
+
+    public Date getDateSales() {
+        return dateSales;
+    }
+
+    public void setDateSales(Date dateSales) {
+        this.dateSales = dateSales;
     }
 }

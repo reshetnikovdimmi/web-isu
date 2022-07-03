@@ -22,11 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Controller
 public class loadingController {
@@ -66,7 +66,6 @@ public class loadingController {
             tempStudent.setPromoCode(row.getCell(1).getStringCellValue());
             tempStudent.setStartPromo(row.getCell(2).getDateCellValue());
             tempStudent.setEndPromo(row.getCell(3).getDateCellValue());
-            tempStudent.setArticleNumber(row.getCell(4).getStringCellValue());
             tempStudent.setArticleNumber(row.getCell(4).getStringCellValue());
             tempStudent.setVision((int) row.getCell(5).getNumericCellValue());
             tempStudent.setNewVision((int) row.getCell(6).getNumericCellValue());
@@ -146,7 +145,7 @@ public class loadingController {
             listSuppliers1.setSuppliers(row.getCell(1).getStringCellValue());
             listSuppliers.add(listSuppliers1);
 
-            for (int j = 1; j < all_listSuppliers.size(); j++) {
+            for (int j = 0; j < all_listSuppliers.size(); j++) {
 
                 if (all_listSuppliers.get(j).getImei().equals(listSuppliers1.getImei())) {
                     count++;
@@ -167,7 +166,7 @@ public class loadingController {
             return "loading";
     }
     @PostMapping("/importsales")
-    public String importsales(@RequestParam("importsales") MultipartFile importsales,Model model) throws IOException {
+    public String importsales(@RequestParam("importsales") MultipartFile importsales,Model model) throws IOException, ParseException {
         int count = 0;
         List<Sales> all_listSales = (List<Sales>) salesRepositoriy.findAll();
         List<Sales> listSales = new ArrayList<>();
@@ -183,9 +182,10 @@ public class loadingController {
             listSales1.setImeis(row.getCell(0).getStringCellValue());
             listSales1.setShop(row.getCell(1).getStringCellValue());
             listSales1.setNomenclature(row.getCell(2).getStringCellValue());
+            listSales1.setDateSales(dateString(row.getCell(3).getStringCellValue()));
             listSales.add(listSales1);
 
-            for (int j = 1; j < all_listSales.size(); j++) {
+            for (int j = 0; j < all_listSales.size(); j++) {
 
                 if (all_listSales.get(j).getImeis().equals(listSales1.getImeis())) {
                     count++;
@@ -205,5 +205,17 @@ public class loadingController {
         System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
         return "loading";
     }
+
+    private Date dateString(String stringCellValue) throws ParseException {
+        Date date = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.M.yyyy hh:mm:ss", Locale.ENGLISH);
+System.out.println(stringCellValue);
+
+            date = formatter.parse(stringCellValue);
+
+
+        return date;
+    }
+
 
 }

@@ -35,19 +35,19 @@
             </a>
 
             <ul class="nav nav-pills">
-                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page"><ya-tr-span data-index="2-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Home" data-translation="Главная" data-ch="0" data-type="trSpan">Главная</ya-tr-span></a></li>
+                <li class="nav-item"><a href="/entrance" class="nav-link active" aria-current="page"><ya-tr-span data-index="2-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Home" data-translation="Главная" data-ch="0" data-type="trSpan">Главная</ya-tr-span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><ya-tr-span data-index="3-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Features" data-translation="Характеристики" data-ch="0" data-type="trSpan">Характеристики</ya-tr-span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><ya-tr-span data-index="4-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="Pricing" data-translation="Цены" data-ch="0" data-type="trSpan">Цены</ya-tr-span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><ya-tr-span data-index="5-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="FAQs" data-translation="Вопросы и ответы" data-ch="0" data-type="trSpan">Вопросы и ответы</ya-tr-span></a></li>
                 <li class="nav-item"><a href="#" class="nav-link"><ya-tr-span data-index="6-0" data-translated="true" data-source-lang="en" data-target-lang="ru" data-value="About" data-translation="О нас" data-ch="0" data-type="trSpan">О нас</ya-tr-span></a></li>
             </ul>
         </header>
-        <form action="">
+        <form action="/bonuses" method="post" >
         <div class="row mb-3">
 
-            <div class="col-6 col-md-4 themed-grid-col"><input type="date" name="bday"></div>
-            <div class="col-6 col-md-4 themed-grid-col"><input type="date" name="bday"></div>
-            <div class="col-6 col-md-4 themed-grid-col"><input type="submit"></div>
+            <div class="col-6 col-md-4 themed-grid-col"><input type="date"  name="start" id="start"></div>
+            <div class="col-6 col-md-4 themed-grid-col"><input type="date"  name="stop" id="stop"></div>
+            <div class="col-6 col-md-4 themed-grid-col"><button class="btn btn-primary btn-sm" type="submit">Показать</button></div>
 
         </div>
     </form>
@@ -55,34 +55,34 @@
            <div class="col-md-4 themed-grid-col">
                 <div class="row">
                     <div class="col-md-6 themed-grid-col">MARWEL</div>
-                    <div class="col-md-6 themed-grid-col"><h10>My First Heading</h10></div>
+                    <div class="col-md-6 themed-grid-col"><h10><p th:text="${MARWELcount} + '  RUB'" /></h10></div>
                 </div>
            </div>
             <div class="col-md-8 themed-grid-col">
                 <table class="table table-dark table-hover">
                     <thead>
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
+
+                        <th>models</th>
+                        <th>price</th>
+                        <th>price_promo</th>
+                        <th>start_promo</th>
+                        <th>end_promo</th>
+
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+
+                    <tr th:each="current : ${MARWEL}">
+
+                        <td th:text = "${current.models}"></td>
+                        <td th:text = "${current.imei}"></td>
+                        <td th:text = "${current.dataSale}"></td>
+                        <td th:text = "${current.dataPeriod}"></td>
+                        <td th:text = "${current.compensation}"></td>
+
+
                     </tbody>
                 </table>
 
@@ -93,34 +93,34 @@
             <div class="col-md-4 themed-grid-col">
                 <div class="row">
                     <div class="col-md-6 themed-grid-col">TFN</div>
-                    <div class="col-md-6 themed-grid-col"><h10>My First Heading</h10></div>
+                    <div class="col-md-6 themed-grid-col"><h10><p th:text="${TFNcount} + '  RUB'" /></h10></div>
                 </div>
             </div>
             <div class="col-md-8 themed-grid-col">
                 <table class="table table-dark table-hover">
                     <thead>
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
+
+                        <th>models</th>
+                        <th>price</th>
+                        <th>price_promo</th>
+                        <th>start_promo</th>
+                        <th>end_promo</th>
+
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+
+                    <tr th:each="current : ${TFN}">
+
+                        <td th:text = "${current.models}"></td>
+                        <td th:text = "${current.imei}"></td>
+                        <td th:text = "${current.dataSale}"></td>
+                        <td th:text = "${current.dataPeriod}"></td>
+                        <td th:text = "${current.compensation}"></td>
+
+
                     </tbody>
                 </table>
 
@@ -131,34 +131,34 @@
             <div class="col-md-4 themed-grid-col">
                 <div class="row">
                     <div class="col-md-6 themed-grid-col">MERLION</div>
-                    <div class="col-md-6 themed-grid-col"><h10>My First Heading</h10></div>
+                    <div class="col-md-6 themed-grid-col"><h10><p th:text="${MERLIONcount} + '  RUB'" /></h10></div>
                 </div>
             </div>
             <div class="col-md-8 themed-grid-col">
                 <table class="table table-dark table-hover">
                     <thead>
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
+
+                        <th>models</th>
+                        <th>price</th>
+                        <th>price_promo</th>
+                        <th>start_promo</th>
+                        <th>end_promo</th>
+
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+
+                    <tr th:each="current : ${MERLION}">
+
+                        <td th:text = "${current.models}"></td>
+                        <td th:text = "${current.imei}"></td>
+                        <td th:text = "${current.dataSale}"></td>
+                        <td th:text = "${current.dataPeriod}"></td>
+                        <td th:text = "${current.compensation}"></td>
+
+
                     </tbody>
                 </table>
 
@@ -169,34 +169,34 @@
             <div class="col-md-4 themed-grid-col">
                 <div class="row">
                     <div class="col-md-6 themed-grid-col">VVP</div>
-                    <div class="col-md-6 themed-grid-col"><h10>My First Heading</h10></div>
+                    <div class="col-md-6 themed-grid-col"><h10><p th:text="${VVPcount} + '  RUB'" /></h10></div>
                 </div>
             </div>
             <div class="col-md-8 themed-grid-col">
                 <table class="table table-dark table-hover">
                     <thead>
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
+
+                        <th>models</th>
+                        <th>price</th>
+                        <th>price_promo</th>
+                        <th>start_promo</th>
+                        <th>end_promo</th>
+
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+
+                    <tr th:each="current : ${VVP}">
+
+                        <td th:text = "${current.models}"></td>
+                        <td th:text = "${current.imei}"></td>
+                        <td th:text = "${current.dataSale}"></td>
+                        <td th:text = "${current.dataPeriod}"></td>
+                        <td th:text = "${current.compensation}"></td>
+
+
                     </tbody>
                 </table>
 

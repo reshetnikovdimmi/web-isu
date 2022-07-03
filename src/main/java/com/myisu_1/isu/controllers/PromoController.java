@@ -70,6 +70,7 @@ public class PromoController {
 
         return "promo";
     }
+
     @GetMapping("/exsel")
     public void downloadExselFile(HttpServletResponse response) throws IOException {
 
