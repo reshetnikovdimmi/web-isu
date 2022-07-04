@@ -1,14 +1,9 @@
 package com.myisu_1.isu.controllers;
 
 
-import com.myisu_1.isu.models.ListOFgoods;
-import com.myisu_1.isu.models.MarvelPromo;
-import com.myisu_1.isu.models.Sales;
-import com.myisu_1.isu.models.Suppliers;
-import com.myisu_1.isu.repo.ListOFgoodsRepositoriy;
-import com.myisu_1.isu.repo.MarwelPromoRepositoriy;
-import com.myisu_1.isu.repo.SalesRepositoriy;
-import com.myisu_1.isu.repo.SuppliersRepositoriy;
+import com.myisu_1.isu.models.*;
+import com.myisu_1.isu.repo.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,13 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.*;
 
 @Controller
@@ -42,6 +35,12 @@ public class loadingController {
 
     @Autowired
     private SalesRepositoriy salesRepositoriy ;
+
+    @Autowired
+    private ComboRepositoriy comboRepositoriy ;
+
+    @Autowired
+    private ValueVUERepositoriy valueVUERepositoriy;
 
 
     @GetMapping("/loading")
@@ -82,10 +81,10 @@ public class loadingController {
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-        System.out.println(df.format(new Date(timeWorkCode)));
+       // System.out.println(df.format(new Date(timeWorkCode)));
 
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
-        System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+       // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
         return "loading";
     }
     @GetMapping("/importVVP")
@@ -120,10 +119,10 @@ public class loadingController {
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-        System.out.println(df.format(new Date(timeWorkCode)));
+       // System.out.println(df.format(new Date(timeWorkCode)));
 
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
-        System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+       // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
         return "loading";
     }
 
@@ -134,7 +133,7 @@ public class loadingController {
         List<Suppliers> listSuppliers = new ArrayList<Suppliers>();
         XSSFWorkbook workbook = new XSSFWorkbook(importsuppliers.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
-        System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+       // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
         long start = System.currentTimeMillis();
         for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
             Suppliers listSuppliers1 = new Suppliers();
@@ -150,7 +149,7 @@ public class loadingController {
                 if (all_listSuppliers.get(j).getImei().equals(listSuppliers1.getImei())) {
                     count++;
                     suppliersRepositoriy.deleteById(all_listSuppliers.get(j).getId());
-                    System.out.println(count);
+           //         System.out.println(count);
                 }
             }
         }
@@ -159,10 +158,10 @@ public class loadingController {
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-        System.out.println(df.format(new Date(timeWorkCode)));
+       // System.out.println(df.format(new Date(timeWorkCode)));
 
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
-        System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+       // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
             return "loading";
     }
     @PostMapping("/importsales")
@@ -190,7 +189,7 @@ public class loadingController {
                 if (all_listSales.get(j).getImeis().equals(listSales1.getImeis())) {
                     count++;
                     salesRepositoriy.deleteById(all_listSales.get(j).getId());
-                    System.out.println(count);
+           //         System.out.println(count);
                 }
             }
         }
@@ -199,23 +198,105 @@ public class loadingController {
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-        System.out.println(df.format(new Date(timeWorkCode)));
+       // System.out.println(df.format(new Date(timeWorkCode)));
 
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
-        System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+    //    System.out.println(((List<Sales>) salesRepositoriy.findAll()).size());
+        return "loading";
+    }
+    @PostMapping("/importcombo")
+    public String importcombo(@RequestParam("importcombo") MultipartFile importcombo,Model model) throws IOException, ParseException {
+        int count = 0;
+        List<Combo> all_listCombo = (List<Combo>) comboRepositoriy.findAll();
+        List<Combo> listCombo = new ArrayList<>();
+        XSSFWorkbook workbook = new XSSFWorkbook(importcombo.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+    //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+        long start = System.currentTimeMillis();
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            Combo listCombo1 = new Combo();
+
+            XSSFRow row = worksheet.getRow(i);
+if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны")) {
+
+    listCombo1.setDate(row.getCell(14).getDateCellValue());
+    listCombo1.setImei(row.getCell(19).getStringCellValue());
+    listCombo1.setCombo(row.getCell(29).getStringCellValue());
+    listCombo1.setResume(row.getCell(35).getStringCellValue());
+    listCombo1.setReason(row.getCell(36).getStringCellValue());
+    listCombo1.setSize(String.valueOf(row.getCell(37).getNumericCellValue()));
+    //listCombo1.setSize(row.getCell(3).getStringCellValue());
+    listCombo1.setPayment((double) row.getCell(38).getNumericCellValue());
+    listCombo.add(listCombo1);
+}
+            for (int j = 0; j < all_listCombo.size(); j++) {
+
+                if (all_listCombo.get(j).getImei().equals(listCombo1.getImei())) {
+                    count++;
+                    comboRepositoriy.deleteById(all_listCombo.get(j).getId());
+    //                System.out.println(count);
+                }
+            }
+        }
+
+        comboRepositoriy.saveAll(listCombo);
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+    //    System.out.println(df.format(new Date(timeWorkCode)));
+
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+    //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+        return "loading";
+    }
+    @PostMapping("/importValueVUE")
+    public String importValueVUE(@RequestParam("importValueVUE") MultipartFile importValueVUE,Model model) throws IOException, ParseException {
+        int count = 0;
+        List<ValueVUE> all_listVUE = (List<ValueVUE>) valueVUERepositoriy.findAll();
+        List<ValueVUE> listVUE = new ArrayList<>();
+        XSSFWorkbook workbook = new XSSFWorkbook(importValueVUE.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+        long start = System.currentTimeMillis();
+        for(int i=3;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            ValueVUE listVUE1 = new ValueVUE();
+
+            XSSFRow row = worksheet.getRow(i);
+
+
+                listVUE1.setNomenclature(row.getCell(0).getStringCellValue());
+                listVUE1.setImei(String.valueOf(row.getCell(1).getNumericCellValue()));
+                listVUE1.setQuality(row.getCell(2).getStringCellValue());
+                listVUE1.setDateOFsale(row.getCell(3).getDateCellValue());
+                listVUE1.setShop(row.getCell(4).getStringCellValue());
+                listVUE1.setValueVUE((int) row.getCell(5).getNumericCellValue());
+                listVUE.add(listVUE1);
+
+            for (int j = 0; j < all_listVUE.size(); j++) {
+
+                if (all_listVUE.get(j).getImei().equals(listVUE1.getImei())) {
+                    count++;
+                    comboRepositoriy.deleteById(all_listVUE.get(j).getId());
+                    //                System.out.println(count);
+                }
+            }
+        }
+
+        valueVUERepositoriy.saveAll(listVUE);
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        //    System.out.println(df.format(new Date(timeWorkCode)));
+
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
         return "loading";
     }
 
     private Date dateString(String stringCellValue) throws ParseException {
         Date date = null;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.M.yyyy hh:mm:ss", Locale.ENGLISH);
-System.out.println(stringCellValue);
-
-            date = formatter.parse(stringCellValue);
-
-
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.ENGLISH);
+        date = formatter.parse(stringCellValue);
         return date;
     }
-
-
-}
+ }

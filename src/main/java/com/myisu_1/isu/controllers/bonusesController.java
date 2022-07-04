@@ -44,6 +44,7 @@ public class bonusesController {
     List<Phone_Smart> phones;
    public double count;
 
+
     @GetMapping("/bonuses")
     public String bonuses(Model model) {
         all_listSales = (List<Sales>) salesRepositoriy.findAll();
@@ -62,18 +63,25 @@ public class bonusesController {
         model.addAttribute("TFNcount", count);
         model.addAttribute("MERLION", MARWEL(start,stop,"БЕРКС ООО"));
         model.addAttribute("MERLIONcount", count);
-        model.addAttribute("VVP", MARWEL(start,stop,"ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2"));
+        model.addAttribute("VVP", MARWEL(start,stop,"ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 "));
         model.addAttribute("VVPcount", count);
         return "bonuses";
     }
 
     private Object MARWEL(Date start, Date stop, String vendor) throws ParseException {
+        for (int i = 0;i<all_listSuppliers.size();i++){
+            if (all_listSuppliers.get(i).getSuppliers().equals("ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 ")) {
+                System.out.println(all_listSuppliers.get(i).getSuppliers());
+            }
+        }
 List<Bonuses> bonuses = new ArrayList<>();
         count = 0.0;
         for (int i = 0;i<all_listSales.size();i++) {
             if (dateString(all_listSales.get(i).getDateSales()).getTime() >= start.getTime() && all_listSales.get(i).getDateSales().getTime() <= stop.getTime()) {
                 for (int j = 0; j < all_listSuppliers.size(); j++) {
+
                     if (all_listSales.get(i).getImeis().equals(all_listSuppliers.get(j).getImei()) && all_listSuppliers.get(j).getSuppliers().equals(vendor)) {
+
                         for (int l = 0; l < phones.size(); l++) {
                             if (all_listSales.get(i).getNomenclature().equals(phones.get(l).getModel())) {
                                 for (int v = 0; v < all_promo.size(); v++) {
@@ -108,14 +116,15 @@ List<Bonuses> bonuses = new ArrayList<>();
                   Double.parseDouble (all_promo.get(v).getTfn().replace(",",".")));
          count = count + Double.parseDouble (all_promo.get(v).getTfn().replace(",","."));
       }else if (vendor.equals("БЕРКС ООО")){
+
           bonuses =  new Bonuses(all_listSales.get(i).getNomenclature(),
                   all_listSales.get(i).getImeis(),
                   String.valueOf(all_listSales.get(i).getDateSales()),
                   all_promo.get(v).getStartPromo() + "<-->"+ all_promo.get(v).getEndPromo(),
                   Double.parseDouble(all_promo.get(v).getMerlion().replace(",",".")));
           count = count + Double.parseDouble (all_promo.get(v).getMerlion().replace(",","."));
-      }else if (vendor.equals("ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2")){
-
+      }else if (vendor.equals("ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 ")){
+          //System.out.println("all_listSuppliers.get(i).getSuppliers()");
           bonuses =  new Bonuses(all_listSales.get(i).getNomenclature(),
                   all_listSales.get(i).getImeis(),
                   String.valueOf(all_listSales.get(i).getDateSales()),
@@ -130,6 +139,4 @@ List<Bonuses> bonuses = new ArrayList<>();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return formatter.parse(formatter.format(stringCellValue));
     }
-
-
 }

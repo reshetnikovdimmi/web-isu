@@ -73,7 +73,28 @@
             <div class="col-6 col-sm-4 themed-grid-col">Продажи</div>
             <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
         </div>
+        <div class="row mb-3">
+            <div class="col-6 col-sm-4 themed-grid-col">
+                <form th:action="@{/importcombo}" method="post" enctype="multipart/form-data">
+                    <input type="file" th:name="importcombo" />
+                    <input th:type="submit" value="Import" />
+                </form>
+            </div>
+            <div class="col-6 col-sm-4 themed-grid-col">COMBO</div>
+            <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6 col-sm-4 themed-grid-col">
+                <form th:action="@{/importValueVUE}" method="post" enctype="multipart/form-data">
+                    <input type="file" th:name="importValueVUE" />
+                    <input th:type="submit" value="Import" />
+                </form>
+            </div>
+            <div class="col-6 col-sm-4 themed-grid-col">VUE</div>
+            <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
+        </div>
     </div>
+
 
 </main>
 
