@@ -93,6 +93,16 @@
             <div class="col-6 col-sm-4 themed-grid-col">VUE</div>
             <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
         </div>
+        <div class="row mb-3">
+            <div class="col-6 col-sm-4 themed-grid-col">
+                <form th:action="@{/importTradeIN}" method="post" enctype="multipart/form-data">
+                    <input type="file" th:name="importTradeIN" />
+                    <input th:type="submit" value="Import" />
+                </form>
+            </div>
+            <div class="col-6 col-sm-4 themed-grid-col">TradeIN</div>
+            <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
+        </div>
     </div>
 
 

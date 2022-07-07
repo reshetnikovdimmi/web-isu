@@ -42,6 +42,9 @@ public class loadingController {
     @Autowired
     private ValueVUERepositoriy valueVUERepositoriy;
 
+    @Autowired
+    private TradeINRepository tradeINRepository;
+
 
     @GetMapping("/loading")
     public String home(Model model) {
@@ -219,7 +222,7 @@ public class loadingController {
             XSSFRow row = worksheet.getRow(i);
 if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны")) {
 
-    listCombo1.setDate(row.getCell(14).getDateCellValue());
+    listCombo1.setDate(dateStringCombo(row.getCell(14).getStringCellValue()));
     listCombo1.setImei(row.getCell(19).getStringCellValue());
     listCombo1.setCombo(row.getCell(29).getStringCellValue());
     listCombo1.setResume(row.getCell(35).getStringCellValue());
@@ -258,26 +261,24 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         XSSFSheet worksheet = workbook.getSheetAt(0);
         //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
         long start = System.currentTimeMillis();
-        for(int i=3;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
             ValueVUE listVUE1 = new ValueVUE();
 
             XSSFRow row = worksheet.getRow(i);
 
-
                 listVUE1.setNomenclature(row.getCell(0).getStringCellValue());
                 listVUE1.setImei(String.valueOf(row.getCell(1).getNumericCellValue()));
                 listVUE1.setQuality(row.getCell(2).getStringCellValue());
-                listVUE1.setDateOFsale(row.getCell(3).getDateCellValue());
+                listVUE1.setDateOFsale (dateString(row.getCell(3).getStringCellValue()));
                 listVUE1.setShop(row.getCell(4).getStringCellValue());
                 listVUE1.setValueVUE((int) row.getCell(5).getNumericCellValue());
                 listVUE.add(listVUE1);
-
-            for (int j = 0; j < all_listVUE.size(); j++) {
+                for (int j = 0; j < all_listVUE.size(); j++) {
 
                 if (all_listVUE.get(j).getImei().equals(listVUE1.getImei())) {
                     count++;
-                    comboRepositoriy.deleteById(all_listVUE.get(j).getId());
-                    //                System.out.println(count);
+                    valueVUERepositoriy.deleteById(all_listVUE.get(j).getId());
+                       //            System.out.println(count);
                 }
             }
         }
@@ -287,16 +288,68 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         //    System.out.println(df.format(new Date(timeWorkCode)));
-
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
         //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
         return "loading";
     }
 
+    @PostMapping("/importTradeIN")
+    public String importTradeIN(@RequestParam("importTradeIN") MultipartFile importTradeIN,Model model) throws IOException, ParseException {
+        int count = 0;
+        List<TradeIN> all_listTradeIN = (List<TradeIN>) tradeINRepository.findAll();
+        List<TradeIN> listTradeIN = new ArrayList<>();
+        XSSFWorkbook workbook = new XSSFWorkbook(importTradeIN.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+        long start = System.currentTimeMillis();
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            TradeIN listTradeIN1 = new TradeIN();
+
+            XSSFRow row = worksheet.getRow(i);
+
+            listTradeIN1.setReceiptDate(dateString(row.getCell(0).getStringCellValue()));
+            listTradeIN1.setNomenclature(row.getCell(1).getStringCellValue());
+            listTradeIN1.setIMEI(String.valueOf(row.getCell(2).getNumericCellValue()));
+            listTradeIN1.setProductPrice((int) row.getCell(3).getNumericCellValue());
+            listTradeIN1.setDiscount((int) row.getCell(4).getNumericCellValue());
+            listTradeIN1.setAmount((int) row.getCell(5).getNumericCellValue());
+
+            listTradeIN.add(listTradeIN1);
+            for (int j = 0; j < all_listTradeIN.size(); j++) {
+
+                if (listTradeIN.get(j).getIMEI().equals(listTradeIN1.getIMEI())) {
+                    count++;
+                    tradeINRepository.deleteById(listTradeIN.get(j).getId());
+                    //            System.out.println(count);
+                }
+            }
+        }
+
+        tradeINRepository.saveAll(listTradeIN);
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        //    System.out.println(df.format(new Date(timeWorkCode)));
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+        return "loading";
+    }
     private Date dateString(String stringCellValue) throws ParseException {
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.ENGLISH);
         date = formatter.parse(stringCellValue);
         return date;
+    }
+    private Date dateStringCombo(String stringCellValue) throws ParseException {
+        Date date = null;
+        SimpleDateFormat formatter;
+        if(stringCellValue.replace("T"," ").length()==19) {
+            formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
+        }else{
+            formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.ENGLISH);
+        }
+        date = formatter.parse(stringCellValue.replace("T", " "));
+        return date ;
+
     }
  }

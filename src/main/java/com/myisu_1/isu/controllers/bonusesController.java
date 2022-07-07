@@ -1,10 +1,7 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.*;
-import com.myisu_1.isu.repo.PhoneRepositoriy;
-import com.myisu_1.isu.repo.PromoRepositoriy;
-import com.myisu_1.isu.repo.SalesRepositoriy;
-import com.myisu_1.isu.repo.SuppliersRepositoriy;
+import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,12 +34,16 @@ public class bonusesController {
     private SalesRepositoriy salesRepositoriy;
     @Autowired
     private SuppliersRepositoriy suppliersRepositoriy;
+    @Autowired
+    private ComboRepositoriy comboRepositoriy;
 
     List<Sales> all_listSales;
     List<Suppliers> all_listSuppliers;
     List<price_promo> all_promo;
     List<Phone_Smart> phones;
+    List<Combo> combos;
    public double count;
+
 
 
     @GetMapping("/bonuses")
@@ -51,6 +52,7 @@ public class bonusesController {
         all_listSuppliers = (List<Suppliers>) suppliersRepositoriy.findAll();
         all_promo = (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
         phones = (List<Phone_Smart>) phoneRepositoriy.findAll();
+        combos = comboRepositoriy.findAll();
 
         return "bonuses";
     }
@@ -65,15 +67,34 @@ public class bonusesController {
         model.addAttribute("MERLIONcount", count);
         model.addAttribute("VVP", MARWEL(start,stop,"ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 "));
         model.addAttribute("VVPcount", count);
+        model.addAttribute("Combo", COMBO(start,stop));
+        model.addAttribute("ComboCount", count);
         return "bonuses";
     }
 
-    private Object MARWEL(Date start, Date stop, String vendor) throws ParseException {
-        for (int i = 0;i<all_listSuppliers.size();i++){
-            if (all_listSuppliers.get(i).getSuppliers().equals("ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 ")) {
-                System.out.println(all_listSuppliers.get(i).getSuppliers());
-            }
+    private Object COMBO(Date start, Date stop) {
+        count = 0.0;
+        List<Combo> combo = new ArrayList<Combo>();
+
+        for (int i = 0;i<combos.size();i++){
+         if(combos.get(i).getDate().getTime()>=start.getTime() && combos.get(i).getDate().getTime()<=stop.getTime()){
+             combo.add(new Combo(
+                     combos.get(i).getId(),
+                     combos.get(i).getDate(),
+                     combos.get(i).getImei(),
+                     combos.get(i).getCombo(),
+                     combos.get(i).getResume(),
+                     combos.get(i).getReason(),
+                     combos.get(i).getSize(),
+                     combos.get(i).getPayment()));
+             count = count + combos.get(i).getPayment();
+             }
         }
+        return combo;
+    }
+
+    private Object MARWEL(Date start, Date stop, String vendor) throws ParseException {
+
 List<Bonuses> bonuses = new ArrayList<>();
         count = 0.0;
         for (int i = 0;i<all_listSales.size();i++) {

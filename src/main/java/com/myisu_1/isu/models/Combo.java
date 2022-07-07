@@ -20,6 +20,7 @@ public class Combo implements Serializable {
     private String size;
     private double payment;
 
+
     public int getId() {
         return id;
     }
