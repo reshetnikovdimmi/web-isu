@@ -264,8 +264,8 @@ response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
 
         promoMarwel = (List<MarvelPromo>) marwelPromoRepositoriy.findAll();
         for (int i = 0; i < promoMarwel.size(); i++) {
-            if (promoMarwel.get(i).getStartPromo().getTime() <= current_date().getTime() && promoMarwel.get(i).getEndPromo().getTime() >= current_date().getTime()) {
-
+            if (promoMarwel.get(i).getStartPromo().getTime() <= current_date().getTime() && promoMarwel.get(i).getEndPromo().getTime() >= current_date().getTime() ) {
+              //  System.out.println(promoMarwel.get(i).getStartPromo());
                 current_promoMarwel.add(new MarvelPromo(
                         promoMarwel.get(i).getId(),
                         promoMarwel.get(i).getPromoCode(),
@@ -293,6 +293,7 @@ response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
         for (int i = 0; i < all_promo.size(); i++) {
            // System.out.println(all_promo.get(i).getStartPromo() +"+1");
             if (all_promo.get(i).getStartPromo().getTime() <= current_date().getTime() && all_promo.get(i).getEndPromo().getTime() >= current_date().getTime()) {
+
                 current_promo.add(new price_promo(
                         all_promo.get(i).getId(),
                         all_promo.get(i).getBrend(),
@@ -316,8 +317,10 @@ response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
         promoVVP = (List<ListOFgoods>) listOFgoodsRepositoriy.findAll();
         //System.out.println(promoVVP.size() +"------->");
         for (int i = 0; i < promoVVP.size(); i++) {
-            if (promoVVP.get(i).getStartPromo().getTime() <= current_date().getTime() && promoVVP.get(i).getEndPromo().getTime() >= current_date().getTime()) {
+           // if (promoVVP.get(i).getStartPromo().getTime() <= current_date().getTime() && promoVVP.get(i).getEndPromo().getTime() >= current_date().getTime()) {
 
+            if (promoVVP.get(i).getPricePromo() !=0) {
+                System.out.println(promoVVP.get(i).getStartPromo().getTime()+"--->"+current_date().getTime());
                current_promoVVP.add(new ListOFgoods(
                        promoVVP.get(i).getId(),
                        promoVVP.get(i).getModel(),
@@ -407,6 +410,15 @@ response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
         return promoCode;
     }
     Date current_date(){
+        int den, mes, god;
+        final Calendar c = Calendar.getInstance();
+        den = c.get(Calendar.DAY_OF_MONTH);
+        mes = c.get(Calendar.MONTH);
+        god = c.get(Calendar.YEAR);
+        Date endDate = new Date(god-1900,mes,den);
+        return endDate;
+    }
+    Date current_date1(){
         int den, mes, god;
         final Calendar c = Calendar.getInstance();
         den = c.get(Calendar.DAY_OF_MONTH);

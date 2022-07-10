@@ -14,20 +14,20 @@ public class Phone_Smart {
     private String Brend;
     private String Model;
     private String Model_GB;
+    private String Phone;
+
+
 
     public Phone_Smart() {
     }
 
-    public Phone_Smart(String brend) {
-        Brend = brend;
-    }
-
-    public Phone_Smart(int id, String matrix_T2, String brend, String model, String model_GB) {
+    public Phone_Smart(int id, String matrix_T2, String brend, String model, String model_GB, String phone) {
         this.id = id;
         Matrix_T2 = matrix_T2;
         Brend = brend;
         Model = model;
         Model_GB = model_GB;
+        Phone = phone;
     }
 
     public int getId() {
@@ -45,7 +45,13 @@ public class Phone_Smart {
     public void setMatrix_T2(String matrix_T2) {
         Matrix_T2 = matrix_T2;
     }
+    public String getPhone() {
+        return Phone;
+    }
 
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
     public String getBrend() {
         return Brend;
     }

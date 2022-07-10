@@ -24,6 +24,15 @@ public class authorization_tt {
     public authorization_tt() {
     }
 
+    public authorization_tt(String name) {
+        this.name = name;
+    }
+
+    public authorization_tt(String name, String shopIskra) {
+        this.name = name;
+        this.shopIskra = shopIskra;
+    }
+
     public authorization_tt(int id, String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra) {
         this.id = id;
         this.login = login;

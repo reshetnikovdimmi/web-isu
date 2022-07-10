@@ -3,6 +3,8 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.repo.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -45,6 +48,14 @@ public class loadingController {
     @Autowired
     private TradeINRepository tradeINRepository;
 
+    @Autowired
+    private PromoRepositoriy promoRepositoriy;
+
+    @Autowired
+    private PhoneRepositoriy phoneRepositoriy;
+
+
+
 
     @GetMapping("/loading")
     public String home(Model model) {
@@ -53,29 +64,31 @@ public class loadingController {
     }
 
     @PostMapping("/import")
-    public String mapReapExcelDatatoDB(@RequestParam("file") MultipartFile reapExcelDataFile, Model model) throws IOException {
+    public String mapReapExcelDatatoDB(@RequestParam("file") MultipartFile reapExcelDataFile, Model model) throws IOException, ParseException {
         long start = System.currentTimeMillis();
         List<MarvelPromo> tempStudentList = new ArrayList<MarvelPromo>();
         XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
-        XSSFSheet worksheet = workbook.getSheetAt(1);
+        XSSFSheet worksheet = workbook.getSheetAt(0);
         marwelPromoRepositoriy.deleteAll();
         for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
             MarvelPromo tempStudent = new MarvelPromo();
 
             XSSFRow row = worksheet.getRow(i);
+if(row.getCell(4).getStringCellValue().equals("Федерально")){
+    // tempStudent.setId((int) row.getCell(0).getNumericCellValue());
+    tempStudent.setPromoCode(row.getCell(0).getStringCellValue());
+    tempStudent.setStartPromo(dateDate(row.getCell(6).getStringCellValue()));
+    tempStudent.setEndPromo(dateDate(row.getCell(7).getStringCellValue()));
+    tempStudent.setArticleNumber(row.getCell(10).getStringCellValue());
+    tempStudent.setVision((int) row.getCell(11).getNumericCellValue());
+    tempStudent.setNewVision((int) row.getCell(12).getNumericCellValue());
+    tempStudent.setDiscount((int) row.getCell(13).getNumericCellValue());
+    tempStudent.setCompensation((int) row.getCell(14).getNumericCellValue());
+    tempStudent.setCollecting(dateDate(row.getCell(16).getStringCellValue()));
+    tempStudent.setStatus(row.getCell(23).getStringCellValue());
+    tempStudentList.add(tempStudent);
+}
 
-            tempStudent.setId((int) row.getCell(0).getNumericCellValue());
-            tempStudent.setPromoCode(row.getCell(1).getStringCellValue());
-            tempStudent.setStartPromo(row.getCell(2).getDateCellValue());
-            tempStudent.setEndPromo(row.getCell(3).getDateCellValue());
-            tempStudent.setArticleNumber(row.getCell(4).getStringCellValue());
-            tempStudent.setVision((int) row.getCell(5).getNumericCellValue());
-            tempStudent.setNewVision((int) row.getCell(6).getNumericCellValue());
-            tempStudent.setDiscount((int) row.getCell(7).getNumericCellValue());
-            tempStudent.setCompensation((int) row.getCell(8).getNumericCellValue());
-            tempStudent.setCollecting(row.getCell(9).getDateCellValue());
-            tempStudent.setStatus(row.getCell(10).getStringCellValue());
-            tempStudentList.add(tempStudent);
 
 
            // System.out.println(row.getCell(0).getNumericCellValue());
@@ -90,27 +103,58 @@ public class loadingController {
        // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
         return "loading";
     }
-    @GetMapping("/importVVP")
+    @PostMapping("/importVVP")
     public String importVVP(@RequestParam("fileVVP") MultipartFile fileVVP, Model model) throws IOException {
         long start = System.currentTimeMillis();
         List<ListOFgoods> listOFgoods = new ArrayList<ListOFgoods>();
         XSSFWorkbook workbook = new XSSFWorkbook(fileVVP.getInputStream());
-        XSSFSheet worksheet = workbook.getSheetAt(1);
+        XSSFSheet worksheet = workbook.getSheetAt(0);
         listOFgoodsRepositoriy.deleteAll();
 
-        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+        for(int i=8;i<worksheet.getPhysicalNumberOfRows() ;i++) {
             ListOFgoods listOFgoods1 = new ListOFgoods();
 
             XSSFRow row = worksheet.getRow(i);
 
-            listOFgoods1.setId((int) row.getCell(0).getNumericCellValue());
-            listOFgoods1.setModel(row.getCell(1).getStringCellValue());
-            listOFgoods1.setPrice((int) row.getCell(2).getNumericCellValue());
-            listOFgoods1.setPricePromo((int) row.getCell(3).getNumericCellValue());
-            listOFgoods1.setStartPromo( row.getCell(4).getDateCellValue());
-            listOFgoods1.setEndPromo( row.getCell(5).getDateCellValue());
-            listOFgoods1.setDiscountUE((int) row.getCell(6).getNumericCellValue());
 
+            listOFgoods1.setName(row.getCell(2).getStringCellValue());
+            listOFgoods1.setBrend(row.getCell(4).getStringCellValue());
+            listOFgoods1.setModel(row.getCell(5).getStringCellValue());
+            if(row.getCell(6).getCellType() == CellType.STRING) {
+                listOFgoods1.setMatrix(row.getCell(6).getStringCellValue());
+            }else{
+                listOFgoods1.setMatrix(String.valueOf(row.getCell(6).getNumericCellValue()));
+            }
+            listOFgoods1.setPriceZak((int) row.getCell(8).getNumericCellValue());
+            listOFgoods1.setPrice((int) row.getCell(11).getNumericCellValue());
+            listOFgoods1.setPricePromo((int) row.getCell(12).getNumericCellValue());
+            listOFgoods1.setStartPromo( row.getCell(13).getDateCellValue());
+            listOFgoods1.setEndPromo( row.getCell(14).getDateCellValue());
+            if(row.getCell(15).getCellType() == CellType.NUMERIC) {
+            listOFgoods1.setDiscountUE((int) row.getCell(15).getNumericCellValue());
+            }else if(row.getCell(15).getCellType() == CellType.STRING){
+                String g = row.getCell(15).getStringCellValue().trim().replaceAll(" ","");
+                System.out.println(g+"--"+g.length());
+
+                try {
+                    listOFgoods1.setDiscountUE((int) Double.parseDouble(row.getCell(15).getStringCellValue().replace("\\s+","")));
+
+                } catch (NumberFormatException e) {
+                    listOFgoods1.setDiscountUE(666);
+                    e.printStackTrace();
+                }
+
+
+            }else{
+                listOFgoods1.setDiscountUE(0);
+            }
+            if(row.getCell(17).getCellType() == CellType.NUMERIC) {
+            listOFgoods1.setValueVUE((int) row.getCell(17).getNumericCellValue());
+            }else if(row.getCell(17).getCellType() == CellType.STRING){
+                listOFgoods1.setValueVUE(Integer.valueOf(row.getCell(17).getStringCellValue()));
+            }else {
+                listOFgoods1.setValueVUE(0);
+            }
 
             listOFgoods.add(listOFgoods1);
 
@@ -126,6 +170,80 @@ public class loadingController {
 
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
        // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+        return "loading";
+    }
+    @PostMapping("/importlistPhone")
+    public String importlistPhone(@RequestParam("importlistPhone") MultipartFile importlistPhone, Model model) throws IOException {
+        long start = System.currentTimeMillis();
+        List<Phone_Smart> listPhone = new ArrayList<Phone_Smart>();
+        XSSFWorkbook workbook = new XSSFWorkbook(importlistPhone.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+        phoneRepositoriy.deleteAll();
+
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            Phone_Smart listOPhone1 = new Phone_Smart();
+
+            XSSFRow row = worksheet.getRow(i);
+
+
+            listOPhone1.setMatrix_T2(row.getCell(0).getStringCellValue());
+            listOPhone1.setBrend(row.getCell(1).getStringCellValue());
+            listOPhone1.setModel( row.getCell(2).getStringCellValue());
+            listOPhone1.setModel_GB( row.getCell(3).getStringCellValue());
+            listOPhone1.setPhone( row.getCell(4).getStringCellValue());
+
+            listPhone.add(listOPhone1);
+            //  System.out.println(row.getCell(2).getNumericCellValue());
+        }
+        phoneRepositoriy.saveAll(listPhone);
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        // System.out.println(df.format(new Date(timeWorkCode)));
+
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+        // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
+        return "loading";
+    }
+    @PostMapping("/importlistPromo")
+    public String importlistPromo(@RequestParam("importlistPromo") MultipartFile importlistPromo, Model model) throws IOException {
+        long start = System.currentTimeMillis();
+        List<price_promo> listPromo = new ArrayList<price_promo>();
+        XSSFWorkbook workbook = new XSSFWorkbook(importlistPromo.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+        promoRepositoriy.deleteAll();
+
+        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            price_promo listPromo1 = new price_promo();
+
+            XSSFRow row = worksheet.getRow(i);
+
+            listPromo1.setBrend(row.getCell(0).getStringCellValue());
+            listPromo1.setModels(row.getCell(1).getStringCellValue());
+            listPromo1.setPrice(String.valueOf(row.getCell(2).getNumericCellValue()));
+            listPromo1.setPrice_promo(String.valueOf(row.getCell(3).getNumericCellValue()));
+            listPromo1.setStartPromo( row.getCell(4).getDateCellValue());
+            listPromo1.setEndPromo( row.getCell(5).getDateCellValue());
+            listPromo1.setMarwel(String.valueOf(row.getCell(6).getNumericCellValue()));
+            listPromo1.setTfn(String.valueOf(row.getCell(7).getNumericCellValue()));
+            listPromo1.setVvp(String.valueOf(row.getCell(8).getNumericCellValue()));
+            listPromo1.setMerlion(String.valueOf(row.getCell(9).getNumericCellValue()));
+
+
+            listPromo.add(listPromo1);
+
+
+            //  System.out.println(row.getCell(2).getNumericCellValue());
+
+        }
+        promoRepositoriy.saveAll(listPromo);
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        // System.out.println(df.format(new Date(timeWorkCode)));
+
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+        // System.out.println(((List<Suppliers>) suppliersRepositoriy.findAll()).size());
         return "loading";
     }
 
@@ -267,7 +385,11 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
             XSSFRow row = worksheet.getRow(i);
 
                 listVUE1.setNomenclature(row.getCell(0).getStringCellValue());
-                listVUE1.setImei(String.valueOf(row.getCell(1).getNumericCellValue()));
+                if(row.getCell(1).getCellType() == CellType.STRING){
+                    listVUE1.setImei(row.getCell(1).getStringCellValue());
+                }else {
+                    listVUE1.setImei(Long.toString((long) row.getCell(1).getNumericCellValue()));
+                }
                 listVUE1.setQuality(row.getCell(2).getStringCellValue());
                 listVUE1.setDateOFsale (dateString(row.getCell(3).getStringCellValue()));
                 listVUE1.setShop(row.getCell(4).getStringCellValue());
@@ -337,6 +459,13 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
     private Date dateString(String stringCellValue) throws ParseException {
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.ENGLISH);
+        date = formatter.parse(stringCellValue);
+        return date;
+    }
+
+    private Date dateDate(String stringCellValue) throws ParseException {
+        Date date = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
         date = formatter.parse(stringCellValue);
         return date;
     }
