@@ -123,6 +123,16 @@
             <div class="col-6 col-sm-4 themed-grid-col">Список Promo</div>
             <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
         </div>
+        <div class="row mb-3">
+            <div class="col-6 col-sm-4 themed-grid-col">
+                <form th:action="@{/importRemainingPhones}" method="post" enctype="multipart/form-data">
+                    <input type="file" th:name="importRemainingPhones" />
+                    <input th:type="submit" value="Import" />
+                </form>
+            </div>
+            <div class="col-6 col-sm-4 themed-grid-col">Остатки Phone</div>
+            <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
+        </div>
     </div>
 
 

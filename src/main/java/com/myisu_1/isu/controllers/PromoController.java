@@ -320,7 +320,7 @@ response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
            // if (promoVVP.get(i).getStartPromo().getTime() <= current_date().getTime() && promoVVP.get(i).getEndPromo().getTime() >= current_date().getTime()) {
 
             if (promoVVP.get(i).getPricePromo() !=0) {
-                System.out.println(promoVVP.get(i).getStartPromo().getTime()+"--->"+current_date().getTime());
+           //     System.out.println(promoVVP.get(i).getStartPromo().getTime()+"--->"+current_date().getTime());
                current_promoVVP.add(new ListOFgoods(
                        promoVVP.get(i).getId(),
                        promoVVP.get(i).getModel(),

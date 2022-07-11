@@ -65,7 +65,7 @@ public class bonusesController {
     }
 
     private void storeInitialization() {
-
+//
         shop = new ArrayList<>();
         neT2 = new ArrayList<>();
         for (int i = 0;i<authorizationTtList.size();i++){

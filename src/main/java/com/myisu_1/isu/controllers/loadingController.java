@@ -456,6 +456,49 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
         return "loading";
     }
+    @PostMapping("/importRemainingPhones")
+    public String importRemainingPhones(@RequestParam("importRemainingPhones") MultipartFile importRemainingPhones,Model model) throws IOException, ParseException {
+        int count = 0;
+        List<TradeIN> all_listTradeIN = (List<TradeIN>) tradeINRepository.findAll();
+        List<TradeIN> listTradeIN = new ArrayList<>();
+        XSSFWorkbook workbook = new XSSFWorkbook(importRemainingPhones.getInputStream());
+        XSSFSheet worksheet = workbook.getSheetAt(0);
+        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+        long start = System.currentTimeMillis();
+        System.out.println(worksheet.getRow(0).getPhysicalNumberOfCells());
+
+      /*  for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+            TradeIN listTradeIN1 = new TradeIN();
+
+            XSSFRow row = worksheet.getRow(i);
+
+            listTradeIN1.setReceiptDate(dateString(row.getCell(0).getStringCellValue()));
+            listTradeIN1.setNomenclature(row.getCell(1).getStringCellValue());
+            listTradeIN1.setIMEI(String.valueOf(row.getCell(2).getNumericCellValue()));
+            listTradeIN1.setProductPrice((int) row.getCell(3).getNumericCellValue());
+            listTradeIN1.setDiscount((int) row.getCell(4).getNumericCellValue());
+            listTradeIN1.setAmount((int) row.getCell(5).getNumericCellValue());
+
+            listTradeIN.add(listTradeIN1);
+            for (int j = 0; j < all_listTradeIN.size(); j++) {
+
+                if (listTradeIN.get(j).getIMEI().equals(listTradeIN1.getIMEI())) {
+                    count++;
+                    tradeINRepository.deleteById(listTradeIN.get(j).getId());
+                    //            System.out.println(count);
+                }
+            }
+        }
+
+        tradeINRepository.saveAll(listTradeIN);*/
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        //    System.out.println(df.format(new Date(timeWorkCode)));
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+        return "loading";
+    }
     private Date dateString(String stringCellValue) throws ParseException {
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.ENGLISH);
