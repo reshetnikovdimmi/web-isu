@@ -471,7 +471,6 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         for (int i = 0;i<ttArrayList.size();i++){
             shopRaduga.add(ttArrayList.get(i).getName());
             shopIskra.add(ttArrayList.get(i).getShopIskra());
-          //  System.out.println(shopIskra.get(i));
         }
 
         List<RemainingPhones> listRemainingPhones = new ArrayList<>();
@@ -482,17 +481,17 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         int numberOFcolumns = (worksheet.getRow(0).getPhysicalNumberOfCells());
 
         for (int i =0;i<shopIskra.size();i++){
-            for (int j = 0;j<numberOFcolumns-1;j++) {
+            for (int j = 0;j<numberOFcolumns;j++) {
                //
                 if (worksheet.getRow(0).getCell(j).getStringCellValue().equals(shopIskra.get(i))){
-               //     System.out.println(shopIskra.get(i));
+
                     System.out.println(worksheet.getRow(0).getCell(j).getStringCellValue());
                     for (int l = 2; l < worksheet.getPhysicalNumberOfRows()-1; l++) {
 
                             //  TradeIN listTradeIN1 = new TradeIN();
 
                             XSSFRow row = worksheet.getRow(l);
-                      //  System.out.println(row.getCell(j).getCellType());
+
                             if(row.getCell(j).getCellType() == CellType.STRING) {
                                 System.out.println(row.getCell(j).getStringCellValue());
                             }else {
