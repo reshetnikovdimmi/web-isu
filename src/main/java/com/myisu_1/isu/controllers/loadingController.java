@@ -54,6 +54,9 @@ public class loadingController {
     @Autowired
     private PhoneRepositoriy phoneRepositoriy;
 
+    @Autowired
+    private PostRepositoriy authorizationTt;
+
 
 
 
@@ -458,14 +461,48 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
     }
     @PostMapping("/importRemainingPhones")
     public String importRemainingPhones(@RequestParam("importRemainingPhones") MultipartFile importRemainingPhones,Model model) throws IOException, ParseException {
-        int count = 0;
-        List<TradeIN> all_listTradeIN = (List<TradeIN>) tradeINRepository.findAll();
-        List<TradeIN> listTradeIN = new ArrayList<>();
+        List<authorization_tt> ttArrayList = (List<authorization_tt>) authorizationTt.findAll();
+        ArrayList<String> shopRaduga = new ArrayList<>();
+        ArrayList<String> shopIskra = new ArrayList<>();
+
+        shopIskra.add("Номенклатура");
+        shopRaduga.add("Номенклатура");
+
+        for (int i = 0;i<ttArrayList.size();i++){
+            shopRaduga.add(ttArrayList.get(i).getName());
+            shopIskra.add(ttArrayList.get(i).getShopIskra());
+          //  System.out.println(shopIskra.get(i));
+        }
+
+        List<RemainingPhones> listRemainingPhones = new ArrayList<>();
         XSSFWorkbook workbook = new XSSFWorkbook(importRemainingPhones.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
-        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+
         long start = System.currentTimeMillis();
-        System.out.println(worksheet.getRow(0).getPhysicalNumberOfCells());
+        int numberOFcolumns = (worksheet.getRow(0).getPhysicalNumberOfCells());
+
+        for (int i =0;i<shopIskra.size();i++){
+            for (int j = 0;j<numberOFcolumns-1;j++) {
+               //
+                if (worksheet.getRow(0).getCell(j).getStringCellValue().equals(shopIskra.get(i))){
+               //     System.out.println(shopIskra.get(i));
+                    System.out.println(worksheet.getRow(0).getCell(j).getStringCellValue());
+                    for (int l = 2; l < worksheet.getPhysicalNumberOfRows()-1; l++) {
+
+                            //  TradeIN listTradeIN1 = new TradeIN();
+
+                            XSSFRow row = worksheet.getRow(l);
+                      //  System.out.println(row.getCell(j).getCellType());
+                            if(row.getCell(j).getCellType() == CellType.STRING) {
+                                System.out.println(row.getCell(j).getStringCellValue());
+                            }else {
+                                System.out.println(row.getCell(j).getNumericCellValue());
+
+                        }
+                    }
+                }
+            }
+        }
 
       /*  for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
             TradeIN listTradeIN1 = new TradeIN();
@@ -480,14 +517,7 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
             listTradeIN1.setAmount((int) row.getCell(5).getNumericCellValue());
 
             listTradeIN.add(listTradeIN1);
-            for (int j = 0; j < all_listTradeIN.size(); j++) {
 
-                if (listTradeIN.get(j).getIMEI().equals(listTradeIN1.getIMEI())) {
-                    count++;
-                    tradeINRepository.deleteById(listTradeIN.get(j).getId());
-                    //            System.out.println(count);
-                }
-            }
         }
 
         tradeINRepository.saveAll(listTradeIN);*/
