@@ -14,6 +14,7 @@ public class RemainingPhones implements Serializable {
     int id;
     String Nomenclature;
     int Cash;
+    int Sim;
     int CashT2;
     int SevernayaT2;
     int BagrationT2;
@@ -48,10 +49,13 @@ public class RemainingPhones implements Serializable {
     int TevrizT2;
     int UstIshimT2;
 
-    public RemainingPhones(int id, String nomenclature, int cash, int cashT2, int severnayaT2, int bagrationT2, int beethovenT2, int zavertyaevaT2, int zyvaevskDIV, int zyvaevskT2, int neftezavodskayaT2, int bolsherechyeT2, int znamenskoyeMTS, int znamenskoyeMegaFon, int krutinkaT2, int krutinka, int moskalenkiMTS, int moskalenkiT2, int odessaDIV, int bolsherechyeMTS, int bigUkiT2, int znamenskoeT2, int luzinoT2, int maryanovkaDIV, int maryanovkaT2, int muromtsevoT2, int muromtsevoMTS, int tavricheskoeT2, int tavricheskoeMTS, int taraT2, int sherbakulBee, int kolosovkaT2, int zyvaevskMTS, int sedelnikovoT2, int tevrizT2, int ustIshimT2) {
-        this.id = id;
+    public RemainingPhones() {
+    }
+
+    public RemainingPhones(String nomenclature, int cash, int sim, int cashT2, int severnayaT2, int bagrationT2, int beethovenT2, int zavertyaevaT2, int zyvaevskDIV, int zyvaevskT2, int neftezavodskayaT2, int bolsherechyeT2, int znamenskoyeMTS, int znamenskoyeMegaFon, int krutinkaT2, int krutinka, int moskalenkiMTS, int moskalenkiT2, int odessaDIV, int bolsherechyeMTS, int bigUkiT2, int znamenskoeT2, int luzinoT2, int maryanovkaDIV, int maryanovkaT2, int muromtsevoT2, int muromtsevoMTS, int tavricheskoeT2, int tavricheskoeMTS, int taraT2, int sherbakulBee, int kolosovkaT2, int zyvaevskMTS, int sedelnikovoT2, int tevrizT2, int ustIshimT2) {
         Nomenclature = nomenclature;
         Cash = cash;
+        Sim = sim;
         CashT2 = cashT2;
         SevernayaT2 = severnayaT2;
         BagrationT2 = bagrationT2;
@@ -87,9 +91,6 @@ public class RemainingPhones implements Serializable {
         UstIshimT2 = ustIshimT2;
     }
 
-    public RemainingPhones() {
-    }
-
     public int getId() {
         return id;
     }
@@ -112,6 +113,14 @@ public class RemainingPhones implements Serializable {
 
     public void setCash(int cash) {
         Cash = cash;
+    }
+
+    public int getSim() {
+        return Sim;
+    }
+
+    public void setSim(int sim) {
+        Sim = sim;
     }
 
     public int getCashT2() {

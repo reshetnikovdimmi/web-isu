@@ -1,4 +1,4 @@
-package com.myisu_1.isu.models;
+package com.myisu_1.isu.models.Marwel;
 
 import javax.persistence.*;
 import java.io.Serializable;

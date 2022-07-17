@@ -72,12 +72,31 @@
 
 
             </div>
+            <div class="row mb-3">
+                <div class="col-md-3 themed-grid-col"></div>
+                <div class="col-md-6 themed-grid-col">
+                    <div class="row mb-3">
+                        <div class="col-6 col-sm-4 themed-grid-col">
+                            <form th:action="@{/importRemainingPhonesMarwel}" method="post" enctype="multipart/form-data">
+                                <input type="file" th:name="importRemainingPhonesMarwel" />
+                                <input th:type="submit" value="Import" />
+                            </form>
+                        </div>
+                        <div class="col-6 col-sm-4 themed-grid-col"></div>
+                        <div class="col-6 col-sm-4 themed-grid-col">Остатки для загрузки на портал</div>
+
+                    </div>
+                </div>
+                <div class="col-md-3 themed-grid-col"></div>
+            </div>
         </div>
+
+
         <div id="menu1" class="container tab-pane fade"><br>
             <h3>Отчет для загрузки на портал</h3>
             <div class="row mb-3">
                 <div class="col-md-8 themed-grid-col">
-                    <form action="" method="post" >
+                    <form action="/portalMarwel" method="post" >
                     <div class="row mb-3">
 
                         <div class="col-6 col-md-4 themed-grid-col"><input type="date"  name="start" id="start"></div>
@@ -136,9 +155,9 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="current : ${MARWEL}">
+                        <tr th:each="current : ${article_imei}">
 
-                            <td th:text = "${current.models}"></td>
+                            <td th:text = "${current.article}"></td>
                             <td th:text = "${current.imei}"></td>
 
                         </tbody>

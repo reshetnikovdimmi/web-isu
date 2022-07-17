@@ -57,6 +57,9 @@ public class loadingController {
     @Autowired
     private PostRepositoriy authorizationTt;
 
+    @Autowired
+    private RemainingPhonesRepository remainingPhonesRepository;
+
 
 
 
@@ -461,6 +464,8 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
     }
     @PostMapping("/importRemainingPhones")
     public String importRemainingPhones(@RequestParam("importRemainingPhones") MultipartFile importRemainingPhones,Model model) throws IOException, ParseException {
+        remainingPhonesRepository.deleteAll();
+
         List<authorization_tt> ttArrayList = (List<authorization_tt>) authorizationTt.findAll();
         ArrayList<String> shopRaduga = new ArrayList<>();
         ArrayList<String> shopIskra = new ArrayList<>();
@@ -468,7 +473,7 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         shopIskra.add("Номенклатура");
         shopRaduga.add("Номенклатура");
 
-        for (int i = 0;i<ttArrayList.size();i++){
+        for (int i = 0;i<ttArrayList.size()-1;i++){
             shopRaduga.add(ttArrayList.get(i).getName());
             shopIskra.add(ttArrayList.get(i).getShopIskra());
         }
@@ -479,53 +484,73 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
 
         long start = System.currentTimeMillis();
         int numberOFcolumns = (worksheet.getRow(0).getPhysicalNumberOfCells());
-
-        for (int i =0;i<shopIskra.size();i++){
-            for (int j = 0;j<numberOFcolumns;j++) {
-               //
-                if (worksheet.getRow(0).getCell(j).getStringCellValue().equals(shopIskra.get(i))){
-
-                    System.out.println(worksheet.getRow(0).getCell(j).getStringCellValue());
-                    for (int l = 2; l < worksheet.getPhysicalNumberOfRows()-1; l++) {
-
-                            //  TradeIN listTradeIN1 = new TradeIN();
-
-                            XSSFRow row = worksheet.getRow(l);
-
-                            if(row.getCell(j).getCellType() == CellType.STRING) {
-                                System.out.println(row.getCell(j).getStringCellValue());
-                            }else {
-                                System.out.println(row.getCell(j).getNumericCellValue());
-
+        for (int l = 2; l < worksheet.getPhysicalNumberOfRows()-1; l++) {
+            RemainingPhones remainingPhones = new RemainingPhones();
+            String Remaining[] = new String[shopIskra.size()];
+            for (int i = 0; i < shopIskra.size(); i++) {
+                String h;
+                for (int j = 0; j < numberOFcolumns; j++) {
+                    if (worksheet.getRow(0).getCell(j).getStringCellValue().equals(shopIskra.get(i)) || worksheet.getRow(0).getCell(j).getStringCellValue().equals(shopRaduga.get(i))) {
+                        XSSFRow row = worksheet.getRow(l);
+                        if (row.getCell(j).getCellType() == CellType.STRING) {
+                            h = row.getCell(j).getStringCellValue();
+                        } else {
+                            h = String.valueOf(row.getCell(j).getNumericCellValue());
                         }
+                        Remaining[i] = h;
                     }
                 }
+                if (Remaining[i] == null) {
+                    Remaining[i] = "0";
+                }
             }
-        }
+                remainingPhones.setNomenclature(Remaining[0]);
+                remainingPhones.setCash((int) Double.parseDouble(Remaining[1]));
+                remainingPhones.setSim((int) Double.parseDouble(Remaining[2]));
+                remainingPhones.setCashT2((int) Double.parseDouble(Remaining[3]));
+                remainingPhones.setSevernayaT2((int) Double.parseDouble(Remaining[4]));
+                remainingPhones.setBagrationT2((int) Double.parseDouble(Remaining[5]));
+                remainingPhones.setBeethovenT2((int) Double.parseDouble(Remaining[6]));
+                remainingPhones.setZavertyaevaT2((int) Double.parseDouble(Remaining[7]));
+                remainingPhones.setZyvaevskDIV((int) Double.parseDouble(Remaining[8]));
+                remainingPhones.setZyvaevskT2((int) Double.parseDouble(Remaining[9]));
+                remainingPhones.setNeftezavodskayaT2((int) Double.parseDouble(Remaining[10]));
+                remainingPhones.setBolsherechyeT2((int) Double.parseDouble(Remaining[11]));
+                remainingPhones.setZnamenskoyeMTS((int) Double.parseDouble(Remaining[12]));
+                remainingPhones.setZnamenskoyeMegaFon((int) Double.parseDouble(Remaining[13]));
+                remainingPhones.setKrutinkaT2((int) Double.parseDouble(Remaining[14]));
+                remainingPhones.setKrutinka((int) Double.parseDouble(Remaining[15]));
+                remainingPhones.setMoskalenkiMTS((int) Double.parseDouble(Remaining[16]));
+                remainingPhones.setMoskalenkiT2((int) Double.parseDouble(Remaining[17]));
+                remainingPhones.setOdessaDIV((int) Double.parseDouble(Remaining[18]));
+                remainingPhones.setBolsherechyeMTS((int) Double.parseDouble(Remaining[19]));
+                remainingPhones.setBigUkiT2((int) Double.parseDouble(Remaining[20]));
+                remainingPhones.setZnamenskoeT2((int) Double.parseDouble(Remaining[21]));
+                remainingPhones.setLuzinoT2((int) Double.parseDouble(Remaining[22]));
+                remainingPhones.setMaryanovkaDIV((int) Double.parseDouble(Remaining[23]));
+                remainingPhones.setMaryanovkaT2((int) Double.parseDouble(Remaining[24]));
+                remainingPhones.setMuromtsevoT2((int) Double.parseDouble(Remaining[25]));
+                remainingPhones.setMuromtsevoMTS((int) Double.parseDouble(Remaining[26]));
+                remainingPhones.setTavricheskoeT2((int) Double.parseDouble(Remaining[27]));
+                remainingPhones.setTavricheskoeMTS((int) Double.parseDouble(Remaining[28]));
+                remainingPhones.setTaraT2((int) Double.parseDouble(Remaining[29]));
+                remainingPhones.setSherbakulBee((int) Double.parseDouble(Remaining[30]));
+                remainingPhones.setKolosovkaT2((int) Double.parseDouble(Remaining[31]));
+                remainingPhones.setZyvaevskMTS((int) Double.parseDouble(Remaining[32]));
+                remainingPhones.setSedelnikovoT2((int) Double.parseDouble(Remaining[33]));
+                remainingPhones.setTevrizT2((int) Double.parseDouble(Remaining[34]));
+                remainingPhones.setTevrizT2((int) Double.parseDouble(Remaining[35]));
+                listRemainingPhones.add(remainingPhones);
+            }
 
-      /*  for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
-            TradeIN listTradeIN1 = new TradeIN();
+        remainingPhonesRepository.saveAll(listRemainingPhones);
 
-            XSSFRow row = worksheet.getRow(i);
-
-            listTradeIN1.setReceiptDate(dateString(row.getCell(0).getStringCellValue()));
-            listTradeIN1.setNomenclature(row.getCell(1).getStringCellValue());
-            listTradeIN1.setIMEI(String.valueOf(row.getCell(2).getNumericCellValue()));
-            listTradeIN1.setProductPrice((int) row.getCell(3).getNumericCellValue());
-            listTradeIN1.setDiscount((int) row.getCell(4).getNumericCellValue());
-            listTradeIN1.setAmount((int) row.getCell(5).getNumericCellValue());
-
-            listTradeIN.add(listTradeIN1);
-
-        }
-
-        tradeINRepository.saveAll(listTradeIN);*/
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-        //    System.out.println(df.format(new Date(timeWorkCode)));
+
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
-        //    System.out.println(((List<Combo>) comboRepositoriy.findAll()).size());
+
         return "loading";
     }
     private Date dateString(String stringCellValue) throws ParseException {
