@@ -1,6 +1,7 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.*;
+import com.myisu_1.isu.models.Marwel.ArtNaProdOst;
 import com.myisu_1.isu.models.Marwel.Article_Imei;
 import com.myisu_1.isu.models.Marwel.MarvelClassifier;
 import com.myisu_1.isu.repo.*;
@@ -102,7 +103,10 @@ public class MarwelController {
         HashSet<String> phone = new HashSet<>();
         List<String> list = new ArrayList<>();
         List<String> list1 = new ArrayList<>();
-        List<String> phones = new ArrayList<>();
+        List<String> phonesUnique = new ArrayList<>();
+        List<ArtNaProdOst> uniquelist = new ArrayList<>();
+        List<Distinct> NoClassifier = new ArrayList<>();
+
   for (int j=0;j<suppliersList.size();j++) {
       for (int i = 0;i<sales.size();i++){
             if(suppliersList.get(j).getSuppliers().equals("МАРВЕЛ КТ ООО")&&
@@ -139,9 +143,44 @@ public class MarwelController {
 
         Iterator<String> i = phone.iterator();
         while (i.hasNext())
-            phones.add(i.next());
+            phonesUnique.add(i.next());
+
+        for (int j = 0;j<phonesUnique.size();j++) {
+
+            ArtNaProdOst artNaProdOst = new ArtNaProdOst();
+            for (Map.Entry<String, Long> item : frequency.entrySet()) {
+                if (phonesUnique.get(j).equals(item.getKey())) {
+
+                    artNaProdOst.setSales(String.valueOf(item.getValue()));
+                }
 
 
+            }
+            for (Map.Entry<String, Long> item : frequency1.entrySet()) {
+                if (phonesUnique.get(j).equals(item.getKey())) {
+
+                    artNaProdOst.setRemains(String.valueOf(item.getValue()));
+                }
+
+            }
+            for (int l =0; l<marvelClassifierList.size();l++) {
+                if (phonesUnique.get(j).equals(marvelClassifierList.get(l).getRainbowNomenclature())) {
+                    artNaProdOst.setArticle(marvelClassifierList.get(l).getManufacturersArticle());
+                    artNaProdOst.setName(marvelClassifierList.get(l).getName());
+                }
+
+            }
+            uniquelist.add(artNaProdOst);
+        }
+        for (int j =0;j<uniquelist.size();j++){
+            if(uniquelist.get(j).getArticle()==null){
+                NoClassifier.add(new Distinct(phonesUnique.get(j)));
+                System.out.println(phonesUnique.get(j));
+            }
+
+        }
+        model.addAttribute("NoClassifier", NoClassifier);
+        model.addAttribute("artNaProdOst", uniquelist);
         model.addAttribute("article_imei", article_imeiList);
         model.addAttribute("promoCode", promoCode());
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
