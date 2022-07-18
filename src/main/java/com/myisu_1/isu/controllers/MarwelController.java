@@ -5,12 +5,10 @@ import com.myisu_1.isu.models.Marwel.ArtNaProdOst;
 import com.myisu_1.isu.models.Marwel.Article_Imei;
 import com.myisu_1.isu.models.Marwel.MarvelClassifier;
 import com.myisu_1.isu.repo.*;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -114,7 +110,6 @@ public class MarwelController {
                     sales.get(i).getDateSales().getTime()<=stop.getTime()&&
                     suppliersList.get(j).getImei().equals(sales.get(i).getImeis())){
                         if(sales.get(i).getNomenclature().contains("Xiaomi") || sales.get(i).getNomenclature().contains("Redmi") || sales.get(i).getNomenclature().contains("Mi True")){
-                           // System.out.println(sales.get(i).getNomenclature()+"--->"+sales.get(i).getImeis());
                             list.add(sales.get(i).getNomenclature());
                             phone.add(sales.get(i).getNomenclature());
                             for (int l = 0;l<marvelClassifierList.size();l++){
@@ -175,10 +170,10 @@ public class MarwelController {
         for (int j =0;j<uniquelist.size();j++){
             if(uniquelist.get(j).getArticle()==null){
                 NoClassifier.add(new Distinct(phonesUnique.get(j)));
-                System.out.println(phonesUnique.get(j));
-            }
+                }
 
         }
+        forRoma(start,stop);
         model.addAttribute("NoClassifier", NoClassifier);
         model.addAttribute("artNaProdOst", uniquelist);
         model.addAttribute("article_imei", article_imeiList);
@@ -188,6 +183,19 @@ public class MarwelController {
         return "Marwel";
     }
 
+    private void forRoma(Date start, Date stop) {
+        for (int j=0;j<suppliersList.size();j++) {
+            for (int i = 0; i < sales.size(); i++) {
+                if (sales.get(i).getDateSales().getTime() >= start.getTime() &&
+                        sales.get(i).getDateSales().getTime() <= stop.getTime() &&
+                        suppliersList.get(j).getImei().equals(sales.get(i).getImeis())) {
+                    if (sales.get(i).getNomenclature().contains("Xiaomi") || sales.get(i).getNomenclature().contains("Redmi") || sales.get(i).getNomenclature().contains("Mi True")) {
+                         System.out.println(sales.get(i).getNomenclature()+"--->"+sales.get(i).getImeis());
+                    }
+                }
+            }
+        }
+    }
 
 
     @PostMapping("/importRemainingPhonesMarwel")
