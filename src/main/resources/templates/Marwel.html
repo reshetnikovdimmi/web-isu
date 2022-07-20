@@ -206,10 +206,10 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="current : ${article_imei}">
+                        <tr th:each="current : ${Poco}">
 
-                            <td th:text = "${current.article}"></td>
-                            <td th:text = "${current.imei}"></td>
+                            <td th:text = "${current.Article}"></td>
+                            <td th:text = "${current.Sales}"></td>
 
                         </tbody>
                     </table>
@@ -226,10 +226,10 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="current : ${article_imei}">
+                        <tr th:each="current : ${Xiaomi}">
 
                             <td th:text = "${current.article}"></td>
-                            <td th:text = "${current.imei}"></td>
+                            <td th:text = "${current.Sales}"></td>
 
                         </tbody>
                     </table>

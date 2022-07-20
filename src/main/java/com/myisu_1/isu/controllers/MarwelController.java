@@ -35,6 +35,8 @@ public class MarwelController {
     private SalesRepositoriy salesRepositoriy;
     @Autowired
     private SuppliersRepositoriy suppliersRepositoriy;
+    @Autowired
+    private PhoneRepositoriy phoneRepositoriy;
 
     List<MarvelPromo> promoMarwel;
     List<RemainingPhonesMarwel> listRemainingPhonesMarwel;
@@ -42,9 +44,11 @@ public class MarwelController {
     List<Sales> sales;
     List<Article_Imei> article_imeiList;
     List<MarvelClassifier> marvelClassifierList;
+    List<Phone_Smart> phone_smarts;
     @GetMapping("/Marwel")
 
     public String Marwel(Model model) {
+        phone_smarts = phoneRepositoriy.findAll();
         marvelClassifierList = marvelClassifierRepositoriy.findAll();
         suppliersList = suppliersRepositoriy.findAll();
         sales = (List<Sales>) salesRepositoriy.findAll();
@@ -173,28 +177,92 @@ public class MarwelController {
                 }
 
         }
-        forRoma(start,stop);
+
         model.addAttribute("NoClassifier", NoClassifier);
         model.addAttribute("artNaProdOst", uniquelist);
         model.addAttribute("article_imei", article_imeiList);
         model.addAttribute("promoCode", promoCode());
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
+        model.addAttribute("Poco", forRoma(start,stop,"Poco"));
+        model.addAttribute("Xiaomi", forRoma(start,stop,"Xiaomi"));
 
         return "Marwel";
     }
 
-    private void forRoma(Date start, Date stop) {
+    private List<ArtNaProdOst> forRoma(Date start, Date stop, String poco) {
+        article_imeiList = new ArrayList<>();
+        HashSet<String> phone = new HashSet<>();
+        List<String> list = new ArrayList<>();
+        List<String> list1 = new ArrayList<>();
+        List<String> phonesUnique = new ArrayList<>();
+        List<ArtNaProdOst> uniquelist = new ArrayList<>();
+        List<Distinct> NoClassifier = new ArrayList<>();
         for (int j=0;j<suppliersList.size();j++) {
             for (int i = 0; i < sales.size(); i++) {
                 if (sales.get(i).getDateSales().getTime() >= start.getTime() &&
                         sales.get(i).getDateSales().getTime() <= stop.getTime() &&
                         suppliersList.get(j).getImei().equals(sales.get(i).getImeis())) {
                     if (sales.get(i).getNomenclature().contains("Xiaomi") || sales.get(i).getNomenclature().contains("Redmi") || sales.get(i).getNomenclature().contains("Mi True")) {
-                         System.out.println(sales.get(i).getNomenclature()+"--->"+sales.get(i).getImeis());
+                      //   System.out.println(sales.get(i).getNomenclature()+"--->"+sales.get(i).getImeis());
+                        list.add(sales.get(i).getNomenclature());
+                        phone.add(sales.get(i).getNomenclature());
                     }
                 }
             }
+            for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
+                    if(listRemainingPhonesMarwel.get(i).getModel().contains ("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Mi True")){
+                        list1.add(listRemainingPhonesMarwel.get(i).getModel());
+                        phone.add(listRemainingPhonesMarwel.get(i).getModel());
+                    }
+
+            }
+
+
         }
+        Map<String, Long> frequency = list.stream().collect(Collectors.groupingBy(
+                Function.identity(), Collectors.counting()));
+
+        Map<String, Long> frequency1 = list1.stream().collect(Collectors.groupingBy(
+                Function.identity(), Collectors.counting()));
+
+        Iterator<String> i = phone.iterator();
+        while (i.hasNext())
+            phonesUnique.add(i.next());
+
+        for (int j = 0;j<phonesUnique.size();j++) {
+            for (int q=0;q<phone_smarts.size();q++) {
+                if (phone_smarts.get(q).getPhone().equals(poco) && phone_smarts.get(q).getModel().equals(phonesUnique.get(j))) {
+                    ArtNaProdOst artNaProdOst = new ArtNaProdOst();
+                    for (Map.Entry<String, Long> item : frequency.entrySet()) {
+                        if (phonesUnique.get(j).equals(item.getKey())) {
+                            artNaProdOst.setSales(String.valueOf(item.getValue()));
+                        }
+                    }
+                    for (Map.Entry<String, Long> item : frequency1.entrySet()) {
+                        if (phonesUnique.get(j).equals(item.getKey())) {
+                            artNaProdOst.setRemains(String.valueOf(item.getValue()));
+                        }
+                    }
+                    for (int l = 0; l < marvelClassifierList.size(); l++) {
+                        if (phonesUnique.get(j).equals(marvelClassifierList.get(l).getRainbowNomenclature())) {
+                            artNaProdOst.setArticle(marvelClassifierList.get(l).getManufacturersArticle());
+                            artNaProdOst.setName(marvelClassifierList.get(l).getName());
+                        }
+                    }
+
+                    uniquelist.add(artNaProdOst);
+                }
+
+            }
+
+        }
+        for (int z =0;z<uniquelist.size();z++){
+            if(uniquelist.get(z).getArticle()==null){
+                System.out.println(phonesUnique.get(z));
+            }
+
+        }
+      return uniquelist;
     }
 
 
