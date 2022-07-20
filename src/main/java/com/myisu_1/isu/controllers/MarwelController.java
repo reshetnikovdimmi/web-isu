@@ -245,11 +245,11 @@ public class MarwelController {
                     }
                     for (int l = 0; l < marvelClassifierList.size(); l++) {
                         if (phonesUnique.get(j).equals(marvelClassifierList.get(l).getRainbowNomenclature())) {
-                            artNaProdOst.setArticle(marvelClassifierList.get(l).getManufacturersArticle());
+
                             artNaProdOst.setName(marvelClassifierList.get(l).getName());
                         }
                     }
-
+                    artNaProdOst.setArticle(phonesUnique.get(j));
                     uniquelist.add(artNaProdOst);
                 }
 
