@@ -246,10 +246,10 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="current : ${article_imei}">
+                        <tr th:each="current : ${forRomaShares}">
 
-                            <td th:text = "${current.article}"></td>
-                            <td th:text = "${current.imei}"></td>
+                            <td th:text = "${current.phone}"></td>
+                            <td th:text = "${current.quantity}"></td>
 
                         </tbody>
                     </table>

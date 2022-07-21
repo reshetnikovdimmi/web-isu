@@ -3,6 +3,7 @@ package com.myisu_1.isu.controllers;
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.models.Marwel.ArtNaProdOst;
 import com.myisu_1.isu.models.Marwel.Article_Imei;
+import com.myisu_1.isu.models.Marwel.ForRoma;
 import com.myisu_1.isu.models.Marwel.MarvelClassifier;
 import com.myisu_1.isu.repo.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -185,8 +186,44 @@ public class MarwelController {
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
         model.addAttribute("Poco", forRoma(start,stop,"Poco"));
         model.addAttribute("Xiaomi", forRoma(start,stop,"Xiaomi"));
+        model.addAttribute("forRomaShares", forRomaShares());
 
         return "Marwel";
+    }
+
+    private Object forRomaShares() {
+        List<ForRoma> listforRoma = new ArrayList<>();
+
+        List<String> listDistinct = new ArrayList<>();
+        HashSet<String> hashDistinct = new HashSet<>();
+        for(int i=0;i<phone_smarts.size();i++){
+            hashDistinct.add(phone_smarts.get(i).getPhone());
+        }
+        Iterator<String> i = hashDistinct.iterator();
+        while (i.hasNext())
+
+            listDistinct.add(i.next());
+        for (int j=0;j<listDistinct.size();j++){
+            ForRoma forRoma = new ForRoma();
+            int cou =0;
+            forRoma.setPhone(listDistinct.get(j));
+            for (int l=0;l<phone_smarts.size();l++){
+                if(listDistinct.get(j).equals(phone_smarts.get(l).getPhone())){
+                    for( int z=0;z<listRemainingPhonesMarwel.size();z++){
+                        if (phone_smarts.get(l).getModel().equals(listRemainingPhonesMarwel.get(z).getModel())){
+                                                        cou++;
+                        }
+
+                    }
+
+                }
+            }
+            forRoma.setQuantity(String.valueOf(cou++));
+            listforRoma.add(forRoma);
+        }
+
+
+        return  listforRoma;
     }
 
     private List<ArtNaProdOst> forRoma(Date start, Date stop, String poco) {
