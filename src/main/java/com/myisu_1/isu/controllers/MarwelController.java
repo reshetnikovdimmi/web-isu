@@ -38,6 +38,8 @@ public class MarwelController {
     private SuppliersRepositoriy suppliersRepositoriy;
     @Autowired
     private PhoneRepositoriy phoneRepositoriy;
+    @Autowired
+    private PriceRepositoriy priceRepositoriy;
 
     List<MarvelPromo> promoMarwel;
     List<RemainingPhonesMarwel> listRemainingPhonesMarwel;
@@ -46,9 +48,12 @@ public class MarwelController {
     List<Article_Imei> article_imeiList;
     List<MarvelClassifier> marvelClassifierList;
     List<Phone_Smart> phone_smarts;
+    List<String> listDistinct;
+    List<retail_price> retail_prices;
     @GetMapping("/Marwel")
 
     public String Marwel(Model model) {
+        retail_prices = (List<retail_price>) priceRepositoriy.findAll();
         phone_smarts = phoneRepositoriy.findAll();
         marvelClassifierList = marvelClassifierRepositoriy.findAll();
         suppliersList = suppliersRepositoriy.findAll();
@@ -184,20 +189,45 @@ public class MarwelController {
         model.addAttribute("article_imei", article_imeiList);
         model.addAttribute("promoCode", promoCode());
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
-        model.addAttribute("Poco", forRoma(start,stop,"Poco"));
-        model.addAttribute("Xiaomi", forRoma(start,stop,"Xiaomi"));
+        model.addAttribute("Poco", forRoma(start,stop, "Poco", "Poco","Poco"));
+        model.addAttribute("Xiaomi", forRoma(start,stop,"Xiaomi","Mi True","Redmi"));
         model.addAttribute("forRomaShares", forRomaShares());
+        model.addAttribute("noPhone", noPhone());
 
         return "Marwel";
+    }
+
+    private Object noPhone() {
+        List<Distinct> listDistinct = new ArrayList<>();
+        HashSet<String> hashDistinct = new HashSet<>();
+        List<String> phone = new ArrayList<>();
+        List<String> remains = new ArrayList<>();
+        for (int i=0;i<phone_smarts.size();i++){
+            phone.add(phone_smarts.get(i).getModel());
+        }
+        for (int i=0;i<listRemainingPhonesMarwel.size();i++){
+            remains.add(listRemainingPhonesMarwel.get(i).getModel());
+            if (!phone.contains(listRemainingPhonesMarwel.get(i).getModel())){
+                     hashDistinct.add(listRemainingPhonesMarwel.get(i).getModel());
+            }
+        }
+        Iterator<String> i = hashDistinct.iterator();
+        while (i.hasNext())
+
+            listDistinct.add(new Distinct(i.next()));
+        return  listDistinct;
     }
 
     private Object forRomaShares() {
         List<ForRoma> listforRoma = new ArrayList<>();
 
-        List<String> listDistinct = new ArrayList<>();
+        listDistinct = new ArrayList<>();
         HashSet<String> hashDistinct = new HashSet<>();
         for(int i=0;i<phone_smarts.size();i++){
-            hashDistinct.add(phone_smarts.get(i).getPhone());
+            if(!phone_smarts.get(i).getPhone().isEmpty()){
+                hashDistinct.add(phone_smarts.get(i).getPhone());
+            }
+
         }
         Iterator<String> i = hashDistinct.iterator();
         while (i.hasNext())
@@ -206,27 +236,37 @@ public class MarwelController {
         for (int j=0;j<listDistinct.size();j++){
             ForRoma forRoma = new ForRoma();
             int cou =0;
+            int couPrices =0;
             forRoma.setPhone(listDistinct.get(j));
             for (int l=0;l<phone_smarts.size();l++){
                 if(listDistinct.get(j).equals(phone_smarts.get(l).getPhone())){
                     for( int z=0;z<listRemainingPhonesMarwel.size();z++){
                         if (phone_smarts.get(l).getModel().equals(listRemainingPhonesMarwel.get(z).getModel())){
                                                         cou++;
-                        }
+                            for( int x=0;x<retail_prices.size();x++){
+if(listRemainingPhonesMarwel.get(z).getModel().equals(retail_prices.get(x).getName())){
+    couPrices = couPrices + (int) Double.parseDouble(retail_prices.get(x).getPrice().replaceAll(",",".").replaceAll("\\s+",""));
+}
 
+
+
+                            }
+                        }
                     }
 
                 }
+
             }
+            System.out.println(couPrices);
+            forRoma.setAmount(String.valueOf(couPrices));
             forRoma.setQuantity(String.valueOf(cou++));
             listforRoma.add(forRoma);
         }
 
-
         return  listforRoma;
     }
 
-    private List<ArtNaProdOst> forRoma(Date start, Date stop, String poco) {
+    private List<ArtNaProdOst> forRoma(Date start, Date stop, String xiaomi, String poco,String redmi) {
         article_imeiList = new ArrayList<>();
         HashSet<String> phone = new HashSet<>();
         List<String> list = new ArrayList<>();
@@ -240,22 +280,19 @@ public class MarwelController {
                         sales.get(i).getDateSales().getTime() <= stop.getTime() &&
                         suppliersList.get(j).getImei().equals(sales.get(i).getImeis())) {
                     if (sales.get(i).getNomenclature().contains("Xiaomi") || sales.get(i).getNomenclature().contains("Redmi") || sales.get(i).getNomenclature().contains("Mi True")) {
-                      //   System.out.println(sales.get(i).getNomenclature()+"--->"+sales.get(i).getImeis());
                         list.add(sales.get(i).getNomenclature());
                         phone.add(sales.get(i).getNomenclature());
                     }
                 }
             }
-            for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
-                    if(listRemainingPhonesMarwel.get(i).getModel().contains ("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Mi True")){
-                        list1.add(listRemainingPhonesMarwel.get(i).getModel());
-                        phone.add(listRemainingPhonesMarwel.get(i).getModel());
-                    }
-
-            }
-
-
         }
+        for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
+            if(listRemainingPhonesMarwel.get(i).getModel().contains ("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Mi True")){
+                list1.add(listRemainingPhonesMarwel.get(i).getModel());
+                phone.add(listRemainingPhonesMarwel.get(i).getModel());
+            }
+        }
+
         Map<String, Long> frequency = list.stream().collect(Collectors.groupingBy(
                 Function.identity(), Collectors.counting()));
 
@@ -267,8 +304,8 @@ public class MarwelController {
             phonesUnique.add(i.next());
 
         for (int j = 0;j<phonesUnique.size();j++) {
-            for (int q=0;q<phone_smarts.size();q++) {
-                if (phone_smarts.get(q).getPhone().equals(poco) && phone_smarts.get(q).getModel().equals(phonesUnique.get(j))) {
+
+                if (phonesUnique.get(j).contains(poco) ||phonesUnique.get(j).contains(xiaomi) ||phonesUnique.get(j).contains(redmi)) {
                     ArtNaProdOst artNaProdOst = new ArtNaProdOst();
                     for (Map.Entry<String, Long> item : frequency.entrySet()) {
                         if (phonesUnique.get(j).equals(item.getKey())) {
@@ -278,6 +315,7 @@ public class MarwelController {
                     for (Map.Entry<String, Long> item : frequency1.entrySet()) {
                         if (phonesUnique.get(j).equals(item.getKey())) {
                             artNaProdOst.setRemains(String.valueOf(item.getValue()));
+
                         }
                     }
                     for (int l = 0; l < marvelClassifierList.size(); l++) {
@@ -290,15 +328,17 @@ public class MarwelController {
                     uniquelist.add(artNaProdOst);
                 }
 
-            }
+
 
         }
         for (int z =0;z<uniquelist.size();z++){
-            if(uniquelist.get(z).getArticle()==null){
-                System.out.println(phonesUnique.get(z));
+            if(uniquelist.get(z).getArticle().contains("Poco")  && poco.equals("Mi True")){
+                uniquelist.remove(z);
+
             }
 
         }
+
       return uniquelist;
     }
 

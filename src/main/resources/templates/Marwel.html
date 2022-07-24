@@ -43,6 +43,7 @@
         <div id="home" class="container tab-pane active"><br>
             <h3>HOME</h3>
             <div class="row">
+                <div class="col-6 themed-grid-col">
                 <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
                 <table class="table table-dark table-hover">
                     <thead>
@@ -69,8 +70,30 @@
                     </tbody>
                 </table>
 
+                </div>
+                <div class="col-6 themed-grid-col">
+                    <h5 class="mt-4">НОВЫЕ ТЕЛЕФОНЫ</h5>
+                    <table class="table table-dark table-hover">
+                        <thead>
+                        <tr>
+
+                            <th>models</th>
 
 
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="current : ${noPhone}">
+
+                            <td th:text = "${current.one}"></td>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-3 themed-grid-col"></div>
@@ -195,12 +218,14 @@
             <h3>Отчет для Ромы</h3>
             <div class="row mb-3">
                 <div class="col-6 col-md-4 themed-grid-col">
+                    <h6>POCO</h6>
                     <table class="table table-dark table-hover">
                         <thead>
                         <tr>
 
                             <th>Артикул производителя</th>
-                            <th>IMEI</th>
+                            <th>Продажи</th>
+                            <th>Остатки</th>
 
                         </tr>
                         </thead>
@@ -210,17 +235,19 @@
 
                             <td th:text = "${current.Article}"></td>
                             <td th:text = "${current.Sales}"></td>
-
+                            <td th:text = "${current.Remains}"></td>
                         </tbody>
                     </table>
                 </div>
                 <div class="col-6 col-md-4 themed-grid-col">
+                    <h6>XIAOMI</h6>
                     <table class="table table-dark table-hover">
                         <thead>
                         <tr>
 
                             <th>Артикул производителя</th>
-                            <th>IMEI</th>
+                            <th>Продажи</th>
+                            <th>Остатки</th>
 
                         </tr>
                         </thead>
@@ -230,16 +257,19 @@
 
                             <td th:text = "${current.article}"></td>
                             <td th:text = "${current.Sales}"></td>
+                            <td th:text = "${current.Remains}"></td>
 
                         </tbody>
                     </table>
                 </div>
                 <div class="col-6 col-md-4 themed-grid-col">
+                    <h6>В ДОЛЯХ</h6>
                     <table class="table table-dark table-hover">
                         <thead>
                         <tr>
 
                             <th>Артикул производителя</th>
+                            <th>IMEI</th>
                             <th>IMEI</th>
 
                         </tr>
@@ -250,7 +280,7 @@
 
                             <td th:text = "${current.phone}"></td>
                             <td th:text = "${current.quantity}"></td>
-
+                            <td th:text = "${current.amount}"></td>
                         </tbody>
                     </table>
                 </div>
