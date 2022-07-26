@@ -220,49 +220,57 @@ public class MarwelController {
 
     private Object forRomaShares() {
         List<ForRoma> listforRoma = new ArrayList<>();
-
+        List<Integer> sumSum = new ArrayList<>();
+        List<Integer> resmanisSum = new ArrayList<>();
         listDistinct = new ArrayList<>();
         HashSet<String> hashDistinct = new HashSet<>();
         for(int i=0;i<phone_smarts.size();i++){
             if(!phone_smarts.get(i).getPhone().isEmpty()){
                 hashDistinct.add(phone_smarts.get(i).getPhone());
             }
-
         }
         Iterator<String> i = hashDistinct.iterator();
         while (i.hasNext())
 
             listDistinct.add(i.next());
         for (int j=0;j<listDistinct.size();j++){
-            ForRoma forRoma = new ForRoma();
+
             int cou =0;
             int couPrices =0;
-            forRoma.setPhone(listDistinct.get(j));
+
             for (int l=0;l<phone_smarts.size();l++){
                 if(listDistinct.get(j).equals(phone_smarts.get(l).getPhone())){
                     for( int z=0;z<listRemainingPhonesMarwel.size();z++){
                         if (phone_smarts.get(l).getModel().equals(listRemainingPhonesMarwel.get(z).getModel())){
                                                         cou++;
                             for( int x=0;x<retail_prices.size();x++){
-if(listRemainingPhonesMarwel.get(z).getModel().equals(retail_prices.get(x).getName())){
-    couPrices = couPrices + (int) Double.parseDouble(retail_prices.get(x).getPrice().replaceAll(",",".").replaceAll("\\s+",""));
-}
-
-
-
+                                if(listRemainingPhonesMarwel.get(z).getModel().equals(retail_prices.get(x).getName())){
+                                    couPrices = couPrices + (int) Double.parseDouble(retail_prices.get(x).getPrice().replaceAll(",",".").replaceAll("\\s+",""));
+                                }
                             }
                         }
                     }
-
                 }
-
             }
-            System.out.println(couPrices);
-            forRoma.setAmount(String.valueOf(couPrices));
-            forRoma.setQuantity(String.valueOf(cou++));
-            listforRoma.add(forRoma);
+
+            sumSum.add(couPrices);
+
+            resmanisSum.add(cou);
+
         }
 
+        Double c = Double.valueOf(sumSum.stream().mapToLong(Integer::longValue ).sum());
+        Double b = Double.valueOf(resmanisSum.stream().mapToLong(Integer::longValue).sum());
+
+        for (int j=0;j<listDistinct.size();j++){
+            ForRoma forRoma = new ForRoma();
+            forRoma.setPhone(listDistinct.get(j));
+            forRoma.setQuantity(String.valueOf(resmanisSum.get(j)));
+            forRoma.setAmount(String.valueOf(sumSum.get(j)));
+            forRoma.setThings(String.format("%.2f",sumSum.get(j)/c*100)+"%");
+            forRoma.setRubles(String.format("%.2f",resmanisSum.get(j)/b*100)+"%");
+            listforRoma.add(forRoma);
+        }
         return  listforRoma;
     }
 
@@ -328,8 +336,6 @@ if(listRemainingPhonesMarwel.get(z).getModel().equals(retail_prices.get(x).getNa
                     uniquelist.add(artNaProdOst);
                 }
 
-
-
         }
         for (int z =0;z<uniquelist.size();z++){
             if(uniquelist.get(z).getArticle().contains("Poco")  && poco.equals("Mi True")){
@@ -341,7 +347,6 @@ if(listRemainingPhonesMarwel.get(z).getModel().equals(retail_prices.get(x).getNa
 
       return uniquelist;
     }
-
 
     @PostMapping("/importRemainingPhonesMarwel")
     public String importRemainingPhones(@RequestParam("importRemainingPhonesMarwel") MultipartFile importRemainingPhonesMarwel, Model model) throws IOException, ParseException {

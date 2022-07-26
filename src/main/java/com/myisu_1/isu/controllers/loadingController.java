@@ -554,9 +554,11 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         return "loading";
     }
     private Date dateString(String stringCellValue) throws ParseException {
+
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss", Locale.ENGLISH);
         date = formatter.parse(stringCellValue);
+
         return date;
     }
 
