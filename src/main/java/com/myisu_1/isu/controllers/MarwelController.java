@@ -1,10 +1,7 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.*;
-import com.myisu_1.isu.models.Marwel.ArtNaProdOst;
-import com.myisu_1.isu.models.Marwel.Article_Imei;
-import com.myisu_1.isu.models.Marwel.ForRoma;
-import com.myisu_1.isu.models.Marwel.MarvelClassifier;
+import com.myisu_1.isu.models.Marwel.*;
 import com.myisu_1.isu.repo.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -40,8 +37,12 @@ public class MarwelController {
     private PhoneRepositoriy phoneRepositoriy;
     @Autowired
     private PriceRepositoriy priceRepositoriy;
+    @Autowired
+    private PromoRepositoriy promoRepositoriy;
+
 
     List<MarvelPromo> promoMarwel;
+    List<price_promo> price_promoList;
     List<RemainingPhonesMarwel> listRemainingPhonesMarwel;
     List<Suppliers> suppliersList;
     List<Sales> sales;
@@ -50,18 +51,92 @@ public class MarwelController {
     List<Phone_Smart> phone_smarts;
     List<String> listDistinct;
     List<retail_price> retail_prices;
+
+
+
     @GetMapping("/Marwel")
 
     public String Marwel(Model model) {
+        price_promoList = (List<price_promo>) promoRepositoriy.findAll();
         retail_prices = (List<retail_price>) priceRepositoriy.findAll();
         phone_smarts = phoneRepositoriy.findAll();
         marvelClassifierList = marvelClassifierRepositoriy.findAll();
         suppliersList = suppliersRepositoriy.findAll();
         sales = (List<Sales>) salesRepositoriy.findAll();
-
+        promoMarwel = (List<MarvelPromo>) marwelPromoRepositoriy.findAll();
         model.addAttribute("promoCode", promoCode());
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
         return "Marwel";
+    }
+    @PostMapping("/promoCodeDistinct")
+    public String promoCodeDistinct(@RequestParam String promoCode,Model model) {
+
+        String[] words;
+        List<MarvelReporting> marvelReportings = new ArrayList<>();
+
+        for (int i=0;i<promoMarwel.size();i++){
+
+            if (promoCode.equals(promoMarwel.get(i).getPromoCode())){
+
+                    words = promoMarwel.get(i).getArticleNumber().toUpperCase().replace("+"," ").replace("GB","").split(" ");
+                    for (int j=0;j<sales.size();j++){
+                        if(sales.get(j).getDateSales().getTime()>=promoMarwel.get(i).getStartPromo().getTime() && sales.get(j).getDateSales().getTime()<=promoMarwel.get(i).getEndPromo().getTime()){
+                            for (int l = 0;l<suppliersList.size();l++){
+                                if(suppliersList.get(l).getImei().equals(sales.get(j).getImeis()) &&
+                                        suppliersList.get(l).getSuppliers().equals("МАРВЕЛ КТ ООО") &&
+                                        marvelPromSales(sales.get(j).getDateSales(), words,sales.get(j).getNomenclature())==true){
+System.out.println(sales.get(j).getNomenclature()+"--"+sales.get(j).getImeis());
+marvelReportings.add(new MarvelReporting(sales.get(j).getNomenclature(),sales.get(j).getImeis(),String.valueOf(sales.get(j).getDateSales()),promoMarwel.get(i).getStartPromo()+"<-->"+promoMarwel.get(i).getEndPromo(),promoMarwel.get(i).getPromoCode()));
+
+
+                                }
+                            }
+                        }
+                    }
+
+
+
+
+
+
+            }
+        }
+        model.addAttribute("marvelReportings", marvelReportings);
+        model.addAttribute("promoCodeDistinct", promoCodeDistinct());
+                return  "Marwel";
+    }
+
+    private boolean marvelPromSales(Date dateSales, String[] words, String nomenclature) {
+        String[] nomenclatures;
+
+        int cou = 0;
+        nomenclatures = nomenclature.replaceAll("/"," ").toUpperCase().replaceAll("GB","").split(" ");
+
+
+        for (String nomenclaturen : nomenclatures){
+
+
+
+            for (String word : words) {
+
+                if (word.equals(nomenclaturen)){
+
+                    cou++;
+
+                }
+
+            }
+       }
+        if(cou==words.length){
+for (int i = 0; i<price_promoList.size();i++){
+    if (dateSales.getTime()>=price_promoList.get(i).getStartPromo().getTime() && dateSales.getTime()<=price_promoList.get(i).getEndPromo().getTime() && nomenclature.contains(price_promoList.get(i).getModels())){
+        return true;
+    }
+}
+
+        }
+
+        return false;
     }
 
     private List<Distinct> promoCodeDistinct() {
@@ -79,7 +154,7 @@ public class MarwelController {
     }
 
     private List<MarvelPromo> promoCode() {
-        promoMarwel = (List<MarvelPromo>) marwelPromoRepositoriy.findAll();
+
         List<MarvelPromo> promoCode = new ArrayList<>();
 
         for (int i = 0; i < promoMarwel.size(); i++) {

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/CSS/bonuses.css}" />
+    <link rel="stylesheet" th:href="@{/CSS/promo.css}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -296,8 +296,10 @@
         </div>
         <div id="menu4" class="container tab-pane fade"><br>
             <h3>Promo Marwel</h3>
-            <div class="row">
+            <div class="row mb-3 text-center">
+                <div class="col-6 col-md-4 themed-grid-col">
                 <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
+
                 <table class="table table-dark table-hover">
                     <thead>
                     <tr>
@@ -311,16 +313,42 @@
                     <tbody>
 
                     <tr th:each="current : ${promoCodeDistinct}">
-
-                        <td th:text = "${current.one}"></td>
-
-
+                        <form id="form" action="/promoCodeDistinct" method="post">
+                            <td th:text = "${current.one}"></td>
+                            <td> <button type="submit" id="promoCode" name="promoCode" th:value="${current.one}" >Показать</button></td>
+                        </form>
 
                     </tbody>
                 </table>
+                </div>
+                <div class="col-md-8 themed-grid-col">
+                    <h5 class="mt-4">ОТЧЕТЫ ПО ПРОМО ДЛЯ ЗАГРУЗКИ</h5>
 
+                    <table class="table table-dark table-hover">
+                        <thead>
+                        <tr>
 
+                            <th>Модель</th>
+                            <th>IMEI</th>
+                            <th>дата продажи</th>
+                            <th>период промо</th>
+                            <th>код промо промо</th>
 
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="current : ${marvelReportings}">
+
+                                <td th:text = "${current.name}"></td>
+                                <td th:text = "${current.imei}"></td>
+                                <td th:text = "${current.dataSale}"></td>
+                                <td th:text = "${current.period}"></td>
+                                <td th:text = "${current.promoCode}"></td>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
     </div>
