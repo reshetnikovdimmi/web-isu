@@ -488,14 +488,22 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
             RemainingPhones remainingPhones = new RemainingPhones();
             String Remaining[] = new String[shopIskra.size()];
             for (int i = 0; i < shopIskra.size(); i++) {
-                String h;
+                String h = null;
                 for (int j = 0; j < numberOFcolumns; j++) {
                     if (worksheet.getRow(0).getCell(j).getStringCellValue().equals(shopIskra.get(i)) || worksheet.getRow(0).getCell(j).getStringCellValue().equals(shopRaduga.get(i))) {
                         XSSFRow row = worksheet.getRow(l);
+                        System.out.println(row.getCell(j).getCellType());
                         if (row.getCell(j).getCellType() == CellType.STRING) {
                             h = row.getCell(j).getStringCellValue();
+                            System.out.println(h);
+                            System.out.println(j);
                         } else {
-                            h = String.valueOf(row.getCell(j).getNumericCellValue());
+                            try {
+                                h = String.valueOf(row.getCell(j).getNumericCellValue());   
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
                         }
                         Remaining[i] = h;
                     }

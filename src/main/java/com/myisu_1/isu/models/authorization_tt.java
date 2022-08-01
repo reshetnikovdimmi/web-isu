@@ -20,20 +20,14 @@ public class authorization_tt {
     private String simBee;
     private String simMf;
     private String shopIskra;
+    private String shopRarus;
+
+
 
     public authorization_tt() {
     }
 
-    public authorization_tt(String name) {
-        this.name = name;
-    }
-
-    public authorization_tt(String name, String shopIskra) {
-        this.name = name;
-        this.shopIskra = shopIskra;
-    }
-
-    public authorization_tt(int id, String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra) {
+    public authorization_tt(int id, String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra, String shopRarus) {
         this.id = id;
         this.login = login;
         this.pasword = pasword;
@@ -45,6 +39,7 @@ public class authorization_tt {
         this.simBee = simBee;
         this.simMf = simMf;
         this.shopIskra = shopIskra;
+        this.shopRarus = shopRarus;
     }
 
     public String getShopIskra() {
@@ -133,5 +128,12 @@ public class authorization_tt {
 
     public void setSimMf(String simMf) {
         this.simMf = simMf;
+    }
+    public String getShopRarus() {
+        return shopRarus;
+    }
+
+    public void setShopRarus(String shopRarus) {
+        this.shopRarus = shopRarus;
     }
 }
