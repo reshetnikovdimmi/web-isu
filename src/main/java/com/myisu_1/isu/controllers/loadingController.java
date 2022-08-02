@@ -126,14 +126,26 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
             listOFgoods1.setName(row.getCell(2).getStringCellValue());
             listOFgoods1.setBrend(row.getCell(4).getStringCellValue());
             listOFgoods1.setModel(row.getCell(5).getStringCellValue());
-            if(row.getCell(6).getCellType() == CellType.STRING) {
+            if (row.getCell(6).getCellType() == CellType.STRING) {
                 listOFgoods1.setMatrix(row.getCell(6).getStringCellValue());
-            }else{
+            } else {
                 listOFgoods1.setMatrix(String.valueOf(row.getCell(6).getNumericCellValue()));
             }
             listOFgoods1.setPriceZak((int) row.getCell(8).getNumericCellValue());
             listOFgoods1.setPrice((int) row.getCell(11).getNumericCellValue());
-            listOFgoods1.setPricePromo((int) row.getCell(12).getNumericCellValue());
+            if(row.getCell(12).getCellType() == CellType.NUMERIC) {
+                listOFgoods1.setPricePromo((int) row.getCell(12).getNumericCellValue());
+                 }else if(row.getCell(12).getStringCellValue().length()==0) {
+                listOFgoods1.setPricePromo(0);
+            }else{
+                try {
+                    listOFgoods1.setPricePromo(Integer.parseInt(row.getCell(12).getStringCellValue()));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
             listOFgoods1.setStartPromo( row.getCell(13).getDateCellValue());
             listOFgoods1.setEndPromo( row.getCell(14).getDateCellValue());
             if(row.getCell(15).getCellType() == CellType.NUMERIC) {
@@ -143,10 +155,10 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
                 System.out.println(g+"--"+g.length());
 
                 try {
-                    listOFgoods1.setDiscountUE((int) Double.parseDouble(row.getCell(15).getStringCellValue().replace("\\s+","")));
+                    listOFgoods1.setDiscountUE((int) Double.parseDouble(row.getCell(15).getStringCellValue().trim().replace(" ","")));
 
                 } catch (NumberFormatException e) {
-                    listOFgoods1.setDiscountUE(666);
+                    listOFgoods1.setDiscountUE(404);
                     e.printStackTrace();
                 }
 
