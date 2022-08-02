@@ -151,16 +151,15 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
             if(row.getCell(15).getCellType() == CellType.NUMERIC) {
             listOFgoods1.setDiscountUE((int) row.getCell(15).getNumericCellValue());
             }else if(row.getCell(15).getCellType() == CellType.STRING){
+
                 String g = row.getCell(15).getStringCellValue().trim().replaceAll(" ","");
-                System.out.println(g+"--"+g.length());
+                g = g.replaceAll("[\\s|\\u00A0]+", "");
+                System.out.println(g.trim() +"--"+g.length());
 
-                try {
-                    listOFgoods1.setDiscountUE((int) Double.parseDouble(row.getCell(15).getStringCellValue().trim().replace(" ","")));
 
-                } catch (NumberFormatException e) {
-                    listOFgoods1.setDiscountUE(404);
-                    e.printStackTrace();
-                }
+                    listOFgoods1.setDiscountUE((int) Double.parseDouble(g.replace(",",".")));
+
+
 
 
             }else{
