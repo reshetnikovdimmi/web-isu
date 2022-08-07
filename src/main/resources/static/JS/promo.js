@@ -29,7 +29,7 @@ $('#search_models').chosen({
 	});
 
 
-     $('#models').on('change', function(){
+$('#models').on('change', function(){
          var mode = $(this).val();
 
 s = mode.replace("/", "_");
@@ -46,29 +46,30 @@ console.log(s);
 
                 });
         });
- $('.table .btn').on('click', function(event){
-                 event.preventDefault();
 
-                 var href = $(this).attr("href");
+             $('.table .btn').on('click', function(event){
+                             event.preventDefault();
 
-                 $.get(href, function(promo, status){
-                    console.log(promo.id);
-                    $('#IDupdate').val(promo.id);
-                    $('#brend').val(promo.brend);
-                    $('#models').html('<option value="' + promo.models + '">' + promo.models + '</option>');
-                    $('#price').val(promo.price);
-                    $('#Promo_price').val(promo.price_promo);
-                    $('#start_date').val(promo.startPromo);
-                    $('#end_date').val(promo.endPromo);
-                    $('#Marwel').val(promo.marwel);
-                    $('#TFN').val(promo.tfn);
-                    $('#ВВП').val(promo.vvp);
-                    $('#Merlion').val(promo.merlion);
-                 });
+                             var href = $(this).attr("href");
+
+                             $.get(href, function(promo, status){
+                                console.log(promo.id);
+                                $('#IDupdate').val(promo.id);
+                                $('#brend').val(promo.brend);
+                                $('#models').html('<option value="' + promo.models + '">' + promo.models + '</option>');
+                                $('#price').val(promo.price);
+                                $('#Promo_price').val(promo.price_promo);
+                                $('#start_date').val(promo.startPromo);
+                                $('#end_date').val(promo.endPromo);
+                                $('#Marwel').val(promo.marwel);
+                                $('#TFN').val(promo.tfn);
+                                $('#ВВП').val(promo.vvp);
+                                $('#Merlion').val(promo.merlion);
+                             });
 
 
 
-            });
+                        });
  });
 
 
