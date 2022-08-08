@@ -70,8 +70,8 @@
                 <div class="row mb-3 text-center"> Загрузка продажи 6 мес</div>
                 <div class="row mb-3 text-center">
 
-                        <form th:action="@{/import}" method="post" enctype="multipart/form-data">
-                            <input type="file" th:name="file" />
+                        <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="sales_6" />
                             <input th:type="submit" value="Import" />
                         </form>
 
@@ -82,8 +82,8 @@
                 <div class="row mb-3 text-center"> Загрузка продажи 1 мес</div>
                 <div class="row mb-3 text-center">
 
-                        <form th:action="@{/import}" method="post" enctype="multipart/form-data">
-                            <input type="file" th:name="file" />
+                        <form th:action="@{/sales_1}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="sales_1" />
                             <input th:type="submit" value="Import" />
                         </form>
 
@@ -94,8 +94,8 @@
                 <div class="row mb-3 text-center"> Загрузка остатки</div>
                 <div class="row mb-3 text-center">
 
-                        <form th:action="@{/import}" method="post" enctype="multipart/form-data">
-                            <input type="file" th:name="file" />
+                        <form th:action="@{/remainsSIM}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="remainsSIM" />
                             <input th:type="submit" value="Import" />
                         </form>
 
@@ -106,8 +106,8 @@
                 <div class="row mb-3 text-center"> Загрузка остатки Рарус</div>
                 <div class="row mb-3 text-center">
 
-                        <form th:action="@{/import}" method="post" enctype="multipart/form-data">
-                            <input type="file" th:name="file" />
+                        <form th:action="@{/remainsSimRsrus}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="remainsSimRsrus" />
                             <input th:type="submit" value="Import" />
                         </form>
 
