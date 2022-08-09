@@ -64,6 +64,7 @@
 
     <main class="px-3">
         <h6>Таблица SIM and RTK</h6>
+        <h2 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'" /></h2>
         <p class="lead">
         <div class="row mb-3 text-center">
             <div class="col-6 col-md-3 themed-grid-col">
@@ -106,8 +107,8 @@
                 <div class="row mb-3 text-center"> Загрузка остатки Рарус</div>
                 <div class="row mb-3 text-center">
 
-                        <form th:action="@{/remainsSimRsrus}" method="post" enctype="multipart/form-data">
-                            <input type="file" th:name="remainsSimRsrus" />
+                        <form th:action="@{/remainsSimRarus}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="remainsSimRarus" />
                             <input th:type="submit" value="Import" />
                         </form>
 
@@ -119,6 +120,7 @@
         </p>
         <p class="lead">
         <form  action="/add_SIM" method="post">
+
         <div class="row mb-3 text-center">
 
                 <div class="col-6 col-md-2 themed-grid-col">
