@@ -20,6 +20,9 @@ document.querySelector('#Shop').innerHTML = href.substr(-7, 5).charCodeAt();
 
 
      });
+
+
+
       $('.table_t2m .btn').on('click', function(event){
                           event.preventDefault();
 
@@ -27,10 +30,10 @@ document.querySelector('#Shop').innerHTML = href.substr(-7, 5).charCodeAt();
 
 
                           $.get(href, function(SIM, status){
-                             var data = JSON.parse(SIM);
-                             console.log(data.shop);
 
-     document.querySelector('#Shop').innerHTML = data[1].shop;
+                             console.log(SIM);
+
+     //document.querySelector('#Shop').innerHTML = data[1].shop;
 
                           });
 
@@ -38,5 +41,6 @@ document.querySelector('#Shop').innerHTML = href.substr(-7, 5).charCodeAt();
 
 
           });
+
 
  });
