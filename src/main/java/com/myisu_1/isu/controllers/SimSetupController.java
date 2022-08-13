@@ -20,7 +20,7 @@ import java.util.*;
 
 @Controller
 public class SimSetupController {
-List<SimAndRtkTable> simAndRtkTables;
+    List<SimAndRtkTable> simAndRtkTables;
     @Autowired
     private SimAndRtkTableRepositoriy simAndRtkTableRepositoriy;
     @Autowired
@@ -50,9 +50,9 @@ List<SimAndRtkTable> simAndRtkTables;
         System.out.println(IDupdateSIM);
 
         if (IDupdateSIM != 0) {
-            simAndRtkTableRepositoriy.save((new SimAndRtkTable(IDupdateSIM,view,nameSpark,nameRarus,distributionModel,toOrder)));
-        }else {
-            simAndRtkTableRepositoriy.save((new SimAndRtkTable(view,nameSpark,nameRarus,distributionModel,toOrder)));
+            simAndRtkTableRepositoriy.save((new SimAndRtkTable(IDupdateSIM, view, nameSpark, nameRarus, distributionModel, toOrder)));
+        } else {
+            simAndRtkTableRepositoriy.save((new SimAndRtkTable(view, nameSpark, nameRarus, distributionModel, toOrder)));
         }
 
         model.addAttribute("SIM_TELE2", simAndRtkTableRepositoriy.findAll());
@@ -65,42 +65,45 @@ List<SimAndRtkTable> simAndRtkTables;
 
         return simAndRtkTableRepositoriy.findById(id);
     }
+
     @PostMapping("/delet_SIM")
-    public String delet(@RequestParam int ID,Model model) {
+    public String delet(@RequestParam int ID, Model model) {
         simAndRtkTableRepositoriy.deleteById(ID);
         model.addAttribute("SIM_TELE2", simAndRtkTableRepositoriy.findAll());
         return "SimSetup";
     }
+
     @PostMapping("/sales_6")
     public String SimSetupSales_6(@RequestParam("sales_6") MultipartFile sales_6, Model model) throws IOException, ParseException {
-       long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         List<SaleSim_6m> SaleSim_6mList = new ArrayList<SaleSim_6m>();
         XSSFWorkbook workbook = new XSSFWorkbook(sales_6.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
         saleSimModemRepository_6m.deleteAll();
-        for(int i=2;i<worksheet.getPhysicalNumberOfRows()-1 ;i++) {
-          SaleSim_6m saleSim_6m = new SaleSim_6m();
+        for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
+            SaleSim_6m saleSim_6m = new SaleSim_6m();
             XSSFRow row = worksheet.getRow(i);
             saleSim_6m.setShop(row.getCell(0).getStringCellValue());
             saleSim_6m.setNameSimAndModem(row.getCell(1).getStringCellValue());
-            if(row.getCell(2).getCellType() == CellType.NUMERIC) {
+            if (row.getCell(2).getCellType() == CellType.NUMERIC) {
                 saleSim_6m.setRemainsSimModem((int) row.getCell(2).getNumericCellValue());
-            }else if (row.getCell(2) == null ||row.getCell(2).getCellType()==CellType.BLANK){
+            } else if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType.BLANK) {
                 saleSim_6m.setRemainsSimModem(0);
             }
             SaleSim_6mList.add(saleSim_6m);
         }
-      saleSimModemRepository_6m.saveAll(SaleSim_6mList);
+        saleSimModemRepository_6m.saveAll(SaleSim_6mList);
 
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
 
-      model.addAttribute("time", df.format(new Date(timeWorkCode)));
-      model.addAttribute("SIM_TELE2", simAndRtkTableRepositoriy.findAll());
+        model.addAttribute("time", df.format(new Date(timeWorkCode)));
+        model.addAttribute("SIM_TELE2", simAndRtkTableRepositoriy.findAll());
 
         return "SimSetup";
     }
+
     @PostMapping("/sales_1")
     public String SimSetupSales_1(@RequestParam("sales_1") MultipartFile sales_1, Model model) throws IOException, ParseException {
         long start = System.currentTimeMillis();
@@ -108,15 +111,15 @@ List<SimAndRtkTable> simAndRtkTables;
         XSSFWorkbook workbook = new XSSFWorkbook(sales_1.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
         saleSimModemRepository_1m.deleteAll();
-        for(int i=2;i<worksheet.getPhysicalNumberOfRows()-1 ;i++) {
+        for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
             SaleSim_1m saleSim_1m = new SaleSim_1m();
             XSSFRow row = worksheet.getRow(i);
             saleSim_1m.setShop(row.getCell(0).getStringCellValue());
             saleSim_1m.setNameSimAndModem(row.getCell(1).getStringCellValue());
-            if(row.getCell(2).getCellType() == CellType.NUMERIC) {
+            if (row.getCell(2).getCellType() == CellType.NUMERIC) {
                 saleSim_1m.setRemainsSimModem((int) row.getCell(2).getNumericCellValue());
-            }else if (row.getCell(2) == null ||row.getCell(2).getCellType()==CellType.BLANK){
-                 saleSim_1m.setRemainsSimModem(0);
+            } else if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType.BLANK) {
+                saleSim_1m.setRemainsSimModem(0);
             }
             SaleSim_1mList.add(saleSim_1m);
         }
@@ -131,6 +134,7 @@ List<SimAndRtkTable> simAndRtkTables;
 
         return "SimSetup";
     }
+
     @PostMapping("/remainsSIM")
     public String remainsSIM(@RequestParam("remainsSIM") MultipartFile remainsSIM, Model model) throws IOException, ParseException {
         long start = System.currentTimeMillis();
@@ -138,14 +142,14 @@ List<SimAndRtkTable> simAndRtkTables;
         XSSFWorkbook workbook = new XSSFWorkbook(remainsSIM.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
         remanisSimRepository.deleteAll();
-        for(int i=2;i<worksheet.getPhysicalNumberOfRows()-1 ;i++) {
+        for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
             RemanisSim remanisSim = new RemanisSim();
             XSSFRow row = worksheet.getRow(i);
             remanisSim.setShop(row.getCell(0).getStringCellValue());
             remanisSim.setNameSimAndModem(row.getCell(1).getStringCellValue());
-            if(row.getCell(2).getCellType() == CellType.NUMERIC) {
+            if (row.getCell(2).getCellType() == CellType.NUMERIC) {
                 remanisSim.setRemainsSimModem((int) row.getCell(2).getNumericCellValue());
-            }else if (row.getCell(2) == null ||row.getCell(2).getCellType()==CellType.BLANK){
+            } else if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType.BLANK) {
                 remanisSim.setRemainsSimModem(0);
             }
             RemanisSimList.add(remanisSim);
@@ -161,6 +165,7 @@ List<SimAndRtkTable> simAndRtkTables;
 
         return "SimSetup";
     }
+
     @PostMapping("/remainsSimRarus")
     public String remainsSimRarus(@RequestParam("remainsSimRarus") MultipartFile remainsSimRarus, Model model) throws IOException, ParseException {
         long start = System.currentTimeMillis();
@@ -168,14 +173,14 @@ List<SimAndRtkTable> simAndRtkTables;
         XSSFWorkbook workbook = new XSSFWorkbook(remainsSimRarus.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
         remanisSimRarusrepository.deleteAll();
-        for(int i=2;i<worksheet.getPhysicalNumberOfRows()-1 ;i++) {
+        for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
             RemanisSimRarus remanisSimRarus = new RemanisSimRarus();
             XSSFRow row = worksheet.getRow(i);
             remanisSimRarus.setShop(row.getCell(0).getStringCellValue());
             remanisSimRarus.setNameSimAndModem(row.getCell(1).getStringCellValue());
-            if(row.getCell(2).getCellType() == CellType.NUMERIC) {
+            if (row.getCell(2).getCellType() == CellType.NUMERIC) {
                 remanisSimRarus.setRemainsSimModem((int) row.getCell(2).getNumericCellValue());
-            }else if (row.getCell(2) == null ||row.getCell(2).getCellType()==CellType.BLANK){
+            } else if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType.BLANK) {
                 remanisSimRarus.setRemainsSimModem(0);
             }
             RemanisSimRarusList.add(remanisSimRarus);

@@ -4,24 +4,39 @@ $(document).ready(function(){
     });
 
 
-     $('.table .btn').on('click', function(event){
+     $('.table_t2 .btn').on('click', function(event){
                      event.preventDefault();
 
                      var href = $(this).attr("href");
 
-                     $.get(href, function(SimSetup, status){
-                        console.log(SimSetup.id);
-                            $('#IDupdateSIM').val(SimSetup.id);
-                            $('#view').val(SimSetup.view);
-                            $('#nameSpark').val(SimSetup.nameSpark);
-                            $('#nameRarus').val(SimSetup.nameRarus);
-                            $('#distributionModel').val(SimSetup.distributionModel);
-                            $('#toOrder').val(SimSetup.toOrder);
+
+                     $.get(href, function(SIM, status){
+                        console.log(SIM.shop);
+document.querySelector('#Shop').innerHTML = href.substr(-7, 5).charCodeAt();
+
                      });
 
 
 
 
      });
+      $('.table_t2m .btn').on('click', function(event){
+                          event.preventDefault();
+
+                          var href = $(this).attr("href");
+
+
+                          $.get(href, function(SIM, status){
+                             var data = JSON.parse(SIM);
+                             console.log(data.shop);
+
+     document.querySelector('#Shop').innerHTML = data[1].shop;
+
+                          });
+
+
+
+
+          });
 
  });
