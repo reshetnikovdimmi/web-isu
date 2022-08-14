@@ -31,15 +31,13 @@ public class SimController {
     public String sim(Model model) {
         model.addAttribute("shop", shop.findAll());
         return "SIM";
-
-
     }
 
     @ResponseBody
     @RequestMapping(value = "updateShops/{Shop}", method = RequestMethod.GET)
     public Iterable<RemanisSimRarus> update(@PathVariable("Shop") String shop) {
-
-        System.out.println(shop);
         return remanisSimRarusrepository.findAll();
     }
+
+
 }

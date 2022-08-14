@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" class="h-100">
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
 
@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
-    <script type="text/javascript" th:src="@{/JS/SIM.js}"></script>
+    <script type="text/javascript" th:src="@{/JS/MatrixPhone.js}"></script>
     <link rel="stylesheet" th:href="@{/CSS/SIM.css}"/>
 
 
@@ -76,126 +76,77 @@
             <div class="row mb-3 text-center"> Загрузка продажи 6 мес</div>
             <div class="row mb-3 text-center">
                 <div class="col-6 col-md-4 themed-grid-col">
-                <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
-                    <input type="file" th:name="sales_6"/>
-                    <input th:type="submit" value="Import"/>
-                </form>
-            </div>
+                    <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
+                        <input type="file" th:name="sales_6"/>
+                        <input th:type="submit" value="Import"/>
+                    </form>
+                </div>
 
             </div>
-
-
 
 
             </p>
             <p class="lead">
-            <form action="/add_shop" method="post">
+            <form action="/add_MatrixPhone" method="post">
 
-            <div class="row mb-3 text-center">
+                <div class="row mb-3 text-center">
 
-                <div class="col">
+                    <div class="col">
 
-                    <div class="row">
-                        <label>LOGIN</label>
-                    </div>
-                    <div class="row">
-                        <input type="hidden" name="IDupdateSHOP" id="IDupdateSHOP" value="0">
-                        <input type="text" name="LOGIN" id="LOGIN" placeholder="Введите имя">
+                        <div class="row">
+                            <label>LOGIN</label>
+                        </div>
+                        <div class="row">
+                            <input type="hidden" name="IDupdateMatrixPhone" id="IDupdateMatrixPhone" value="0">
+                            <input type="text" name="Matrix_T2" id="Matrix_T2" placeholder="Введите имя">
 
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>PASWORD</label>
+                    <div class="col">
+                        <div class="row">
+                            <label>PASWORD</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="Brend" id="Brend" placeholder="Введите имя">
+                        </div>
                     </div>
-                    <div class="row">
-                        <input type="text" name="PASWORD" id="PASWORD" placeholder="Введите имя">
+                    <div class="col">
+                        <div class="row">
+                            <label>NAME SPARK</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="Model" id="Model" placeholder="Введите имя">
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>NAME SPARK</label>
+                    <div class="col">
+                        <div class="row">
+                            <label>NAME RARUS</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="Model_GB" id="Model_GB"
+                                   placeholder="Введите имя">
+                        </div>
                     </div>
-                    <div class="row">
-                        <input type="text" name="NAMESPARK" id="NAMESPARK" placeholder="Введите имя">
+                    <div class="col">
+                        <div class="row">
+                            <label>NAMERAINBOW</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="Phone" id="Phone" placeholder="Введите имя">
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>NAME RARUS</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="NAMERARUS" id="NAMERARUS"
-                               placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>NAMERAINBOW</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="NAMERAINBOW" id="NAMERAINBOW" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>CLUSTER T2</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="CLUSTERT2" id="CLUSTERT2" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>CLUSTER RTK</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="CLUSTERRTK" id="CLUSTERRTK" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>SIM T2</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="SIMT2" id="SIMT2" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>SIM MTS</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="CLUSTERMTS" id="CLUSTERMTS" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>SIM BEE</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="SIMBEE" id="SIMBEE" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>SIM MF</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="SIMMF" id="SIMMF" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="row">
-                        <label>сохранить</label>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
-                    </div>
-                </div>
 
-            </div>
-        </form>
+                    <div class="col">
+                        <div class="row">
+                            <label>сохранить</label>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
             </p>
             <p class="lead">
             <h6>SIM TELE2</h6>
@@ -209,40 +160,31 @@
                         <th>Искра</th>
                         <th>Рарус</th>
                         <th>Радуга</th>
-                        <th>Кластер Т2</th>
-                        <th>Кластер РТК</th>
-                        <th>СИМ Т2</th>
-                        <th>СИМ МТС</th>
-                        <th>СИМ БЕЕ</th>
-                        <th>СИМ МФ</th>
                         <th>___________</th>
                         <th>___________</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="current : ${shop}">
+                    <tr th:each="current : ${Phone}">
 
-                            <td th:text="${current.id}"></td>
-                            <td th:text="${current.login}"></td>
-                            <td th:text="${current.pasword}"></td>
-                            <td th:text="${current.shopIskra}"></td>
-                            <td th:text="${current.shopRarus}"></td>
-                            <td th:text="${current.name}"></td>
-                            <td th:text="${current.clusterT2}"></td>
-                            <td th:text="${current.clusterRtk}"></td>
-                            <td th:text="${current.simT2}"></td>
-                            <td th:text="${current.simMts}"></td>
-                            <td th:text="${current.simBee}"></td>
-                            <td th:text="${current.simMf}"></td>
+                        <td th:text="${current.id}"></td>
+                        <td th:text="${current.Matrix_T2}"></td>
+                        <td th:text="${current.Brend}"></td>
+                        <td th:text="${current.Model}"></td>
+                        <td th:text="${current.Model_GB}"></td>
+                        <td th:text="${current.Phone}"></td>
 
-                            <td> <a th:href="@{/update_shop/{id}(id = ${current.id})}" class="btn btn-outline-primary me-2"> <span  th:text="update"></span>
-                            </a></td>
-                            <form id="form" action="/delet_shop" method="post">
-                                <input type="hidden" id="IDshop" name="IDshop" th:value="${current.id}">
+                        <td><a th:href="@{/update_MatrixPhone/{id}(id = ${current.id})}" class="btn btn-outline-primary me-2">
+                            <span th:text="update"></span>
+                        </a></td>
+                        <form id="form" action="/delet_MatrixPhone" method="post">
+                            <input type="hidden" id="IDMatrixPhone" name="IDMatrixPhone" th:value="${current.id}">
 
-                                <td> <button type="submit">delet</button></td>
+                            <td>
+                                <button type="submit">delet</button>
+                            </td>
 
-                            </form>
+                        </form>
 
                     </tr>
 

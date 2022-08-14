@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -66,8 +64,41 @@ public class MarwelController {
         promoMarwel = (List<MarvelPromo>) marwelPromoRepositoriy.findAll();
         model.addAttribute("promoCode", promoCode());
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
+        model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         return "Marwel";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "update_MarClasif/{id}", method = RequestMethod.GET)
+    public Optional<MarvelClassifier> update_MarClasif(@PathVariable("id") int id) {
+        System.out.println(id);
+        return marvelClassifierRepositoriy.findById(id);
+    }
+
+    @PostMapping("/add_MarwClasif")
+    public String add_MarwClasif(@RequestParam int IDupdateMarClasif,
+                            @RequestParam String RainbowNomenclature,
+                            @RequestParam String ManufacturersArticle,
+                            @RequestParam String Name,
+
+                            Model model) {
+
+        if (IDupdateMarClasif != 0) {
+            marvelClassifierRepositoriy.save((new MarvelClassifier(IDupdateMarClasif, RainbowNomenclature, ManufacturersArticle, Name)));
+        } else {
+            marvelClassifierRepositoriy.save((new MarvelClassifier(RainbowNomenclature, ManufacturersArticle, Name)));
+        }
+
+        model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
+        return "Marwel";
+    }
+    @PostMapping("/delet_MarClasif")
+    public String delet_MarClasif(@RequestParam int IDMarClasif, Model model) {
+        marvelClassifierRepositoriy.deleteById(IDMarClasif);
+        model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
+        return "Marwel";
+    }
+
     @PostMapping("/promoCodeDistinct")
     public String promoCodeDistinct(@RequestParam String promoCode,Model model) {
 

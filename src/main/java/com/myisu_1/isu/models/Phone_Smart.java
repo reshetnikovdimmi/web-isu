@@ -16,7 +16,13 @@ public class Phone_Smart {
     private String Model_GB;
     private String Phone;
 
-
+    public Phone_Smart(String matrix_T2, String brend, String model, String model_GB, String phone) {
+        Matrix_T2 = matrix_T2;
+        Brend = brend;
+        Model = model;
+        Model_GB = model_GB;
+        Phone = phone;
+    }
 
     public Phone_Smart() {
     }

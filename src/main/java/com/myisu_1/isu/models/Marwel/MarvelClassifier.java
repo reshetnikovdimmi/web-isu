@@ -13,6 +13,12 @@ public class MarvelClassifier implements Serializable {
     private String ManufacturersArticle;
     private String Name;
 
+    public MarvelClassifier(String rainbowNomenclature, String manufacturersArticle, String name) {
+        RainbowNomenclature = rainbowNomenclature;
+        ManufacturersArticle = manufacturersArticle;
+        Name = name;
+    }
+
     public MarvelClassifier() {
     }
 
