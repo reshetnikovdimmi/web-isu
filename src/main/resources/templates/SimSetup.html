@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" class="h-100">
-<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
 
@@ -72,117 +72,117 @@
             <h2 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'"/></h2>
             <p class="lead">
             <div class="row mb-3 text-center">
-            <div class="col-6 col-md-3 themed-grid-col">
-                <div class="row mb-3 text-center"> Загрузка продажи 6 мес</div>
-                <div class="row mb-3 text-center">
+                <div class="col-6 col-md-3 themed-grid-col">
+                    <div class="row mb-3 text-center"> Загрузка продажи 6 мес</div>
+                    <div class="row mb-3 text-center">
 
-                    <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="sales_6"/>
-                        <input th:type="submit" value="Import"/>
-                    </form>
+                        <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="sales_6"/>
+                            <input th:type="submit" value="Import"/>
+                        </form>
 
 
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 themed-grid-col">
+                    <div class="row mb-3 text-center"> Загрузка продажи 1 мес</div>
+                    <div class="row mb-3 text-center">
+
+                        <form th:action="@{/sales_1}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="sales_1"/>
+                            <input th:type="submit" value="Import"/>
+                        </form>
+
+
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 themed-grid-col">
+                    <div class="row mb-3 text-center"> Загрузка остатки</div>
+                    <div class="row mb-3 text-center">
+
+                        <form th:action="@{/remainsSIM}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="remainsSIM"/>
+                            <input th:type="submit" value="Import"/>
+                        </form>
+
+
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 themed-grid-col">
+                    <div class="row mb-3 text-center"> Загрузка остатки Рарус</div>
+                    <div class="row mb-3 text-center">
+
+                        <form th:action="@{/remainsSimRarus}" method="post" enctype="multipart/form-data">
+                            <input type="file" th:name="remainsSimRarus"/>
+                            <input th:type="submit" value="Import"/>
+                        </form>
+
+
+                    </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 themed-grid-col">
-                <div class="row mb-3 text-center"> Загрузка продажи 1 мес</div>
-                <div class="row mb-3 text-center">
-
-                    <form th:action="@{/sales_1}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="sales_1"/>
-                        <input th:type="submit" value="Import"/>
-                    </form>
-
-
-                </div>
-            </div>
-            <div class="col-6 col-md-3 themed-grid-col">
-                <div class="row mb-3 text-center"> Загрузка остатки</div>
-                <div class="row mb-3 text-center">
-
-                    <form th:action="@{/remainsSIM}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="remainsSIM"/>
-                        <input th:type="submit" value="Import"/>
-                    </form>
-
-
-                </div>
-            </div>
-            <div class="col-6 col-md-3 themed-grid-col">
-                <div class="row mb-3 text-center"> Загрузка остатки Рарус</div>
-                <div class="row mb-3 text-center">
-
-                    <form th:action="@{/remainsSimRarus}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="remainsSimRarus"/>
-                        <input th:type="submit" value="Import"/>
-                    </form>
-
-
-                </div>
-            </div>
-        </div>
 
             </p>
             <p class="lead">
             <form action="/add_SIM" method="post">
 
-            <div class="row mb-3 text-center">
+                <div class="row mb-3 text-center">
 
-                <div class="col-6 col-md-2 themed-grid-col">
+                    <div class="col-6 col-md-2 themed-grid-col">
 
-                    <div class="row">
-                        <label>Вид</label>
-                    </div>
-                    <div class="row">
-                        <input type="hidden" name="IDupdateSIM" id="IDupdateSIM" value="0">
-                        <input type="text" name="view" id="view" placeholder="Введите имя">
+                        <div class="row">
+                            <label>Вид</label>
+                        </div>
+                        <div class="row">
+                            <input type="hidden" name="IDupdateSIM" id="IDupdateSIM" value="0">
+                            <input type="text" name="view" id="view" placeholder="Введите имя">
 
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-2 themed-grid-col">
-                    <div class="row">
-                        <label>Наименование Искра</label>
+                    <div class="col-6 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <label>Наименование Искра</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="nameSpark" id="nameSpark" placeholder="Введите имя">
+                        </div>
                     </div>
-                    <div class="row">
-                        <input type="text" name="nameSpark" id="nameSpark" placeholder="Введите имя">
+                    <div class="col-6 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <label>Наименование Рарус</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="nameRarus" id="nameRarus" placeholder="Введите имя">
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-2 themed-grid-col">
-                    <div class="row">
-                        <label>Наименование Рарус</label>
+                    <div class="col-6 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <label>Модель распределения</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="distributionModel" id="distributionModel"
+                                   placeholder="Введите имя">
+                        </div>
                     </div>
-                    <div class="row">
-                        <input type="text" name="nameRarus" id="nameRarus" placeholder="Введите имя">
+                    <div class="col-6 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <label>Для заказа</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="toOrder" id="toOrder" placeholder="Введите имя">
+                        </div>
                     </div>
-                </div>
-                <div class="col-6 col-md-2 themed-grid-col">
-                    <div class="row">
-                        <label>Модель распределения</label>
+                    <div class="col-6 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <label>сохранить</label>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
+                        </div>
                     </div>
-                    <div class="row">
-                        <input type="text" name="distributionModel" id="distributionModel"
-                               placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col-6 col-md-2 themed-grid-col">
-                    <div class="row">
-                        <label>Для заказа</label>
-                    </div>
-                    <div class="row">
-                        <input type="text" name="toOrder" id="toOrder" placeholder="Введите имя">
-                    </div>
-                </div>
-                <div class="col-6 col-md-2 themed-grid-col">
-                    <div class="row">
-                        <label>сохранить</label>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
-                    </div>
-                </div>
 
-            </div>
-        </form>
+                </div>
+            </form>
             </p>
             <p class="lead">
             <h6>SIM TELE2</h6>
@@ -209,9 +209,52 @@
                             <td th:text="${current.nameRarus}"></td>
                             <td th:text="${current.distributionModel}"></td>
                             <td th:text="${current.toOrder}"></td>
-                            <td> <a th:href="@{/update_SIM/{id}(id = ${current.id})}" class="btn btn-outline-primary me-2"> <span th:text="update"></span>
+                            <td> <a th:href="@{/update_SIM/{id}(id = ${current.id})}"
+                                    class="btn btn-outline-primary me-2"> <span th:text="update"></span>
                             </a></td>
                             <form id="form" action="/delet_SIM" method="post">
+                                <input type="hidden" id="ID" name="ID" th:value="${current.id}">
+
+                                <td> <button type="submit">delet</button></td>
+
+                            </form>
+                        </span>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            </p>
+            <p class="lead">
+            <h6>SIM TELE2</h6>
+            <div class="table">
+                <table class="table-responsive">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>№ п/п</th>
+                        <th>Вид</th>
+                        <th>Наименование Искра</th>
+                        <th>Наименование Рарус</th>
+                        <th>Модель распределения</th>
+                        <th>Для заказа</th>
+                        <th>___________</th>
+                        <th>___________</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="current : ${SIM_TELE2}">
+                        <span th:if="${current.view == 't2m'}">
+                            <td th:text="${current.id}"></td>
+                            <td th:text="${current.view}"></td>
+                            <td th:text="${current.nameSpark}"></td>
+                            <td th:text="${current.nameRarus}"></td>
+                            <td th:text="${current.distributionModel}"></td>
+                            <td th:text="${current.toOrder}"></td>
+                            <td> <a th:href="@{/update_SIM/{id}(id = ${current.id})}"
+                                    class="btn btn-outline-primary me-2"> <span th:text="update"></span>
+                            </a></td>
+                            <form  action="/delet_SIM" method="post">
                                 <input type="hidden" id="ID" name="ID" th:value="${current.id}">
 
                                 <td> <button type="submit">delet</button></td>
