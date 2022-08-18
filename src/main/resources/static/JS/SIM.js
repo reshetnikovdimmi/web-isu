@@ -7,7 +7,7 @@ $(document).ready(function(){
                      event.preventDefault();
                      var href = $(this).attr("href");
                      $.get(href, function(SIM, status){
-                        console.log(SIM.shop);
+
                     document.querySelector('#Shop').innerHTML = href.substr(-7, 5).charCodeAt();
                      });
      });
@@ -30,7 +30,7 @@ $(document).ready(function(){
                                 function createTable(parent,cols,rows,shops){
                                  var table = document.createElement(`table`);
                                  table.id = 'table_t3m';
-                                 table.classList.add("table-borderless-sm");
+                                 table.classList.add("table-borderless");
 
                                     let thead = document.createElement('thead');
 
@@ -54,7 +54,7 @@ $(document).ready(function(){
                                     table.appendChild(thead);
 
                                     let tbody = document.createElement('tbody');
-                                  console.log(cols);
+
 
 
                                         for (var i = 0; i < rows; i++) {
@@ -70,12 +70,7 @@ $(document).ready(function(){
                                                }else if(j==2){
                                                td.innerHTML = shops[i].shop;
                                                }else{
-                                                var input = document.createElement("input");
-
-                                                    input.type = 'text';
-
-                                                    input.setAttribute("class", "JSON");
-                                               td.appendChild(input);
+                                                td.innerHTML = shops[i].id;
                                                }
 
                                                 tr.appendChild(td);
@@ -86,8 +81,28 @@ $(document).ready(function(){
                                         table.appendChild(tbody);
                                         parent.appendChild(table);
 
+                                        var tds = document.querySelectorAll('table.table-borderless td');
+                                          for(var i =3;i<tds.length;i+=4){
+                                          tds[i].addEventListener('click', function func(){
+
+                                            var input = document.createElement('input');
+                                            input.value = this.innerHTML;
+                                            this.innerHTML = '';
+                                            this.appendChild(input);
+                                            var td = this;
+                                            input.addEventListener('blur', function(){
+                                            td.innerHTML = this.value;
+                                            console.log(i);
+                                            td.addEventListener('click', func);
+                                            });
+
+                                            this.removeEventListener('click', func)
+                                          });
+                                          }
 
                                   }
 
           });
+
+
  });

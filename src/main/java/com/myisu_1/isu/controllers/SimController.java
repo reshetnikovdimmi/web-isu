@@ -48,9 +48,9 @@ public class SimController {
         List<SimAndRtkTable> simAndRtkTables = simAndRtkTableRepositoriy.findAll();
 
         for(int i =0;i<authorization_ttList.size();i++){
-            System.out.println(authorization_ttList.get(i).getName());
+
             if(shop.equals(authorization_ttList.get(i).getName())){
-                System.out.println(shop);
+
                 for (int j =0;j < remanisSimList.size();j++){
                     if (authorization_ttList.get(i).getShopIskra().equals(remanisSimList.get(j).getShop())){
 
