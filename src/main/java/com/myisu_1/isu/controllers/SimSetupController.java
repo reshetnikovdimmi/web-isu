@@ -42,6 +42,7 @@ public class SimSetupController {
     @PostMapping("/add_SIM")
     public String add_phone(@RequestParam int IDupdateSIM,
                             @RequestParam String view,
+                            @RequestParam String nameRainbow,
                             @RequestParam String nameSpark,
                             @RequestParam String nameRarus,
                             @RequestParam String distributionModel,
@@ -50,9 +51,9 @@ public class SimSetupController {
         System.out.println(IDupdateSIM);
 
         if (IDupdateSIM != 0) {
-            simAndRtkTableRepositoriy.save((new SimAndRtkTable(IDupdateSIM, view, nameSpark, nameRarus, distributionModel, toOrder)));
+            simAndRtkTableRepositoriy.save((new SimAndRtkTable(IDupdateSIM, view.trim(), nameSpark.trim(), nameRarus.trim(),nameRainbow.trim(), distributionModel.trim(), toOrder.trim())));
         } else {
-            simAndRtkTableRepositoriy.save((new SimAndRtkTable(view, nameSpark, nameRarus, distributionModel, toOrder)));
+            simAndRtkTableRepositoriy.save((new SimAndRtkTable(view.trim(), nameSpark.trim(), nameRarus.trim(),nameRainbow.trim(), distributionModel.trim(), toOrder.trim())));
         }
 
         model.addAttribute("SIM_TELE2", simAndRtkTableRepositoriy.findAll());

@@ -13,28 +13,38 @@ public class SimAndRtkTable {
     private String view;
     private String nameSpark;
     private String nameRarus;
+    private String nameRainbow;
     private String distributionModel;
     private String toOrder;
 
-
-    public SimAndRtkTable(int id, String view, String nameSpark, String nameRarus, String distributionModel, String toOrder) {
-        this.id = id;
+    public SimAndRtkTable(String view, String nameSpark, String nameRarus, String nameRainbow, String distributionModel, String toOrder) {
         this.view = view;
         this.nameSpark = nameSpark;
         this.nameRarus = nameRarus;
+        this.nameRainbow = nameRainbow;
         this.distributionModel = distributionModel;
         this.toOrder = toOrder;
     }
 
-    public SimAndRtkTable(String view, String nameSpark, String nameRarus, String distributionModel, String toOrder) {
+    public SimAndRtkTable(int id, String view, String nameSpark, String nameRarus, String nameRainbow, String distributionModel, String toOrder) {
+        this.id = id;
         this.view = view;
         this.nameSpark = nameSpark;
         this.nameRarus = nameRarus;
+        this.nameRainbow = nameRainbow;
         this.distributionModel = distributionModel;
         this.toOrder = toOrder;
     }
 
     public SimAndRtkTable() {
+    }
+
+    public String getNameRainbow() {
+        return nameRainbow;
+    }
+
+    public void setNameRainbow(String nameRainbow) {
+        this.nameRainbow = nameRainbow;
     }
 
     public int getId() {

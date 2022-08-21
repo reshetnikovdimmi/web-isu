@@ -128,7 +128,7 @@
 
                 <div class="row mb-3 text-center">
 
-                    <div class="col-6 col-md-2 themed-grid-col">
+                    <div class="col-7 col-md-1 themed-grid-col">
 
                         <div class="row">
                             <label>Вид</label>
@@ -139,7 +139,15 @@
 
                         </div>
                     </div>
-                    <div class="col-6 col-md-2 themed-grid-col">
+                    <div class="col-7 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <label>Наименование Радуга</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="nameRainbow" id="nameRainbow" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-2 themed-grid-col">
                         <div class="row">
                             <label>Наименование Искра</label>
                         </div>
@@ -147,7 +155,7 @@
                             <input type="text" name="nameSpark" id="nameSpark" placeholder="Введите имя">
                         </div>
                     </div>
-                    <div class="col-6 col-md-2 themed-grid-col">
+                    <div class="col-7 col-md-2 themed-grid-col">
                         <div class="row">
                             <label>Наименование Рарус</label>
                         </div>
@@ -155,7 +163,7 @@
                             <input type="text" name="nameRarus" id="nameRarus" placeholder="Введите имя">
                         </div>
                     </div>
-                    <div class="col-6 col-md-2 themed-grid-col">
+                    <div class="col-7 col-md-2 themed-grid-col">
                         <div class="row">
                             <label>Модель распределения</label>
                         </div>
@@ -164,7 +172,7 @@
                                    placeholder="Введите имя">
                         </div>
                     </div>
-                    <div class="col-6 col-md-2 themed-grid-col">
+                    <div class="col-7 col-md-2 themed-grid-col">
                         <div class="row">
                             <label>Для заказа</label>
                         </div>
@@ -172,7 +180,7 @@
                             <input type="text" name="toOrder" id="toOrder" placeholder="Введите имя">
                         </div>
                     </div>
-                    <div class="col-6 col-md-2 themed-grid-col">
+                    <div class="col-7 col-md-1 themed-grid-col">
                         <div class="row">
                             <label>сохранить</label>
                         </div>
@@ -192,6 +200,7 @@
                     <tr>
                         <th>№ п/п</th>
                         <th>Вид</th>
+                        <th>Наименование Радуга</th>
                         <th>Наименование Искра</th>
                         <th>Наименование Рарус</th>
                         <th>Модель распределения</th>
@@ -205,6 +214,7 @@
                         <span th:if="${current.view == 't2'}">
                             <td th:text="${current.id}"></td>
                             <td th:text="${current.view}"></td>
+                            <td th:text="${current.nameRainbow}"></td>
                             <td th:text="${current.nameSpark}"></td>
                             <td th:text="${current.nameRarus}"></td>
                             <td th:text="${current.distributionModel}"></td>
@@ -234,6 +244,7 @@
                     <tr>
                         <th>№ п/п</th>
                         <th>Вид</th>
+                        <th>Наименование Радуга</th>
                         <th>Наименование Искра</th>
                         <th>Наименование Рарус</th>
                         <th>Модель распределения</th>
@@ -247,6 +258,7 @@
                         <span th:if="${current.view == 't2m'}">
                             <td th:text="${current.id}"></td>
                             <td th:text="${current.view}"></td>
+                            <td th:text="${current.nameRainbow}"></td>
                             <td th:text="${current.nameSpark}"></td>
                             <td th:text="${current.nameRarus}"></td>
                             <td th:text="${current.distributionModel}"></td>
