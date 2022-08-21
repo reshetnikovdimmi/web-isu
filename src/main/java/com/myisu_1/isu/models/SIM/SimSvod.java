@@ -9,10 +9,10 @@ public class SimSvod {
     private String remanis;
     private String remanisRarus;
     private int plan;
-    private int planVypol;
+    private String planVypol;
     private String shop;
 
-    public SimSvod(int id, int idPlan, String nameSim, String sale_6, String sale, String remanis, int plan, int planVypol, String shop) {
+    public SimSvod(int id, int idPlan, String nameSim, String sale_6, String sale, String remanis, int plan, String planVypol, String shop) {
         this.id = id;
         this.idPlan = idPlan;
         this.nameSim = nameSim;
@@ -99,11 +99,11 @@ public class SimSvod {
         this.plan = plan;
     }
 
-    public int getPlanVypol() {
+    public String getPlanVypol() {
         return planVypol;
     }
 
-    public void setPlanVypol(int planVypol) {
+    public void setPlanVypol(String planVypol) {
         this.planVypol = planVypol;
     }
 }

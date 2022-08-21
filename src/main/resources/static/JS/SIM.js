@@ -11,7 +11,7 @@ const requestURL = '/simos'
                $.get(href, function(SIM, status){
                     var sim = SIM;
                     console.log(sim);
-                    var shop = sim[1].shop;
+                    var shop = SIM[1].shop;
                     document.querySelector('#Shop').innerHTML = shop;
                });
      });

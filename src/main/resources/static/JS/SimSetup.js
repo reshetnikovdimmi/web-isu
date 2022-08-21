@@ -13,6 +13,7 @@ $(document).ready(function(){
                         console.log(SimSetup.id);
                             $('#IDupdateSIM').val(SimSetup.id);
                             $('#view').val(SimSetup.view);
+                            $('#nameRainbow').val(SimSetup.nameRainbow);
                             $('#nameSpark').val(SimSetup.nameSpark);
                             $('#nameRarus').val(SimSetup.nameRarus);
                             $('#distributionModel').val(SimSetup.distributionModel);
