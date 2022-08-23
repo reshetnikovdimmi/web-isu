@@ -42,15 +42,18 @@
 <main>
 
 
-    <div class="container">
+    <div class="container-xxl themed-container text-center">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-                <span class="fs-4">Распределение СИМ</span>
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"/>
+                </svg>
+                <span class="fs-4">Dynamic SIM</span>
             </a>
 
             <ul class="nav nav-pills">
-                <li class="nav-item"><a href="/entrance" xlink:href="#home" class="nav-link active" aria-current="page">Home</a></li>
+                <li class="nav-item"><a href="/entrance" xlink:href="#home" class="nav-link active" aria-current="page">Home</a>
+                </li>
                 <li class="nav-item"><a href="/SimSetup" class="nav-link">Настройки</a></li>
                 <li class="nav-item"><a href="/SimDistribution" class="nav-link">Распределение</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
@@ -58,95 +61,319 @@
             </ul>
         </header>
 
-        <main class="px-3">
-            <h6>Таблица распределения SIM</h6>
-            <p class="lead">
-                <br>
-                <!-- Nav tabs -->
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#home0">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#menus">SIM TELE 2</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#menu2">SIM MTS</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#menus0">SIM MegaFon</a>
-                </li>
-            </ul>
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div id="home0" class="container tab-pane active"><br>
-                    <h3>HOME</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                <div id="menus" class="container tab-pane fade"><br>
-                    <h3>HOME</h3>
-                    <p><div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>№ п/п</th>
-                                <th>Имя</th>
-                                <th>Фамилия</th>
-                                <th>E-mail</th>
-                                <th>Увлечения</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Иван</td>
-                                <td>Чмель</td>
-                                <td>ivan@mail.ru</td>
-                                <td>Плавание, бодибилдинг, боевые искусства</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Петр</td>
-                                <td>Щербаков</td>
-                                <td>petr@mail.ru</td>
-                                <td>Европейские танцы, Стрип-денс, Ролики</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Юрий</td>
-                                <td>Голов</td>
-                                <td>yuri@mail.ru</td>
-                                <td>Горный велосипед, скейтборд, катание на квадрацикле</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    </p>
-                </div>
-                <div id="menu2" class="container tab-pane fade"><br>
-                    <h3>SIM MTS</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
-                <div id="menus0" class="container tab-pane fade"><br>
-                    <h3>SIM MegaFon</h3>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-                </div>
+        <br>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#home1">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#menu1">SIM TELE 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#menu2">SIM MTS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#menu3">SIM MegaFon</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div id="home1" class="container tab-pane active"><br>
+                <h3>HOME</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
             </div>
-            </p>
+            <div id="menu1" class="container tab-pane fade"><br>
+                <div class="row">
+                    <h3>МОНОБРЕНД</h3>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-sm-2 themed-grid-col">
+                        <div class="table_t2">
+                            <table class="table-borderless-sm">
+                                <thead >
+                                <tr>
+                                    <th h12 name="Shop" id="Shop">МАГАЗИН</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${shop}">
+                                <span th:if="${current.simT2 == 't2'}">
+                                <td><a th:href="@{/updateShops/{Shop}(Shop = ${current.name})}"
+                                       class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
+                                </td>
+                                </span>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-lg-6 themed-grid-col">
+                        <div class="row">
+                            <div class="col-md-10 themed-grid-col">
+                                <div class="table table-borderless-sm">
+                                    <table class="table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th>№ п/п</th>
+                                            <th>Имя</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Иван</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Петр</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-2 themed-grid-col">
+                        <div class="table_t2">
+                            <table class="table-borderless-sm">
+                                <thead >
+                                <tr>
+                                    <th h12 name="Shop" id="Shop">SIM</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${shop}">
+                                <span th:if="${current.simT2 == 't2'}">
+                                <td><a th:href="@{/updateShops/{Shop}(Shop = ${current.name})}"
+                                       class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
+                                </td>
+                                </span>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <div class="col-md-10 themed-grid-col">
+                                <div class="table table-borderless-sm">
+                                    <table class="table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th>№ п/п</th>
+                                            <th>Имя</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Иван</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Петр</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <h3>МУЛЬТИБРЕНД</h3>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-sm-2 themed-grid-col">
+                        <div class="table_t2m" >
+                            <table class="table-borderless-sm">
+                                <thead>
+                                <tr>
+                                    <th name="Shop_1" id="Shop_1">МАГАЗИН</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${shop}">
+                                <span th:if="${current.simT2 == 't2m'}">
+                                <td><a th:href="@{/updateShops/{Shop}(Shop = ${current.name})}"
+                                       class="btn btn-primary btn-sm btn-block"> <span th:text="${current.name}"></span>
+                                </a>
+                                </td>
+                                </span>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-lg-6 themed-grid-col">
+                        <div class="row">
+                            <div class="col-md-10 themed-grid-col">
+                                <div class="table" id = "table_t2m">
+                                    <table class="table-borderless"  id = "table_t3m">
+                                        <thead>
+                                        <tr>
+                                            <th>№ п/п</th>
+                                            <th>Имя</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Иван</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Петр</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
 
 
-            <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
-            </p>
-        </main>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-2 themed-grid-col">
+                        <div class="table_t2m" >
+                            <table class="table-borderless-sm">
+                                <thead>
+                                <tr>
+                                    <th name="Shop_1" id="Shop_1">SIM</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${shop}">
+                                <span th:if="${current.simT2 == 't2m'}">
+                                <td><a th:href="@{/updateShops/{Shop}(Shop = ${current.name})}"
+                                       class="btn btn-primary btn-sm btn-block"> <span th:text="${current.name}"></span>
+                                </a>
+                                </td>
+                                </span>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-3 col-md-2 themed-grid-col">
+                        <div class="row">
+                            <div class="col-md-10 themed-grid-col">
+                                <div class="table" id = "table_t2m">
+                                    <table class="table-borderless"  id = "table_t3m">
+                                        <thead>
+                                        <tr>
+                                            <th>№ п/п</th>
+                                            <th>Имя</th>
 
-        <footer class="mt-auto text-white-50">
-            <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
-        </footer>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Иван</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Петр</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Юрий</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="menu2" class="container tab-pane fade"><br>
+                <h3>SIM MTS</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                    totam rem aperiam.</p>
+            </div>
+            <div id="menu3" class="container tab-pane fade"><br>
+                <h3>SIM MegaFon</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                    totam rem aperiam.</p>
+            </div>
+        </div>
     </div>
-
 
 </main>
 </body>

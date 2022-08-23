@@ -9,6 +9,9 @@ public class SimDistributionController {
     @GetMapping("/SimDistribution")
     public String SimDistribution (Model model) {
 
+
+
+
         return "SimDistribution";
     }
 }

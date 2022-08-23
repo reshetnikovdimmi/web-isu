@@ -84,7 +84,7 @@ public class SimController {
         return String.valueOf(Integer.parseInt(sale_1)*100/plan()) +" "+"%";
     }
 
-    private int plan() {
+    public int plan() {
 int plan = Integer.parseInt(sale_6)*110/100;
 if (plan<2){
     plan=2;
