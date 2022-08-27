@@ -29,106 +29,39 @@ public class SimController {
     @Autowired
     private SaleSimModemRepository_1m saleSimModemRepository_1m;
 
+    SvodSimList simList = new SvodSimList();
+
     List<SimSvod> simSvodList;
-    List<SaleSim_6m> saleSim_6ms;
-    List<SaleSim_1m> saleSim_1ms;
-    String sale_6 = null;
-    String sale_1 = null;
+
     @GetMapping("/SIM")
     public String sim(Model model) {
-        model.addAttribute("shop", authorization_shop.findAll());
+        simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
+        simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
+        simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
+        simList.setAuthorization_ttList((List<authorization_tt>) authorization_shop.findAll());
+        simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
+
+        simList.parse2();
+
+        model.addAttribute("shop", simList.getAuthorization_ttList());
         return "SIM";
     }
 
     @ResponseBody
-    @RequestMapping(value = "updateShops/{Shop}", method = RequestMethod.GET)
-    public Iterable<SimSvod> update(@PathVariable("Shop") String shop) {
+    @RequestMapping(value = "updateShops/{Shop}/{t2}", method = RequestMethod.GET)
+    public Iterable<SimSvod> update(@PathVariable("Shop") String shop,@PathVariable("t2") String t2) {
 
         simSvodList = new ArrayList<>();
-        List<RemanisSim> remanisSimList = (List<RemanisSim>) remanisSimrepository.findAll();
-        List<authorization_tt> authorization_ttList = (List<authorization_tt>) authorization_shop.findAll();
-        List<SimAndRtkTable> simAndRtkTables = simAndRtkTableRepositoriy.findAll();
-        saleSim_6ms = (List<SaleSim_6m>) saleSimModemRepository.findAll();
-        saleSim_1ms = (List<SaleSim_1m>) saleSimModemRepository_1m.findAll();
-
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-            if (shop.equals(authorization_ttList.get(i).getName())) {
-
-                for (int j = 0; j < simAndRtkTables.size(); j++) {
-                    if (authorization_ttList.get(i).getSimT2().equals(simAndRtkTables.get(j).getView())) {
-
-                        for (int k = 0; k < remanisSimList.size(); k++) {
-                            System.out.println(authorization_ttList.get(i).getShopIskra() +"--"+ remanisSimList.get(k).getShop());
-                            if (authorization_ttList.get(i).getShopIskra().equals(remanisSimList.get(k).getShop()) && simAndRtkTables.get(j).getNameSpark().trim().equals(remanisSimList.get(k).getNameSimAndModem())
-                                    || authorization_ttList.get(i).getName().equals(remanisSimList.get(k).getShop()) && simAndRtkTables.get(j).getNameRainbow().trim().equals(remanisSimList.get(k).getNameSimAndModem())) {
-
-                                String shopIskra = authorization_ttList.get(i).getShopIskra();
-                                String shopRaduga = authorization_ttList.get(i).getName();
-                                String simIskra = simAndRtkTables.get(j).getNameSpark().trim();
-                                String simRaduga = simAndRtkTables.get(j).getNameRainbow().trim();
-                                simSvodList.add(new SimSvod(k, idDlan(), remanisSimList.get(k).getNameSimAndModem(), sale_6(shopIskra, shopRaduga, simIskra, simRaduga), Sele(shopIskra, shopRaduga, simIskra, simRaduga), String.valueOf(remanisSimList.get(k).getRemainsSimModem()), plan(), planVypol(), authorization_ttList.get(i).getName()));
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return simSvodList;
-    }
-    private  String planVypol(){
-
-
-
-        return String.valueOf(Integer.parseInt(sale_1)*100/plan()) +" "+"%";
+        simSvodList = (List<SimSvod>) simList.parse3(shop,t2);
+        return simList.parse3(shop,t2);
     }
 
-    public int plan() {
-int plan = Integer.parseInt(sale_6)*110/100;
-if (plan<2){
-    plan=2;
-}
-        return plan;
-    }
 
-    private String Sele(String shopIskra, String shopRaduga, String simIskra, String simRaduga) {
-        sale_1 = String.valueOf(0);
-        for (int i = 0; i < saleSim_1ms.size(); i++) {
-
-            if (shopIskra.equals(saleSim_1ms.get(i).getShop()) && simIskra.equals(saleSim_1ms.get(i).getNameSimAndModem()) || shopRaduga.equals(saleSim_1ms.get(i).getShop()) && simRaduga.equals(saleSim_1ms.get(i).getNameSimAndModem())) {
-                sale_1 = String.valueOf(saleSim_1ms.get(i).getRemainsSimModem());
-            }
-        }
-
-
-        return sale_1;
-    }
-
-    private String sale_6(String shopIskra, String shopRaduga, String simIskra, String simRaduga) {
-        sale_6 = String.valueOf(0);
-        for (int i = 0; i < saleSim_6ms.size(); i++) {
-
-            if (shopIskra.equals(saleSim_6ms.get(i).getShop()) && simIskra.equals(saleSim_6ms.get(i).getNameSimAndModem()) || shopRaduga.equals(saleSim_6ms.get(i).getShop()) && simRaduga.equals(saleSim_6ms.get(i).getNameSimAndModem())) {
-                sale_6 = String.valueOf(saleSim_6ms.get(i).getRemainsSimModem()/6);
-            }
-        }
-
-
-        return sale_6;
-    }
-
-    private int idDlan() {
-
-
-        return 5;
-    }
 
     @PostMapping(path = "/simos")
 
     private ResponseEntity simos(@RequestBody RemanisSim sim) {
         System.out.println(sim.getShop() + "--" + sim.getId() + "--" + simSvodList.get(sim.getId()).getNameSim());
-
         return ResponseEntity.ok(simSvodList);
     }
 
