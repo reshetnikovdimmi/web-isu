@@ -28,13 +28,13 @@ public class SimDistributionController {
 
     @GetMapping("/SimDistribution")
     public String SimDistribution (Model model) {
-
-        simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
-        simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
-        simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
-        simList.setAuthorization_ttList((List<authorization_tt>) authorization_shop.findAll());
-        simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
-
+        if(simList.getAuthorization_ttList()==null) {
+            simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
+            simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
+            simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
+            simList.setAuthorization_ttList((List<authorization_tt>) authorization_shop.findAll());
+            simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
+        }
         simList.parse2();
 
         model.addAttribute("shop", simList.getAuthorization_ttList());

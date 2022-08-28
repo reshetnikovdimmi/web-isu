@@ -97,7 +97,7 @@
       table {
           width: 100%; /* 140px * 5 column + 16px scrollbar width */
 
-          font-size: 14px;
+          font-size: 11px;
           overflow: hidden;
 
       }

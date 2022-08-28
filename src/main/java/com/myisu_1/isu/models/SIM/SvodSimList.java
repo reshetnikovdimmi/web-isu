@@ -8,38 +8,30 @@ public class SvodSimList extends SimList {
 
 
     List<SimSvod> simSvodList1;
+
     public void parse2() {
 
         simSvodList = new ArrayList<>();
 
         for (int i = 0; i < authorization_ttList.size(); i++) {
-
             for (int j = 0; j < simAndRtkTables.size(); j++) {
                 if (authorization_ttList.get(i).getSimT2().equals(simAndRtkTables.get(j).getView())) {
-                    addSimSvod(i,j);
-
+                    addSimSvod(i, j);
                 }
                 if (authorization_ttList.get(i).getSimMts().equals(simAndRtkTables.get(j).getView())) {
-                    addSimSvod(i,j);
-
+                    addSimSvod(i, j);
                 }
                 if (authorization_ttList.get(i).getSimMf().equals(simAndRtkTables.get(j).getView())) {
-                    addSimSvod(i,j);
-
+                    addSimSvod(i, j);
                 }
-
             }
-
         }
-
     }
 
     private void addSimSvod(int i, int j) {
         for (int k = 0; k < remanisSimList.size(); k++) {
-
             if (authorization_ttList.get(i).getShopIskra().equals(remanisSimList.get(k).getShop()) && simAndRtkTables.get(j).getNameSpark().trim().equals(remanisSimList.get(k).getNameSimAndModem())
                     || authorization_ttList.get(i).getName().equals(remanisSimList.get(k).getShop()) && simAndRtkTables.get(j).getNameRainbow().trim().equals(remanisSimList.get(k).getNameSimAndModem())) {
-
                 String shopIskra = authorization_ttList.get(i).getShopIskra();
                 String shopRaduga = authorization_ttList.get(i).getName();
                 String simIskra = simAndRtkTables.get(j).getNameSpark().trim();
@@ -55,11 +47,11 @@ public class SvodSimList extends SimList {
                         String.valueOf(remanisSimList.get(k).getRemainsSimModem()),
                         remanisrarus(),
                         plan,
-                        planVypol(sale_1,plan),
+                        planVypol(sale_1, plan),
                         authorization_ttList.get(i).getName(),
                         simAndRtkTables.get(j).getView(),
                         simAndRtkTables.get(j).getToOrder(),
-                        distribution(sale_6,sale_1,remanisSimList.get(k).getRemainsSimModem(),plan)));
+                        distribution(sale_6, sale_1, remanisSimList.get(k).getRemainsSimModem(), plan)));
 
             }
         }
@@ -71,71 +63,89 @@ public class SvodSimList extends SimList {
 
     private String distribution(String sale_6, String sale_1, int nameSimAndModem, int plan) {
         int plans = IntStream.of(Integer.parseInt(sale_6), Integer.parseInt(sale_1), plan).max().getAsInt() - nameSimAndModem;
-        return String.valueOf(plans) ;
+        plans = rounding(plans);
+        return String.valueOf(plans);
+    }
+
+    private int rounding(int plans) {
+        while ((plans % 5) != 0) {
+            plans++;
+        }
+        return plans;
     }
 
 
-    public Iterable<SimSvod> parse(String shop,String t2) {
+    public Iterable<SimSvod> parse(String shop, String t2) {
         simSvodList1 = new ArrayList<>();
-
         for (int i = 0; i < simSvodList.size(); i++) {
-            if (shop.equals(simSvodList.get(i).getShop()) && t2.equals(simSvodList.get(i).getView()) && Integer.parseInt(simSvodList.get(i).getDistribution())>0) {
+            if (shop.equals(simSvodList.get(i).getShop()) && t2.equals(simSvodList.get(i).getView()) && Integer.parseInt(simSvodList.get(i).getDistribution()) > 0) {
                 simSvodList1.add(simSvodList.get(i));
-
             }
         }
-
         return simSvodList1;
-
     }
 
-    public Iterable<SimSvod> multiSim(String shop,String t2) {
+    public Iterable<SimSvod> multiSim(String shop, String t2) {
         simSvodList1 = new ArrayList<>();
-
         for (int i = 0; i < simSvodList.size(); i++) {
-            if (shop.equals(simSvodList.get(i).getNameSim()) && Integer.parseInt(simSvodList.get(i).getDistribution())>0) {
+            if (shop.equals(simSvodList.get(i).getNameSim()) && Integer.parseInt(simSvodList.get(i).getDistribution()) > 0) {
                 simSvodList1.add(simSvodList.get(i));
-
             }
         }
-if (simSvodList1.size()==0){
-    simSvodList1.add(new SimSvod(0,
-            0,
-            shop,
-            "0",
-            "0",
-            String.valueOf(0),
-            "0",
-            0,
-            "0",
-            null,
-            "0",
-            "0",
-            "0"));
-
-}
-
+        if (simSvodList1.size() == 0) {
+            simSvodList1.add(new SimSvod(0,0,shop,"0","0",String.valueOf(0),"0",0,"0",null,"0","0","0"));
+        }
         return simSvodList1;
-
     }
 
-    public Iterable<SimSvod> parse3(String shop,String t2) {
+    public Iterable<SimSvod> parse3(String shop, String t2) {
         simSvodList1 = new ArrayList<>();
-
         for (int i = 0; i < simSvodList.size(); i++) {
             if (shop.equals(simSvodList.get(i).getShop()) && t2.equals(simSvodList.get(i).getView())) {
                 simSvodList1.add(simSvodList.get(i));
-
             }
         }
-
         return simSvodList1;
+    }
 
+    public Iterable<SimSvod> zakazSim(String t2) {
+        simSvodList1 = new ArrayList<>();
+        for (int i = 0; i < simAndRtkTables.size(); i++) {
+            String remanisSkladSIM = remanisSkladSIM(simAndRtkTables.get(i).getNameSpark(),simAndRtkTables.get(i).getNameRainbow());
+            String remanisSIM = remanisSIM();
+            SimSvod simSvod = new SimSvod();
+            simSvod.setNameSim(simAndRtkTables.get(i).getNameSpark());
+            simSvod.setView(simAndRtkTables.get(i).getView());
+            simSvod.setRemanisSkladSIM(remanisSkladSIM);
+            simSvod.setRemanisSIM(remanisSIM);
+            simSvod.setAverageSalesSIM("111");
+            simSvod.setRecommendedToOrder("555");
+            simSvodList1.add(simSvod);
+        }
+        return simSvodList1;
+    }
+
+    private String remanisSIM() {
+        return "99";
+    }
+
+    private String remanisSkladSIM(String nameSpark, String nameRainbow) {
+        String remanisSkladSIM = null;
+        for (int i = 0;i<authorization_ttList.size();i++){
+            if(authorization_ttList.get(i).getSimT2().equals("sim") ){
+                for (int j = 0;j<remanisSimList.size();j++){
+                    if(nameSpark.equals(remanisSimList.get(j).getNameSimAndModem()) && authorization_ttList.get(i).getShopIskra().equals(remanisSimList.get(j).getShop())||
+                            nameRainbow!=null&&
+                           nameRainbow.equals(remanisSimList.get(j).getNameSimAndModem()) && authorization_ttList.get(i).getName().equals(remanisSimList.get(j).getShop())){
+                        remanisSkladSIM = String.valueOf(remanisSimList.get(j).getRemainsSimModem());
+                    }
+                }
+            }
+        }
+         return remanisSkladSIM;
     }
 
     private String planVypol(String sale_1, int plan) {
-
-
         return Integer.parseInt(sale_1) * 100 / plan + " " + "%";
     }
 
@@ -148,28 +158,22 @@ if (simSvodList1.size()==0){
     }
 
     private String Sele(String shopIskra, String shopRaduga, String simIskra, String simRaduga) {
-       String sale_1 = String.valueOf(0);
+        String sale_1 = String.valueOf(0);
         for (int i = 0; i < saleSim_1ms.size(); i++) {
-
             if (shopIskra.equals(saleSim_1ms.get(i).getShop()) && simIskra.equals(saleSim_1ms.get(i).getNameSimAndModem()) || shopRaduga.equals(saleSim_1ms.get(i).getShop()) && simRaduga.equals(saleSim_1ms.get(i).getNameSimAndModem())) {
                 sale_1 = String.valueOf(saleSim_1ms.get(i).getRemainsSimModem());
             }
         }
-
-
         return sale_1;
     }
 
     private String sale_6(String shopIskra, String shopRaduga, String simIskra, String simRaduga) {
-      String  sale_6 = String.valueOf(0);
+        String sale_6 = String.valueOf(0);
         for (int i = 0; i < saleSim_6ms.size(); i++) {
-
             if (shopIskra.equals(saleSim_6ms.get(i).getShop()) && simIskra.equals(saleSim_6ms.get(i).getNameSimAndModem()) || shopRaduga.equals(saleSim_6ms.get(i).getShop()) && simRaduga.equals(saleSim_6ms.get(i).getNameSimAndModem())) {
                 sale_6 = String.valueOf(saleSim_6ms.get(i).getRemainsSimModem() / 6);
             }
         }
-
-
         return sale_6;
     }
 

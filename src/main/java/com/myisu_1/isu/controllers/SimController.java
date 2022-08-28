@@ -35,14 +35,17 @@ public class SimController {
 
     @GetMapping("/SIM")
     public String sim(Model model) {
-        simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
-        simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
-        simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
-        simList.setAuthorization_ttList((List<authorization_tt>) authorization_shop.findAll());
-        simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
+        if(simList.getAuthorization_ttList()==null){
+            simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
+            simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
+            simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
+            simList.setAuthorization_ttList((List<authorization_tt>) authorization_shop.findAll());
+            simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
+        }
+
 
         simList.parse2();
-
+        model.addAttribute("zakazSimT2m", simList.zakazSim("t2m"));
         model.addAttribute("shop", simList.getAuthorization_ttList());
         return "SIM";
     }

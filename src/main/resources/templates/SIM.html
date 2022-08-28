@@ -86,9 +86,273 @@
         <!-- Tab panes -->
         <div class="tab-content">
             <div id="home1" class="container tab-pane active"><br>
-                <h3>HOME</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua.</p>
+                <div class="row mb-3 text-center">
+                <h3>ЗАКАЗ SIM</h3>
+                </div>
+                <div class="row mb-3 text-center">
+                    <div class="col-6 col-sm-3 themed-grid-col">
+                        <div class="row mb-3 text-center">
+                            МОНОБРЕНД TELE 2
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <div class="table" id = "table_t2_Zak">
+                                <table class="table-borderless"  id = "table_t3_Zak">
+                                    <thead >
+                                    <tr style="font-size:.7em">
+                                        <th >Name SIM</th>
+                                        <th>Остаток на складе</th>
+                                        <th>Остаток на спо сети</th>
+                                        <th>средние продажи</th>
+                                        <th>рекоменлуется заказать</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3 themed-grid-col">
+                        <div class="row mb-3 text-center">
+                            МУЛЬТИБРЕНД TELE 2
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <div class="table" id = "table_t2m_Zak">
+                                <table class="table-borderless"  id = "table_t3m_Zak">
+                                    <thead >
+                                    <tr style="font-size:.7em">
+                                        <th >Name SIM</th>
+                                        <th>Остаток на складе</th>
+                                        <th>Остаток на спо сети</th>
+                                        <th>средние продажи</th>
+                                        <th>рекоменлуется заказать</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="current : ${zakazSimT2m}">
+                                        <span th:if="${current.view == 't2m'}">
+                                        <td th:text = "${current.nameSim}"></td>
+                                        <td th:text = "${current.remanisSkladSIM}"></td>
+                                        <td th:text = "${current.remanisSIM}"></td>
+                                        <td th:text = "${current.averageSalesSIM}"></td>
+                                        <td th:text = "${current.recommendedToOrder}"></td>
+                                        </span>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3 themed-grid-col">
+                        <div class="row mb-3 text-center">
+                            MTS
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <div class="table" id = "table_mts_Zak">
+                                <table class="table-borderless"  id = "table_mts1_Zak">
+                                    <thead >
+                                    <tr style="font-size:.7em">
+                                        <th >Name SIM</th>
+                                        <th>Остаток на складе</th>
+                                        <th>Остаток на спо сети</th>
+                                        <th>средние продажи</th>
+                                        <th>рекоменлуется заказать</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3 themed-grid-col">
+                        <div class="row mb-3 text-center">
+                            MEGAFON
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <div class="table" id = "table_mf_Zak">
+                                <table class="table-borderless"  id = "table_mf1_Zak">
+                                    <thead >
+                                    <tr style="font-size:.7em">
+                                        <th >Name SIM</th>
+                                        <th>Остаток на складе</th>
+                                        <th>Остаток на спо сети</th>
+                                        <th>средние продажи</th>
+                                        <th>рекоменлуется заказать</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mb-3 text-center">
+                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="menu1" class="container tab-pane fade"><br>
                 <div class="row">
@@ -217,35 +481,24 @@
                                     <table class="table-borderless"  id = "table_t3m">
                                         <thead>
                                         <tr>
-                                            <th>№ п/п</th>
-                                            <th>Имя</th>
-                                            <th>Фамилия</th>
-                                            <th>E-mail</th>
-                                            <th>Увлечения</th>
+                                            <th>Name SIM</th>
+                                            <th>Sale_6/6</th>
+                                            <th>Sale</th>
+                                            <th>Remanis</th>
+                                            <th>Plan</th>
+                                            <th>% Plan</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Иван</td>
-                                            <td>Чмель</td>
-                                            <td>ivan@mail.ru</td>
-                                            <td>Плавание, бодибилдинг, боевые искусства</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Петр</td>
-                                            <td>Щербаков</td>
-                                            <td>petr@mail.ru</td>
-                                            <td>Европейские танцы, Стрип-денс, Ролики</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-                                            <td>Голов</td>
-                                            <td>yuri@mail.ru</td>
-                                            <td>Горный велосипед, скейтборд, катание на квадрацикле</td>
-                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>

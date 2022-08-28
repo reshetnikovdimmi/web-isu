@@ -14,6 +14,42 @@ public class SimSvod {
     private String view;
     private String toOrder;
     private String distribution;
+    private String remanisSkladSIM;
+    private String remanisSIM;
+    private String averageSalesSIM;
+    private String recommendedToOrder;
+
+    public String getRecommendedToOrder() {
+        return recommendedToOrder;
+    }
+
+    public void setRecommendedToOrder(String recommendedToOrder) {
+        this.recommendedToOrder = recommendedToOrder;
+    }
+
+    public String getAverageSalesSIM() {
+        return averageSalesSIM;
+    }
+
+    public void setAverageSalesSIM(String averageSalesSIM) {
+        this.averageSalesSIM = averageSalesSIM;
+    }
+
+    public String getRemanisSIM() {
+        return remanisSIM;
+    }
+
+    public void setRemanisSIM(String remanisSIM) {
+        this.remanisSIM = remanisSIM;
+    }
+
+    public String getRemanisSkladSIM() {
+        return remanisSkladSIM;
+    }
+
+    public void setRemanisSkladSIM(String remanisSkladSIM) {
+        this.remanisSkladSIM = remanisSkladSIM;
+    }
 
     public SimSvod(int id, int idPlan, String nameSim, String sale_6, String sale, String remanis, String remanisRarus, int plan, String planVypol, String shop, String view, String toOrder, String distribution) {
         this.id = id;
