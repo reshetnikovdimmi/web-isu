@@ -35,7 +35,7 @@ const requestURL = '/simos'
                                 function createTable(parent,cols,rows,shops){
                                  var table = document.createElement(`table`);
                                  table.id = 'table_t3m';
-                                 table.classList.add("table-borderless");
+                                 table.classList.add("table-borderless-1");
 
                                     let thead = document.createElement('thead');
 
@@ -97,7 +97,7 @@ const requestURL = '/simos'
                                         table.appendChild(tbody);
                                         parent.appendChild(table);
 
-                                        var tds = document.querySelectorAll('table.table-borderless td');
+                                        var tds = document.querySelectorAll('table.table-borderless-1 td');
                                           for(var i =4;i<tds.length;i+=6){
                                               tds[i].addEventListener('click', function func(){
 

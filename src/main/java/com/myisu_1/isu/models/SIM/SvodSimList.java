@@ -112,7 +112,7 @@ public class SvodSimList extends SimList {
         simSvodList1 = new ArrayList<>();
         for (int i = 0; i < simAndRtkTables.size(); i++) {
             String remanisSkladSIM = remanisSkladSIM(simAndRtkTables.get(i).getNameSpark(),simAndRtkTables.get(i).getNameRainbow());
-            String remanisSIM = remanisSIM();
+            String remanisSIM = remanisSIM(simAndRtkTables.get(i).getNameSpark(),simAndRtkTables.get(i).getNameRainbow());
             SimSvod simSvod = new SimSvod();
             simSvod.setNameSim(simAndRtkTables.get(i).getNameSpark());
             simSvod.setView(simAndRtkTables.get(i).getView());
@@ -125,8 +125,35 @@ public class SvodSimList extends SimList {
         return simSvodList1;
     }
 
-    private String remanisSIM() {
-        return "99";
+    private String remanisSIM(String nameSpark, String nameRainbow) {
+        String skldSimiskra = null;
+        String skldSimRaduga= null;
+        int ostatok =0 ;
+
+        for (int i = 0;i<authorization_ttList.size();i++){
+            if(authorization_ttList.get(i).getSimT2().equals("sim")){
+                skldSimiskra = authorization_ttList.get(i).getShopIskra();
+                skldSimRaduga = authorization_ttList.get(i).getName();
+            }
+        }
+System.out.println(skldSimiskra +"--"+skldSimRaduga);
+
+
+            for (int k = 0;k<remanisSimList.size();k++){
+                if (nameRainbow !=null && nameRainbow.equals(remanisSimList.get(k).getNameSimAndModem()) && !remanisSimList.get(k).getShop().equals(skldSimRaduga)||
+                        nameSpark.equals(remanisSimList.get(k).getNameSimAndModem()) && !remanisSimList.get(k).getShop().equals(skldSimiskra)
+                ){
+                    ostatok = ostatok +  remanisSimList.get(k).getRemainsSimModem();
+                    System.out.println(ostatok+"--"+nameSpark);
+                }
+
+            }
+
+
+
+
+
+        return String.valueOf(ostatok);
     }
 
     private String remanisSkladSIM(String nameSpark, String nameRainbow) {
