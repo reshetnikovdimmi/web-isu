@@ -241,6 +241,7 @@ for (int i = 0; i<price_promoList.size();i++){
             if(listRemainingPhonesMarwel.get(i).getModel().contains ("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Mi True")){
             list1.add(listRemainingPhonesMarwel.get(i).getModel());
             phone.add(listRemainingPhonesMarwel.get(i).getModel());
+
             }
          }
       }
@@ -299,7 +300,7 @@ for (int i = 0; i<price_promoList.size();i++){
         model.addAttribute("Xiaomi", forRoma(start,stop,"Xiaomi","Mi True","Redmi"));
         model.addAttribute("forRomaShares", forRomaShares());
         model.addAttribute("noPhone", noPhone());
-
+        model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         return "Marwel";
     }
 

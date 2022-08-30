@@ -113,16 +113,30 @@ public class SvodSimList extends SimList {
         for (int i = 0; i < simAndRtkTables.size(); i++) {
             String remanisSkladSIM = remanisSkladSIM(simAndRtkTables.get(i).getNameSpark(),simAndRtkTables.get(i).getNameRainbow());
             String remanisSIM = remanisSIM(simAndRtkTables.get(i).getNameSpark(),simAndRtkTables.get(i).getNameRainbow());
+            String averageSalesSIM = averageSalesSIM (simAndRtkTables.get(i).getNameSpark(),simAndRtkTables.get(i).getNameRainbow());
             SimSvod simSvod = new SimSvod();
             simSvod.setNameSim(simAndRtkTables.get(i).getNameSpark());
             simSvod.setView(simAndRtkTables.get(i).getView());
             simSvod.setRemanisSkladSIM(remanisSkladSIM);
             simSvod.setRemanisSIM(remanisSIM);
-            simSvod.setAverageSalesSIM("111");
+            simSvod.setAverageSalesSIM(averageSalesSIM);
             simSvod.setRecommendedToOrder("555");
             simSvodList1.add(simSvod);
         }
         return simSvodList1;
+    }
+
+    private String averageSalesSIM(String nameSpark, String nameRainbow) {
+        int averageSalesSIM = 0;
+        for (int i=0;i<simSvodList.size();i++){
+            if(nameSpark.equals(simSvodList.get(i).getNameSim())||nameRainbow!=null && nameRainbow.equals(simSvodList.get(i).getNameSim())){
+                averageSalesSIM = averageSalesSIM + Integer.parseInt(simSvodList.get(i).getSale_6());
+            }
+
+        }
+
+
+        return String.valueOf(averageSalesSIM);
     }
 
     private String remanisSIM(String nameSpark, String nameRainbow) {
@@ -136,7 +150,7 @@ public class SvodSimList extends SimList {
                 skldSimRaduga = authorization_ttList.get(i).getName();
             }
         }
-System.out.println(skldSimiskra +"--"+skldSimRaduga);
+
 
 
             for (int k = 0;k<remanisSimList.size();k++){
