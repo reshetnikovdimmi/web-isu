@@ -195,7 +195,7 @@
             <p class="lead">
             <h6>SIM TELE2</h6>
             <div class="table">
-                <table class="table-responsive">
+                <table class="table-responsive table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>№ п/п</th>
@@ -239,7 +239,7 @@
             <p class="lead">
             <h6>SIM TELE2</h6>
             <div class="table">
-                <table class="table-responsive">
+                <table class="table-responsive table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>№ п/п</th>
@@ -283,11 +283,12 @@
             <p class="lead">
             <h6>SIM MTS</h6>
             <div class="table">
-                <table class="table table-hover">
+                <table class="table-responsive table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>№ п/п</th>
                         <th>Вид</th>
+                        <th>Наименование Радуга</th>
                         <th>Наименование Искра</th>
                         <th>Наименование Рарус</th>
                         <th>Модель распределения</th>
@@ -301,6 +302,7 @@
                         <span th:if="${current.view == 'mts'}">
                             <td th:text="${current.id}"></td>
                             <td th:text="${current.view}"></td>
+                            <td th:text="${current.nameRainbow}"></td>
                             <td th:text="${current.nameSpark}"></td>
                             <td th:text="${current.nameRarus}"></td>
                             <td th:text="${current.distributionModel}"></td>
@@ -325,11 +327,12 @@
             <p class="lead">
             <h6>SIM MegaFon</h6>
             <div class="table">
-                <table class="table table-hover">
+                <table class="table-responsive table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>№ п/п</th>
                         <th>Вид</th>
+                        <th>Наименование Радуга</th>
                         <th>Наименование Искра</th>
                         <th>Наименование Рарус</th>
                         <th>Модель распределения</th>
@@ -343,6 +346,7 @@
                         <span th:if="${current.view == 'mf'}">
                             <td th:text="${current.id}"></td>
                             <td th:text="${current.view}"></td>
+                            <td th:text="${current.nameRainbow}"></td>
                             <td th:text="${current.nameSpark}"></td>
                             <td th:text="${current.nameRarus}"></td>
                             <td th:text="${current.distributionModel}"></td>
@@ -367,11 +371,12 @@
             <p class="lead">
             <h6>SIM RTK</h6>
             <div class="table">
-                <table class="table table-hover">
+                <table class="table-responsive table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>№ п/п</th>
                         <th>Вид</th>
+                        <th>Наименование Радуга</th>
                         <th>Наименование Искра</th>
                         <th>Наименование Рарус</th>
                         <th>Модель распределения</th>
@@ -385,6 +390,7 @@
                         <span th:if="${current.view == 'RTK'}">
                             <td th:text="${current.id}"></td>
                             <td th:text="${current.view}"></td>
+                            <td th:text="${current.nameRainbow}"></td>
                             <td th:text="${current.nameSpark}"></td>
                             <td th:text="${current.nameRarus}"></td>
                             <td th:text="${current.distributionModel}"></td>

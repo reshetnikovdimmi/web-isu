@@ -103,7 +103,7 @@
                                 <tbody>
                                 <tr th:each="current : ${shop}">
                                     <span th:if="${current.simT2 == 't2'}">
-                                        <td><a th:href="@{/updateShopsSimDistribution/{Shop}(Shop = ${current.name})}"
+                                        <td><a th:href="@{/updateShopsSimDistributionMono/{Shop}/t2(Shop = ${current.name})}"
                                                class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
                                         </td>
                                     </span>
@@ -114,49 +114,19 @@
                     <div class="col-6 col-md-4 themed-grid-col">
                         <div class="row">
                             <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm">
-                                    <table class="table-borderless">
+                                <div class="table" id = "table_t2">
+                                    <table class="table-borderless" id = "table_t3" >
                                         <thead>
                                         <tr>
-                                            <th>№ п/п</th>
-                                            <th>Имя</th>
+                                            <th>Name SIM</th>
+                                            <th>Кол-во</th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Иван</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Петр</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
+                                            <td>0</td>
+                                            <td>0</td>
 
                                         </tr>
                                         </tbody>
@@ -167,7 +137,7 @@
                         </div>
                     </div>
                     <div class="col-3 col-sm-2 themed-grid-col">
-                        <div class="table_t2">
+                        <div class="table_t2_sim">
                             <table class="table-borderless-sm">
                                 <thead >
                                 <tr>
@@ -177,8 +147,8 @@
                                 <tbody>
                                 <tr th:each="current : ${simAndRtkTable}">
                                     <span th:if="${current.view == 't2'}">
-                                        <td><a th:href="@{/updateShops/{Shop}(Shop = ${current.nameSpark})}"
-                                               class="btn btn-primary btn-sm btn-block"><span th:text="${current.nameSpark}"></span></a>
+                                        <td><a th:href="@{/updateSIMmono/{Shop}/t2(Shop = ${current.nameRainbow})}"
+                                               class="btn btn-primary btn-sm btn-block"><span th:text="${current.nameRainbow}"></span></a>
                                         </td>
                                     </span>
                                 </tbody>
@@ -188,49 +158,19 @@
                     <div class="col-6 col-md-4 themed-grid-col">
                         <div class="row">
                             <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm">
-                                    <table class="table-borderless">
+                                <div class="table table-borderless-sm" id = "table_t2_sim">
+                                    <table class="table-borderless" id = "table_t3_sim">
                                         <thead>
                                         <tr>
-                                            <th>№ п/п</th>
-                                            <th>Имя</th>
+                                            <th>Name SIM</th>
+                                            <th>Кол-во</th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Иван</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Петр</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
+                                            <td>0</td>
+                                            <td>0</td>
 
                                         </tr>
                                         </tbody>
@@ -305,8 +245,8 @@
                                 <tbody>
                                 <tr th:each="current : ${simAndRtkTable}">
                                     <span th:if="${current.view == 't2m'}">
-                                        <td><a th:href="@{/updateSIM/{Shop}/t2m(Shop = ${current.nameSpark})}"
-                                               class="btn btn-primary btn-sm btn-block"> <span th:text="${current.nameSpark}"></span>
+                                        <td><a th:href="@{/updateSIM/{Shop}/t2m(Shop = ${current.nameRainbow})}"
+                                               class="btn btn-primary btn-sm btn-block"> <span th:text="${current.nameRainbow}"></span>
                                         </a>
                                         </td>
                                     </span>

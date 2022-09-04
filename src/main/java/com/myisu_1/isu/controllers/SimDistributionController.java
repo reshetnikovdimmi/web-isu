@@ -28,13 +28,13 @@ public class SimDistributionController {
 
     @GetMapping("/SimDistribution")
     public String SimDistribution (Model model) {
-        if(simList.getAuthorization_ttList()==null) {
+
             simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
             simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
             simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
             simList.setAuthorization_ttList((List<authorization_tt>) authorization_shop.findAll());
             simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
-        }
+
         simList.parse2();
 
         model.addAttribute("shop", simList.getAuthorization_ttList());
@@ -52,8 +52,22 @@ public class SimDistributionController {
 
     }
     @ResponseBody
+    @RequestMapping(value = "updateShopsSimDistributionMono/{Shop}/{t2}", method = RequestMethod.GET)
+    public Iterable<SimSvod> update1(@PathVariable("Shop") String shop,@PathVariable("t2") String t2) {
+
+        return simList.parse(shop,t2);
+
+    }
+    @ResponseBody
     @RequestMapping(value = "updateSIM/{Shop}/{t2}", method = RequestMethod.GET)
     public Iterable<SimSvod> updateSIM(@PathVariable("Shop") String shop,@PathVariable("t2") String t2) {
+
+        return simList.multiSim(shop,t2);
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "updateSIMmono/{Shop}/{t2}", method = RequestMethod.GET)
+    public Iterable<SimSvod> updateSIMmono(@PathVariable("Shop") String shop,@PathVariable("t2") String t2) {
 
         return simList.multiSim(shop,t2);
 

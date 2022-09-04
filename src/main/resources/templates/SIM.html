@@ -108,53 +108,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
+                                    <tr th:each="current : ${zakazSimT2m}">
+                                        <span th:if="${current.view == 't2'}">
+                                        <td th:text = "${current.nameSim}"></td>
+                                        <td th:text = "${current.remanisSkladSIM}"></td>
+                                        <td th:text = "${current.remanisSIM}"></td>
+                                        <td th:text = "${current.averageSalesSIM}"></td>
+                                        <td th:text = "${current.recommendedToOrder}"></td>
+                                        </span>
                                     </tr>
 
                                     </tbody>
@@ -220,53 +181,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
+                                    <tr th:each="current : ${zakazSimT2m}">
+                                        <span th:if="${current.view == 'mts'}">
+                                        <td th:text = "${current.nameSim}"></td>
+                                        <td th:text = "${current.remanisSkladSIM}"></td>
+                                        <td th:text = "${current.remanisSIM}"></td>
+                                        <td th:text = "${current.averageSalesSIM}"></td>
+                                        <td th:text = "${current.recommendedToOrder}"></td>
+                                        </span>
                                     </tr>
 
                                     </tbody>
@@ -364,13 +286,13 @@
                         <table class="table-borderless-sm">
                             <thead >
                             <tr>
-                                <th>МАГАЗИН</th>
+                                <th name="Shop" id="Shop">МАГАЗИН</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="current : ${shop}">
                                 <span th:if="${current.simT2 == 't2'}">
-                                <td><a th:href="@{/updateShops/{Shop}(Shop = ${current.name})}"
+                                <td><a th:href="@{/updateShops/{Shop}/t2(Shop = ${current.name})}"
                                        class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
                                 </td>
                                 </span>
@@ -381,67 +303,28 @@
                     <div class="col-sm-6 col-lg-8 themed-grid-col">
                         <div class="row">
                             <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm">
-                                    <table class="table-borderless-sm">
+                                <div class="table table-borderless-sm"  id = "table_t2">
+                                    <table class= "table-borderless"  id = "table_t3">
                                         <thead>
                                         <tr>
-                                            <th>№ п/п</th>
-                                            <th>Имя</th>
-                                            <th>Фамилия</th>
-                                            <th>E-mail</th>
-                                            <th>Увлечения</th>
+                                            <th>Name SIM</th>
+                                            <th>Sale_6/6</th>
+                                            <th>Sale</th>
+                                            <th>Remanis</th>
+                                            <th>Plan</th>
+                                            <th>% Plan</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Иван</td>
-                                            <td>Чмель</td>
-                                            <td>ivan@mail.ru</td>
-                                            <td>Плавание, бодибилдинг, боевые искусства</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Петр</td>
-                                            <td>Щербаков</td>
-                                            <td>petr@mail.ru</td>
-                                            <td>Европейские танцы, Стрип-денс, Ролики</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-                                            <td>Голов</td>
-                                            <td>yuri@mail.ru</td>
-                                            <td>Горный велосипед, скейтборд, катание на квадрацикле</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-                                            <td>Голов</td>
-                                            <td>yuri@mail.ru</td>
-                                            <td>Горный велосипед, скейтборд, катание на квадрацикле</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-                                            <td>Голов</td>
-                                            <td>yuri@mail.ru</td>
-                                            <td>Горный велосипед, скейтборд, катание на квадрацикле</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-                                            <td>Голов</td>
-                                            <td>yuri@mail.ru</td>
-                                            <td>Горный велосипед, скейтборд, катание на квадрацикле</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Юрий</td>
-                                            <td>Голов</td>
-                                            <td>yuri@mail.ru</td>
-                                            <td>Горный велосипед, скейтборд, катание на квадрацикле</td>
-                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>

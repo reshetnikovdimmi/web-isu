@@ -20,6 +20,7 @@ import java.util.*;
 
 @Controller
 public class SimSetupController {
+
     List<SimAndRtkTable> simAndRtkTables;
     @Autowired
     private SimAndRtkTableRepositoriy simAndRtkTableRepositoriy;
@@ -82,6 +83,7 @@ public class SimSetupController {
         XSSFSheet worksheet = workbook.getSheetAt(0);
         saleSimModemRepository_6m.deleteAll();
         for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
+
             SaleSim_6m saleSim_6m = new SaleSim_6m();
             XSSFRow row = worksheet.getRow(i);
             saleSim_6m.setShop(row.getCell(0).getStringCellValue());
@@ -113,14 +115,18 @@ public class SimSetupController {
         XSSFSheet worksheet = workbook.getSheetAt(0);
         saleSimModemRepository_1m.deleteAll();
         for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
+
             SaleSim_1m saleSim_1m = new SaleSim_1m();
             XSSFRow row = worksheet.getRow(i);
+
             saleSim_1m.setShop(row.getCell(0).getStringCellValue());
             saleSim_1m.setNameSimAndModem(row.getCell(1).getStringCellValue());
             if (row.getCell(2).getCellType() == CellType.NUMERIC) {
                 saleSim_1m.setRemainsSimModem((int) row.getCell(2).getNumericCellValue());
+                
             } else if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType.BLANK) {
-                saleSim_1m.setRemainsSimModem(0);
+                saleSim_1m.setRemainsSimModem(Integer.parseInt(row.getCell(2).getStringCellValue()));
+                System.out.println(row.getCell(2).getStringCellValue());
             }
             SaleSim_1mList.add(saleSim_1m);
         }
@@ -146,6 +152,7 @@ public class SimSetupController {
         for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
             RemanisSim remanisSim = new RemanisSim();
             XSSFRow row = worksheet.getRow(i);
+            System.out.println(i);
             remanisSim.setShop(row.getCell(0).getStringCellValue());
             remanisSim.setNameSimAndModem(row.getCell(1).getStringCellValue());
             if (row.getCell(2).getCellType() == CellType.NUMERIC) {
@@ -174,15 +181,16 @@ public class SimSetupController {
         XSSFWorkbook workbook = new XSSFWorkbook(remainsSimRarus.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
         remanisSimRarusrepository.deleteAll();
-        for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
+        for (int i = 5; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
             RemanisSimRarus remanisSimRarus = new RemanisSimRarus();
             XSSFRow row = worksheet.getRow(i);
             remanisSimRarus.setShop(row.getCell(0).getStringCellValue());
-            remanisSimRarus.setNameSimAndModem(row.getCell(1).getStringCellValue());
-            if (row.getCell(2).getCellType() == CellType.NUMERIC) {
-                remanisSimRarus.setRemainsSimModem((int) row.getCell(2).getNumericCellValue());
-            } else if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType.BLANK) {
-                remanisSimRarus.setRemainsSimModem(0);
+
+            remanisSimRarus.setNameSimAndModem(row.getCell(4).getStringCellValue());
+            if (row.getCell(5).getCellType() == CellType.NUMERIC) {
+                remanisSimRarus.setRemainsSimModem((int) row.getCell(5).getNumericCellValue());
+            } else if (row.getCell(5) == null || row.getCell(5).getCellType() == CellType.BLANK) {
+                remanisSimRarus.setRemainsSimModem(Integer.parseInt(row.getCell(5).getStringCellValue()));
             }
             RemanisSimRarusList.add(remanisSimRarus);
         }
