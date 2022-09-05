@@ -33,16 +33,18 @@ public class SvodSimList extends SimList {
             if (authorization_ttList.get(i).getShopIskra().equals(remanisSimList.get(k).getShop()) && simAndRtkTables.get(j).getNameSpark().trim().equals(remanisSimList.get(k).getNameSimAndModem())
                     || authorization_ttList.get(i).getName().equals(remanisSimList.get(k).getShop()) && simAndRtkTables.get(j).getNameRainbow().trim().equals(remanisSimList.get(k).getNameSimAndModem())) {
                 String shopIskra = authorization_ttList.get(i).getShopIskra();
-                String shopRaduga = authorization_ttList.get(i).getName();
+                String shopRaduga = authorization_ttList.get(i).getName().trim();
                 String simIskra = simAndRtkTables.get(j).getNameSpark().trim();
                 String simRaduga = simAndRtkTables.get(j).getNameRainbow().trim();
                 String sale_6 = sale_6(shopIskra, shopRaduga, simIskra, simRaduga);
                 String sale_1 = Sele(shopIskra, shopRaduga, simIskra, simRaduga);
 
                 int plan = plan(sale_6);
+
                 simSvodList.add(new SimSvod(k,
                         idDlan(),
                         remanisSimList.get(k).getNameSimAndModem(),
+
                         sale_6,
                         sale_1,
                         String.valueOf(remanisSimList.get(k).getRemainsSimModem()),
@@ -63,8 +65,10 @@ public class SvodSimList extends SimList {
     }
 
     private String distribution(String sale_6, String sale_1, int nameSimAndModem, int plan) {
+
         int plans = IntStream.of(Integer.parseInt(sale_6), Integer.parseInt(sale_1), plan).max().getAsInt() - nameSimAndModem;
         plans = rounding(plans);
+
         return String.valueOf(plans);
     }
 
@@ -117,7 +121,7 @@ public class SvodSimList extends SimList {
             String averageSalesSIM = averageSalesSIM (simAndRtkTables.get(i).getNameSpark(),simAndRtkTables.get(i).getNameRainbow());
             String recommendedToOrder = recommendedToOrder(remanisSkladSIM,averageSalesSIM);
             SimSvod simSvod = new SimSvod();
-            simSvod.setNameSim(simAndRtkTables.get(i).getNameSpark());
+            simSvod.setNameSim(simAndRtkTables.get(i).getNameRainbow());
             simSvod.setView(simAndRtkTables.get(i).getView());
             simSvod.setRemanisSkladSIM(remanisSkladSIM);
             simSvod.setRemanisSIM(remanisSIM);
@@ -130,6 +134,7 @@ public class SvodSimList extends SimList {
 
     private String recommendedToOrder(String remanisSkladSIM, String averageSalesSIM) {
         int recommendedToOrder =0;
+        int rekzakaz = 0;
         if(remanisSkladSIM !=null && Integer.parseInt(averageSalesSIM) > Integer.parseInt(remanisSkladSIM)) {
             recommendedToOrder = Integer.parseInt(remanisSkladSIM);
 
@@ -138,11 +143,16 @@ public class SvodSimList extends SimList {
             while (Integer.parseInt(averageSalesSIM) > recommendedToOrder){
 
                 recommendedToOrder = recommendedToOrder + 50;
+                rekzakaz = rekzakaz + 50;
+
+
+
             }
+
         }
     }
 
-        return String.valueOf(recommendedToOrder);
+        return String.valueOf(rekzakaz);
     }
 
     private String averageSalesSIM(String nameSpark, String nameRainbow) {
@@ -174,15 +184,16 @@ public class SvodSimList extends SimList {
 
 
         for (int k = 0;k<remanisSimList.size();k++){
-            if (!skldSimiskra.equals(remanisSimList.get(k).getShop())){
-               // System.out.println(skldSimiskra + "--" + remanisSimList.get(k).getShop());
+            if (!skldSimRaduga.equals(remanisSimList.get(k).getShop())){
+                if (nameRainbow !=null && nameRainbow.equals(remanisSimList.get(k).getNameSimAndModem()) && !skldSimRaduga.equals(remanisSimList.get(k).getShop())||
+                        nameSpark.equals(remanisSimList.get(k).getNameSimAndModem()) && !skldSimiskra.equals(remanisSimList.get(k).getShop())){
+                    ostatok = ostatok +  remanisSimList.get(k).getRemainsSimModem();
+
+                }
             }
 
-            if (nameRainbow !=null && nameRainbow.equals(remanisSimList.get(k).getNameSimAndModem()) && !skldSimRaduga.equals(remanisSimList.get(k).getShop())||
-                    nameSpark.equals(remanisSimList.get(k).getNameSimAndModem()) && !skldSimiskra.equals(remanisSimList.get(k).getShop())){
-                ostatok = ostatok +  remanisSimList.get(k).getRemainsSimModem();
-               // System.out.println(skldSimiskra + "--" + remanisSimList.get(k).getShop());
-            }
+
+
 
         }
 
