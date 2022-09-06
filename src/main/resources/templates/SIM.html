@@ -362,7 +362,7 @@
                 </div>
                 <div class="row">
                     <div class="col-3 col-sm-2 themed-grid-col">
-                        <div class="table_t2">
+                        <div class="table_mts">
                             <table class="table-borderless-sm">
                                 <thead >
                                 <tr>
@@ -372,7 +372,7 @@
                                 <tbody>
                                 <tr th:each="current : ${shop}">
                                 <span th:if="${current.simMts == 'mts'}">
-                                <td><a th:href="@{/updateShops/{Shop}/t2(Shop = ${current.name})}"
+                                <td><a th:href="@{/updateShops/{Shop}/mts(Shop = ${current.name})}"
                                        class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
                                 </td>
                                 </span>
@@ -420,17 +420,17 @@
                 </div>
                 <div class="row">
                     <div class="col-3 col-sm-2 themed-grid-col">
-                        <div class="table_t2">
+                        <div class="table_mf">
                             <table class="table-borderless-sm">
                                 <thead >
                                 <tr>
-                                    <th name="Shopmts" id="Shopmf">МАГАЗИН</th>
+                                    <th name="Shopmf" id="Shopmf">МАГАЗИН</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="current : ${shop}">
                                 <span th:if="${current.simMf == 'mf'}">
-                                <td><a th:href="@{/updateShops/{Shop}/t2(Shop = ${current.name})}"
+                                <td><a th:href="@{/updateShops/{Shop}/mf(Shop = ${current.name})}"
                                        class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
                                 </td>
                                 </span>

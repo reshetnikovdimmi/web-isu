@@ -286,9 +286,97 @@
 
             </div>
             <div id="menu2" class="container tab-pane fade"><br>
-                <h3>SIM MTS</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam.</p>
+                <div class="row">
+                    <div class="col-3 col-sm-2 themed-grid-col">
+                        <div class="table_mts">
+                            <table class="table-borderless-sm">
+                                <thead >
+                                <tr>
+                                    <th h12 name="ShopSimDistribution_t2" id="ShopSimDistribution_mts">МАГАЗИН</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${shop}">
+                                    <span th:if="${current.simMts == 'mts'}">
+                                        <td><a th:href="@{/updateShopsSimDistributionMono/{Shop}/mts(Shop = ${current.name})}"
+                                               class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
+                                        </td>
+                                    </span>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 themed-grid-col">
+                        <div class="row">
+                            <div class="col-md-10 themed-grid-col">
+                                <div class="table" id = "table_mts2">
+                                    <table class="table-borderless" id = "table_mts3" >
+                                        <thead>
+                                        <tr>
+                                            <th>Name SIM</th>
+                                            <th>Кол-во</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>0</td>
+                                            <td>0</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-3 col-sm-2 themed-grid-col">
+                        <div class="table_mts_sim">
+                            <table class="table-borderless-sm">
+                                <thead >
+                                <tr>
+                                    <th h12 name="Shop" id="Shopmts">SIM</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${simAndRtkTable}">
+                                    <span th:if="${current.view == 'mts'}">
+                                        <td><a th:href="@{/updateSIMmono/{Shop}/mts(Shop = ${current.nameRainbow})}"
+                                               class="btn btn-primary btn-sm btn-block"><span th:text="${current.nameRainbow}"></span></a>
+                                        </td>
+                                    </span>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 themed-grid-col">
+                        <div class="row">
+                            <div class="col-md-10 themed-grid-col">
+                                <div class="table table-borderless-sm" id = "table_mts2_sim">
+                                    <table class="table-borderless" id = "table_mts3_sim">
+                                        <thead>
+                                        <tr>
+                                            <th>Name SIM</th>
+                                            <th>Кол-во</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>0</td>
+                                            <td>0</td>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <div id="menu3" class="container tab-pane fade"><br>
                 <h3>SIM MegaFon</h3>
