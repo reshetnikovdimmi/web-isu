@@ -4,6 +4,178 @@ const requestURL = '/simos'
     $(".nav-tabs a").click(function(){
         $(this).tab('show');
     });
+    $('.table_mf_sim .btn').on('click', function(event){
+                      event.preventDefault();
+                      var href = $(this).attr("href");
+                           $.get(href, function(SIM, status){
+                                var sim = SIM;
+                                console.log(sim);
+                                var shop = SIM[0].nameSim;
+                                document.querySelector('#Shopmf').innerHTML = shop;
+                                var elem = document.querySelector('#table_mf2_sim');
+                                var elem1 = document.querySelector('#table_mf3_sim');
+                                elem1.parentNode.removeChild(elem1);
+                                createTableSimMF(elem,3,sim.length,sim);
+
+                           });
+                            function createTableSimMF(parent,cols,rows,shops){
+
+                                       var table = document.createElement(`table`);
+                                                                                                                          table.id = 'table_mf3_sim';
+                                                                                                                          table.classList.add("table-borderless");
+
+                                                                                                                             let thead = document.createElement('thead');
+
+
+                                                                                                                                 let row_1 = document.createElement('tr');
+                                                                                                                                 let heading_1 = document.createElement('th');
+                                                                                                                                 heading_1.innerHTML = "Name SIM";
+                                                                                                                                 let heading_2 = document.createElement('th');
+                                                                                                                                 heading_2.innerHTML = "Кол-во";
+
+
+                                                                                                                                 row_1.appendChild(heading_1);
+                                                                                                                                 row_1.appendChild(heading_2);
+
+
+                                                                                                                                 thead.appendChild(row_1);
+
+                                                                                                                             table.appendChild(thead);
+
+                                                                                                                             let tbody = document.createElement('tbody');
+
+                                                                                                                                 for (var i = 0; i < rows; i++) {
+                                                                                                                                     var tr = document.createElement('tr');
+
+                                                                                                                                     for (var j = 0; j < cols; j++) {
+                                                                                                                                         var td = document.createElement('td');
+                                                                                                                                        if(j==0){
+                                                                                                                                        td.innerHTML = shops[i].shop;
+                                                                                                                                        } else if(j==1){
+                                                                                                                                        td.innerHTML = shops[i].toOrder;
+                                                                                                                                        }else{
+                                                                                                                                        td.innerHTML = shops[i].distribution;
+                                                                                                                                        }
+
+                                                                                                                                         tr.appendChild(td);
+
+                                                                                                                                     }
+                                                                                                                                     tbody.appendChild(tr);
+                                                                                                                                 }
+                                                                                                                                 table.appendChild(tbody);
+                                                                                                                                 parent.appendChild(table);
+
+                                                                                                                                 var tds = document.querySelectorAll('table.table-borderless td');
+                                                                                                                                   for(var i =4;i<tds.length;i+=6){
+                                                                                                                                       tds[i].addEventListener('click', function func(){
+
+                                                                                                                                             var input = document.createElement('input');
+
+                                                                                                                                             input.value = this.innerHTML;
+                                                                                                                                             this.innerHTML = '';
+                                                                                                                                             this.appendChild(input);
+
+                                                                                                                                             var td = this;
+                                                                                                                                             input.addEventListener('blur', function(){
+                                                                                                                                                 td.innerHTML = this.value;
+                                                                                                                                              tab =  this.value;
+                                                                                                                                                 td.addEventListener('click', func);
+
+                                                                                                                                             });
+
+
+                                                                                                                                             this.removeEventListener('click', func)
+                                                                                                                                       });
+                                                                                                                                   }
+
+                                                                                                                           }
+                   });
+    $('.table_mf .btn').on('click', function(event){
+                  event.preventDefault();
+                  var href = $(this).attr("href");
+                       $.get(href, function(SIM, status){
+                            var sim = SIM;
+                            console.log(sim);
+                            var shop = SIM[0].nameSim;
+                            document.querySelector('#ShopSimDistribution_mf').innerHTML = shop;
+                            var elem = document.querySelector('#table_mf2');
+                            var elem1 = document.querySelector('#table_mf3');
+                            elem1.parentNode.removeChild(elem1);
+                            createTableMF(elem,3,sim.length,sim);
+
+                       });
+                       function createTableMF(parent,cols,rows,shops){
+
+                                                                   var table = document.createElement(`table`);
+                                                                   table.id = 'table_mf3';
+                                                                   table.classList.add("table-borderless");
+
+                                                                      let thead = document.createElement('thead');
+
+
+                                                                          let row_1 = document.createElement('tr');
+                                                                          let heading_1 = document.createElement('th');
+                                                                          heading_1.innerHTML = "Name SIM";
+                                                                          let heading_2 = document.createElement('th');
+                                                                          heading_2.innerHTML = "Кол-во";
+
+
+                                                                          row_1.appendChild(heading_1);
+                                                                          row_1.appendChild(heading_2);
+
+
+                                                                          thead.appendChild(row_1);
+
+                                                                      table.appendChild(thead);
+
+                                                                      let tbody = document.createElement('tbody');
+
+                                                                          for (var i = 0; i < rows; i++) {
+                                                                              var tr = document.createElement('tr');
+
+                                                                              for (var j = 0; j < cols; j++) {
+                                                                                  var td = document.createElement('td');
+                                                                                 if(j==0){
+                                                                                 td.innerHTML = shops[i].shop;
+                                                                                 } else if(j==1){
+                                                                                 td.innerHTML = shops[i].toOrder;
+                                                                                 }else{
+                                                                                 td.innerHTML = shops[i].distribution;
+                                                                                 }
+
+                                                                                  tr.appendChild(td);
+
+                                                                              }
+                                                                              tbody.appendChild(tr);
+                                                                          }
+                                                                          table.appendChild(tbody);
+                                                                          parent.appendChild(table);
+
+                                                                          var tds = document.querySelectorAll('table.table-borderless td');
+                                                                            for(var i =4;i<tds.length;i+=6){
+                                                                                tds[i].addEventListener('click', function func(){
+
+                                                                                      var input = document.createElement('input');
+
+                                                                                      input.value = this.innerHTML;
+                                                                                      this.innerHTML = '';
+                                                                                      this.appendChild(input);
+
+                                                                                      var td = this;
+                                                                                      input.addEventListener('blur', function(){
+                                                                                          td.innerHTML = this.value;
+                                                                                       tab =  this.value;
+                                                                                          td.addEventListener('click', func);
+
+                                                                                      });
+
+
+                                                                                      this.removeEventListener('click', func)
+                                                                                });
+                                                                            }
+
+                                                                    }
+                       });
     $('.table_mts_sim .btn').on('click', function(event){
               event.preventDefault();
               var href = $(this).attr("href");
@@ -12,16 +184,17 @@ const requestURL = '/simos'
                         console.log(sim);
                         var shop = SIM[0].nameSim;
                         document.querySelector('#Shopmts').innerHTML = shop;
-                        var elem = document.querySelector('#table_mts_sim2');
-                        var elem1 = document.querySelector('#table_mts_sim3');
+                        var elem = document.querySelector('#table_mts2_sim');
+                        var elem1 = document.querySelector('#table_mts3_sim');
                         elem1.parentNode.removeChild(elem1);
                         createTableSimMTS(elem,3,sim.length,sim);
 
                    });
+
 function createTableSimMTS(parent,cols,rows,shops){
 
                                             var table = document.createElement(`table`);
-                                            table.id = 'table_mts_sim3';
+                                            table.id = 'table_mts3_sim';
                                             table.classList.add("table-borderless");
 
                                                let thead = document.createElement('thead');
