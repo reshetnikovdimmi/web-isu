@@ -38,11 +38,7 @@ public class MainController {
         model.addAttribute("tests", tests);
         return "home";
     }
-    @GetMapping("/api")
-    public ResponseEntity simos() {
 
-        return ResponseEntity.ok(postRepositoriy.findAll());
-    }
 
     @PostMapping("/entrance")
     public String entrance(@RequestParam String login, @RequestParam String pasword, Model model) {
