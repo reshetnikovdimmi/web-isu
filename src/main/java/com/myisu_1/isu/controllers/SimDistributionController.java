@@ -69,7 +69,7 @@ public class SimDistributionController {
     @RequestMapping(value = "updateSIMmono/{Shop}/{t2}", method = RequestMethod.GET)
     public Iterable<SimSvod> updateSIMmono(@PathVariable("Shop") String shop,@PathVariable("t2") String t2) {
 
-        return simList.multiSim(shop.replace("_","/"),t2);
+        return simList.multiSim(shop.replaceAll("_","/"),t2);
 
     }
 }

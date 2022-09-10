@@ -1,6 +1,6 @@
 
        select {
-              width: 100%; /* Ширина списка в пикселах */
+              width: 80%; /* Ширина списка в пикселах */
              font-size: 13px;
                      	padding: 6px 0 4px 10px;
                      	border: 1px solid #cecece;
@@ -8,7 +8,7 @@
                      	border-radius: 8px;
              }
           input {
-              width: 100%;
+              width:80%;
 
               	font-size: 13px;
               	padding: 6px 0 4px 10px;
@@ -24,7 +24,7 @@
       	box-sizing: border-box;
 
             display: block;
-            width: 100%;
+            width: 80%;
 
       	padding: 0 1px;
       	margin: 0 1px 1px 0;

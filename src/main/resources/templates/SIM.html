@@ -81,6 +81,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#menu3">SIM MegaFon</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#menu4">RTK</a>
+            </li>
         </ul>
 
         <!-- Tab panes -->
@@ -358,7 +361,7 @@
             <div id="menu2" class="container tab-pane fade"><br>
 
                 <div class="row">
-                    <h3>SIM MTS</h3>
+                    <h5>SIM MTS</h5>
                 </div>
                 <div class="row">
                     <div class="col-3 col-sm-2 themed-grid-col">
@@ -414,7 +417,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h3>МОДЕМ MTS</h3>
+                    <h5>МОДЕМ MTS</h5>
                 </div>
                 <div class="row">
                     <div class="col-3 col-sm-2 themed-grid-col">
@@ -454,7 +457,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h3>РОУТЕР MTS</h3>
+                    <h5>РОУТЕР MTS</h5>
                 </div>
                 <div class="row">
                     <div class="col-3 col-sm-2 themed-grid-col">
@@ -494,7 +497,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <h3>СТВ MTS</h3>
+                    <h5>СТВ MTS</h5>
                 </div>
                 <div class="row">
                     <div class="col-3 col-sm-2 themed-grid-col">
@@ -537,6 +540,64 @@
             <div id="menu3" class="container tab-pane fade"><br>
                 <div class="row">
                     <h3>SIM MegaFon</h3>
+                </div>
+                <div class="row">
+                    <div class="col-3 col-sm-2 themed-grid-col">
+                        <div class="table_mf">
+                            <table class="table-borderless-sm">
+                                <thead >
+                                <tr>
+                                    <th name="Shopmf" id="Shopmf">МАГАЗИН</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${shop}">
+                                <span th:if="${current.simMf == 'mf'}">
+                                <td><a th:href="@{/updateShops/{Shop}/mf(Shop = ${current.name})}"
+                                       class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
+                                </td>
+                                </span>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-8 themed-grid-col">
+                        <div class="row">
+                            <div class="col-md-10 themed-grid-col">
+                                <div class="table table-borderless-sm"  id = "table_mf2">
+                                    <table class= "table-borderless"  id = "table_mf3">
+                                        <thead>
+                                        <tr>
+                                            <th>Name SIM</th>
+                                            <th>Sale_6/6</th>
+                                            <th>Sale</th>
+                                            <th>Remanis</th>
+                                            <th>Plan</th>
+                                            <th>% Plan</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="menu4" class="container tab-pane fade"><br>
+                <div class="row">
+                    <h3>RTK</h3>
                 </div>
                 <div class="row">
                     <div class="col-3 col-sm-2 themed-grid-col">

@@ -43,7 +43,7 @@
 <main>
 
 
-    <div class="container-xxl themed-container">
+    <div class="container-fluid themed-container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <svg class="bi me-2" width="40" height="32">
@@ -87,7 +87,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
                     et dolore magna aliqua.</p>
             </div>
-            <div id="menu1" class="container tab-pane fade"><br>
+            <div id="menu1" class="container-fluid tab-pane fade"><br>
                 <div class="row">
                     <h3>МОНОБРЕНД</h3>
                 </div>
@@ -342,7 +342,7 @@
                                 <tbody>
                                 <tr th:each="current : ${simAndRtkTable}">
                                     <span th:if="${current.view == 'mts'}">
-                                        <td><a th:href="@{/updateSIMmono/{Shop}/mts(Shop = ${current.nameRainbow.replace('/','_')})}"
+                                        <td><a th:href="@{/updateSIMmono/{Shop}/mts(Shop = ${current.nameRainbow.replaceAll('/','_')})}"
                                                class="btn btn-primary btn-sm btn-block"><span th:text="${current.nameRainbow}"></span></a>
                                         </td>
                                     </span>

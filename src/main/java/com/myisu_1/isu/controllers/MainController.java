@@ -7,6 +7,7 @@ import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import com.myisu_1.isu.repo.SuppliersRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,11 @@ public class MainController {
         tests = (List<authorization_tt>) postRepositoriy.findAll();
         model.addAttribute("tests", tests);
         return "home";
+    }
+    @GetMapping("/api")
+    public ResponseEntity simos() {
+
+        return ResponseEntity.ok(postRepositoriy.findAll());
     }
 
     @PostMapping("/entrance")
