@@ -8,16 +8,33 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class ApiController {
     @Autowired
     private PostRepositoriy postRepositoriy;
-    @GetMapping("/api")
-    public List<authorization_tt> shop(){
 
-        return (List<authorization_tt>) postRepositoriy.findAll();
+    @GetMapping("/api")
+       public List<authorization_tt> shop(){
+        List<authorization_tt> authorization_tt_list = (List<authorization_tt>) postRepositoriy.findAll();
+        List<authorization_tt> login = new ArrayList<>();
+        for (int i = 0;i<authorization_tt_list.size();i++){
+            login.add(new authorization_tt(
+                    authorization_tt_list.get(i).getId(),
+                    authorization_tt_list.get(i).getLogin(),
+                    authorization_tt_list.get(i).getName(),
+                    authorization_tt_list.get(i).getClusterT2(),
+                    authorization_tt_list.get(i).getClusterRtk(),
+                    authorization_tt_list.get(i).getSimT2(),
+                    authorization_tt_list.get(i).getSimMts(),
+                    authorization_tt_list.get(i).getSimBee(),
+                    authorization_tt_list.get(i).getSimMf(),
+                    authorization_tt_list.get(i).getShopIskra(),
+                    authorization_tt_list.get(i).getShopRarus()));
+        }
+        return login;
     }
 
 }
