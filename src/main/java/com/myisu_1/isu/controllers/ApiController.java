@@ -1,15 +1,19 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ApiController {
@@ -36,5 +40,9 @@ public class ApiController {
         }
         return login;
     }
-
+    @PostMapping(path = "/api/save")
+    private ResponseEntity simos(@RequestBody Map<String, Object> requestBody) {
+        System.out.println(requestBody);
+        return ResponseEntity.ok("jr");
+    }
 }
