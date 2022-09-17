@@ -42,7 +42,7 @@ public class ApiController {
         return login;
     }
    @PostMapping(path = "/api/save")
-    private List<authorization_tt> simos(@RequestBody Map<String, Object> requestBody) {
+    private List<authorization_tt> simos(@RequestBody Map<String, String> requestBody) {
         System.out.println("jr");
         return login;
     }
