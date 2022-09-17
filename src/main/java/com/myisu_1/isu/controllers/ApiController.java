@@ -1,21 +1,25 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ApiController {
     @Autowired
     private PostRepositoriy postRepositoriy;
-
+    List<authorization_tt> authorization_tt_list;
     @GetMapping("/api")
        public List<authorization_tt> shop(){
-        List<authorization_tt> authorization_tt_list = (List<authorization_tt>) postRepositoriy.findAll();
+        authorization_tt_list = (List<authorization_tt>) postRepositoriy.findAll();
         List<authorization_tt> login = new ArrayList<>();
         for (int i = 0;i<authorization_tt_list.size();i++){
             login.add(new authorization_tt(
@@ -35,13 +39,20 @@ public class ApiController {
         return login;
     }
    @PostMapping(path = "/api/save")
-    private String simos(@RequestParam String login, @RequestParam String password) {
+    private List<authorization_tt> simos(@RequestParam String login, @RequestParam String password) {
         List<authorization_tt> log = new ArrayList<>();
         authorization_tt logins = new authorization_tt();
-        logins.setLogin(login);
-        log.add(logins);
-        System.out.println("requestBody");
+        for (int i=0;i<authorization_tt_list.size();i++){
+          if (login.equals(authorization_tt_list.get(i).getLogin())&& password.equals(authorization_tt_list.get(i).getLogin())){
+              logins.setLogin("success");
+          }else{
+              logins.setLogin("error");
+          }
+        }
 
-        return "log";
+        log.add(logins);
+
+
+        return  log;
     }
 }
