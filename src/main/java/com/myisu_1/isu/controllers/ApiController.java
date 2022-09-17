@@ -6,10 +6,7 @@ import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +39,13 @@ public class ApiController {
         return login;
     }
    @PostMapping(path = "/api/save")
-    private List<authorization_tt> simos() {
+    private List<authorization_tt> simos(@RequestParam String login, @RequestParam String password) {
+        List<authorization_tt> log = new ArrayList<>();
+        authorization_tt logins = new authorization_tt();
+        logins.setLogin(login);
+        log.add(logins);
         System.out.println("requestBody");
 
-        return (List<authorization_tt>) postRepositoriy.findAll();
+        return log;
     }
 }
