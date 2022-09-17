@@ -1,11 +1,8 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +16,11 @@ import java.util.Map;
 public class ApiController {
     @Autowired
     private PostRepositoriy postRepositoriy;
-
+    List<authorization_tt> login;
     @GetMapping("/api")
        public List<authorization_tt> shop(){
         List<authorization_tt> authorization_tt_list = (List<authorization_tt>) postRepositoriy.findAll();
-        List<authorization_tt> login = new ArrayList<>();
+        login = new ArrayList<>();
         for (int i = 0;i<authorization_tt_list.size();i++){
             login.add(new authorization_tt(
                     authorization_tt_list.get(i).getId(),
@@ -38,11 +35,12 @@ public class ApiController {
                     authorization_tt_list.get(i).getShopIskra(),
                     authorization_tt_list.get(i).getShopRarus()));
         }
+        System.out.println("kj");
         return login;
     }
-    @PostMapping(path = "/api/save")
-    private ResponseEntity simos(@RequestBody Map<String, Object> requestBody) {
-        System.out.println(requestBody);
-        return ResponseEntity.ok("jr");
+   @PostMapping(path = "/api/save")
+    private String simos(@RequestBody Map<String, Object> requestBody) {
+        System.out.println("jr");
+        return "jr";
     }
 }
