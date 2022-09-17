@@ -1,8 +1,11 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +42,8 @@ public class ApiController {
         return login;
     }
    @PostMapping(path = "/api/save")
-    private String simos(@RequestBody Map<String, Object> requestBody) {
+    private List<authorization_tt> simos(@RequestBody Map<String, Object> requestBody) {
         System.out.println("jr");
-        return "jr";
+        return login;
     }
 }
