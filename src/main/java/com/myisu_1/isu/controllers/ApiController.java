@@ -43,7 +43,7 @@ public class ApiController {
         List<authorization_tt> log = new ArrayList<>();
         authorization_tt logins = new authorization_tt();
         for (int i=0;i<authorization_tt_list.size();i++){
-          if (login.equals(authorization_tt_list.get(i).getLogin())&& password.equals(authorization_tt_list.get(i).getPasword())){
+          if (login.equals(authorization_tt_list.get(i).getLogin()) && password.equals(authorization_tt_list.get(i).getPasword())){
               logins.setLogin("success");
           }else{
               logins.setLogin("error");

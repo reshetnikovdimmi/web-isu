@@ -298,7 +298,7 @@ for (int i = 0; i<price_promoList.size();i++){
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
         model.addAttribute("Poco", forRoma(start,stop, "Poco", "Poco","Poco"));
         model.addAttribute("Xiaomi", forRoma(start,stop,"Xiaomi","Mi True","Redmi"));
-        model.addAttribute("forRomaShares", forRomaShares());
+        model.addAttribute("forRomaShares", forRomaShares(start,stop));
         model.addAttribute("noPhone", noPhone());
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         return "Marwel";
@@ -325,7 +325,7 @@ for (int i = 0; i<price_promoList.size();i++){
         return  listDistinct;
     }
 
-    private Object forRomaShares() {
+    private Object forRomaShares(Date start, Date stop) {
         List<ForRoma> listforRoma = new ArrayList<>();
         List<Integer> sumSum = new ArrayList<>();
         List<Integer> resmanisSum = new ArrayList<>();
@@ -347,11 +347,11 @@ for (int i = 0; i<price_promoList.size();i++){
 
             for (int l=0;l<phone_smarts.size();l++){
                 if(listDistinct.get(j).equals(phone_smarts.get(l).getPhone())){
-                    for( int z=0;z<listRemainingPhonesMarwel.size();z++){
-                        if (phone_smarts.get(l).getModel().equals(listRemainingPhonesMarwel.get(z).getModel())){
+                    for( int z=0;z<sales.size();z++){
+                        if (phone_smarts.get(l).getModel().equals(sales.get(z).getNomenclature() ) && sales.get(z).getDateSales().getTime() >= start.getTime() && sales.get(z).getDateSales().getTime() <= stop.getTime()){
                                                         cou++;
                             for( int x=0;x<retail_prices.size();x++){
-                                if(listRemainingPhonesMarwel.get(z).getModel().equals(retail_prices.get(x).getName())){
+                                if(sales.get(z).getNomenclature().equals(retail_prices.get(x).getName())){
                                     couPrices = couPrices + (int) Double.parseDouble(retail_prices.get(x).getPrice().replaceAll(",",".").replaceAll("\\s+",""));
                                 }
                             }
