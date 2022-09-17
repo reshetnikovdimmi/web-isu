@@ -6,7 +6,10 @@ import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +19,11 @@ import java.util.Map;
 public class ApiController {
     @Autowired
     private PostRepositoriy postRepositoriy;
-    List<authorization_tt> login;
+
     @GetMapping("/api")
        public List<authorization_tt> shop(){
         List<authorization_tt> authorization_tt_list = (List<authorization_tt>) postRepositoriy.findAll();
-        login = new ArrayList<>();
+        List<authorization_tt> login = new ArrayList<>();
         for (int i = 0;i<authorization_tt_list.size();i++){
             login.add(new authorization_tt(
                     authorization_tt_list.get(i).getId(),
@@ -39,8 +42,8 @@ public class ApiController {
         return login;
     }
    @PostMapping(path = "/api/save")
-    private List<authorization_tt> simos(@RequestParam String login, @RequestParam String password){
-        System.out.println(login);
+    private List<authorization_tt> simos() {
+      //  System.out.println(requestBody);
         return (List<authorization_tt>) postRepositoriy.findAll();
     }
 }
