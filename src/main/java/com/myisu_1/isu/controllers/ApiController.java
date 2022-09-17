@@ -43,7 +43,7 @@ public class ApiController {
     }
    @PostMapping(path = "/api/save")
     private List<authorization_tt> simos() {
-      //  System.out.println(requestBody);
+        System.out.println("requestBody");
         return (List<authorization_tt>) postRepositoriy.findAll();
     }
 }
