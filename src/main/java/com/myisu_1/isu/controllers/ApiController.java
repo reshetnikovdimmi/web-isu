@@ -44,9 +44,9 @@ public class ApiController {
         authorization_tt logins = new authorization_tt();
         for (int i=0;i<authorization_tt_list.size();i++){
           if (login.equals(authorization_tt_list.get(i).getLogin())&& password.equals(authorization_tt_list.get(i).getLogin())){
-              logins.setLogin("success");
+              logins.setLogin(login +"-" +password);
           }else{
-              logins.setLogin("error");
+              logins.setLogin(login +"-" +password);
           }
         }
 
