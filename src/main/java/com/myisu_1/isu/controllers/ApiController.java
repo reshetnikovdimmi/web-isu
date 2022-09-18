@@ -1,16 +1,13 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class ApiController {
@@ -54,5 +51,12 @@ public class ApiController {
 
 
         return  log;
+    }
+    @PostMapping(path = "/api/test")
+    private ResponseEntity<Iterable<authorization_tt>> simos() {
+
+
+
+        return ResponseEntity.notFound().build();
     }
 }
