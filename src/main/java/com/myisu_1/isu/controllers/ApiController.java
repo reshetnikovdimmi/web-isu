@@ -1,7 +1,9 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.price_promo;
 import com.myisu_1.isu.repo.PostRepositoriy;
+import com.myisu_1.isu.repo.PromoRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import java.util.List;
 public class ApiController {
     @Autowired
     private PostRepositoriy postRepositoriy;
+    @Autowired
+    private PromoRepositoriy promoRepositoriy;
     List<authorization_tt> authorization_tt_list;
     @GetMapping("/api")
        public List<authorization_tt> shop(){
@@ -58,5 +62,12 @@ public class ApiController {
 
 
         return ResponseEntity.notFound().build();
+    }
+    @GetMapping(path = "/api/promo")
+    private List<price_promo> promo() {
+
+
+
+        return (List<price_promo>) promoRepositoriy.findAll();
     }
 }
