@@ -2,6 +2,7 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.SIM.*;
 import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.price_promo;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class ApiController {
     private SaleSimModemRepository saleSimModemRepository;
     @Autowired
     private SaleSimModemRepository_1m saleSimModemRepository_1m;
-
+    @Autowired
+    private PromoRepositoriy promoRepositoriy;
 
     List<authorization_tt> authorization_tt_list;
 
@@ -75,6 +77,13 @@ public class ApiController {
 
 
         return  log;
+    }
+    @GetMapping(path = "/api/promo")
+    private List<price_promo> promo() {
+
+
+
+        return (List<price_promo>) promoRepositoriy.findAll();
     }
     @PostMapping(path = "/api/test")
     private ResponseEntity<Iterable<authorization_tt>> simos() {
