@@ -1,9 +1,8 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.SIM.*;
 import com.myisu_1.isu.models.authorization_tt;
-import com.myisu_1.isu.models.price_promo;
-import com.myisu_1.isu.repo.PostRepositoriy;
-import com.myisu_1.isu.repo.PromoRepositoriy;
+import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,17 @@ public class ApiController {
     @Autowired
     private PostRepositoriy postRepositoriy;
     @Autowired
-    private PromoRepositoriy promoRepositoriy;
+    private RemanisSimRepository remanisSimrepository;
+    @Autowired
+    private SimAndRtkTableRepositoriy simAndRtkTableRepositoriy;
+    @Autowired
+    private SaleSimModemRepository saleSimModemRepository;
+    @Autowired
+    private SaleSimModemRepository_1m saleSimModemRepository_1m;
+
+
     List<authorization_tt> authorization_tt_list;
+
     @GetMapping("/api")
        public List<authorization_tt> shop(){
         authorization_tt_list = (List<authorization_tt>) postRepositoriy.findAll();
@@ -38,6 +46,18 @@ public class ApiController {
         }
         System.out.println("kj");
         return login;
+    }
+    @GetMapping("/api/SIM")
+    public List<SimSvod> SIM(){
+        SvodSimList simList = new SvodSimList();
+        simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
+        simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
+        simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
+        simList.setAuthorization_ttList((List<authorization_tt>) postRepositoriy.findAll());
+        simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
+        simList.parse2();
+
+        return simList.ApiSimAndroid();
     }
    @PostMapping(path = "/api/save")
     private List<authorization_tt> simos(@RequestParam String login, @RequestParam String password) {
@@ -62,12 +82,5 @@ public class ApiController {
 
 
         return ResponseEntity.notFound().build();
-    }
-    @GetMapping(path = "/api/promo")
-    private List<price_promo> promo() {
-
-
-
-        return (List<price_promo>) promoRepositoriy.findAll();
     }
 }
