@@ -6,7 +6,10 @@ import com.myisu_1.isu.models.price_promo;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +32,10 @@ public class ApiController {
     List<authorization_tt> authorization_tt_list;
 
     @GetMapping("/api")
-       public List<authorization_tt> shop(){
+    public List<authorization_tt> shop() {
         authorization_tt_list = (List<authorization_tt>) postRepositoriy.findAll();
         List<authorization_tt> login = new ArrayList<>();
-        for (int i = 0;i<authorization_tt_list.size();i++){
+        for (int i = 0; i < authorization_tt_list.size(); i++) {
             login.add(new authorization_tt(
                     authorization_tt_list.get(i).getId(),
                     authorization_tt_list.get(i).getLogin(),
@@ -49,8 +52,9 @@ public class ApiController {
         System.out.println("kj");
         return login;
     }
+
     @GetMapping("/api/SIM")
-    public List<SimSvod> SIM(){
+    public List<SimSvod> SIM() {
         SvodSimList simList = new SvodSimList();
         simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
         simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
@@ -61,33 +65,34 @@ public class ApiController {
 
         return simList.ApiSimAndroid();
     }
-   @PostMapping(path = "/api/save")
+
+    @PostMapping(path = "/api/save")
     private List<authorization_tt> simos(@RequestParam String login, @RequestParam String password) {
         List<authorization_tt> log = new ArrayList<>();
         authorization_tt logins = new authorization_tt();
-        for (int i=0;i<authorization_tt_list.size();i++){
-          if (login.equals(authorization_tt_list.get(i).getLogin()) && password.equals(authorization_tt_list.get(i).getPasword())){
-              logins.setLogin("success");
-          }else{
-              logins.setLogin("error");
-          }
+        for (int i = 0; i < authorization_tt_list.size(); i++) {
+            if (login.equals(authorization_tt_list.get(i).getLogin()) && password.equals(authorization_tt_list.get(i).getPasword())) {
+                logins.setLogin("success");
+            } else {
+                logins.setLogin("error");
+            }
         }
 
         log.add(logins);
 
 
-        return  log;
+        return log;
     }
+
     @GetMapping(path = "/api/promo")
     private List<price_promo> promo() {
 
 
-
         return (List<price_promo>) promoRepositoriy.findAll();
     }
+
     @PostMapping(path = "/api/test")
     private ResponseEntity<Iterable<authorization_tt>> simos() {
-
 
 
         return ResponseEntity.notFound().build();
