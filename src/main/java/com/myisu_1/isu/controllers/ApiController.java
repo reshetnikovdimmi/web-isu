@@ -49,7 +49,7 @@ public class ApiController {
                     authorization_tt_list.get(i).getShopIskra(),
                     authorization_tt_list.get(i).getShopRarus()));
         }
-        System.out.println("kj");
+        System.out.println("login");
         return login;
     }
 
