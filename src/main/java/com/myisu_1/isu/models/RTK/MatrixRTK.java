@@ -31,6 +31,7 @@ public class MatrixRTK {
     public MatrixRTK() {
     }
 
+
     public MatrixRTK(String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String IPTVset_topBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController) {
         Cluster = cluster;
         VnutrLowVideoCam = vnutrLowVideoCam;

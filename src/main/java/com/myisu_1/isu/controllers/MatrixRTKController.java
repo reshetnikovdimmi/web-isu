@@ -56,6 +56,7 @@ public class MatrixRTKController {
     public String delet(@RequestParam int IDMatrixRTK, Model model) {
         matrixRTKRepository.deleteById(IDMatrixRTK);
         model.addAttribute("RTK", matrixRTKRepository.findAll());
+
         return "MatrixRTK";
     }
 }
