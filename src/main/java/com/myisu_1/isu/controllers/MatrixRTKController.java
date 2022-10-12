@@ -1,6 +1,6 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.models.RTK.MatrixRTK;
+import com.myisu_1.isu.models.MatrixRTK;
 import com.myisu_1.isu.repo.MatrixRTKRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
