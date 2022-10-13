@@ -18,7 +18,7 @@ public class MatrixRTK {
     private String VneshCylindrVideoCam;
     private String VneshHighVideoCam;
     private String VneshWiFiVideoCam;
-    private String IPTVset_topBox;
+    private String IptvBox;
     private String SmartMiniSpeaker;
     private String SmartColumnCapsule;
     private String RostelecomRouter;
@@ -28,24 +28,7 @@ public class MatrixRTK {
     public MatrixRTK() {
     }
 
-    public MatrixRTK(String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String IPTVset_topBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController) {
-        Cluster = cluster;
-        VnutrLowVideoCam = vnutrLowVideoCam;
-        VideoCamVnutrMiddle = videoCamVnutrMiddle;
-        VnutrHighVideoCam = vnutrHighVideoCam;
-        VneshKupolVideoCam = vneshKupolVideoCam;
-        VneshCylindrVideoCam = vneshCylindrVideoCam;
-        VneshHighVideoCam = vneshHighVideoCam;
-        VneshWiFiVideoCam = vneshWiFiVideoCam;
-        this.IPTVset_topBox = IPTVset_topBox;
-        SmartMiniSpeaker = smartMiniSpeaker;
-        SmartColumnCapsule = smartColumnCapsule;
-        RostelecomRouter = rostelecomRouter;
-        PowerInjectorForVideoCam = powerInjectorForVideoCam;
-        GameController = gameController;
-    }
-
-    public MatrixRTK(int id, String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String IPTVset_topBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController) {
+    public MatrixRTK(int id, String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String iptvBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController) {
         this.id = id;
         Cluster = cluster;
         VnutrLowVideoCam = vnutrLowVideoCam;
@@ -55,7 +38,24 @@ public class MatrixRTK {
         VneshCylindrVideoCam = vneshCylindrVideoCam;
         VneshHighVideoCam = vneshHighVideoCam;
         VneshWiFiVideoCam = vneshWiFiVideoCam;
-        this.IPTVset_topBox = IPTVset_topBox;
+        IptvBox = iptvBox;
+        SmartMiniSpeaker = smartMiniSpeaker;
+        SmartColumnCapsule = smartColumnCapsule;
+        RostelecomRouter = rostelecomRouter;
+        PowerInjectorForVideoCam = powerInjectorForVideoCam;
+        GameController = gameController;
+    }
+
+    public MatrixRTK(String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String iptvBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController) {
+        Cluster = cluster;
+        VnutrLowVideoCam = vnutrLowVideoCam;
+        VideoCamVnutrMiddle = videoCamVnutrMiddle;
+        VnutrHighVideoCam = vnutrHighVideoCam;
+        VneshKupolVideoCam = vneshKupolVideoCam;
+        VneshCylindrVideoCam = vneshCylindrVideoCam;
+        VneshHighVideoCam = vneshHighVideoCam;
+        VneshWiFiVideoCam = vneshWiFiVideoCam;
+        IptvBox = iptvBox;
         SmartMiniSpeaker = smartMiniSpeaker;
         SmartColumnCapsule = smartColumnCapsule;
         RostelecomRouter = rostelecomRouter;
@@ -135,12 +135,12 @@ public class MatrixRTK {
         VneshWiFiVideoCam = vneshWiFiVideoCam;
     }
 
-    public String getIPTVset_topBox() {
-        return IPTVset_topBox;
+    public String getIptvBox() {
+        return IptvBox;
     }
 
-    public void setIPTVset_topBox(String IPTVset_topBox) {
-        this.IPTVset_topBox = IPTVset_topBox;
+    public void setIptvBox(String iptvBox) {
+        IptvBox = iptvBox;
     }
 
     public String getSmartMiniSpeaker() {

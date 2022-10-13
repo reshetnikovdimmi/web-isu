@@ -7,7 +7,7 @@ $(document).ready(function(){
                      var href = $(this).attr("href");
 
                      $.get(href, function(SimSetup, status){
-                        console.log(SimSetup.id);
+                        console.log(SimSetup.smartMiniSpeaker);
                             $('#IDupdateMatrixRTK').val(SimSetup.id);
                             $('#Cluster').val(SimSetup.cluster);
                             $('#VnutrLowVideoCam').val(SimSetup.vnutrLowVideoCam);
@@ -17,7 +17,7 @@ $(document).ready(function(){
                             $('#VneshCylindrVideoCam').val(SimSetup.vneshCylindrVideoCam);
                             $('#VneshHighVideoCam').val(SimSetup.vneshHighVideoCam);
                             $('#VneshWiFiVideoCam').val(SimSetup.vneshWiFiVideoCam);
-                            $('#IPTVset_topBox').val(SimSetup.IPTVset_topBox);
+                            $('#IptvBox').val(SimSetup.iptvBox);
                             $('#SmartMiniSpeaker').val(SimSetup.smartMiniSpeaker);
                             $('#SmartColumnCapsule').val(SimSetup.smartColumnCapsule);
                             $('#RostelecomRouter').val(SimSetup.rostelecomRouter);

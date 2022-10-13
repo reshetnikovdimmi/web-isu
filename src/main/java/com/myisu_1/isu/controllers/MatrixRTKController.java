@@ -33,7 +33,7 @@ public class MatrixRTKController {
                             @RequestParam String VneshCylindrVideoCam,
                             @RequestParam String VneshHighVideoCam,
                             @RequestParam String VneshWiFiVideoCam,
-                            @RequestParam String IPTVset_topBox,
+                            @RequestParam String IptvBox,
                             @RequestParam String SmartMiniSpeaker,
                             @RequestParam String SmartColumnCapsule,
                             @RequestParam String RostelecomRouter,
@@ -43,9 +43,10 @@ public class MatrixRTKController {
                             Model model) {
 
         if (IDupdateMatrixRTK != 0) {
-            matrixRTKRepository.save((new MatrixRTK(IDupdateMatrixRTK, Cluster, VnutrLowVideoCam, VideoCamVnutrMiddle, VnutrHighVideoCam, VneshKupolVideoCam, VneshCylindrVideoCam, VneshHighVideoCam, VneshWiFiVideoCam, IPTVset_topBox, SmartMiniSpeaker, SmartColumnCapsule, RostelecomRouter, PowerInjectorForVideoCam, GameController)));
+
+            matrixRTKRepository.save((new MatrixRTK(IDupdateMatrixRTK, Cluster, VnutrLowVideoCam, VideoCamVnutrMiddle, VnutrHighVideoCam, VneshKupolVideoCam, VneshCylindrVideoCam, VneshHighVideoCam, VneshWiFiVideoCam, IptvBox, SmartMiniSpeaker, SmartColumnCapsule, RostelecomRouter, PowerInjectorForVideoCam, GameController)));
         } else {
-            matrixRTKRepository.save((new MatrixRTK(Cluster, VnutrLowVideoCam, VideoCamVnutrMiddle, VnutrHighVideoCam, VneshKupolVideoCam, VneshCylindrVideoCam, VneshHighVideoCam, VneshWiFiVideoCam, IPTVset_topBox, SmartMiniSpeaker, SmartColumnCapsule, RostelecomRouter, PowerInjectorForVideoCam, GameController)));
+            matrixRTKRepository.save((new MatrixRTK(Cluster, VnutrLowVideoCam, VideoCamVnutrMiddle, VnutrHighVideoCam, VneshKupolVideoCam, VneshCylindrVideoCam, VneshHighVideoCam, VneshWiFiVideoCam, IptvBox, SmartMiniSpeaker, SmartColumnCapsule, RostelecomRouter, PowerInjectorForVideoCam, GameController)));
         }
 
         model.addAttribute("RTK", matrixRTKRepository.findAll());
