@@ -15,7 +15,8 @@ public class MatrixRTKController {
     private MatrixRTKRepository matrixRTKRepository;
     @GetMapping("/MatrixRTK")
     public String MatrixPhone(Model model) {
-        model.addAttribute("RTK", matrixRTKRepository.findAll());
+        model.addAttribute("MatrixRTK", matrixRTKRepository.findAll());
+
         return "MatrixRTK";
     }
     @ResponseBody
@@ -49,13 +50,13 @@ public class MatrixRTKController {
             matrixRTKRepository.save((new MatrixRTK(Cluster, VnutrLowVideoCam, VideoCamVnutrMiddle, VnutrHighVideoCam, VneshKupolVideoCam, VneshCylindrVideoCam, VneshHighVideoCam, VneshWiFiVideoCam, IptvBox, SmartMiniSpeaker, SmartColumnCapsule, RostelecomRouter, PowerInjectorForVideoCam, GameController)));
         }
 
-        model.addAttribute("RTK", matrixRTKRepository.findAll());
+        model.addAttribute("MatrixRTK", matrixRTKRepository.findAll());
         return "MatrixRTK";
     }
     @PostMapping("/delet_MatrixRTK")
     public String delet(@RequestParam int IDMatrixRTK, Model model) {
         matrixRTKRepository.deleteById(IDMatrixRTK);
-        model.addAttribute("RTK", matrixRTKRepository.findAll());
+        model.addAttribute("MatrixRTK", matrixRTKRepository.findAll());
         return "MatrixRTK";
     }
 }

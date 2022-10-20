@@ -1,5 +1,6 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.SIM.*;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.models.price_promo;
@@ -28,6 +29,8 @@ public class ApiController {
     private SaleSimModemRepository_1m saleSimModemRepository_1m;
     @Autowired
     private PromoRepositoriy promoRepositoriy;
+    @Autowired
+    private MatrixRTKRepository matrixRTKRepository;
 
     List<authorization_tt> authorization_tt_list;
 
@@ -80,13 +83,11 @@ public class ApiController {
 
         log.add(logins);
 
-
         return log;
     }
 
     @GetMapping(path = "/api/promo")
     private List<price_promo> promo() {
-
 
         return (List<price_promo>) promoRepositoriy.findAll();
     }
@@ -94,7 +95,19 @@ public class ApiController {
     @PostMapping(path = "/api/test")
     private ResponseEntity<Iterable<authorization_tt>> simos() {
 
-
         return ResponseEntity.notFound().build();
+    }
+    @GetMapping("/RTK/ее")
+    public List<MatrixRTK> rtkhh() {
+        SvodSimList simList = new SvodSimList();
+        simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
+        simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
+        simList.setSaleSim_6ms((List<SaleSim_6m>) saleSimModemRepository.findAll());
+        simList.setAuthorization_ttList((List<authorization_tt>) postRepositoriy.findAll());
+        simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
+        simList.setMatrixRTKList(matrixRTKRepository.findAll());
+
+        // model.addAttribute("MatrixRTK", simList.MatrixRTK());
+        return simList.MatrixRTK();
     }
 }

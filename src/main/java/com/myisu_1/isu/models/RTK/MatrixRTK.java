@@ -24,6 +24,27 @@ public class MatrixRTK {
     private String RostelecomRouter;
     private String PowerInjectorForVideoCam;
     private String GameController;
+    private String Sufficiency;
+
+
+
+    public MatrixRTK(String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String iptvBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController, String sufficiency) {
+        Cluster = cluster;
+        VnutrLowVideoCam = vnutrLowVideoCam;
+        VideoCamVnutrMiddle = videoCamVnutrMiddle;
+        VnutrHighVideoCam = vnutrHighVideoCam;
+        VneshKupolVideoCam = vneshKupolVideoCam;
+        VneshCylindrVideoCam = vneshCylindrVideoCam;
+        VneshHighVideoCam = vneshHighVideoCam;
+        VneshWiFiVideoCam = vneshWiFiVideoCam;
+        IptvBox = iptvBox;
+        SmartMiniSpeaker = smartMiniSpeaker;
+        SmartColumnCapsule = smartColumnCapsule;
+        RostelecomRouter = rostelecomRouter;
+        PowerInjectorForVideoCam = powerInjectorForVideoCam;
+        GameController = gameController;
+        Sufficiency = sufficiency;
+    }
 
     public MatrixRTK() {
     }
@@ -74,7 +95,13 @@ public class MatrixRTK {
     public String getCluster() {
         return Cluster;
     }
+    public String getSufficiency() {
+        return Sufficiency;
+    }
 
+    public void setSufficiency(String sufficiency) {
+        Sufficiency = sufficiency;
+    }
     public void setCluster(String cluster) {
         Cluster = cluster;
     }

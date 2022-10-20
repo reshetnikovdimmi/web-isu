@@ -600,57 +600,60 @@
                     <h3>RTK</h3>
                 </div>
                 <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
-                        <div class="table_mf">
-                            <table class="table-borderless-sm">
-                                <thead >
+
+                        <div class="table">
+                            <table class="table-responsive table-hover">
+                                <thead class="table-dark table-hover">
                                 <tr>
+
                                     <th name="Shopmf" id="Shopmf">МАГАЗИН</th>
+                                    <th name="Shopmf" id="Shopmf">внутренняя Low</th>
+                                    <th name="Shopmf" id="Shopmf">внутренняя Middle</th>
+                                    <th name="Shopmf" id="Shopmf">внутренняя High</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя купольная</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя цилиндрическая</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя High</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя WiFi</th>
+                                    <th name="Shopmf" id="Shopmf">Приставка IPTV</th>
+                                    <th name="Shopmf" id="Shopmf">колонка Мини</th>
+                                    <th name="Shopmf" id="Shopmf">колонка Капсула</th>
+                                    <th name="Shopmf" id="Shopmf">Роутер Ростелеком</th>
+                                    <th name="Shopmf" id="Shopmf">Инжектор питания</th>
+                                    <th name="Shopmf" id="Shopmf">Игровой контроллер</th>
+                                    <th name="Shopmf" id="Shopmf">Достаточность</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="current : ${shop}">
-                                <span th:if="${current.simMf == 'mf'}">
-                                <td><a th:href="@{/updateShops/{Shop}/mf(Shop = ${current.name})}"
-                                       class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
-                                </td>
-                                </span>
+                                <tr th:each="current : ${MatrixRTK}">
+
+
+                                    <td><a th:href="@{/updateShops/{Shop}/mf(Shop = ${current.Cluster})}"
+                                           class="btn btn-primary btn-sm btn-block"><span th:text="${current.Cluster}"></span></a>
+                                    </td>
+                                    <td th:text="${current.VnutrLowVideoCam}"></td>
+                                    <td th:text="${current.VideoCamVnutrMiddle}"></td>
+                                    <td th:text="${current.VnutrHighVideoCam}"></td>
+                                    <td th:text="${current.VneshKupolVideoCam}"></td>
+                                    <td th:text="${current.VneshCylindrVideoCam}"></td>
+                                    <td th:text="${current.VneshHighVideoCam}"></td>
+                                    <td th:text="${current.VneshWiFiVideoCam}"></td>
+                                    <td th:text="${current.IptvBox}"></td>
+                                    <td th:text="${current.SmartMiniSpeaker}"></td>
+                                    <td th:text="${current.SmartColumnCapsule}"></td>
+                                    <td th:text="${current.RostelecomRouter}"></td>
+                                    <td th:text="${current.PowerInjectorForVideoCam}"></td>
+                                    <td th:text="${current.GameController}"></td>
+                                    <td th:text="${current.Sufficiency}"></td>
+
+
+                                </tr>
+
+
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm"  id = "table_mf2">
-                                    <table class= "table-borderless"  id = "table_mf3">
-                                        <thead>
-                                        <tr>
-                                            <th>Name SIM</th>
-                                            <th>Sale_6/6</th>
-                                            <th>Sale</th>
-                                            <th>Remanis</th>
-                                            <th>Plan</th>
-                                            <th>% Plan</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

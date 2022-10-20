@@ -1,5 +1,6 @@
 package com.myisu_1.isu.models.SIM;
 
+import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.authorization_tt;
 
 import java.util.List;
@@ -12,11 +13,21 @@ public abstract class SimList {
     List<RemanisSim> remanisSimList;
     List<authorization_tt> authorization_ttList;
     List<SimAndRtkTable> simAndRtkTables;
+    List<MatrixRTK> matrixRTKList;
 
 
-    public abstract Iterable<SimSvod> parse(String shop,String t2);
+
+    public abstract Iterable<SimSvod> parse(String shop, String t2);
     public abstract void parse2();
 
+
+    public List<MatrixRTK> getMatrixRTKList() {
+        return matrixRTKList;
+    }
+
+    public void setMatrixRTKList(List<MatrixRTK> matrixRTKList) {
+        this.matrixRTKList = matrixRTKList;
+    }
     public List<SimSvod> getSimSvodList() {
         return simSvodList;
     }
