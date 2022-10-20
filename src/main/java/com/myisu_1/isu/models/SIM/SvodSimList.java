@@ -255,8 +255,6 @@ public class SvodSimList extends SimList {
     }
 
     public List<SimSvod> ApiSimAndroid() {
-        //List<SimSvod> simSvodList = new ArrayList<>();
-
 
         return simSvodList;
     }
