@@ -1,5 +1,6 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
 import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.SIM.*;
 import com.myisu_1.isu.models.authorization_tt;
@@ -97,8 +98,8 @@ public class ApiController {
 
         return ResponseEntity.notFound().build();
     }
-    @GetMapping("/RTK/ее")
-    public List<MatrixRTK> rtkhh() {
+    @GetMapping("/RTK")
+    public List<AndroidMatrixRTK> rtkMatrix() {
         SvodSimList simList = new SvodSimList();
         simList.setRemanisSimList((List<RemanisSim>) remanisSimrepository.findAll());
         simList.setSaleSim_1ms((List<SaleSim_1m>) saleSimModemRepository_1m.findAll());
@@ -107,7 +108,6 @@ public class ApiController {
         simList.setSimAndRtkTables(simAndRtkTableRepositoriy.findAll());
         simList.setMatrixRTKList(matrixRTKRepository.findAll());
 
-        // model.addAttribute("MatrixRTK", simList.MatrixRTK());
-        return simList.MatrixRTK();
+        return simList.AndroidMatrixRTK();
     }
 }
