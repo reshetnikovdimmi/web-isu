@@ -58,7 +58,6 @@ public class SimController {
     @RequestMapping(value = "updateShops/{Shop}/{t2}", method = RequestMethod.GET)
     public Iterable<SimSvod> update(@PathVariable("Shop") String shop, @PathVariable("t2") String t2) {
 
-
         simSvodList = new ArrayList<>();
         simSvodList = (List<SimSvod>) simList.parse3(shop, t2);
 
