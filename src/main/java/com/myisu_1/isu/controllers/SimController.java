@@ -1,6 +1,7 @@
 package com.myisu_1.isu.controllers;
 
 
+import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
 import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.SIM.*;
 import com.myisu_1.isu.models.authorization_tt;
@@ -62,6 +63,15 @@ public class SimController {
         simSvodList = (List<SimSvod>) simList.parse3(shop, t2);
 
         return simList.parse3(shop, t2);
+    }
+    @ResponseBody
+    @RequestMapping(value = "updateRTK/{Shop}", method = RequestMethod.GET)
+    public Iterable<AndroidMatrixRTK> updateRTK(@PathVariable("Shop") String shop) {
+
+System.out.println(shop);
+
+
+        return simList.AndroidMatrixRTKItog(shop);
     }
 
 

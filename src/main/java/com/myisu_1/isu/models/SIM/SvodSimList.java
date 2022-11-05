@@ -425,14 +425,6 @@ public class SvodSimList extends SimList {
                                 androidMatrixRTK.setDistributionModel(distribModelRTK.get(k));
                                 androidMatrixRTK.setNomenclature(remanisSimList.get(i).getNameSimAndModem());
                                 androidMatrixRTK.setRemanis(String.valueOf(remanisSimList.get(i).getRemainsSimModem()));
-
-
-
-
-
-
-
-
                                 androidMatrixRTKList.add(androidMatrixRTK);
 
                             }
@@ -451,7 +443,7 @@ public class SvodSimList extends SimList {
                     androidMatrixRTKList.add(androidMatrixRTK);
                     for (DistribModelRTK s : types) {
                         if(s.getModelRTK().equals(distribModelRTK.get(k-1))&&s.getCluster()!=null&&!s.getCluster().isEmpty()){
-                            System.out.println(s.getModelRTK() +"--"+distribModelRTK.get(k-1)+"--"+s.getCluster());
+                            //System.out.println(s.getModelRTK() +"--"+distribModelRTK.get(k-1)+"--"+s.getCluster());
                             androidMatrixRTK.setMatrixRTK(String.valueOf(s.getCluster()));
                         }
                     }
@@ -464,6 +456,19 @@ public class SvodSimList extends SimList {
         }
 
         // System.out.println(distribModelRTK);
+        return androidMatrixRTKList;
+    }
+
+    public Iterable<AndroidMatrixRTK> AndroidMatrixRTKItog(String shop) {
+        List<AndroidMatrixRTK> androidMatrixRTKList1 = AndroidMatrixRTK();
+        List<AndroidMatrixRTK> androidMatrixRTKList = new ArrayList<>();
+        for (int i=0;i<androidMatrixRTKList1.size();i++){
+if (shop.equals(androidMatrixRTKList1.get(i).getShop())){
+    androidMatrixRTKList.add(new AndroidMatrixRTK(androidMatrixRTKList1.get(i).getShop(),androidMatrixRTKList1.get(i).getNomenclature(),androidMatrixRTKList1.get(i).getRemanis(),androidMatrixRTKList1.get(i).getDistributionModel(),androidMatrixRTKList1.get(i).getSufficiency(),androidMatrixRTKList1.get(i).getMatrixRTK()));
+
+}
+         }
+
         return androidMatrixRTKList;
     }
 }

@@ -600,10 +600,16 @@
                     <h3>RTK</h3>
                 </div>
                 <div class="row">
+                    
+                </div>
+                <div class="row">
 
-                        <div class="table">
-                            <table class="table-responsive table-hover">
-                                <thead class="table-dark table-hover">
+                        <div class="table_RTK">
+                            <table class="table table-borderless-sm table-hover">
+                                <thead>
+                                <tr>
+                                    <th name="ShopRTK" id="ShopRTK">МАГАЗИН</th>
+                                </tr>
                                 <tr>
 
                                     <th name="Shopmf" id="Shopmf">МАГАЗИН</th>
@@ -627,7 +633,7 @@
                                 <tr th:each="current : ${MatrixRTK}">
 
 
-                                    <td><a th:href="@{/updateShops/{Shop}/mf(Shop = ${current.Cluster})}"
+                                    <td><a th:href="@{/updateRTK/{Shop}(Shop = ${current.Cluster})}"
                                            class="btn btn-primary btn-sm btn-block"><span th:text="${current.Cluster}"></span></a>
                                     </td>
                                     <td th:text="${current.VnutrLowVideoCam}"></td>
@@ -654,6 +660,76 @@
                         </div>
 
 
+                </div>
+
+                <div class="row">
+
+
+                        <div class="table table-borderless-sm"  id = "table_RTK2">
+                            <table class= "table-dark table-hover"  id = "table_RTK3">
+                                <thead>
+                                <tr>
+                                    <th name="Shopmf" id="Shopmf">внутренняя Low</th>
+                                    <th name="Shopmf" id="Shopmf">внутренняя Middle</th>
+                                    <th name="Shopmf" id="Shopmf">внутренняя High</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя купольная</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя цилиндрическая</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя High</th>
+                                    <th name="Shopmf" id="Shopmf">внешняя WiFi</th>
+                                    <th name="Shopmf" id="Shopmf">Приставка IPTV</th>
+                                    <th name="Shopmf" id="Shopmf">колонка Мини</th>
+                                    <th name="Shopmf" id="Shopmf">колонка Капсула</th>
+                                    <th name="Shopmf" id="Shopmf">Роутер Ростелеком</th>
+                                    <th name="Shopmf" id="Shopmf">Инжектор питания</th>
+                                    <th name="Shopmf" id="Shopmf">Игровой контроллер</th>
+                                    <th name="Shopmf" id="Shopmf">Достаточность</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
                 </div>
             </div>
         </div>
