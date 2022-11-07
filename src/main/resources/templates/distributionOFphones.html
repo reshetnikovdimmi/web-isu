@@ -41,14 +41,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
+                            <a href="matrixT2" class="nav-link text-white">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#speedometer2"></use>
                                 </svg>
                                 <ya-tr-span data-index="51-0" data-translated="true" data-source-lang="en"
                                             data-target-lang="ru" data-value=" Dashboard "
-                                            data-translation=" Информационная панель " data-type="trSpan">
-                                    Информационная панель
+                                            data-translation=" Матрица Т2 " data-type="trSpan">
+                                    Матрица Т2
                                 </ya-tr-span>
                             </a>
                         </li>
@@ -90,7 +90,7 @@
             </div>
         </div>
     </header>
-    <div class="container">
+    <div class="container-xxl">
 
         <div class="row mb-3">
             <div class="col-6 themed-grid-col">
@@ -100,12 +100,12 @@
         </div>
         <div class="row mb-3">
 
-                теле 2
+            теле 2
 
         </div>
         <div class="row mb-3">
 
-            <div class="col col-lg-3">
+            <div class="col col-lg-4">
                 <div class="row mb-3 text-center">
                     Потребность
                 </div>
@@ -133,7 +133,33 @@
                     </table>
                 </div>
             </div>
-            <div class="col col-lg-3">
+            <div class="col col-lg-4">
+                <div class="row mb-3 text-center">
+                    Распределение
+                </div>
+                <div class="row mb-3 text-center">
+                    <table class="table-borderless-sm">
+                        <thead>
+                        <tr>
+                            <th name="Shop" id="Shop">модель телефона</th>
+                            <th name="Shop" id="Shop">sky</th>
+                            <th name="Shop" id="Shop">остаток</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="current : ${shopT2}">
+
+                            <td th:text="модель"></td>
+                            <td th:text="0"></td>
+                            <td th:text="0"></td>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col col-lg-4">
                 <div class="row mb-3 text-center">
                     Остатки на складах
                 </div>
@@ -159,25 +185,17 @@
                     </table>
                 </div>
             </div>
-            <div class="col-md-auto">
-                <div class="row mb-3 text-center">
-                    Распределение
-                </div>
-                <div class="row mb-3 text-center">
-                    Распределение таблица
-                </div>
-            </div>
 
 
         </div>
         <div class="row mb-3">
 
-             не теле 2
+            не теле 2
 
         </div>
         <div class="row mb-3">
 
-            <div class="col col-lg-3">
+            <div class="col col-lg-4">
                 <div class="row mb-3 text-center">
                     Потребность
                 </div>
@@ -205,38 +223,41 @@
                     </table>
                 </div>
             </div>
-            <div class="col col-lg-3">
+            <div class="col col-lg-4">
                 <div class="row mb-3 text-center">
-                    Остатки на складах
+                    распределение
                 </div>
                 <div class="row mb-3 text-center">
                     <table class="table-borderless-sm">
-                        <thead>
-                        <tr>
-                            <th name="Shop" id="Shop">модель</th>
-                            <th name="Shop" id="Shop">осн склад</th>
-                            <th name="Shop" id="Shop">склад Т2</th>
+
+                            <thead>
+                            <tr>
+                                <th name="Shop" id="Shop">модель телефона</th>
+                                <th name="Shop" id="Shop">sky</th>
+                                <th name="Shop" id="Shop">остаток</th>
 
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="current : ${shopT2}">
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="current : ${shopT2}">
 
-                            <td th:text="${current.name}"></td>
-                            <td th:text="0"></td>
-                            <td th:text="0"></td>
+                                <td th:text="модель"></td>
+                                <td th:text="0"></td>
+                                <td th:text="0"></td>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                 </div>
+
             </div>
-            <div class="col-md-auto">
+
+            <div class="col col-lg-4">
                 <div class="row mb-3 text-center">
-                    Распределение
+                    Матрица Теле2
                 </div>
                 <div class="row mb-3 text-center">
-                    Распределение таблица
+                    Матрица таблица
                 </div>
             </div>
 
