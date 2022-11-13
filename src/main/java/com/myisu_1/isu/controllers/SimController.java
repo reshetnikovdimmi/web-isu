@@ -54,6 +54,7 @@ public class SimController {
         return "SIM";
     }
 
+
     @ResponseBody
     @RequestMapping(value = "updateShops/{Shop}/{t2}", method = RequestMethod.GET)
     public Iterable<SimSvod> update(@PathVariable("Shop") String shop, @PathVariable("t2") String t2) {
@@ -63,11 +64,10 @@ public class SimController {
 
         return simList.parse3(shop, t2);
     }
+
     @ResponseBody
     @RequestMapping(value = "updateRTK/{Shop}", method = RequestMethod.GET)
     public Iterable<AndroidMatrixRTK> updateRTK(@PathVariable("Shop") String shop) {
-
-System.out.println(shop);
 
 
         return simList.AndroidMatrixRTKItog(shop);
