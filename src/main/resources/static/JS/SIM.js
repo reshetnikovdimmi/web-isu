@@ -364,7 +364,9 @@ $(document).ready(function() {
                             }
                             console.log($(this).parent().index());
                             $('#table_t3 td').off('click');
-                            sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
+                            sendRequest('POST', requestURL, body)
+                            .then(data => console.log(data))
+                            .catch(err => console.log(err))
                         });
                     });
                     this.removeEventListener('click', func)
@@ -436,6 +438,7 @@ $(document).ready(function() {
             table.appendChild(tbody);
             parent.appendChild(table);
             var tds = document.querySelectorAll('table.table-borderless-1 td');
+
             for (var i = 4; i < tds.length; i += 6) {
                 tds[i].addEventListener('click', function func() {
                     var input = document.createElement('input');
@@ -451,12 +454,13 @@ $(document).ready(function() {
                     input.addEventListener('change', function() {
                         $('#table_t3m td').on('click', function() {
                             const body = {
-                                id: $(this).parent().index(),
-                                shop: tab
+                                id: $(this).parent().index(), shop: tab
                             }
                             console.log($(this).parent().index());
                             $('#table_t3m td').off('click');
-                            sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
+                            sendRequest('POST', requestURL, body)
+                                .then(data => console.log(data))
+                                .catch(err => console.log(err))
                         });
                     });
                     this.removeEventListener('click', func)

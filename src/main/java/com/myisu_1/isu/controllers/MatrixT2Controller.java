@@ -1,13 +1,26 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.MarvelPromo;
 import com.myisu_1.isu.models.Phone.MatrixT2;
-import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
-import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.service.MatrixT2Servise;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 
 @Controller
 public class MatrixT2Controller {
@@ -22,6 +35,32 @@ public class MatrixT2Controller {
     @ResponseBody
     @RequestMapping(value = "matrixT2table", method = RequestMethod.GET)
     public Iterable<MatrixT2> updateRTK() {
+
         return matrixT2Servise.matrixT2table();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "matrixT2Del/{distributionModel}", method = RequestMethod.GET)
+    public Iterable<MatrixT2> matrixT2Del(@PathVariable("distributionModel") String distributionModel) {
+
+        return matrixT2Servise.matrixT2Del(distributionModel);
+    }
+
+    @PostMapping(path = "/matrixT2Update")
+
+    private ResponseEntity matrixT2tables(@RequestBody List<MatrixT2> sim) {
+
+        return ResponseEntity.ok(matrixT2Servise.matrixT2Update(sim));
+    }
+
+    @PostMapping("/matrixT2Import")
+    public String matrixT2Import(@RequestParam("matrixT2Import") MultipartFile matrixT2Import, Model model) throws IOException, ParseException {
+
+
+
+        model.addAttribute("time", matrixT2Servise.matrixT2Import(matrixT2Import));
+
+
+        return "matrixT2";
     }
 }

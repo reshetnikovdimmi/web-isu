@@ -24,6 +24,12 @@ public class MatrixT2 {
         this.quantity = quantity;
     }
 
+    public MatrixT2(String distributionModel, String cluster, String quantity) {
+        this.distributionModel = distributionModel;
+        this.cluster = cluster;
+        this.quantity = quantity;
+    }
+
     public int getId() {
         return id;
     }

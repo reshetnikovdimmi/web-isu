@@ -60,6 +60,44 @@
                     <div class="row mb-3">
                         <div class="col-md-8 themed-grid-col">
                             <div class="row mb-3">
+                                <!-- Модальное окно -->
+                <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+
+
+                                    <div class="row">
+                                        <button type="button" class="btn btn-sm">ADD кластер</button>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">модель распределения</div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="Promo_price" id="Promo_price" placeholder="Введите имя"  />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">кластер</div>
+                                        <div class="col-md-6">количество</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                <button type="button" class="btn btn-primary">Понял</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                                 <div class="col-6 themed-grid-col">
                                     <input type="hidden" name="IDupdate" id="IDupdate" value="0">
                                 </div>
