@@ -27,5 +27,11 @@ public class MatrixSparkController {
 
         return matrixSparkServise.matrixSparktable();
     }
+    @ResponseBody
+    @RequestMapping(value = "updateSparkSale", method = RequestMethod.GET)
+    public Iterable<MatrixSpark> updateSparkSale() {
+
+        return matrixSparkServise.matrixSparkTableUpdate();
+    }
 
 }

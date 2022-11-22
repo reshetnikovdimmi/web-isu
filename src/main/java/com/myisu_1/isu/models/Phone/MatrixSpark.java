@@ -16,6 +16,11 @@ public class MatrixSpark {
     public MatrixSpark() {
     }
 
+    public MatrixSpark(String model, String sale) {
+        this.model = model;
+        this.sale = sale;
+    }
+
     public MatrixSpark(int id, String model, String sale) {
         this.id = id;
         this.model = model;
