@@ -1,33 +1,43 @@
 const requestURL = '/matrixSparkSale'
 const requestURLupdate = '/updateSparkSale'
-
+const requestURLsave = '/saveSparkSale'
 $(document).ready(function() {
-
     $('#updateMatrixSpark').on('click', function() {
-
         $.get(requestURLupdate, function(sparkSalePhone, status) {
-        console.log(sparkSalePhone);
+            console.log(sparkSalePhone);
             createTableSpark(sparkSalePhone);
         });
-
     });
-
     $('#saveMatrixSpark').on('click', function() {
-        alert("saveMatrixSpark")
+        var bodyArr = [];
+        $('input:checkbox:checked').each(function() {
+            const body = {
+                model: "0",
+                sale: "0"
+            }
+            body.model = $(this).parents('tr:first').find('td:eq(0)').text();
+            body.sale = $(this).parents('tr:first').find('td:eq(1)').text();
+            bodyArr.push(body);
+        });
+        sendRequest('POST', requestURLsave, bodyArr)
+        .then(data => createTableSpark(data))
+        .catch(err => console.log(err))
     });
-
 });
-
-
 $.get(requestURL, function(sparkSalePhone, status) {
     createTableSpark(sparkSalePhone);
 });
 
 function delModel() {
+    var cou = 0;
     $(document).find('.del').on('click', function() {
-        // for (var i = 1; i < arr.length - 2; i++) {
-        alert($(this).parents('tr:first').find('td:eq( 0 )').text())
-            //   }
+        if ($(this).is(':checked')) {
+            cou++;
+            $('#recommendedValue').text(cou);
+        } else {
+            cou--;
+            $('#recommendedValue').text(cou);
+        }
     });
 }
 
@@ -62,9 +72,8 @@ function createTableSpark(sparkSalePhone) {
                 var button = document.createElement('input')
                 button.type = 'checkbox';
                 td.appendChild(button);
-
                 button.classList.add("del");
-
+                button.id = 'del';
             }
             tr.appendChild(td);
         }
@@ -75,4 +84,24 @@ function createTableSpark(sparkSalePhone) {
     table.appendChild(thead);
     elem.appendChild(table);
     delModel();
+}
+
+function sendRequest(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.responseType = 'json'
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response)
+            } else {
+                resolve(xhr.response)
+            }
+        }
+        xhr.onerror = () => {
+            reject(xhr.response)
+        }
+        xhr.send(JSON.stringify(body))
+    })
 }

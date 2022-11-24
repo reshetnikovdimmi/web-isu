@@ -71,4 +71,10 @@ public class MatrixSparkServise {
 
         return matrixSparkList;
     }
+
+    public Object saveSparkSale(List<MatrixSpark> sim) {
+        matrixSparkRepository.deleteAll();
+        matrixSparkRepository.saveAll(sim);
+        return  matrixSparkRepository.findAll();
+    }
 }

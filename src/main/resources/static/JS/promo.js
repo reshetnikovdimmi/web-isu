@@ -43,7 +43,8 @@ $(document).ready(function() {
             $('#models').html('<option value="' + promo.models + '">' + promo.models + '</option>');
             $('#price').val(promo.price);
             $('#Promo_price').val(promo.price_promo);
-
+            $('#start_date').val(promo.startPromo);
+            $('#end_date').val(promo.endPromo);
             $('#Marwel').val(promo.marwel);
             $('#TFN').val(promo.tfn);
             $('#ВВП').val(promo.vvp);
