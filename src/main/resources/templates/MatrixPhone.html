@@ -68,21 +68,26 @@
         </header>
 
         <main class="px-3">
-            <h6>Таблица SIM and RTK</h6>
-            <h2 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'"/></h2>
+            <h6 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'"/></h6>
             <p class="lead">
 
 
-            <div class="row mb-3 text-center"> Загрузка продажи 6 мес</div>
+            <div class="row mb-3 text-center"> Загрузка матрицы с EXSEL </div>
             <div class="row mb-3 text-center">
-                <div class="col-6 col-md-4 themed-grid-col">
-                    <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="sales_6"/>
+                <div class="col">
+                    <form th:action="@{/matrixPhoneImport}" method="post" enctype="multipart/form-data">
+                        <input type="file" th:name="matrixPhoneImport"/>
                         <input th:type="submit" value="Import"/>
                     </form>
                 </div>
+                <div class="col">
+
+                    <a href="/exselExportMatrixPhone" class="btn">EXSEL</a>
+
+                </div>
 
             </div>
+
 
 
             </p>

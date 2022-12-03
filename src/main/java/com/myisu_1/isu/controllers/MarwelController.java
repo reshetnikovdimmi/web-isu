@@ -51,7 +51,6 @@ public class MarwelController {
     List<retail_price> retail_prices;
 
 
-
     @GetMapping("/Marwel")
 
     public String Marwel(Model model) {
@@ -77,11 +76,11 @@ public class MarwelController {
 
     @PostMapping("/add_MarwClasif")
     public String add_MarwClasif(@RequestParam int IDupdateMarClasif,
-                            @RequestParam String RainbowNomenclature,
-                            @RequestParam String ManufacturersArticle,
-                            @RequestParam String Name,
+                                 @RequestParam String RainbowNomenclature,
+                                 @RequestParam String ManufacturersArticle,
+                                 @RequestParam String Name,
 
-                            Model model) {
+                                 Model model) {
 
         if (IDupdateMarClasif != 0) {
             marvelClassifierRepositoriy.save((new MarvelClassifier(IDupdateMarClasif, RainbowNomenclature, ManufacturersArticle, Name)));
@@ -92,6 +91,7 @@ public class MarwelController {
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         return "Marwel";
     }
+
     @PostMapping("/delet_MarClasif")
     public String delet_MarClasif(@RequestParam int IDMarClasif, Model model) {
         marvelClassifierRepositoriy.deleteById(IDMarClasif);
@@ -100,70 +100,65 @@ public class MarwelController {
     }
 
     @PostMapping("/promoCodeDistinct")
-    public String promoCodeDistinct(@RequestParam String promoCode,Model model) {
+    public String promoCodeDistinct(@RequestParam String promoCode, Model model) {
 
         String[] words;
         List<MarvelReporting> marvelReportings = new ArrayList<>();
 
-        for (int i=0;i<promoMarwel.size();i++){
+        for (int i = 0; i < promoMarwel.size(); i++) {
 
-            if (promoCode.equals(promoMarwel.get(i).getPromoCode())){
+            if (promoCode.equals(promoMarwel.get(i).getPromoCode())) {
 
-                    words = promoMarwel.get(i).getArticleNumber().toUpperCase().replace("+"," ").replace("GB","").split(" ");
-                    for (int j=0;j<sales.size();j++){
-                        if(sales.get(j).getDateSales().getTime()>=promoMarwel.get(i).getStartPromo().getTime() && sales.get(j).getDateSales().getTime()<=promoMarwel.get(i).getEndPromo().getTime()){
-                            for (int l = 0;l<suppliersList.size();l++){
-                                if(suppliersList.get(l).getImei().equals(sales.get(j).getImeis()) &&
-                                        suppliersList.get(l).getSuppliers().equals("МАРВЕЛ КТ ООО") &&
-                                        marvelPromSales(sales.get(j).getDateSales(), words,sales.get(j).getNomenclature())==true){
-System.out.println(sales.get(j).getNomenclature()+"--"+sales.get(j).getImeis());
-marvelReportings.add(new MarvelReporting(sales.get(j).getNomenclature(),sales.get(j).getImeis(),String.valueOf(sales.get(j).getDateSales()),promoMarwel.get(i).getStartPromo()+"<-->"+promoMarwel.get(i).getEndPromo(),promoMarwel.get(i).getPromoCode()));
+                words = promoMarwel.get(i).getArticleNumber().toUpperCase().replace("+", " ").replace("GB", "").split(" ");
+                for (int j = 0; j < sales.size(); j++) {
+                    if (sales.get(j).getDateSales().getTime() >= promoMarwel.get(i).getStartPromo().getTime() && sales.get(j).getDateSales().getTime() <= promoMarwel.get(i).getEndPromo().getTime()) {
+                        for (int l = 0; l < suppliersList.size(); l++) {
+                            if (suppliersList.get(l).getImei().equals(sales.get(j).getImeis()) &&
+                                    suppliersList.get(l).getSuppliers().equals("МАРВЕЛ КТ ООО") &&
+                                    marvelPromSales(sales.get(j).getDateSales(), words, sales.get(j).getNomenclature()) == true) {
+                                System.out.println(sales.get(j).getNomenclature() + "--" + sales.get(j).getImeis());
+                                marvelReportings.add(new MarvelReporting(sales.get(j).getNomenclature(), sales.get(j).getImeis(), String.valueOf(sales.get(j).getDateSales()), promoMarwel.get(i).getStartPromo() + "<-->" + promoMarwel.get(i).getEndPromo(), promoMarwel.get(i).getPromoCode()));
 
 
-                                }
                             }
                         }
                     }
-
-
-
-
+                }
 
 
             }
         }
         model.addAttribute("marvelReportings", marvelReportings);
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
-                return  "Marwel";
+        return "Marwel";
     }
 
     private boolean marvelPromSales(Date dateSales, String[] words, String nomenclature) {
         String[] nomenclatures;
 
         int cou = 0;
-        nomenclatures = nomenclature.replaceAll("/"," ").toUpperCase().replaceAll("GB","").split(" ");
+        nomenclatures = nomenclature.replaceAll("/", " ").toUpperCase().replaceAll("GB", "").split(" ");
 
 
-        for (String nomenclaturen : nomenclatures){
-
+        for (String nomenclaturen : nomenclatures) {
 
 
             for (String word : words) {
 
-                if (word.equals(nomenclaturen)){
+                if (word.equals(nomenclaturen)) {
 
                     cou++;
 
                 }
 
             }
-       }
-        if(cou==words.length){
-for (int i = 0; i<price_promoList.size();i++){
-    if (dateSales.getTime()>=price_promoList.get(i).getStartPromo().getTime() && dateSales.getTime()<=price_promoList.get(i).getEndPromo().getTime() && nomenclature.contains(price_promoList.get(i).getModels())){
-        return true;
-    }
-}
+        }
+        if (cou == words.length) {
+            for (int i = 0; i < price_promoList.size(); i++) {
+                if (dateSales.getTime() >= price_promoList.get(i).getStartPromo().getTime() && dateSales.getTime() <= price_promoList.get(i).getEndPromo().getTime() && nomenclature.contains(price_promoList.get(i).getModels())) {
+                    return true;
+                }
+            }
 
         }
 
@@ -174,14 +169,14 @@ for (int i = 0; i<price_promoList.size();i++){
 
         List<Distinct> listDistinct = new ArrayList<>();
         HashSet<String> hashDistinct = new HashSet<>();
-        for(int i=0;i<promoMarwel.size();i++){
+        for (int i = 0; i < promoMarwel.size(); i++) {
             hashDistinct.add(promoMarwel.get(i).getPromoCode());
         }
         Iterator<String> i = hashDistinct.iterator();
         while (i.hasNext())
 
-        listDistinct.add(new Distinct(i.next()));
-        return  listDistinct;
+            listDistinct.add(new Distinct(i.next()));
+        return listDistinct;
     }
 
     private List<MarvelPromo> promoCode() {
@@ -209,9 +204,10 @@ for (int i = 0; i<price_promoList.size();i++){
         }
         return promoCode;
     }
+
     @PostMapping("/portalMarwel")
     public String entrance(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start, @DateTimeFormat(pattern = "yyyy-MM-dd") Date stop, Model model) throws ParseException {
-       article_imeiList = new ArrayList<>();
+        article_imeiList = new ArrayList<>();
         HashSet<String> phone = new HashSet<>();
         List<String> list = new ArrayList<>();
         List<String> list1 = new ArrayList<>();
@@ -219,33 +215,33 @@ for (int i = 0; i<price_promoList.size();i++){
         List<ArtNaProdOst> uniquelist = new ArrayList<>();
         List<Distinct> NoClassifier = new ArrayList<>();
 
-  for (int j=0;j<suppliersList.size();j++) {
-      for (int i = 0;i<sales.size();i++){
-            if(suppliersList.get(j).getSuppliers().equals("МАРВЕЛ КТ ООО")&&
-                    sales.get(i).getDateSales().getTime()>=start.getTime()&&
-                    sales.get(i).getDateSales().getTime()<=stop.getTime()&&
-                    suppliersList.get(j).getImei().equals(sales.get(i).getImeis())){
-                        if(sales.get(i).getNomenclature().contains("Xiaomi") || sales.get(i).getNomenclature().contains("Redmi") || sales.get(i).getNomenclature().contains("Mi True")){
-                            list.add(sales.get(i).getNomenclature());
-                            phone.add(sales.get(i).getNomenclature());
-                            for (int l = 0;l<marvelClassifierList.size();l++){
-                                if (sales.get(i).getNomenclature().equals(marvelClassifierList.get(l).getRainbowNomenclature())){
-                                    article_imeiList.add(new Article_Imei(marvelClassifierList.get(l).getManufacturersArticle(),sales.get(i).getImeis()));
-                                }
+        for (int j = 0; j < suppliersList.size(); j++) {
+            for (int i = 0; i < sales.size(); i++) {
+                if (suppliersList.get(j).getSuppliers().equals("МАРВЕЛ КТ ООО") &&
+                        sales.get(i).getDateSales().getTime() >= start.getTime() &&
+                        sales.get(i).getDateSales().getTime() <= stop.getTime() &&
+                        suppliersList.get(j).getImei().equals(sales.get(i).getImeis())) {
+                    if (sales.get(i).getNomenclature().contains("Xiaomi") || sales.get(i).getNomenclature().contains("Redmi") || sales.get(i).getNomenclature().contains("Mi True")) {
+                        list.add(sales.get(i).getNomenclature());
+                        phone.add(sales.get(i).getNomenclature());
+                        for (int l = 0; l < marvelClassifierList.size(); l++) {
+                            if (sales.get(i).getNomenclature().equals(marvelClassifierList.get(l).getRainbowNomenclature())) {
+                                article_imeiList.add(new Article_Imei(marvelClassifierList.get(l).getManufacturersArticle(), sales.get(i).getImeis()));
                             }
                         }
                     }
-      }
-      for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
-         if(suppliersList.get(j).getSuppliers().equals("МАРВЕЛ КТ ООО")&&suppliersList.get(j).getImei().equals(listRemainingPhonesMarwel.get(i).getCharacteristic())){
-            if(listRemainingPhonesMarwel.get(i).getModel().contains ("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Mi True")){
-            list1.add(listRemainingPhonesMarwel.get(i).getModel());
-            phone.add(listRemainingPhonesMarwel.get(i).getModel());
-
+                }
             }
-         }
-      }
-  }
+            for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
+                if (suppliersList.get(j).getSuppliers().equals("МАРВЕЛ КТ ООО") && suppliersList.get(j).getImei().equals(listRemainingPhonesMarwel.get(i).getCharacteristic())) {
+                    if (listRemainingPhonesMarwel.get(i).getModel().contains("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains("Mi True")) {
+                        list1.add(listRemainingPhonesMarwel.get(i).getModel());
+                        phone.add(listRemainingPhonesMarwel.get(i).getModel());
+
+                    }
+                }
+            }
+        }
 
         Map<String, Long> frequency = list.stream().collect(Collectors.groupingBy(
                 Function.identity(), Collectors.counting()));
@@ -257,7 +253,7 @@ for (int i = 0; i<price_promoList.size();i++){
         while (i.hasNext())
             phonesUnique.add(i.next());
 
-        for (int j = 0;j<phonesUnique.size();j++) {
+        for (int j = 0; j < phonesUnique.size(); j++) {
 
             ArtNaProdOst artNaProdOst = new ArtNaProdOst();
             for (Map.Entry<String, Long> item : frequency.entrySet()) {
@@ -275,7 +271,7 @@ for (int i = 0; i<price_promoList.size();i++){
                 }
 
             }
-            for (int l =0; l<marvelClassifierList.size();l++) {
+            for (int l = 0; l < marvelClassifierList.size(); l++) {
                 if (phonesUnique.get(j).equals(marvelClassifierList.get(l).getRainbowNomenclature())) {
                     artNaProdOst.setArticle(marvelClassifierList.get(l).getManufacturersArticle());
                     artNaProdOst.setName(marvelClassifierList.get(l).getName());
@@ -284,10 +280,10 @@ for (int i = 0; i<price_promoList.size();i++){
             }
             uniquelist.add(artNaProdOst);
         }
-        for (int j =0;j<uniquelist.size();j++){
-            if(uniquelist.get(j).getArticle()==null){
+        for (int j = 0; j < uniquelist.size(); j++) {
+            if (uniquelist.get(j).getArticle() == null) {
                 NoClassifier.add(new Distinct(phonesUnique.get(j)));
-                }
+            }
 
         }
 
@@ -296,9 +292,9 @@ for (int i = 0; i<price_promoList.size();i++){
         model.addAttribute("article_imei", article_imeiList);
         model.addAttribute("promoCode", promoCode());
         model.addAttribute("promoCodeDistinct", promoCodeDistinct());
-        model.addAttribute("Poco", forRoma(start,stop, "Poco", "Poco","Poco"));
-        model.addAttribute("Xiaomi", forRoma(start,stop,"Xiaomi","Mi True","Redmi"));
-        model.addAttribute("forRomaShares", forRomaShares(start,stop));
+        model.addAttribute("Poco", forRoma(start, stop, "Poco", "Poco", "Poco"));
+        model.addAttribute("Xiaomi", forRoma(start, stop, "Xiaomi", "Mi True", "Redmi"));
+        model.addAttribute("forRomaShares", forRomaShares(start, stop));
         model.addAttribute("noPhone", noPhone());
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         return "Marwel";
@@ -309,20 +305,20 @@ for (int i = 0; i<price_promoList.size();i++){
         HashSet<String> hashDistinct = new HashSet<>();
         List<String> phone = new ArrayList<>();
         List<String> remains = new ArrayList<>();
-        for (int i=0;i<phone_smarts.size();i++){
+        for (int i = 0; i < phone_smarts.size(); i++) {
             phone.add(phone_smarts.get(i).getModel());
         }
-        for (int i=0;i<listRemainingPhonesMarwel.size();i++){
+        for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
             remains.add(listRemainingPhonesMarwel.get(i).getModel());
-            if (!phone.contains(listRemainingPhonesMarwel.get(i).getModel())){
-                     hashDistinct.add(listRemainingPhonesMarwel.get(i).getModel());
+            if (!phone.contains(listRemainingPhonesMarwel.get(i).getModel())) {
+                hashDistinct.add(listRemainingPhonesMarwel.get(i).getModel());
             }
         }
         Iterator<String> i = hashDistinct.iterator();
         while (i.hasNext())
 
             listDistinct.add(new Distinct(i.next()));
-        return  listDistinct;
+        return listDistinct;
     }
 
     private Object forRomaShares(Date start, Date stop) {
@@ -331,8 +327,8 @@ for (int i = 0; i<price_promoList.size();i++){
         List<Integer> resmanisSum = new ArrayList<>();
         listDistinct = new ArrayList<>();
         HashSet<String> hashDistinct = new HashSet<>();
-        for(int i=0;i<phone_smarts.size();i++){
-            if(!phone_smarts.get(i).getPhone().isEmpty()){
+        for (int i = 0; i < phone_smarts.size(); i++) {
+            if (!phone_smarts.get(i).getPhone().isEmpty()) {
                 hashDistinct.add(phone_smarts.get(i).getPhone());
             }
         }
@@ -340,19 +336,19 @@ for (int i = 0; i<price_promoList.size();i++){
         while (i.hasNext())
 
             listDistinct.add(i.next());
-        for (int j=0;j<listDistinct.size();j++){
+        for (int j = 0; j < listDistinct.size(); j++) {
 
-            int cou =0;
-            int couPrices =0;
+            int cou = 0;
+            int couPrices = 0;
 
-            for (int l=0;l<phone_smarts.size();l++){
-                if(listDistinct.get(j).equals(phone_smarts.get(l).getPhone())){
-                    for( int z=0;z<sales.size();z++){
-                        if (phone_smarts.get(l).getModel().equals(sales.get(z).getNomenclature() ) && sales.get(z).getDateSales().getTime() >= start.getTime() && sales.get(z).getDateSales().getTime() <= stop.getTime()){
-                                                        cou++;
-                            for( int x=0;x<retail_prices.size();x++){
-                                if(sales.get(z).getNomenclature().equals(retail_prices.get(x).getName())){
-                                    couPrices = couPrices + (int) Double.parseDouble(retail_prices.get(x).getPrice().replaceAll(",",".").replaceAll("\\s+",""));
+            for (int l = 0; l < phone_smarts.size(); l++) {
+                if (listDistinct.get(j).equals(phone_smarts.get(l).getPhone())) {
+                    for (int z = 0; z < sales.size(); z++) {
+                        if (phone_smarts.get(l).getModel().equals(sales.get(z).getNomenclature()) && sales.get(z).getDateSales().getTime() >= start.getTime() && sales.get(z).getDateSales().getTime() <= stop.getTime()) {
+                            cou++;
+                            for (int x = 0; x < retail_prices.size(); x++) {
+                                if (sales.get(z).getNomenclature().equals(retail_prices.get(x).getName())) {
+                                    couPrices = couPrices + (int) Double.parseDouble(retail_prices.get(x).getPrice().replaceAll(",", ".").replaceAll("\\s+", ""));
                                 }
                             }
                         }
@@ -366,22 +362,22 @@ for (int i = 0; i<price_promoList.size();i++){
 
         }
 
-        Double c = Double.valueOf(sumSum.stream().mapToLong(Integer::longValue ).sum());
+        Double c = Double.valueOf(sumSum.stream().mapToLong(Integer::longValue).sum());
         Double b = Double.valueOf(resmanisSum.stream().mapToLong(Integer::longValue).sum());
 
-        for (int j=0;j<listDistinct.size();j++){
+        for (int j = 0; j < listDistinct.size(); j++) {
             ForRoma forRoma = new ForRoma();
             forRoma.setPhone(listDistinct.get(j));
             forRoma.setQuantity(String.valueOf(resmanisSum.get(j)));
             forRoma.setAmount(String.valueOf(sumSum.get(j)));
-            forRoma.setThings(String.format("%.2f",sumSum.get(j)/c*100)+"%");
-            forRoma.setRubles(String.format("%.2f",resmanisSum.get(j)/b*100)+"%");
+            forRoma.setThings(String.format("%.2f", sumSum.get(j) / c * 100) + "%");
+            forRoma.setRubles(String.format("%.2f", resmanisSum.get(j) / b * 100) + "%");
             listforRoma.add(forRoma);
         }
-        return  listforRoma;
+        return listforRoma;
     }
 
-    private List<ArtNaProdOst> forRoma(Date start, Date stop, String xiaomi, String poco,String redmi) {
+    private List<ArtNaProdOst> forRoma(Date start, Date stop, String xiaomi, String poco, String redmi) {
         article_imeiList = new ArrayList<>();
         HashSet<String> phone = new HashSet<>();
         List<String> list = new ArrayList<>();
@@ -389,7 +385,7 @@ for (int i = 0; i<price_promoList.size();i++){
         List<String> phonesUnique = new ArrayList<>();
         List<ArtNaProdOst> uniquelist = new ArrayList<>();
         List<Distinct> NoClassifier = new ArrayList<>();
-        for (int j=0;j<suppliersList.size();j++) {
+        for (int j = 0; j < suppliersList.size(); j++) {
             for (int i = 0; i < sales.size(); i++) {
                 if (sales.get(i).getDateSales().getTime() >= start.getTime() &&
                         sales.get(i).getDateSales().getTime() <= stop.getTime() &&
@@ -402,7 +398,7 @@ for (int i = 0; i<price_promoList.size();i++){
             }
         }
         for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
-            if(listRemainingPhonesMarwel.get(i).getModel().contains ("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains ("Mi True")){
+            if (listRemainingPhonesMarwel.get(i).getModel().contains("Xiaomi") || listRemainingPhonesMarwel.get(i).getModel().contains("Redmi") || listRemainingPhonesMarwel.get(i).getModel().contains("Mi True")) {
                 list1.add(listRemainingPhonesMarwel.get(i).getModel());
                 phone.add(listRemainingPhonesMarwel.get(i).getModel());
             }
@@ -418,41 +414,41 @@ for (int i = 0; i<price_promoList.size();i++){
         while (i.hasNext())
             phonesUnique.add(i.next());
 
-        for (int j = 0;j<phonesUnique.size();j++) {
+        for (int j = 0; j < phonesUnique.size(); j++) {
 
-                if (phonesUnique.get(j).contains(poco) ||phonesUnique.get(j).contains(xiaomi) ||phonesUnique.get(j).contains(redmi)) {
-                    ArtNaProdOst artNaProdOst = new ArtNaProdOst();
-                    for (Map.Entry<String, Long> item : frequency.entrySet()) {
-                        if (phonesUnique.get(j).equals(item.getKey())) {
-                            artNaProdOst.setSales(String.valueOf(item.getValue()));
-                        }
+            if (phonesUnique.get(j).contains(poco) || phonesUnique.get(j).contains(xiaomi) || phonesUnique.get(j).contains(redmi)) {
+                ArtNaProdOst artNaProdOst = new ArtNaProdOst();
+                for (Map.Entry<String, Long> item : frequency.entrySet()) {
+                    if (phonesUnique.get(j).equals(item.getKey())) {
+                        artNaProdOst.setSales(String.valueOf(item.getValue()));
                     }
-                    for (Map.Entry<String, Long> item : frequency1.entrySet()) {
-                        if (phonesUnique.get(j).equals(item.getKey())) {
-                            artNaProdOst.setRemains(String.valueOf(item.getValue()));
-
-                        }
-                    }
-                    for (int l = 0; l < marvelClassifierList.size(); l++) {
-                        if (phonesUnique.get(j).equals(marvelClassifierList.get(l).getRainbowNomenclature())) {
-
-                            artNaProdOst.setName(marvelClassifierList.get(l).getName());
-                        }
-                    }
-                    artNaProdOst.setArticle(phonesUnique.get(j));
-                    uniquelist.add(artNaProdOst);
                 }
+                for (Map.Entry<String, Long> item : frequency1.entrySet()) {
+                    if (phonesUnique.get(j).equals(item.getKey())) {
+                        artNaProdOst.setRemains(String.valueOf(item.getValue()));
+
+                    }
+                }
+                for (int l = 0; l < marvelClassifierList.size(); l++) {
+                    if (phonesUnique.get(j).equals(marvelClassifierList.get(l).getRainbowNomenclature())) {
+
+                        artNaProdOst.setName(marvelClassifierList.get(l).getName());
+                    }
+                }
+                artNaProdOst.setArticle(phonesUnique.get(j));
+                uniquelist.add(artNaProdOst);
+            }
 
         }
-        for (int z =0;z<uniquelist.size();z++){
-            if(uniquelist.get(z).getArticle().contains("Poco")  && poco.equals("Mi True")){
+        for (int z = 0; z < uniquelist.size(); z++) {
+            if (uniquelist.get(z).getArticle().contains("Poco") && poco.equals("Mi True")) {
                 uniquelist.remove(z);
 
             }
 
         }
 
-      return uniquelist;
+        return uniquelist;
     }
 
     @PostMapping("/importRemainingPhonesMarwel")
@@ -462,7 +458,7 @@ for (int i = 0; i<price_promoList.size();i++){
         XSSFWorkbook workbook = new XSSFWorkbook(importRemainingPhonesMarwel.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
 
-        for(int i=1;i<worksheet.getPhysicalNumberOfRows() ;i++) {
+        for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             RemainingPhonesMarwel listRemainingPhonesMarwel1 = new RemainingPhonesMarwel();
 
             XSSFRow row = worksheet.getRow(i);
