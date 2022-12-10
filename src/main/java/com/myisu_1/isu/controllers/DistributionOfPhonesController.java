@@ -1,10 +1,7 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.exporte.ExselFileExporte;
-import com.myisu_1.isu.models.Phone.DistributionPhone;
-import com.myisu_1.isu.models.Phone.MatrixSpark;
-import com.myisu_1.isu.models.Phone.RemanisPhoneWarehouse;
-import com.myisu_1.isu.models.Phone.RequirementPhone;
+import com.myisu_1.isu.models.Phone.*;
 import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
 import com.myisu_1.isu.service.PhoneServise;
 import org.apache.poi.util.IOUtils;
@@ -51,6 +48,11 @@ public class DistributionOfPhonesController {
 
         return phoneServise.distributionPhone(shop);
     }
+    @ResponseBody
+    @RequestMapping(value = "matrixT2Phone", method = RequestMethod.GET)
+    public Iterable<TableMatrixT2> matrixT2Phone() {
 
+        return phoneServise.matrixT2Phone();
+    }
 }
 

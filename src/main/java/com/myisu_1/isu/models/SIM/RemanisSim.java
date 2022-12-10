@@ -12,7 +12,7 @@ public class RemanisSim {
     private int id;
     private String shop;
     private String nameSimAndModem;
-    private int remainsSimModem;
+    private int remainsSimAndModem;
 
     public RemanisSim(int id, String shop) {
         this.id = id;
@@ -23,7 +23,7 @@ public class RemanisSim {
         this.id = id;
         this.shop = shop;
         this.nameSimAndModem = nameSimAndModem;
-        this.remainsSimModem = remainsSimModem;
+        this.remainsSimAndModem = remainsSimModem;
     }
 
     public RemanisSim() {
@@ -54,10 +54,10 @@ public class RemanisSim {
     }
 
     public int getRemainsSimModem() {
-        return remainsSimModem;
+        return remainsSimAndModem;
     }
 
     public void setRemainsSimModem(int remainsSimModem) {
-        this.remainsSimModem = remainsSimModem;
+        this.remainsSimAndModem = remainsSimModem;
     }
 }

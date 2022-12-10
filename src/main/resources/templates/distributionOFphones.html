@@ -94,7 +94,10 @@
 
         <div class="row mb-3">
             <div class="col-6 themed-grid-col">
-                <p th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"/>
+                <div id="richList"></div>
+
+
+                <div id="loader" class="lds-dual-ring hidden overlay"></div>
 
             </div>
         </div>
@@ -187,12 +190,22 @@
                 </div>
 
 
-                <div class="col col-lg-2">
+                <div class="col-sm-6 col-lg-8 themed-grid-col">
                     <div class="row mb-3 text-center">
                         Матрица Теле2
                     </div>
                     <div class="row mb-3 text-center">
-                        Матрица таблица
+                        <div class="table" id="table_MatrixT2">
+                            <table class="table-responsive table-hover" id="tables_MatrixT2">
+                                <thead class="table-dark table-hover">
+
+                                </thead>
+                                <tbody>
+
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

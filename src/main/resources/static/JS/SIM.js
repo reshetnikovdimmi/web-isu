@@ -83,7 +83,7 @@ $(document).ready(function() {
                                 id: $(this).parent().index(),
                                 shop: tab
                             }
-                            console.log($(this).parent().index());
+
                             $('#table_RTK3 td').off('click');
                             sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
                         });
@@ -98,7 +98,7 @@ $(document).ready(function() {
         var href = $(this).attr("href");
         $.get(href, function(SIM, status) {
             var sim = SIM;
-            console.log(sim);
+
             var shop = SIM[0].shop;
             document.querySelector('#Shopmf').innerHTML = shop;
             var elem = document.querySelector('#table_mf2');
@@ -176,7 +176,7 @@ $(document).ready(function() {
                                 id: $(this).parent().index(),
                                 shop: tab
                             }
-                            console.log($(this).parent().index());
+
                             $('#table_mf3 td').off('click');
                             sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
                         });
@@ -269,7 +269,7 @@ $(document).ready(function() {
                                 id: $(this).parent().index(),
                                 shop: tab
                             }
-                            console.log($(this).parent().index());
+
                             $('#table_mts3 td').off('click');
                             sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
                         });
@@ -456,7 +456,7 @@ $(document).ready(function() {
                             const body = {
                                 id: $(this).parent().index(), shop: tab
                             }
-                            console.log($(this).parent().index());
+
                             $('#table_t3m td').off('click');
                             sendRequest('POST', requestURL, body)
                                 .then(data => console.log(data))

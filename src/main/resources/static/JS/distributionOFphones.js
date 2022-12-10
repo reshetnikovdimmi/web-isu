@@ -1,8 +1,11 @@
 const requestURL = '/requirementPhone'
 const requestURLremanis = '/remanisWarehousePhone'
+const requestURLmatrixT2 = '/matrixT2Phone'
 $(document).ready(function() {
+$('#loader').removeClass('hidden')
     requirementPhone(requestURL);
     remanisWarehousePhone(requestURLremanis);
+    matrixT2Phone(requestURLmatrixT2);
 });
 
 function requirementPhone(requestURL) {
@@ -17,6 +20,67 @@ function remanisWarehousePhone(requestURLremanis) {
         table_remanisWarehousePhone(remanisWarehousePhone);
     });
 }
+
+function matrixT2Phone(requestURLmatrixT2) {
+    $.get(requestURLmatrixT2, function(matrixT2Phone, status) {
+        table_matrixT2Phone(matrixT2Phone);
+    });
+}
+function table_matrixT2Phone(matrixT2Phone){
+
+var uniqueArrays = [];
+for (var i = 0; i < matrixT2Phone.length; i++) {
+uniqueArrays.push(matrixT2Phone[i].shop);
+}
+var row = uniqueArray(uniqueArrays);
+var uniqueArrays = [];
+uniqueArrays.push("МОДЕЛЬ РАСПРЕДЕЛЕНИЯ");
+for (var i = 0; i < matrixT2Phone.length; i++) {
+uniqueArrays.push(matrixT2Phone[i].distributionModel);
+}
+var cell = uniqueArray(uniqueArrays);
+console.log(matrixT2Phone);
+var elem = document.querySelector('#table_MatrixT2');
+    var elem1 = document.querySelector('#tables_MatrixT2');
+    elem1.parentNode.removeChild(elem1);
+    var table = document.createElement(`table`);
+    table.id = 'tables_MatrixT2';
+    table.classList.add("table-borderless");
+    let thead = document.createElement('thead');
+    let row_1 = document.createElement('tr');
+    let tbody = document.createElement('tbody');
+    for (var i = 0; i < cell.length; i++) {
+            let heading_1 = document.createElement('th');
+            heading_1.innerHTML = cell[i];
+            row_1.appendChild(heading_1);
+        }
+
+    for (var i = 0; i < row.length; i++) {
+        var tr = document.createElement('tr');
+        for (var j = 0; j < cell.length; j++) {
+            var td = document.createElement('td');
+            if (j == 0 ) {
+            td.innerHTML = row[i];
+            }
+            for (var k = 0; k < matrixT2Phone.length; k++) {
+
+            if (row[i] == matrixT2Phone[k].shop && cell[j] == matrixT2Phone[k].distributionModel) {
+                td.innerHTML = matrixT2Phone[k].quantity;
+
+            }
+            }
+
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    thead.appendChild(row_1);
+    table.appendChild(thead);
+    elem.appendChild(table);
+
+}
+
 
 function table_remanisWarehousePhone(remanisWarehousePhone) {
     var elem = document.querySelector('#table_remanisWarehousePhone');
@@ -173,15 +237,17 @@ function requirementPhone_multi(requirementPhoneArr) {
     table.appendChild(thead);
     elem.appendChild(table);
     $(document).find('.requirementPhone').on('click', function() {
-        const url = '/requirementPhone/' + $(this).parents('tr:first').find('td:eq(0)').text();
+    var shopSKY = $(this).parents('tr:first').find('td:eq(0)').text();
+        const url = '/requirementPhone/' + shopSKY;
         $.get(url, function(requirementPhone, status) {
-            distributionPhone1(requirementPhone);
+            distributionPhone1(requirementPhone,shopSKY);
         });
     });
+    $('#loader').addClass('hidden')
 }
 
-function distributionPhone1(requirementPhone) {
-    console.log(requirementPhone);
+function distributionPhone1(requirementPhone, shopSKY) {
+
     var elem = document.querySelector('#table_distributionPhone');
     var elem1 = document.querySelector('#tables_distributionPhone');
     elem1.parentNode.removeChild(elem1);
@@ -209,10 +275,10 @@ function distributionPhone1(requirementPhone) {
             } else if (j == 1 && requirementPhone[i].sky == false) {
                 var input = document.createElement('input');
                 td.appendChild(input);
+                input.classList.add("SKYPhone");
                 input.value = requirementPhone[i].skyPhone;
              } else if (j == 1 && requirementPhone[i].sky == true) {
-
-                            td.innerHTML = requirementPhone[i].skyPhone;
+                td.innerHTML = requirementPhone[i].skyPhone;
             } else if (j == 2) {
                 td.innerHTML = requirementPhone[i].remanisPhone;
             }
@@ -224,4 +290,28 @@ function distributionPhone1(requirementPhone) {
     thead.appendChild(row_1);
     table.appendChild(thead);
     elem.appendChild(table);
+    $(document).find('.SKYPhone').on('change', function() {
+         //
+
+$('#loader').removeClass('hidden')
+  const body = {
+                shop: shopSKY,
+                modelPhone: $(this).parents('tr:first').find('td:eq(0)').text(),
+                skyPhone: this.value
+
+            }
+alert(this.value)
+sleep(2000).then(() => { $('#loader').addClass('hidden') });
+        });
 }
+function uniqueArray(a) {
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+    var unique = a.filter(onlyUnique);
+    return unique;
+}
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
