@@ -3,9 +3,12 @@ package com.myisu_1.isu.controllers;
 import com.myisu_1.isu.exporte.ExselFileExporte;
 import com.myisu_1.isu.models.Phone.*;
 import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
+import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.service.PhoneServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +56,13 @@ public class DistributionOfPhonesController {
     public Iterable<TableMatrixT2> matrixT2Phone() {
 
         return phoneServise.matrixT2Phone();
+    }
+    @PostMapping(path = "/skyPhone")
+    private ResponseEntity skyPhone(@RequestBody DistributionPhone skyPhone) {
+
+        System.out.println(skyPhone.getShop() +"<-->"+ skyPhone.getModelPhone() +"<-->"+ skyPhone.getSkyPhone());
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }
 

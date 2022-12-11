@@ -1,8 +1,9 @@
 const requestURL = '/requirementPhone'
 const requestURLremanis = '/remanisWarehousePhone'
 const requestURLmatrixT2 = '/matrixT2Phone'
+const requestURLsky = '/skyPhone'
 $(document).ready(function() {
-$('#loader').removeClass('hidden')
+    $('#loader').removeClass('hidden')
     requirementPhone(requestURL);
     remanisWarehousePhone(requestURLremanis);
     matrixT2Phone(requestURLmatrixT2);
@@ -26,21 +27,21 @@ function matrixT2Phone(requestURLmatrixT2) {
         table_matrixT2Phone(matrixT2Phone);
     });
 }
-function table_matrixT2Phone(matrixT2Phone){
 
-var uniqueArrays = [];
-for (var i = 0; i < matrixT2Phone.length; i++) {
-uniqueArrays.push(matrixT2Phone[i].shop);
-}
-var row = uniqueArray(uniqueArrays);
-var uniqueArrays = [];
-uniqueArrays.push("МОДЕЛЬ РАСПРЕДЕЛЕНИЯ");
-for (var i = 0; i < matrixT2Phone.length; i++) {
-uniqueArrays.push(matrixT2Phone[i].distributionModel);
-}
-var cell = uniqueArray(uniqueArrays);
-console.log(matrixT2Phone);
-var elem = document.querySelector('#table_MatrixT2');
+function table_matrixT2Phone(matrixT2Phone) {
+    var uniqueArrays = [];
+    for (var i = 0; i < matrixT2Phone.length; i++) {
+        uniqueArrays.push(matrixT2Phone[i].shop);
+    }
+    var row = uniqueArray(uniqueArrays);
+    var uniqueArrays = [];
+    uniqueArrays.push("МОДЕЛЬ РАСПРЕДЕЛЕНИЯ");
+    for (var i = 0; i < matrixT2Phone.length; i++) {
+        uniqueArrays.push(matrixT2Phone[i].distributionModel);
+    }
+    var cell = uniqueArray(uniqueArrays);
+    console.log(matrixT2Phone);
+    var elem = document.querySelector('#table_MatrixT2');
     var elem1 = document.querySelector('#tables_MatrixT2');
     elem1.parentNode.removeChild(elem1);
     var table = document.createElement(`table`);
@@ -50,26 +51,22 @@ var elem = document.querySelector('#table_MatrixT2');
     let row_1 = document.createElement('tr');
     let tbody = document.createElement('tbody');
     for (var i = 0; i < cell.length; i++) {
-            let heading_1 = document.createElement('th');
-            heading_1.innerHTML = cell[i];
-            row_1.appendChild(heading_1);
-        }
-
+        let heading_1 = document.createElement('th');
+        heading_1.innerHTML = cell[i];
+        row_1.appendChild(heading_1);
+    }
     for (var i = 0; i < row.length; i++) {
         var tr = document.createElement('tr');
         for (var j = 0; j < cell.length; j++) {
             var td = document.createElement('td');
-            if (j == 0 ) {
-            td.innerHTML = row[i];
+            if (j == 0) {
+                td.innerHTML = row[i];
             }
             for (var k = 0; k < matrixT2Phone.length; k++) {
-
-            if (row[i] == matrixT2Phone[k].shop && cell[j] == matrixT2Phone[k].distributionModel) {
-                td.innerHTML = matrixT2Phone[k].quantity;
-
+                if (row[i] == matrixT2Phone[k].shop && cell[j] == matrixT2Phone[k].distributionModel) {
+                    td.innerHTML = matrixT2Phone[k].quantity;
+                }
             }
-            }
-
             tr.appendChild(td);
         }
         tbody.appendChild(tr);
@@ -78,9 +75,7 @@ var elem = document.querySelector('#table_MatrixT2');
     thead.appendChild(row_1);
     table.appendChild(thead);
     elem.appendChild(table);
-
 }
-
 
 function table_remanisWarehousePhone(remanisWarehousePhone) {
     var elem = document.querySelector('#table_remanisWarehousePhone');
@@ -237,17 +232,16 @@ function requirementPhone_multi(requirementPhoneArr) {
     table.appendChild(thead);
     elem.appendChild(table);
     $(document).find('.requirementPhone').on('click', function() {
-    var shopSKY = $(this).parents('tr:first').find('td:eq(0)').text();
+        var shopSKY = $(this).parents('tr:first').find('td:eq(0)').text();
         const url = '/requirementPhone/' + shopSKY;
         $.get(url, function(requirementPhone, status) {
-            distributionPhone1(requirementPhone,shopSKY);
+            distributionPhone1(requirementPhone, shopSKY);
         });
     });
     $('#loader').addClass('hidden')
 }
 
 function distributionPhone1(requirementPhone, shopSKY) {
-
     var elem = document.querySelector('#table_distributionPhone');
     var elem1 = document.querySelector('#tables_distributionPhone');
     elem1.parentNode.removeChild(elem1);
@@ -277,7 +271,7 @@ function distributionPhone1(requirementPhone, shopSKY) {
                 td.appendChild(input);
                 input.classList.add("SKYPhone");
                 input.value = requirementPhone[i].skyPhone;
-             } else if (j == 1 && requirementPhone[i].sky == true) {
+            } else if (j == 1 && requirementPhone[i].sky == true) {
                 td.innerHTML = requirementPhone[i].skyPhone;
             } else if (j == 2) {
                 td.innerHTML = requirementPhone[i].remanisPhone;
@@ -291,19 +285,19 @@ function distributionPhone1(requirementPhone, shopSKY) {
     table.appendChild(thead);
     elem.appendChild(table);
     $(document).find('.SKYPhone').on('change', function() {
-         //
 
-$('#loader').removeClass('hidden')
-  const body = {
-                shop: shopSKY,
-                modelPhone: $(this).parents('tr:first').find('td:eq(0)').text(),
-                skyPhone: this.value
-
-            }
-alert(this.value)
-sleep(2000).then(() => { $('#loader').addClass('hidden') });
-        });
+        $('#loader').removeClass('hidden')
+        const body = {
+            shop: shopSKY,
+            modelPhone: $(this).parents('tr:first').find('td:eq(0)').text(),
+            skyPhone: this.value
+        }
+        sendRequest('POST', requestURLsky, body)
+        .then(data => updateSkyTables(data))
+        .catch(err => console.log(err))
+    });
 }
+
 function uniqueArray(a) {
     function onlyUnique(value, index, self) {
         return self.indexOf(value) === index;
@@ -311,7 +305,30 @@ function uniqueArray(a) {
     var unique = a.filter(onlyUnique);
     return unique;
 }
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+
+function updateSkyTables(data) {
+console.log(data);
+    requirementPhone(requestURL);
+        remanisWarehousePhone(requestURLremanis);
+        matrixT2Phone(requestURLmatrixT2);
 }
 
+function sendRequest(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.responseType = 'json'
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response)
+            } else {
+                resolve(xhr.response)
+            }
+        }
+        xhr.onerror = () => {
+            reject(xhr.response)
+        }
+        xhr.send(JSON.stringify(body))
+    })
+}
