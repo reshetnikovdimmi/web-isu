@@ -46,7 +46,7 @@ public class PhoneServise {
     List<DistributionPhone> remanisPhoneList;
     List<String> disting = new ArrayList<>();
     HashMap<String, String> distingGB = new HashMap<>();
-    List<DistributionPhone> distributionPhoneList;
+    List<DistributionPhone> distributionPhoneList = new ArrayList<>();
 
 
     public void LoadAuthorization_ttList() {
@@ -59,7 +59,7 @@ public class PhoneServise {
         matrixT2List = matrixT2Repository.findAll();
         matrixSparkList = matrixSparkRepository.findAll();
 
-        Disting();
+        // Disting();
     }
 
     private void Disting() {
@@ -127,6 +127,10 @@ public class PhoneServise {
 
 
     public Iterable<RequirementPhone> requirementPhone() {
+        if (assortmentList == null) {
+            Disting();
+        }
+
         remanisPhoneList = new ArrayList<>();
         List<RequirementPhone> requirementPhoneList = new ArrayList<>();
 
@@ -251,19 +255,26 @@ public class PhoneServise {
 
     public Iterable<RemanisPhoneWarehouse> remanisWarehousePhone() {
         List<RemanisPhoneWarehouse> remanisPhoneWarehouseList = new ArrayList<>();
-        for (int i = 0; i < remanisSimList.size(); i++) {
-            for (int j = 0; j < phoneSmartList.size(); j++) {
+        List<RemanisPhoneWarehouse> distingRemanisPhoneWarehouseList = new ArrayList<>();
+        List<String> distingRemanisPhoneWarehouse = new ArrayList<>();
+        for (int j = 0; j < phoneSmartList.size(); j++) {
+            for (int i = 0; i < remanisSimList.size(); i++) {
+
                 if (remanisSimList.get(i).getShop().equals(authorization_ttList.get(0).getName()) && phoneSmartList.get(j).getModel().equals(remanisSimList.get(i).getNameSimAndModem()) || remanisSimList.get(i).getShop().equals(authorization_ttList.get(2).getName()) && phoneSmartList.get(j).getModel().equals(remanisSimList.get(i).getNameSimAndModem())) {
                     RemanisPhoneWarehouse remanisPhoneWarehouse = new RemanisPhoneWarehouse();
+
                     if (remanisSimList.get(i).getShop().equals(authorization_ttList.get(0).getName())) {
                         remanisPhoneWarehouse.setModelPhone(remanisSimList.get(i).getNameSimAndModem());
                         remanisPhoneWarehouse.setRemanisMainWarehouse(remanisSimList.get(i).getRemainsSimModem());
+
                     }
                     if (remanisSimList.get(i).getShop().equals(authorization_ttList.get(2).getName())) {
                         remanisPhoneWarehouse.setModelPhone(remanisSimList.get(i).getNameSimAndModem());
                         remanisPhoneWarehouse.setRemanisWarehouseT2(remanisSimList.get(i).getRemainsSimModem());
 
                     }
+
+
                     remanisPhoneWarehouseList.add(remanisPhoneWarehouse);
                 }
                 if (remanisSimList.get(i).getShop().equals(authorization_ttList.get(0).getShopIskra()) && phoneSmartList.get(j).getModel().equals(remanisSimList.get(i).getNameSimAndModem()) || remanisSimList.get(i).getShop().equals(authorization_ttList.get(2).getShopIskra()) && phoneSmartList.get(j).getModel().equals(remanisSimList.get(i).getNameSimAndModem())) {
@@ -281,47 +292,87 @@ public class PhoneServise {
                 }
             }
         }
+        ArrayList<String> listWithDuplicateValues = new ArrayList<>();
+        for (int i = 0; i < remanisPhoneWarehouseList.size(); i++) {
+            listWithDuplicateValues.add(remanisPhoneWarehouseList.get(i).getModelPhone());
 
-        return remanisPhoneWarehouseList;
+        }
+
+        distingRemanisPhoneWarehouse = (ArrayList) listWithDuplicateValues
+                .stream()
+                .distinct()
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < distingRemanisPhoneWarehouse.size(); i++) {
+
+            int remanisMainWarehouse = 0;
+            int remanisMainWarehouseT2 = 0;
+
+            for (int j = 0; j < remanisPhoneWarehouseList.size(); j++) {
+                if (distingRemanisPhoneWarehouse.get(i).equals(remanisPhoneWarehouseList.get(j).getModelPhone())) {
+                    if (remanisPhoneWarehouseList.get(j).getRemanisMainWarehouse() != 0) {
+                        remanisMainWarehouse = remanisPhoneWarehouseList.get(j).getRemanisMainWarehouse();
+                    }
+                    if (remanisPhoneWarehouseList.get(j).getRemanisWarehouseT2() != 0) {
+                        remanisMainWarehouseT2 = remanisPhoneWarehouseList.get(j).getRemanisWarehouseT2();
+                    }
+                }
+            }
+
+            distingRemanisPhoneWarehouseList.add(new RemanisPhoneWarehouse(distingRemanisPhoneWarehouse.get(i), remanisMainWarehouse, remanisMainWarehouseT2));
+        }
+
+
+        return distingRemanisPhoneWarehouseList;
     }
 
     public Iterable<DistributionPhone> distributionPhone(String shop) {
-        if (distributionPhoneList != null) {
-            distributionPhoneList.clear();
-        }
 
-        distributionPhoneList = new ArrayList<>();
+        DistributionPhone james = distributionPhoneList.stream()
+                .filter(customer -> shop.equals(customer.getShop()))
+                .findAny()
+                .orElse(null);
+if(james == null) {
 
-        for (int i = 0; i < assortmentList.size(); i++) {
-            for (int j = 0; j < remanisPhoneList.size(); j++) {
-                if (shop.equals(assortmentList.get(i).getShop()) && assortmentList.get(i).getShop().equals(remanisPhoneList.get(j).getShop()) && assortmentList.get(i).getModelPhone().equals(remanisPhoneList.get(j).getModelPhone())) {
-                    DistributionPhone distributionPhone = new DistributionPhone();
-                    distributionPhone.setShop(assortmentList.get(i).getShop());
-                    distributionPhone.setModelPhone(assortmentList.get(i).getModelPhone());
-                    distributionPhone.setSkyPhone(assortmentList.get(i).getQuantity());
-                    distributionPhone.setRemanisPhone(remanisPhoneList.get(j).getRemanisPhone());
-                    distributionPhone.setSky(true);
-                    distributionPhoneList.add(distributionPhone);
+    for (int i = 0; i < assortmentList.size(); i++) {
+        for (int j = 0; j < remanisPhoneList.size(); j++) {
+            if (shop.equals(assortmentList.get(i).getShop()) && assortmentList.get(i).getShop().equals(remanisPhoneList.get(j).getShop()) && assortmentList.get(i).getModelPhone().equals(remanisPhoneList.get(j).getModelPhone())) {
+                DistributionPhone distributionPhone = new DistributionPhone();
+                distributionPhone.setShop(assortmentList.get(i).getShop());
+                distributionPhone.setModelPhone(assortmentList.get(i).getModelPhone());
+                distributionPhone.setSkyPhone(assortmentList.get(i).getQuantity());
+                distributionPhone.setRemanisPhone(remanisPhoneList.get(j).getRemanisPhone());
+                distributionPhone.setSky(true);
+                distributionPhoneList.add(distributionPhone);
 
-                }
             }
-            for (int j = 0; j < phoneSmartList.size(); j++) {
-                if (assortmentList.get(i).getModelPhone().equals(phoneSmartList.get(j).getMatrix_T2()) && assortmentList.get(i).getShop().equals(shop)) {
-                    DistributionPhone distributionPhone = new DistributionPhone();
-                    distributionPhone.setShop(shop);
-                    distributionPhone.setModelPhone(phoneSmartList.get(j).getModel());
-                    distributionPhone.setSky(false);
-                    for (int k = 0; k < remanisSimList.size(); k++) {
-                        if (shop.equals(remanisSimList.get(k).getShop()) && phoneSmartList.get(j).getModel().equals(remanisSimList.get(k).getNameSimAndModem())) {
-                            distributionPhone.setRemanisPhone(remanisSimList.get(k).getRemainsSimModem());
-                        }
+        }
+        for (int j = 0; j < phoneSmartList.size(); j++) {
+            if (assortmentList.get(i).getModelPhone().equals(phoneSmartList.get(j).getMatrix_T2()) && assortmentList.get(i).getShop().equals(shop)) {
+                DistributionPhone distributionPhone = new DistributionPhone();
+                distributionPhone.setShop(shop);
+                distributionPhone.setModelPhone(phoneSmartList.get(j).getModel());
+                distributionPhone.setSky(false);
+                for (int k = 0; k < remanisSimList.size(); k++) {
+                    if (shop.equals(remanisSimList.get(k).getShop()) && phoneSmartList.get(j).getModel().equals(remanisSimList.get(k).getNameSimAndModem())) {
+                        distributionPhone.setRemanisPhone(remanisSimList.get(k).getRemainsSimModem());
                     }
-                    distributionPhoneList.add(distributionPhone);
                 }
+                distributionPhoneList.add(distributionPhone);
             }
         }
-        System.out.println(assortmentList.size() + "<-->" + remanisPhoneList.size());
-        return distributionPhoneList;
+    }
+}
+        List<DistributionPhone> distingDistributionPhoneList = new ArrayList<>();
+        for (int i =0;i<distributionPhoneList.size();i++){
+            if(shop.equals(distributionPhoneList.get(i).getShop())){
+                distingDistributionPhoneList.add(distributionPhoneList.get(i));
+            }
+        }
+
+
+
+        return distingDistributionPhoneList;
 
     }
 
@@ -342,8 +393,8 @@ public class PhoneServise {
         for (int l = 0; l < authorization_ttList.size(); l++) {
             if (!authorization_ttList.get(l).getClusterT2().isEmpty()) {
                 for (int k = 0; k < distingMatrixT2.size(); k++) {
-                    String remanisSum ="0";
-                for (int i = 0; i < phoneSmartList.size(); i++) {
+                    String remanisSum = "0";
+                    for (int i = 0; i < phoneSmartList.size(); i++) {
 
                         for (int j = 0; j < remanisSimList.size(); j++) {
 
@@ -357,25 +408,24 @@ public class PhoneServise {
                         }
 
 
-
                     }
-                for(int s=0;s<matrixT2List.size();s++){
+                    for (int s = 0; s < matrixT2List.size(); s++) {
 
-                    if (matrixT2List.get(s).getDistributionModel().equals(distingMatrixT2.get(k))&& matrixT2List.get(s).getCluster().equals(String.valueOf(authorization_ttList.get(l).getClusterT2().charAt(0)))){
+                        if (matrixT2List.get(s).getDistributionModel().equals(distingMatrixT2.get(k)) && matrixT2List.get(s).getCluster().equals(String.valueOf(authorization_ttList.get(l).getClusterT2().charAt(0)))) {
 
-                        if(matrixT2List.get(s).getQuantity().equals("0") ){
-                            remanisSum = "ЛОЖЬ";
-                        }else  if (Integer.parseInt(matrixT2List.get(s).getQuantity())<=Integer.valueOf(remanisSum)){
-                            remanisSum = "100%";
-                        }else{
-                            remanisSum = String.format("%.2f", Double.parseDouble(remanisSum) / Double.parseDouble(matrixT2List.get(s).getQuantity()));
+                            if (matrixT2List.get(s).getQuantity().equals("0")) {
+                                remanisSum = "ЛОЖЬ";
+                            } else if (Integer.parseInt(matrixT2List.get(s).getQuantity()) <= Integer.valueOf(remanisSum)) {
+                                remanisSum = "100%";
+                            } else {
+                                remanisSum = String.format("%.2f", Double.parseDouble(remanisSum) / Double.parseDouble(matrixT2List.get(s).getQuantity()));
+                            }
+
                         }
 
                     }
 
-                }
-                    System.out.println(authorization_ttList.get(l).getName() +"<-->"+ distingMatrixT2.get(k) +"<-->"+remanisSum);
-                    tableMatrixT2List.add(new TableMatrixT2(authorization_ttList.get(l).getName(),distingMatrixT2.get(k),remanisSum));
+                    tableMatrixT2List.add(new TableMatrixT2(authorization_ttList.get(l).getName(), distingMatrixT2.get(k), remanisSum));
 
 
                 }
@@ -383,5 +433,26 @@ public class PhoneServise {
             }
         }
         return tableMatrixT2List;
+    }
+
+    public Iterable<DistributionPhone> distributionSkyPhone(DistributionPhone skyPhone) {
+
+        for (int i = 0; i < distributionPhoneList.size(); i++) {
+            if (distributionPhoneList.get(i).getModelPhone().equals(skyPhone.getModelPhone()) && distributionPhoneList.get(i).getShop().equals(skyPhone.getShop())) {
+                if (distributionPhoneList.get(i).getSkyPhone() < skyPhone.getSkyPhone()) {
+                    DistributionPhone distributionPhone = new DistributionPhone(skyPhone.getShop(), skyPhone.getModelPhone(), skyPhone.getSkyPhone(), distributionPhoneList.get(i).getRemanisPhone() + skyPhone.getSkyPhone(), false);
+                    distributionPhoneList.remove(i);
+                    distributionPhoneList.add(i, distributionPhone);
+
+                }
+                if (distributionPhoneList.get(i).getSkyPhone() < skyPhone.getSkyPhone()) {
+
+                }
+
+            }
+        }
+
+
+        return distributionPhoneList;
     }
 }

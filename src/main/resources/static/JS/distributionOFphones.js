@@ -2,6 +2,8 @@ const requestURL = '/requirementPhone'
 const requestURLremanis = '/remanisWarehousePhone'
 const requestURLmatrixT2 = '/matrixT2Phone'
 const requestURLsky = '/skyPhone'
+var cou = 0;
+var body;
 $(document).ready(function() {
     $('#loader').removeClass('hidden')
     requirementPhone(requestURL);
@@ -29,6 +31,7 @@ function matrixT2Phone(requestURLmatrixT2) {
 }
 
 function table_matrixT2Phone(matrixT2Phone) {
+//console.log(matrixT2Phone);
     var uniqueArrays = [];
     for (var i = 0; i < matrixT2Phone.length; i++) {
         uniqueArrays.push(matrixT2Phone[i].shop);
@@ -40,7 +43,6 @@ function table_matrixT2Phone(matrixT2Phone) {
         uniqueArrays.push(matrixT2Phone[i].distributionModel);
     }
     var cell = uniqueArray(uniqueArrays);
-    console.log(matrixT2Phone);
     var elem = document.querySelector('#table_MatrixT2');
     var elem1 = document.querySelector('#tables_MatrixT2');
     elem1.parentNode.removeChild(elem1);
@@ -84,6 +86,7 @@ function table_remanisWarehousePhone(remanisWarehousePhone) {
     var table = document.createElement(`table`);
     table.id = 'tables_remanisWarehousePhone';
     table.classList.add("table-borderless");
+    table.classList.add("tables_remanisWarehousePhone");
     let thead = document.createElement('thead');
     let row_1 = document.createElement('tr');
     let heading_1 = document.createElement('th');
@@ -115,6 +118,7 @@ function table_remanisWarehousePhone(remanisWarehousePhone) {
     thead.appendChild(row_1);
     table.appendChild(thead);
     elem.appendChild(table);
+
 }
 
 function requirementPhone_mono(requirementPhoneArr) {
@@ -124,6 +128,7 @@ function requirementPhone_mono(requirementPhoneArr) {
     var table = document.createElement(`table`);
     table.id = 'tables_requirement_t2';
     table.classList.add("table-borderless");
+    table.classList.add("tables_requirement_t2");
     let thead = document.createElement('thead');
     let row_1 = document.createElement('tr');
     let heading_1 = document.createElement('th');
@@ -247,6 +252,7 @@ function distributionPhone1(requirementPhone, shopSKY) {
     elem1.parentNode.removeChild(elem1);
     var table = document.createElement(`table`);
     table.id = 'tables_distributionPhone';
+    table.classList.add("tables_distributionPhone");
     table.classList.add("table-borderless");
     let thead = document.createElement('thead');
     let row_1 = document.createElement('tr');
@@ -285,17 +291,99 @@ function distributionPhone1(requirementPhone, shopSKY) {
     table.appendChild(thead);
     elem.appendChild(table);
     $(document).find('.SKYPhone').on('change', function() {
-
-        $('#loader').removeClass('hidden')
-        const body = {
+        body = [];
+        $('.btn-primary').attr('disabled', false);
+        body = {
             shop: shopSKY,
             modelPhone: $(this).parents('tr:first').find('td:eq(0)').text(),
             skyPhone: this.value
         }
-        sendRequest('POST', requestURLsky, body)
-        .then(data => updateSkyTables(data))
-        .catch(err => console.log(err))
+        if (checkingStockSvailability()) {
+            $('#loader').removeClass('hidden')
+            sendRequest('POST', requestURLsky, body).then(data => updateSkyTables(data)).catch(err => console.log(err))
+        }
     });
+}
+
+function checkingStockSvailability() {
+    var stocks = true;
+    var array = [];
+    var tds = document.querySelectorAll('table.tables_requirement_t2 button');
+    for (var i = 0; i < tds.length; i++) {
+        array.push(tds[i].innerHTML);
+    }
+    if (array.includes(body.shop)) {
+        tds = document.querySelectorAll('table.tables_remanisWarehousePhone td');
+        array = [];
+        for (var i = 0; i < tds.length; i += 3) {
+            array.push(tds[i].innerHTML);
+            array.push(tds[i + 1].innerHTML);
+            array.push(tds[i + 2].innerHTML);
+        }
+        if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 2]) >= parseInt(body.skyPhone)) {
+            stocks = true;
+        } else if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 2]) < parseInt(body.skyPhone)) {
+            stocks = false;
+            modals("на складе Т2 нет данной модели. Использовать основной склад?");
+            $('.btn-primary').on('click', function() {
+                cou++;
+                if (cou == 1) {
+                    if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) >= parseInt(body.skyPhone)) {
+                        stocks = true;
+                        $('#loader').removeClass('hidden')
+                        sendRequest('POST', requestURLsky, body).then(data => updateSkyTables(data)).catch(err => console.log(err))
+                        $('#myModal').modal('hide');
+                    } else {
+                        modals("нет на складах такого количества");
+                        $('.btn-primary').attr('disabled', true);
+                        stocks = false;
+                    }
+                }
+            });
+        } else {
+            modals("нет такого модели на складе");
+            $('.btn-primary').attr('disabled', true);
+            stocks = false;
+        }
+    } else {
+        tds = document.querySelectorAll('table.tables_remanisWarehousePhone td');
+        array = [];
+        for (var i = 0; i < tds.length; i += 3) {
+            array.push(tds[i].innerHTML);
+            array.push(tds[i + 1].innerHTML);
+            array.push(tds[i + 2].innerHTML);
+        }
+       if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) >= parseInt(body.skyPhone)) {
+
+                stocks = true;
+            } else if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) < body.skyPhone) {
+                stocks = false;
+                modals("на складе нет данной модели. Использовать основной склад t2?");
+                $('.btn-primary').on('click', function() {
+                    cou++;
+                    if (cou == 1) {
+                        if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 2]) >= parseInt(body.skyPhone)) {
+
+                            stocks = true;
+                            $('#loader').removeClass('hidden')
+                            sendRequest('POST', requestURLsky, body).then(data => updateSkyTables(data)).catch(err => console.log(err))
+                            $('#myModal').modal('hide');
+                        } else {
+
+                            modals("нет на складах такого количества");
+                            $('.btn-primary').attr('disabled', true);
+                            stocks = false;
+                        }
+                    }
+                });
+            } else {
+                modals("нет такого модели на складе");
+                $('.btn-primary').attr('disabled', true);
+                stocks = false;
+            }
+    }
+
+    return stocks;
 }
 
 function uniqueArray(a) {
@@ -307,10 +395,29 @@ function uniqueArray(a) {
 }
 
 function updateSkyTables(data) {
-console.log(data);
-    requirementPhone(requestURL);
-        remanisWarehousePhone(requestURLremanis);
-        matrixT2Phone(requestURLmatrixT2);
+$('#loader').addClass('hidden')
+//matrixT2Phone(requestURLmatrixT2);
+ var tds = document.querySelectorAll('table.tables_distributionPhone td');
+ for (var i = 0; i < tds.length; i +=4 ) {
+
+
+
+
+$.each(data, function(key, value){
+if(tds[i].innerHTML == value.modelPhone && tds[i+2].innerHTML != value.remanisPhone){
+
+ tds[i+2].innerHTML = value.remanisPhone;
+
+
+}
+
+
+});
+         }
+
+   // requirementPhone(requestURL);
+    // remanisWarehousePhone(requestURLremanis);
+
 }
 
 function sendRequest(method, url, body = null) {
@@ -331,4 +438,17 @@ function sendRequest(method, url, body = null) {
         }
         xhr.send(JSON.stringify(body))
     })
+}
+
+function modals(message) {
+    cou = 0;
+    $('#myModal').modal("show");
+    document.querySelector('.modal-body').textContent = message;
+    $('.btn-close').on('click', function() {
+        $('#myModal').modal('hide');
+    });
+    $('.btn-secondary').on('click', function() {
+        $('#myModal').modal('hide');
+    });
+
 }

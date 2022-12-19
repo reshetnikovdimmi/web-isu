@@ -60,9 +60,9 @@ public class DistributionOfPhonesController {
     @PostMapping(path = "/skyPhone")
     private ResponseEntity skyPhone(@RequestBody DistributionPhone skyPhone) {
 
-        System.out.println(skyPhone.getShop() +"<-->"+ skyPhone.getModelPhone() +"<-->"+ skyPhone.getSkyPhone());
 
-        return ResponseEntity.ok(HttpStatus.OK);
+
+        return ResponseEntity.ok(phoneServise.distributionSkyPhone(skyPhone));
     }
 }
 
