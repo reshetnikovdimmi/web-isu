@@ -1,13 +1,10 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.exporte.ExselFileExporte;
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
 import com.myisu_1.isu.models.Phone.*;
-import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
-import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.service.PhoneServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class DistributionOfPhonesController {
@@ -63,6 +61,25 @@ public class DistributionOfPhonesController {
 
 
         return ResponseEntity.ok(phoneServise.distributionSkyPhone(skyPhone));
+    }
+    @ResponseBody
+    @RequestMapping(value = "requirementUpPhone", method = RequestMethod.GET)
+    public Iterable<RequirementPhone> requirementUpPhone() {
+
+        return phoneServise.requirementUpPhone();
+
+    }
+    @GetMapping("/exselDistributionPhones")
+    public void downloadExselFile(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment; filename=DistributionPhones.xlsx");
+
+        ByteArrayInputStream inputStream = ExselFileExporteDistributionPhones.exportPrisePromoFile((List<DistributionPhone>) phoneServise.distributionPhoneList());
+
+        IOUtils.copy(inputStream, response.getOutputStream());
+
+
     }
 }
 

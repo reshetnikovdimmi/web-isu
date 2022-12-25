@@ -1,4 +1,5 @@
 const requestURL = '/requirementPhone'
+const requestUpURL = '/requirementUpPhone'
 const requestURLremanis = '/remanisWarehousePhone'
 const requestURLmatrixT2 = '/matrixT2Phone'
 const requestURLsky = '/skyPhone'
@@ -31,7 +32,7 @@ function matrixT2Phone(requestURLmatrixT2) {
 }
 
 function table_matrixT2Phone(matrixT2Phone) {
-//console.log(matrixT2Phone);
+    //console.log(matrixT2Phone);
     var uniqueArrays = [];
     for (var i = 0; i < matrixT2Phone.length; i++) {
         uniqueArrays.push(matrixT2Phone[i].shop);
@@ -77,6 +78,7 @@ function table_matrixT2Phone(matrixT2Phone) {
     thead.appendChild(row_1);
     table.appendChild(thead);
     elem.appendChild(table);
+
 }
 
 function table_remanisWarehousePhone(remanisWarehousePhone) {
@@ -118,7 +120,6 @@ function table_remanisWarehousePhone(remanisWarehousePhone) {
     thead.appendChild(row_1);
     table.appendChild(thead);
     elem.appendChild(table);
-
 }
 
 function requirementPhone_mono(requirementPhoneArr) {
@@ -238,9 +239,14 @@ function requirementPhone_multi(requirementPhoneArr) {
     elem.appendChild(table);
     $(document).find('.requirementPhone').on('click', function() {
         var shopSKY = $(this).parents('tr:first').find('td:eq(0)').text();
+
         const url = '/requirementPhone/' + shopSKY;
+
         $.get(url, function(requirementPhone, status) {
+        var shop = requirementPhone[1].shop;
+document.querySelector('#ShopDistribution').innerHTML = shop;
             distributionPhone1(requirementPhone, shopSKY);
+
         });
     });
     $('#loader').addClass('hidden')
@@ -300,6 +306,7 @@ function distributionPhone1(requirementPhone, shopSKY) {
         }
         if (checkingStockSvailability()) {
             $('#loader').removeClass('hidden')
+
             sendRequest('POST', requestURLsky, body).then(data => updateSkyTables(data)).catch(err => console.log(err))
         }
     });
@@ -328,7 +335,7 @@ function checkingStockSvailability() {
             $('.btn-primary').on('click', function() {
                 cou++;
                 if (cou == 1) {
-                    if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) >= parseInt(body.skyPhone)) {
+                    if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) >= parseInt(body.skyPhone) - parseInt(array[array.indexOf(body.modelPhone) + 2])) {
                         stocks = true;
                         $('#loader').removeClass('hidden')
                         sendRequest('POST', requestURLsky, body).then(data => updateSkyTables(data)).catch(err => console.log(err))
@@ -353,36 +360,32 @@ function checkingStockSvailability() {
             array.push(tds[i + 1].innerHTML);
             array.push(tds[i + 2].innerHTML);
         }
-       if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) >= parseInt(body.skyPhone)) {
-
-                stocks = true;
-            } else if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) < body.skyPhone) {
-                stocks = false;
-                modals("на складе нет данной модели. Использовать основной склад t2?");
-                $('.btn-primary').on('click', function() {
-                    cou++;
-                    if (cou == 1) {
-                        if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 2]) >= parseInt(body.skyPhone)) {
-
-                            stocks = true;
-                            $('#loader').removeClass('hidden')
-                            sendRequest('POST', requestURLsky, body).then(data => updateSkyTables(data)).catch(err => console.log(err))
-                            $('#myModal').modal('hide');
-                        } else {
-
-                            modals("нет на складах такого количества");
-                            $('.btn-primary').attr('disabled', true);
-                            stocks = false;
-                        }
+        if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) >= parseInt(body.skyPhone)) {
+            stocks = true;
+        } else if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 1]) < body.skyPhone) {
+            stocks = false;
+            modals("на складе нет данной модели. Использовать основной склад t2?");
+            $('.btn-primary').on('click', function() {
+                cou++;
+                if (cou == 1) {
+                    if (array.includes(body.modelPhone) && parseInt(array[array.indexOf(body.modelPhone) + 2]) >= parseInt(body.skyPhone)) {
+                        stocks = true;
+                        $('#loader').removeClass('hidden')
+                        sendRequest('POST', requestURLsky, body).then(data => updateSkyTables(data)).catch(err => console.log(err))
+                        $('#myModal').modal('hide');
+                    } else {
+                        modals("нет на складах такого количества");
+                        $('.btn-primary').attr('disabled', true);
+                        stocks = false;
                     }
-                });
-            } else {
-                modals("нет такого модели на складе");
-                $('.btn-primary').attr('disabled', true);
-                stocks = false;
-            }
+                }
+            });
+        } else {
+            modals("нет такого модели на складе");
+            $('.btn-primary').attr('disabled', true);
+            stocks = false;
+        }
     }
-
     return stocks;
 }
 
@@ -395,29 +398,41 @@ function uniqueArray(a) {
 }
 
 function updateSkyTables(data) {
-$('#loader').addClass('hidden')
-//matrixT2Phone(requestURLmatrixT2);
- var tds = document.querySelectorAll('table.tables_distributionPhone td');
- for (var i = 0; i < tds.length; i +=4 ) {
+   // $('#loader').addClass('hidden')
+        //matrixT2Phone(requestURLmatrixT2);
+    var tds = document.querySelectorAll('table.tables_distributionPhone td');
+    for (var i = 0; i < tds.length; i += 4) {
+        $.each(data, function(key, value) {
+            if (tds[i].innerHTML == value.modelPhone && tds[i + 2].innerHTML != value.remanisPhone) {
+                tds[i + 2].innerHTML = value.remanisPhone;
+            }
+        });
+    }
+    // requirementPhone(requestURL);
+    $.get(requestURLremanis, function(remanisWarehousePhone, status) {
 
 
+        var tds = document.querySelectorAll('table.tables_remanisWarehousePhone td');
+        for (var i = 0; i < tds.length; i += 3) {
+            $.each(remanisWarehousePhone, function(key, value) {
 
+                if (tds[i].innerHTML == value.modelPhone && tds[i + 2].innerHTML != value.remanisWarehouseT2) {
 
-$.each(data, function(key, value){
-if(tds[i].innerHTML == value.modelPhone && tds[i+2].innerHTML != value.remanisPhone){
+                    tds[i + 2].innerHTML = value.remanisWarehouseT2;
+                }
+                if (tds[i].innerHTML == value.modelPhone && tds[i + 1].innerHTML != value.remanisMainWarehouse) {
+                    tds[i + 1].innerHTML = value.remanisMainWarehouse;
+                }
+            });
+        }
+    });
+    matrixT2Phone(requestURLmatrixT2);
+     $.get(requestUpURL, function(requestUpURL, status) {
 
- tds[i+2].innerHTML = value.remanisPhone;
-
-
-}
-
-
-});
-         }
-
-   // requirementPhone(requestURL);
-    // remanisWarehousePhone(requestURLremanis);
-
+          requirementPhone_mono(requestUpURL);
+          requirementPhone_multi(requestUpURL);
+        });
+    $('#loader').addClass('hidden')
 }
 
 function sendRequest(method, url, body = null) {
@@ -450,5 +465,4 @@ function modals(message) {
     $('.btn-secondary').on('click', function() {
         $('#myModal').modal('hide');
     });
-
 }
