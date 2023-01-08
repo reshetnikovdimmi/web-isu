@@ -20,7 +20,7 @@ public class PhoneServise {
     @Autowired
     private SalesRepositoriy salesRepositoriy;
     @Autowired
-    private PostRepositoriy authorization_tt;
+    public PostRepositoriy authorization_tt;
     @Autowired
     private PhoneRepositoriy phoneRepositoriy;
     @Autowired
@@ -35,7 +35,7 @@ public class PhoneServise {
     private MatrixSparkRepository matrixSparkRepository;
 
     List<Sales> sales;
-    List<authorization_tt> authorization_ttList;
+    public List<authorization_tt> authorization_ttList;
     List<Phone_Smart> phoneSmartList;
     List<RemanisSim> remanisSimList;
     List<SaleSim_1m> saleSim_1mList;
@@ -350,7 +350,7 @@ public class PhoneServise {
 
     }
 
-    private void distributionsPhoneList(String shop) {
+    public void distributionsPhoneList(String shop) {
         for (int i = 0; i < assortmentList.size(); i++) {
             for (int j = 0; j < remanisPhoneList.size(); j++) {
                 if (shop.equals(assortmentList.get(i).getShop()) && assortmentList.get(i).getShop().equals(remanisPhoneList.get(j).getShop()) && assortmentList.get(i).getModelPhone().equals(remanisPhoneList.get(j).getModelPhone())) {
