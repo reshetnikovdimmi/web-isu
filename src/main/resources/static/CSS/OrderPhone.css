@@ -3,16 +3,16 @@
        select {
               width: 80%; /* Ширина списка в пикселах */
              font-size: 13px;
-                     	padding: 6px 0 4px 10px;
+                     	padding: 6px 0 4px 1px;
                      	border: 1px solid #cecece;
                      	background: #F6F6f6;
-                     	border-radius: 8px;
+                     	border-radius: 1px;
              }
           input {
               width:80%;
 
               	font-size: 13px;
-              	padding: 6px 0 4px 10px;
+              	padding: 1px 0 1px 1px;
               	border: 1px solid #cecece;
               	background: #F6F6f6;
               	border-radius: 8px;
@@ -25,7 +25,7 @@
       	box-sizing: border-box;
 
             display: block;
-            width: 80%;
+            width: 100%;
 
       	padding: 0 1px;
       	margin: 0 1px 1px 0;
@@ -53,7 +53,7 @@
       	opacity: 0.88;
       }
       .btn:active {
-      	line-height: 32px;
+      	line-height: 2px;
       }
       .btn:disabled {
       	pointer-events: none;
@@ -105,15 +105,21 @@
 
       tbody, thead tr { display: block; }
 
-      tbody {
-          height: 150px;
+      .labels {
+
           overflow-y: auto;
           overflow-x: hidden;
           font-size: 9px;
       }
+      .labels2 {
+                height: 150px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                font-size: 9px;
+            }
 
       tbody td, thead th {
-          width: 250px;
+          width: 300px;
           overflow: hidden;
 
       }
@@ -136,13 +142,13 @@
       .table {
       	width: 100%;
       	border: none;
-      	margin-bottom: 20px;
+      	margin-bottom: 2px;
       }
       .table-borderless-1 thead th {
       	font-weight: bold;
       	text-align: left;
       	border: none;
-      	padding: 10px 15px;
+      	padding: 1px 1px;
       	background: #d8d8d8;
       	font-size: 14px;
       }
@@ -155,7 +161,7 @@
       .table-borderless-1 tbody td {
       	text-align: left;
       	border: none;
-      	padding: 10px 15px;
+      	padding: 1px 1px;
       	font-size: 14px;
       	vertical-align: top;
       }
@@ -173,14 +179,14 @@ display: none;
 }
 .lds-dual-ring {
   display: inline-block;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 }
 .lds-dual-ring:after {
   content: " ";
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 4px;
+  height: 4px;
   margin: 5% auto;
   border-radius: 50%;
   border: 6px solid #fff;
@@ -209,7 +215,15 @@ display: none;
     transition: all 0.5s;
 }
 .labels tr td {
-	background-color: #2cc16a;
-	font-weight: bold;
-	color: #fff;
+	background-color: #dfe6ed;
+ height: 10px;
+	color: #55677d;
+}
+.hide{
+display: none;
+
+}
+.hide_maxNeT2{
+display: none;
+
 }

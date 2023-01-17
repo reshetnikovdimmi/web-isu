@@ -12,6 +12,8 @@ import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -129,6 +131,7 @@ public class PhoneServise {
 
 
     public Iterable<RequirementPhone> requirementPhone() {
+        long start = System.currentTimeMillis();
         if (assortmentList == null) {
             Disting();
         }
@@ -161,6 +164,11 @@ public class PhoneServise {
                 .stream()
                 .sorted(Comparator.comparing(RequirementPhone::getPercent))
                 .collect(Collectors.toList());
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+
+        System.out.println( df.format(new Date(timeWorkCode))+"--"+"requirementPhone");
         return sortedUsers;
     }
 
