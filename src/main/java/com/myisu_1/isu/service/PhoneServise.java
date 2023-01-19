@@ -404,9 +404,13 @@ public class PhoneServise {
                 .collect(Collectors.toList());
 
         for (int l = 0; l < authorization_ttList.size(); l++) {
+
             if (!authorization_ttList.get(l).getClusterT2().isEmpty()) {
+                int total =0;
+               int cou=0;
                 for (int k = 0; k < distingMatrixT2.size(); k++) {
                     String remanisSum = "0";
+
                     for (int i = 0; i < phoneSmartList.size(); i++) {
 
                         for (int j = 0; j < remanisSimList.size(); j++) {
@@ -429,9 +433,13 @@ public class PhoneServise {
                             if (matrixT2List.get(s).getQuantity().equals("0")) {
                                 remanisSum = "ЛОЖЬ";
                             } else if (Integer.parseInt(matrixT2List.get(s).getQuantity()) <= Integer.valueOf(remanisSum)) {
-                                remanisSum = "100%";
+                                remanisSum = "100";
+                                total+=Integer.parseInt(remanisSum);
+                                cou++;
                             } else {
-                                remanisSum = String.format("%.2f", Double.parseDouble(remanisSum) / Double.parseDouble(matrixT2List.get(s).getQuantity()));
+                                remanisSum = String.format("%.0f", Double.parseDouble(remanisSum) / Double.parseDouble(matrixT2List.get(s).getQuantity())*100);
+                                total+=Integer.parseInt(remanisSum);
+                                cou++;
                             }
 
                         }
@@ -442,9 +450,11 @@ public class PhoneServise {
 
 
                 }
-
+                tableMatrixT2List.add(new TableMatrixT2(authorization_ttList.get(l).getName(), "Итого", String.valueOf(total/cou)));
             }
         }
+
+
         return tableMatrixT2List;
     }
 

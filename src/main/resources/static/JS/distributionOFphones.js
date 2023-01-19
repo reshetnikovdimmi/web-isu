@@ -27,6 +27,7 @@ function remanisWarehousePhone(requestURLremanis) {
 
 function matrixT2Phone(requestURLmatrixT2) {
     $.get(requestURLmatrixT2, function(matrixT2Phone, status) {
+    console.log(matrixT2Phone);
         table_matrixT2Phone(matrixT2Phone);
     });
 }
@@ -55,7 +56,7 @@ function table_matrixT2Phone(matrixT2Phone) {
     let tbody = document.createElement('tbody');
     for (var i = 0; i < cell.length; i++) {
         let heading_1 = document.createElement('th');
-        heading_1.innerHTML = cell[i];
+        heading_1.innerHTML = cell[i].replaceAll("/", " ");
         row_1.appendChild(heading_1);
     }
     for (var i = 0; i < row.length; i++) {
@@ -67,7 +68,12 @@ function table_matrixT2Phone(matrixT2Phone) {
             }
             for (var k = 0; k < matrixT2Phone.length; k++) {
                 if (row[i] == matrixT2Phone[k].shop && cell[j] == matrixT2Phone[k].distributionModel) {
-                    td.innerHTML = matrixT2Phone[k].quantity;
+                    td.innerHTML = matrixT2Phone[k].quantity+"%";
+                    if(matrixT2Phone[k].quantity<100){
+                    td.style.color = "#ff0000";
+                    }
+
+
                 }
             }
             tr.appendChild(td);
