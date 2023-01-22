@@ -27,13 +27,13 @@ function remanisWarehousePhone(requestURLremanis) {
 
 function matrixT2Phone(requestURLmatrixT2) {
     $.get(requestURLmatrixT2, function(matrixT2Phone, status) {
-    console.log(matrixT2Phone);
+
         table_matrixT2Phone(matrixT2Phone);
     });
 }
 
 function table_matrixT2Phone(matrixT2Phone) {
-    //console.log(matrixT2Phone);
+
     var uniqueArrays = [];
     for (var i = 0; i < matrixT2Phone.length; i++) {
         uniqueArrays.push(matrixT2Phone[i].shop);

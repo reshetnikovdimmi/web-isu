@@ -32,4 +32,22 @@ public class OrderPhone {
 
         return orderPhoneServise.orderFromWarehouse();
     }
+    @ResponseBody
+    @RequestMapping(value = "orderFromAllWarehouse", method = RequestMethod.GET)
+    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromAllWarehouse() {
+
+        return orderPhoneServise.orderFromAllWarehouse();
+    }
+    @ResponseBody
+    @RequestMapping(value = "orderFromMatrixWarehouse", method = RequestMethod.GET)
+    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMatrixWarehouse() {
+
+        return orderPhoneServise.orderFromMatrixT2Warehouse();
+    }
+    @ResponseBody
+    @RequestMapping(value = "orderFromMinT2Warehouse", method = RequestMethod.GET)
+    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinT2Warehouse() {
+
+        return orderPhoneServise.orderFromMinT2Warehouse();
+    }
 }
