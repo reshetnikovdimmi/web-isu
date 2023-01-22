@@ -46,8 +46,8 @@ public class PhoneServise {
     List<MatrixSpark> matrixSparkList;
     List<Assortment> assortmentList;
     List<DistributionPhone> remanisPhoneList;
-    List<String> disting = new ArrayList<>();
-    HashMap<String, String> distingGB = new HashMap<>();
+    List<String> disting;
+    HashMap<String, String> distingGB;
     List<DistributionPhone> distributionPhoneList;
     List<RequirementPhone> requirementPhoneList;
     private int remanis;
@@ -63,10 +63,14 @@ public class PhoneServise {
         matrixT2List = matrixT2Repository.findAll();
         matrixSparkList = matrixSparkRepository.findAll();
         distributionPhoneList = new ArrayList<>();
-        // Disting();
+        disting = new ArrayList<>();
+        distingGB = new HashMap<>();
+
     }
 
     public void Disting() {
+        disting = new ArrayList<>();
+        distingGB = new HashMap<>();
         assortmentList = new ArrayList<>();
         ArrayList<String> listWithDuplicateValues = new ArrayList<>();
         for (int i = 0; i < phoneSmartList.size(); i++) {
@@ -132,9 +136,9 @@ public class PhoneServise {
 
     public Iterable<RequirementPhone> requirementPhone() {
         long start = System.currentTimeMillis();
-        if (assortmentList == null) {
+
             Disting();
-        }
+
 
         remanisPhoneList = new ArrayList<>();
         requirementPhoneList = new ArrayList<>();

@@ -52,12 +52,75 @@ function orderFromMinT2Warehouse() {
         url: "/orderFromMinT2Warehouse",
         type: "GET",
         success: function(data) {
-//orderFromMaxMatrixWarehouse(data);
+orderFromMinMatrixWarehouse(data);
 console.log(data);
 $('#loader').addClass('hidden')
 
         }
     });
+
+}
+function orderFromMinMatrixWarehouse(data) {
+ var elem = document.querySelector('#table_minT2');
+    var elem1 = document.querySelector('#tables_minT2');
+    elem1.parentNode.removeChild(elem1);
+    var table = document.createElement(`table`);
+    table.id = 'tables_minT2';
+    table.classList.add("table-borderless-1");
+    table.classList.add("tables_minT2");
+    let thead = document.createElement('thead');
+    let row_1 = document.createElement('tr');
+    let heading_1 = document.createElement('th');
+    heading_1.innerHTML = "Модель";
+    let heading_2 = document.createElement('th');
+    heading_2.innerHTML = "Количество";
+    row_1.appendChild(heading_1);
+    row_1.appendChild(heading_2);
+    let tbody = document.createElement('tbody');
+    tbody.classList.add("labels2");
+    for (var i = 0; i < data.length; i++) {
+        let tbody1 = document.createElement('tbody');
+        table.id = 'toggle';
+        var tr = document.createElement('tr');
+        for (var j = 0; j < 2; j++) {
+            var td = document.createElement('td');
+            if (j == 0) {
+                var button = document.createElement('button')
+                button.classList.add("minT2");
+                button.id = 'minT2';
+                button.innerHTML = data[i].distributionModel;
+                td.appendChild(button);
+            } else if (j == 1) {
+                td.innerHTML = data[i].quantity;
+            }
+            tr.appendChild(td);
+        }
+        tbody1.appendChild(tr);
+        tbody1.classList.add("labels");
+        tbody.appendChild(tbody1);
+        let tbody2 = document.createElement('tbody');
+        for (let key in data[i].salePhone) {
+
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+            td.innerHTML = key;
+            tr.appendChild(td);
+            var td = document.createElement('td');
+            td.innerHTML = data[i].salePhone[key];
+            tr.appendChild(td);
+            tbody2.appendChild(tr);
+            tbody2.classList.add("hide_minT2");
+        }
+        tbody.appendChild(tbody2);
+    }
+    table.appendChild(tbody);
+    thead.appendChild(row_1);
+    table.appendChild(thead);
+    elem.appendChild(table);
+    $(document).find('.minT2').on('click', function() {
+        $(this).parents().next('.hide_minT2').toggle();
+    });
+
 
 }
 function orderFromMaxMatrixWarehouse(data) {

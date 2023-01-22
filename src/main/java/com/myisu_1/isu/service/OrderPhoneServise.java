@@ -357,7 +357,9 @@ public class OrderPhoneServise extends MovementsPhoneServise {
 
     public List<OrderPhone> orderFromMinT2Warehouse() {
         allMovements();
-        return orderFromMatrixT2Warehouse();
+        requirementPhone();
+
+        return orderFromT2Warehouse();
     }
 }
 
