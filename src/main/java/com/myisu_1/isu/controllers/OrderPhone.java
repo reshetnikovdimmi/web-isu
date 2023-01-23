@@ -50,4 +50,22 @@ public class OrderPhone {
 
         return orderPhoneServise.orderFromMinT2Warehouse();
     }
+    @ResponseBody
+    @RequestMapping(value = "orderFromMinWarehouse", method = RequestMethod.GET)
+    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinWarehouse() {
+
+        return orderPhoneServise.orderFromMinWarehouse();
+    }
+    @ResponseBody
+    @RequestMapping(value = "orderFromMinAllWarehouse", method = RequestMethod.GET)
+    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinAllWarehouse() {
+
+        return orderPhoneServise.orderFromMinAllWarehouse();
+    }
+    @ResponseBody
+    @RequestMapping(value = "orderFromMinMatrixWarehouse", method = RequestMethod.GET)
+    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinMatrixWarehouse() {
+
+        return orderPhoneServise.orderFromMinMatrixWarehouse();
+    }
 }

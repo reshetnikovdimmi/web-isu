@@ -361,5 +361,18 @@ public class OrderPhoneServise extends MovementsPhoneServise {
 
         return orderFromT2Warehouse();
     }
+
+    public List<OrderPhone> orderFromMinWarehouse() {
+        return orderFromWarehouse();
+    }
+
+    public List<OrderPhone> orderFromMinAllWarehouse() {
+        return orderFromAllWarehouse();
+    }
+
+    public List<OrderPhone> orderFromMinMatrixWarehouse() {
+        System.out.println("ok");
+        return orderFromMatrixT2Warehouse();
+    }
 }
 
