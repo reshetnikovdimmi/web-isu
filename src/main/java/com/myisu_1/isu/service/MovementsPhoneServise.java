@@ -3,6 +3,7 @@ package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.models.Phone.From_whereTo_where;
+import com.myisu_1.isu.models.Phone.TableMatrixT2;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.authorization_tt;
 import org.springframework.stereotype.Service;
@@ -264,5 +265,11 @@ public class MovementsPhoneServise extends PhoneServise {
 
         return from_whereTo_whereList;
 
+    }
+
+    public Iterable<TableMatrixT2> requirementMatrixT2Phone() {
+
+
+        return matrixT2Phone();
     }
 }

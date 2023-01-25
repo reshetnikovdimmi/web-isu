@@ -5,7 +5,7 @@ var body;
 $(document).ready(function() {
     $('#loader').removeClass('hidden')
     requirementPhone(requestURL);
-
+matrixT2Phone();
 
 $('#MovementsPhone').on('click', function() {
  $('#loader').removeClass('hidden')
@@ -16,6 +16,7 @@ $('#MovementsPhone').on('click', function() {
 
 from_where(data);
 to_where(data);
+matrixT2Phone();
             }
         });
         return false;
@@ -29,9 +30,75 @@ function requirementPhone(requestURL) {
     $.get(requestURL, function(requirementPhoneArr, status) {
         requirementPhone_mono(requirementPhoneArr);
         requirementPhone_multi(requirementPhoneArr);
+
     });
 
 
+
+}
+function matrixT2Phone() {
+   $.ajax({
+               url: '/requirementMatrixT2Phone',
+               type: "GET",
+               success: function(data) {
+
+  table_matrixT2Phone(data);
+               }
+           });
+           return false;
+}
+function table_matrixT2Phone(matrixT2Phone) {
+
+    var uniqueArrays = [];
+    for (var i = 0; i < matrixT2Phone.length; i++) {
+        uniqueArrays.push(matrixT2Phone[i].shop);
+    }
+    var row = uniqueArray(uniqueArrays);
+    var uniqueArrays = [];
+    uniqueArrays.push("МОДЕЛЬ РАСПРЕДЕЛЕНИЯ");
+    for (var i = 0; i < matrixT2Phone.length; i++) {
+        uniqueArrays.push(matrixT2Phone[i].distributionModel);
+    }
+    var cell = uniqueArray(uniqueArrays);
+    var elem = document.querySelector('#table_MatrixT2');
+    var elem1 = document.querySelector('#tables_MatrixT2');
+    elem1.parentNode.removeChild(elem1);
+    var table = document.createElement(`table`);
+    table.id = 'tables_MatrixT2';
+    table.classList.add("table-borderless");
+    let thead = document.createElement('thead');
+    let row_1 = document.createElement('tr');
+    let tbody = document.createElement('tbody');
+    for (var i = 0; i < cell.length; i++) {
+        let heading_1 = document.createElement('th');
+        heading_1.innerHTML = cell[i].replaceAll("/", " ");
+        row_1.appendChild(heading_1);
+    }
+    for (var i = 0; i < row.length; i++) {
+        var tr = document.createElement('tr');
+        for (var j = 0; j < cell.length; j++) {
+            var td = document.createElement('td');
+            if (j == 0) {
+                td.innerHTML = row[i];
+            }
+            for (var k = 0; k < matrixT2Phone.length; k++) {
+                if (row[i] == matrixT2Phone[k].shop && cell[j] == matrixT2Phone[k].distributionModel) {
+                    td.innerHTML = matrixT2Phone[k].quantity+"%";
+                    if(matrixT2Phone[k].quantity<100){
+                    td.style.color = "#ff0000";
+                    }
+
+
+                }
+            }
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    thead.appendChild(row_1);
+    table.appendChild(thead);
+    elem.appendChild(table);
 
 }
 function to_where(data){
@@ -259,7 +326,7 @@ $('#loader').removeClass('hidden')
 
 from_where(shopMovements);
 to_where(shopMovements);
-
+matrixT2Phone();
        });
     });
     $('#loader').addClass('hidden')

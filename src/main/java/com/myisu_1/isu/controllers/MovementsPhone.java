@@ -2,6 +2,7 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.Phone.From_whereTo_where;
 import com.myisu_1.isu.models.Phone.RequirementPhone;
+import com.myisu_1.isu.models.Phone.TableMatrixT2;
 import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
 import com.myisu_1.isu.service.MovementsPhoneServise;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,11 @@ public class MovementsPhone {
 
 
         return movementsPhoneServise.shopMovements(shop);
+    }
+    @ResponseBody
+    @RequestMapping(value = "requirementMatrixT2Phone", method = RequestMethod.GET)
+    public Iterable<TableMatrixT2> requirementMatrixT2Phone() {
+
+        return movementsPhoneServise.requirementMatrixT2Phone();
     }
 }
