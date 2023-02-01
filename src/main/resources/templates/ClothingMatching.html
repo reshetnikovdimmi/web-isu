@@ -143,7 +143,7 @@
                         </div>
                         <div class="row">
                             <div class="table">
-                                <table class="tables_remanisWarehousePhone" id="tables_remanisWarehousePhone">
+                                <table class="table-borderless" id="tables_remanisWarehousePhone">
                                     <thead class="table-dark table-hover">
                                     <tr>
                                         <th>№ п/п</th>
@@ -160,7 +160,7 @@
 
 
 
-                                        
+
 
 
                                     </tr>
@@ -185,50 +185,23 @@
                 </div>
 
             </p>
+
             <p class="lead">
-            <h6>SIM TELE2</h6>
-            <div class="table">
-                <table class="table-responsive table-hover">
-                    <thead class="table-dark table-hover">
-                    <tr>
-                        <th>№ п/п</th>
-                        <th>Логин</th>
-                        <th>Пароль</th>
-                        <th>Искра</th>
-                        <th>Рарус</th>
-                        <th>Радуга</th>
-                        <th>___________</th>
-                        <th>___________</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="current : ${Phone}">
-
-                        <td th:text="${current.id}"></td>
-                        <td th:text="${current.Matrix_T2}"></td>
-                        <td th:text="${current.Brend}"></td>
-                        <td th:text="${current.Model}"></td>
-                        <td th:text="${current.Model_GB}"></td>
-                        <td th:text="${current.Phone}"></td>
-
-                        <td><a th:href="@{/update_MatrixPhone/{id}(id = ${current.id})}" class="btn btn-outline-primary me-2">
-                            <span th:text="update"></span>
-                        </a></td>
-                        <form id="form" action="/delet_MatrixPhone" method="post">
-                            <input type="hidden" id="IDMatrixPhone" name="IDMatrixPhone" th:value="${current.id}">
-
-                            <td>
-                                <button type="submit">delet</button>
-                            </td>
-
-                        </form>
-
-                    </tr>
+            </p>
+            <input class="form-control" type="text" placeholder="Поиск по модели телефона или стекла" id="search-text" onkeyup="tableSearch()">
+            <p class="lead">
 
 
-                    </tbody>
-                </table>
-            </div>
+                <div class="table" id="table_distributionPhone">
+                    <table class="table-responsive table-hover" id="tables_distributionPhone">
+                        <thead>
+
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
 
 
             </p>

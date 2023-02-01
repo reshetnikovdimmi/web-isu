@@ -17,7 +17,7 @@ public class ClothingMatching extends Shop {
     public List<ClothingMatchingTable> saveCloting(List<ClothingMatchingTable> sim) {
         clothingMatchingTableList = new ArrayList<>();
         for (ClothingMatchingTable num : sim) {
-            System.out.println(num.getNameClothes()+"--"+num.getPhoneClothes()+"--"+num.getViewClothes());
+           // System.out.println(num.getNameClothes()+"--"+num.getPhoneClothes()+"--"+num.getViewClothes());
             clothingMatchingTableList.add(new ClothingMatchingTable(num.getViewClothes(),num.getPhoneClothes(),num.getNameClothes()));
         }
 

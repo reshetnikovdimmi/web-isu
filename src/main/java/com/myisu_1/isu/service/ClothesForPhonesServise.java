@@ -41,9 +41,14 @@ public class ClothesForPhonesServise {
      }
 
     public List<ClothingMatchingTable> saveSparkSale(List<ClothingMatchingTable> sim) {
+        clothingMatching = new ClothingMatching();
         clothingMatching.clothingMatchingTableList = sim;
         clothingMatchingTableRepositoriy.saveAll(clothingMatching.clothingMatchingTableList);
         clothingMatching.clothingMatchingTableList = clothingMatchingTableRepositoriy.findAll();
       return clothingMatching.clothingMatchingTableList;
+    }
+    public List<ClothingMatchingTable> slotongMatchingTable() {
+
+        return clothingMatchingTableRepositoriy.findAll();
     }
 }
