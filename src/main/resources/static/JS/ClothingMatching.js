@@ -1,5 +1,6 @@
 const requestURLsave = '/saveSlotongMatching'
 var arr = [];
+var check;
 $(document).ready(function() {
     $.getJSON('/slotongMatchingTable', function(data) {
         //console.log(data)
@@ -8,7 +9,7 @@ $(document).ready(function() {
     });
     $('#save').on('click', function() {
         if ($('#pdistributionModel').val() === '') {
-            modals();
+            modals("Что то забыл");
         } else if (arr.length > 0) {
             sendRequest('POST', '/slotongMatchingTableDel', arr).then(data => save()).catch(err => console.log(err))
             arr = new Array();
@@ -16,17 +17,30 @@ $(document).ready(function() {
             save();
         }
     });
+    is_checked();
 });
+
+function is_checked() {
+    $('#group input:checkbox').click(function() {
+        check = $(this).val();
+        if ($(this).is(':checked')) {
+            $('#group input:checkbox').not(this).prop('checked', false);
+            $('#save').attr('disabled', false);
+        } else {
+            $('#save').attr('disabled', true);
+        }
+    });
+}
 
 function save() {
     var bodyArr = [];
-    $('input:checkbox:checked').each(function() {
+    $('#tables_remanisWarehousePhone input:checkbox:checked').each(function() {
         const body = {
             viewClothes: "0",
             phoneClothes: "0",
             nameClothes: "0"
         }
-        body.viewClothes = "Glass";
+        body.viewClothes = check;
         body.phoneClothes = $('#pdistributionModel').val();
         body.nameClothes = $(this).parents('tr:first').find('td:eq(0)').text();
         bodyArr.push(body);
@@ -38,6 +52,7 @@ function save() {
     checkboxes.forEach((checkbox) => {
         checkbox.checked = false;
     });
+    $('#save').attr('disabled', true);
 }
 
 function clothingTable(data) {
@@ -51,24 +66,30 @@ function clothingTable(data) {
     table.classList.add("table-borderless-1");
     let thead = document.createElement('thead');
     let row_1 = document.createElement('tr');
+    let heading_0 = document.createElement('th');
+    heading_0.innerHTML = "Вид";
     let heading_1 = document.createElement('th');
     heading_1.innerHTML = "Модель тедефона";
     let heading_2 = document.createElement('th');
     heading_2.innerHTML = "Модель стекла";
+    row_1.appendChild(heading_0);
     row_1.appendChild(heading_1);
     row_1.appendChild(heading_2);
     let tbody = document.createElement('tbody');
     for (var i = 0; i < data.length; i++) {
         var tr = document.createElement('tr');
-        for (var j = 0; j < 4; j++) {
+        for (var j = 0; j < 5; j++) {
             var td = document.createElement('td');
             if (j == 0) {
-                td.innerHTML = data[i].nameClothes;
+                td.innerHTML = data[i].viewClothes;
             }
             if (j == 1) {
-                td.innerHTML = data[i].phoneClothes;
+                td.innerHTML = data[i].nameClothes;
             }
             if (j == 2) {
+                td.innerHTML = data[i].phoneClothes;
+            }
+            if (j == 3) {
                 var button = document.createElement('button')
                 button.type = 'button';
                 td.appendChild(button);
@@ -77,7 +98,7 @@ function clothingTable(data) {
                 button.id = 'button';
                 button.innerHTML = "update";
             }
-            if (j == 3) {
+            if (j == 4) {
                 var button = document.createElement('button')
                 button.type = 'button';
                 td.appendChild(button);
@@ -95,22 +116,18 @@ function clothingTable(data) {
     table.appendChild(thead);
     elem.appendChild(table);
     $(document).find('.UPDATE').on('click', function() {
-        updateSlotongMatchingTable($(this).parents('tr:first').find('td:eq(1)').text(), data);
+        updateSlotongMatchingTable($(this).parents('tr:first').find('td:eq(2)').text(), data);
     });
     $(document).find('.DEL').on('click', function() {
-for (var j = 0; j < data.length; j++) {
-
-if($(this).parents('tr:first').find('td:eq(1)').text()==data[j].phoneClothes){
-console.log($(this).parents('tr:first').find('td:eq(1)').text()+"--"+data[j].phoneClothes)
-arr.push(data[j].id);
-
-}
-}
-
-
-           sendRequest('POST', '/slotongMatchingTableDel', arr).then(data => clothingTable(data)).catch(err => console.log(err))
-                        arr = new Array();
-        });
+        for (var j = 0; j < data.length; j++) {
+            if ($(this).parents('tr:first').find('td:eq(2)').text() == data[j].phoneClothes) {
+                console.log($(this).parents('tr:first').find('td:eq(2)').text() + "--" + data[j].phoneClothes)
+                arr.push(data[j].id);
+            }
+        }
+        sendRequest('POST', '/slotongMatchingTableDel', arr).then(data => clothingTable(data)).catch(err => console.log(err))
+        arr = new Array();
+    });
 }
 
 function updateSlotongMatchingTable(glassModel, data) {
@@ -130,14 +147,16 @@ function updateSlotongMatchingTable(glassModel, data) {
     }
 }
 
-function modals() {
+function modals(message) {
     $('#myModal').modal("show");
+    document.querySelector('.modal-body').textContent = message;
     $('.btn-close').on('click', function() {
         $('#myModal').modal('hide');
     });
     $('.btn-secondary').on('click', function() {
         $('#myModal').modal('hide');
     });
+    $('.btn-primary').attr('disabled', true);
 }
 
 function sendRequest(method, url, body = null) {
@@ -159,6 +178,7 @@ function sendRequest(method, url, body = null) {
         xhr.send(JSON.stringify(body))
     })
 }
+
 function tableSearch() {
     var phrase = document.getElementById('search-text');
     var table = document.getElementById('tables_distributionPhone');
@@ -175,6 +195,5 @@ function tableSearch() {
         } else {
             table.rows[i].style.display = "none";
         }
-
     }
 }

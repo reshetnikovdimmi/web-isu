@@ -54,7 +54,7 @@
                 <svg class="bi me-2" width="40" height="32">
                     <use xlink:href="#bootstrap"/>
                 </svg>
-                <span class="fs-4">Настройка модели сим и РТК</span>
+                <span class="fs-4">Таьлица одежды для телефонов</span>
             </a>
 
             <ul class="nav nav-pills">
@@ -68,140 +68,112 @@
         </header>
 
         <main class="px-3">
-            <h6 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'"/></h6>
+
+            <p class="lead">
+                <!-- Модальное окно -->
+            <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-primary">Понял</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </p>
             <p class="lead">
 
 
-            <div class="row mb-3 text-center"> Загрузка матрицы с EXSEL </div>
             <div class="row mb-3 text-center">
-                <div class="col">
-                    <form th:action="@{/matrixPhoneImport}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="matrixPhoneImport"/>
-                        <input th:type="submit" value="Import"/>
-                    </form>
-                </div>
+
                 <div class="col">
 
-                    <a href="/exselExportMatrixPhone" class="btn">EXSEL</a>
-                    <!-- Модальное окно -->
-                    <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-
-                                    <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Закрыть"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="container-fluid">
+                    <div class="row">
 
 
-                                        <div class="row">
-                                            <button type="button" class="btn btn-sm">ADD кластер</button>
-                                        </div>
+                        <input type="text" name="Promo_price" id="pdistributionModel" placeholder="Введите имя"/>
 
-                                        <div class="row">
-                                            <div class="col-md-6">модель распределения</div>
-                                            <div class="col-md-6">
-                                                <input type="text" name="Promo_price" id="Promo_price" placeholder="Введите имя"  />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">кластер</div>
-                                            <div class="col-md-6">количество</div>
-                                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="table">
+                            <table class="table-borderless" id="tables_remanisWarehousePhone">
+                                <thead class="table-borderless">
+                                <tr>
+                                    <th>Модель телефона</th>
+                                    <th>Выбор</th>
 
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                    <button type="button" class="btn btn-primary">Понял</button>
-                                </div>
-                            </div>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="current : ${ClothingMatching}">
+
+                                    <td th:text="${current}"></td>
+
+                                    <td><input type="checkbox" name="color"/></td>
+
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+
+                </div>
+
+                <div class="col">
+
+                    <div class="row">
+                        <button class="btn btn" id="save" disabled="disabled" type="submit">Сохранить</button>
+                    </div>
+                    <div class="row">
+                        <div id="group">
+                            <label for="c1"> <input type="checkbox" name="color" value="Glass" id="c1">Glass</label>
+                            <label for="c2"><input type="checkbox" name="color" value="Case" id="c2"> Case</label>
+                            <label for="c3"><input type="checkbox" name="color" value="CoverBook"
+                                                   id="c3">CoverBook</label>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
 
-
-
-            </p>
-            <p class="lead">
-
-
-                <div class="row mb-3 text-center">
-
-                    <div class="col">
-
-                        <div class="row">
-                            <label>LOGIN</label>
-
-                                <input type="text" name="Promo_price" id="pdistributionModel" placeholder="Введите имя"  />
-
-                        </div>
-                        <div class="row">
-                            <div class="table">
-                                <table class="table-borderless" id="tables_remanisWarehousePhone">
-                                    <thead class="table-dark table-hover">
-                                    <tr>
-                                        <th>№ п/п</th>
-                                        <th>Логин</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="current : ${ClothingMatching}">
-
-                                        <td th:text="${current}"></td>
-
-                                        <td><input type="checkbox" name="color" /></td>
-
-
-
-
-
-
-                                    </tr>
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col">
-                        <div class="row">
-                            <label>сохранить</label>
-                        </div>
-                        <div class="row">
-                            <button class="btn btn-outline-primary me-2" id="save" type="submit">Сохранить</button>
-                        </div>
-                    </div>
-
-                </div>
-
             </p>
 
             <p class="lead">
             </p>
-            <input class="form-control" type="text" placeholder="Поиск по модели телефона или стекла" id="search-text" onkeyup="tableSearch()">
+            <input class="form-control" type="text" placeholder="Поиск по модели телефона или стекла" id="search-text"
+                   onkeyup="tableSearch()">
             <p class="lead">
 
 
-                <div class="table" id="table_distributionPhone">
-                    <table class="table-responsive table-hover" id="tables_distributionPhone">
-                        <thead>
+            <div class="table" id="table_distributionPhone">
+                <table class="table-responsive table-hover" id="tables_distributionPhone">
+                    <thead>
 
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody>
 
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+            </div>
 
 
             </p>
