@@ -9,7 +9,7 @@ public abstract class Shop {
     String nameShop;
     public List<authorization_tt> authorization_ttList;
     public List<Phone_Smart> phoneSmartList;
-
+    public List<String> brendDisting;
 
 
 

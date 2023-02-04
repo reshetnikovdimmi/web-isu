@@ -95,14 +95,29 @@
             </div>
 
             </p>
-            <p class="lead">
-                <iframe name="content" style="">
-                </iframe>
+            <div class="row">
+            <div class="col">
+                <label>остатки</label>
             <form th:action="@{/uploadClothingMatching}" method="post" enctype="multipart/form-data">
                 <input type="file" th:name="ClothingMatching"/>
                 <input th:type="submit" value="Import"/>
             </form>
-            </p>
+        </div>
+            <div class="col">
+                <label>продажи 1м</label>
+                <form th:action="@{/uploadClothingMatchingSale1}" method="post" enctype="multipart/form-data">
+                    <input type="file" th:name="ClothingMatchingSale1"/>
+                    <input th:type="submit" value="Import"/>
+                </form>
+            </div>
+            <div class="col">
+                <label>продажи 6м</label>
+                <form th:action="@{/uploadClothingMatchingSale6}" method="post" enctype="multipart/form-data">
+                    <input type="file" th:name="ClothingMatchingSale6"/>
+                    <input th:type="submit" value="Import"/>
+                </form>
+            </div>
+            </div>
             <p class="lead">
 
 

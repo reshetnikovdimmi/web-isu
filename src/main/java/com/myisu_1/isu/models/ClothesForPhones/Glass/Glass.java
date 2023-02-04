@@ -7,8 +7,9 @@ import com.myisu_1.isu.models.authorization_tt;
 import java.util.List;
 
 public class Glass extends ClothingMatching {
-    public List<String> brendDisting;
-    public List<ClothingMatchingTable> clothingMatchingTableList;
+
+
+    public List<List<String>> brendDistingList;
 
     public Iterable<authorization_tt> print(){
         for (String num : brendDisting) {

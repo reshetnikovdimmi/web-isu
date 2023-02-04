@@ -6,10 +6,7 @@ import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.models.SIM.SaleSim_6m;
 import com.myisu_1.isu.models.authorization_tt;
-import com.myisu_1.isu.repo.ClothesForPhonesRepositoriy;
-import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
-import com.myisu_1.isu.repo.PhoneRepositoriy;
-import com.myisu_1.isu.repo.PostRepositoriy;
+import com.myisu_1.isu.repo.*;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -35,7 +32,10 @@ public class ClothesForPhonesServise {
     private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
     @Autowired
     private ClothesForPhonesRepositoriy clothesForPhonesRepositoriy;
-
+    @Autowired
+    private ClothesForPhonesSale1Repositoriy clothesForPhonesSale1Repositoriy;
+    @Autowired
+    private ClothesForPhonesSale6Repositoriy clothesForPhonesSale6Repositoriy;
     Glass glass;
     ClothingMatching clothingMatching;
   public Iterable<authorization_tt> Loading(){
@@ -51,7 +51,7 @@ public class ClothesForPhonesServise {
 
          clothingMatching.brendDisting = phoneRepositoriy.getBrendDisting();
 
-         clothingMatching.prints();
+
          return clothingMatching.brendDisting;
      }
 
@@ -67,27 +67,20 @@ public class ClothesForPhonesServise {
         return clothingMatching.clothingMatchingTableList;
     }
 
-    public void LoadingClothingMatching(MultipartFile clothingMatching) throws IOException {
+    public void LoadingClothingMatching(MultipartFile clothingMatchingRemanis) throws IOException {
+        clothingMatching = new ClothingMatching();
+       clothesForPhonesRepositoriy.deleteAll();
+       clothesForPhonesRepositoriy.saveAll(clothingMatching.creatClothingMatching(clothingMatchingRemanis));
+    }
+    public void LoadingClothingMatchingSale1(MultipartFile clothingMatchingSale1) throws IOException {
+        clothingMatching = new ClothingMatching();
+        clothesForPhonesSale1Repositoriy.deleteAll();
+        clothesForPhonesSale1Repositoriy.saveAll(glass.creatClothingMatchingSale1(clothingMatchingSale1));
+    }
 
-        List<ClothesForPhonesRemanis> сlothesForPhonesRemanis = new ArrayList<ClothesForPhonesRemanis>();
-        XSSFWorkbook workbook = new XSSFWorkbook(clothingMatching.getInputStream());
-
-        XSSFSheet worksheet = workbook.getSheetAt(0);
-
-        clothesForPhonesRepositoriy.deleteAll();
-        for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
-
-            ClothesForPhonesRemanis clothes = new ClothesForPhonesRemanis();
-            XSSFRow row = worksheet.getRow(i);
-            clothes.setNameShop(row.getCell(0).getStringCellValue());
-            clothes.setNameClothes(row.getCell(1).getStringCellValue());
-            clothes.setRemanisClothes(String.valueOf(row.getCell(2).getNumericCellValue()));
-
-            сlothesForPhonesRemanis.add(clothes);
-        }
-        System.out.println(сlothesForPhonesRemanis.size());
-        clothesForPhonesRepositoriy.saveAll(сlothesForPhonesRemanis);
-
-
+    public void LoadingClothingMatchingSale6(MultipartFile clothingMatchingSale6) throws IOException {
+        glass = new Glass();
+        clothesForPhonesSale6Repositoriy.deleteAll();
+        clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6));
     }
 }

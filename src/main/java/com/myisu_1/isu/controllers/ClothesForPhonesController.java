@@ -12,7 +12,7 @@ public class ClothesForPhonesController {
     @GetMapping("/ClothesForPhones")
     public String home(Model model) {
         loadingDBServise.Loading();
-
+        model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
 
         return "ClothesForPhones";
     }

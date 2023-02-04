@@ -60,4 +60,16 @@ public class ClothingMatchingController {
         loadingDBServise.LoadingClothingMatching(ClothingMatching);
         return "ClothingMatching";
     }
+    @PostMapping("/uploadClothingMatchingSale1")
+    public String mapReapExcelDatatoDB1(@RequestParam("ClothingMatchingSale1") MultipartFile ClothingMatchingSale1, Model model) throws IOException, ParseException {
+        model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
+        loadingDBServise.LoadingClothingMatchingSale1(ClothingMatchingSale1);
+        return "ClothingMatching";
+    }
+    @PostMapping("/uploadClothingMatchingSale6")
+    public String mapReapExcelDatatoDB6(@RequestParam("ClothingMatchingSale6") MultipartFile ClothingMatchingSale6, Model model) throws IOException, ParseException {
+        model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
+        loadingDBServise.LoadingClothingMatchingSale6(ClothingMatchingSale6);
+        return "ClothingMatching";
+    }
 }
