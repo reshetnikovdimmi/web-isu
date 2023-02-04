@@ -96,6 +96,14 @@
 
             </p>
             <p class="lead">
+                <iframe name="content" style="">
+                </iframe>
+            <form th:action="@{/uploadClothingMatching}" method="post" enctype="multipart/form-data">
+                <input type="file" th:name="ClothingMatching"/>
+                <input th:type="submit" value="Import"/>
+            </form>
+            </p>
+            <p class="lead">
 
 
             <div class="row mb-3 text-center">

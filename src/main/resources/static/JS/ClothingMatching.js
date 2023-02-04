@@ -18,6 +18,8 @@ $(document).ready(function() {
         }
     });
     is_checked();
+
+
 });
 
 function is_checked() {
@@ -196,4 +198,5 @@ function tableSearch() {
             table.rows[i].style.display = "none";
         }
     }
+
 }

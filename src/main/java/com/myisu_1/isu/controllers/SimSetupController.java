@@ -126,7 +126,7 @@ public class SimSetupController {
                 
             } else if (row.getCell(2) == null || row.getCell(2).getCellType() == CellType.BLANK) {
                 saleSim_1m.setRemainsSimModem(Integer.parseInt(row.getCell(2).getStringCellValue()));
-                System.out.println(row.getCell(2).getStringCellValue());
+
             }
             SaleSim_1mList.add(saleSim_1m);
         }

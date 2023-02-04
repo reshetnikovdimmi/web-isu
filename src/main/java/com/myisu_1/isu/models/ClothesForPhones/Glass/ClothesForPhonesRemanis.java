@@ -10,18 +10,32 @@ public class ClothesForPhonesRemanis implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    private String nameShop;
     private String nameClothes;
     private String remanisClothes;
 
-    public ClothesForPhonesRemanis(int id, String nameClothes, String remanisClothes) {
+    public ClothesForPhonesRemanis(int id, String nameShop, String nameClothes, String remanisClothes) {
         this.id = id;
+        this.nameShop = nameShop;
+        this.nameClothes = nameClothes;
+        this.remanisClothes = remanisClothes;
+    }
+
+    public ClothesForPhonesRemanis(String nameShop, String nameClothes, String remanisClothes) {
+        this.nameShop = nameShop;
         this.nameClothes = nameClothes;
         this.remanisClothes = remanisClothes;
     }
 
     public ClothesForPhonesRemanis() {
     }
+    public String getNameShop() {
+        return nameShop;
+    }
 
+    public void setNameShop(String nameShop) {
+        this.nameShop = nameShop;
+    }
     public int getId() {
         return id;
     }

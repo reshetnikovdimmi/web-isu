@@ -1,18 +1,17 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
-import com.myisu_1.isu.models.Phone.MatrixSpark;
-import com.myisu_1.isu.models.Phone.RemanisPhoneWarehouse;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
 import com.myisu_1.isu.service.ClothesForPhonesServise;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -21,6 +20,7 @@ public class ClothingMatchingController {
     private ClothesForPhonesServise loadingDBServise;
     @Autowired
     private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
+
     @GetMapping("/ClothingMatching")
     public String home(Model model) {
         model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
@@ -28,6 +28,7 @@ public class ClothingMatchingController {
 
         return "ClothingMatching";
     }
+
     @PostMapping(path = "/saveSlotongMatching")
 
     private ResponseEntity saveSlotongMatching(@RequestBody List<ClothingMatchingTable> sim) {
@@ -35,19 +36,28 @@ public class ClothingMatchingController {
 
         return ResponseEntity.ok(loadingDBServise.saveSparkSale(sim));
     }
+
     @ResponseBody
     @RequestMapping(value = "slotongMatchingTable", method = RequestMethod.GET)
     public List<ClothingMatchingTable> slotongMatchingTable() {
 
         return loadingDBServise.slotongMatchingTable();
     }
+
     @PostMapping(path = "/slotongMatchingTableDel")
 
     private ResponseEntity slotongMatchingTableDel(@RequestBody List<String> sim) {
 
-for (int i=0;i<sim.size();i++){
-    clothingMatchingTableRepositoriy.deleteById(Integer.valueOf(sim.get(i)));
-}
+        for (int i = 0; i < sim.size(); i++) {
+            clothingMatchingTableRepositoriy.deleteById(Integer.valueOf(sim.get(i)));
+        }
         return ResponseEntity.ok(loadingDBServise.slotongMatchingTable());
+    }
+
+    @PostMapping("/uploadClothingMatching")
+    public String mapReapExcelDatatoDB(@RequestParam("ClothingMatching") MultipartFile ClothingMatching, Model model) throws IOException, ParseException {
+        model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
+        loadingDBServise.LoadingClothingMatching(ClothingMatching);
+        return "ClothingMatching";
     }
 }
