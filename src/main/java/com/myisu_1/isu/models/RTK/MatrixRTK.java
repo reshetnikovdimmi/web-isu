@@ -10,7 +10,7 @@ public class MatrixRTK {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String Cluster;
+    private String cluster;
     private String VnutrLowVideoCam;
     private String VideoCamVnutrMiddle;
     private String VnutrHighVideoCam;
@@ -29,7 +29,7 @@ public class MatrixRTK {
 
 
     public MatrixRTK(String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String iptvBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController, String sufficiency) {
-        Cluster = cluster;
+        this.cluster = cluster;
         VnutrLowVideoCam = vnutrLowVideoCam;
         VideoCamVnutrMiddle = videoCamVnutrMiddle;
         VnutrHighVideoCam = vnutrHighVideoCam;
@@ -51,7 +51,7 @@ public class MatrixRTK {
 
     public MatrixRTK(int id, String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String iptvBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController) {
         this.id = id;
-        Cluster = cluster;
+        this.cluster = cluster;
         VnutrLowVideoCam = vnutrLowVideoCam;
         VideoCamVnutrMiddle = videoCamVnutrMiddle;
         VnutrHighVideoCam = vnutrHighVideoCam;
@@ -68,7 +68,7 @@ public class MatrixRTK {
     }
 
     public MatrixRTK(String cluster, String vnutrLowVideoCam, String videoCamVnutrMiddle, String vnutrHighVideoCam, String vneshKupolVideoCam, String vneshCylindrVideoCam, String vneshHighVideoCam, String vneshWiFiVideoCam, String iptvBox, String smartMiniSpeaker, String smartColumnCapsule, String rostelecomRouter, String powerInjectorForVideoCam, String gameController) {
-        Cluster = cluster;
+        this.cluster = cluster;
         VnutrLowVideoCam = vnutrLowVideoCam;
         VideoCamVnutrMiddle = videoCamVnutrMiddle;
         VnutrHighVideoCam = vnutrHighVideoCam;
@@ -93,7 +93,7 @@ public class MatrixRTK {
     }
 
     public String getCluster() {
-        return Cluster;
+        return cluster;
     }
     public String getSufficiency() {
         return Sufficiency;
@@ -103,7 +103,7 @@ public class MatrixRTK {
         Sufficiency = sufficiency;
     }
     public void setCluster(String cluster) {
-        Cluster = cluster;
+        this.cluster = cluster;
     }
 
     public String getVnutrLowVideoCam() {

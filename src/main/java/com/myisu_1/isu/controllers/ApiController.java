@@ -93,6 +93,7 @@ public class ApiController {
         return (List<price_promo>) promoRepositoriy.findAll();
     }
 
+
     @PostMapping(path = "/api/test")
     private ResponseEntity<Iterable<authorization_tt>> simos() {
 

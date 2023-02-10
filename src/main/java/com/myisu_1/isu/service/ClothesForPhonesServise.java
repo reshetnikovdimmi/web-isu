@@ -57,7 +57,7 @@ public class ClothesForPhonesServise {
 
     public List<ClothingMatchingTable> saveSparkSale(List<ClothingMatchingTable> sim) {
         clothingMatching = new ClothingMatching();
-        clothingMatching.clothingMatchingTableList = sim;
+        clothingMatching.saveCloting(sim);
         clothingMatchingTableRepositoriy.saveAll(clothingMatching.clothingMatchingTableList);
         clothingMatching.clothingMatchingTableList = clothingMatchingTableRepositoriy.findAll();
       return clothingMatching.clothingMatchingTableList;

@@ -1,7 +1,9 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.dto.BrendRemanis;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
+import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.service.ClothesForPhonesServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,9 @@ public class ClothingMatchingController {
     private ClothesForPhonesServise loadingDBServise;
     @Autowired
     private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
+    @Autowired
+    private PhoneRepositoriy phone_smart;
+
 
     @GetMapping("/ClothingMatching")
     public String home(Model model) {
@@ -42,6 +47,18 @@ public class ClothingMatchingController {
     public List<ClothingMatchingTable> slotongMatchingTable() {
 
         return loadingDBServise.slotongMatchingTable();
+    }
+    @ResponseBody
+    @RequestMapping(value = "slotongMatchingTabless", method = RequestMethod.GET)
+    public List<BrendRemanis> lotongMatchingTable() {
+
+        return phone_smart.getBrendRemanis();
+    }
+    @ResponseBody
+    @RequestMapping(value = "slotongMatchingTablesss", method = RequestMethod.GET)
+    public List<BrendRemanis> lotongMatchingTables() {
+
+        return clothingMatchingTableRepositoriy.getSal1Clothes();
     }
 
     @PostMapping(path = "/slotongMatchingTableDel")

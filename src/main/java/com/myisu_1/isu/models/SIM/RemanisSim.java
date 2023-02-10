@@ -1,18 +1,22 @@
 package com.myisu_1.isu.models.SIM;
 
+import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+@Data
+@ToString
 @Entity
 public class RemanisSim {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String shop;
-    private String nameSimAndModem;
-    private int remainsSimAndModem;
+    public int id;
+    public String shop;
+    public String nameSimAndModem;
+    public int remainsSimAndModem;
 
     public RemanisSim(int id, String shop) {
         this.id = id;

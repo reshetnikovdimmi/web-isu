@@ -19,8 +19,9 @@ public class ClothingMatching extends Shop {
     public List<ClothingMatchingTable> saveCloting(List<ClothingMatchingTable> sim) {
         clothingMatchingTableList = new ArrayList<>();
         for (ClothingMatchingTable num : sim) {
-           // System.out.println(num.getNameClothes()+"--"+num.getPhoneClothes()+"--"+num.getViewClothes());
-            clothingMatchingTableList.add(new ClothingMatchingTable(num.getViewClothes(),num.getPhoneClothes(),num.getNameClothes()));
+            System.out.println(num.getNameClothes()+"--"+num.getPhoneClothes()+"--"+num.getViewClothes());
+            clothingMatchingTableList.add(new ClothingMatchingTable(num.getViewClothes(),num.getNameClothes(),num.getPhoneClothes()));
+
         }
 
         return clothingMatchingTableList;
@@ -34,7 +35,7 @@ public class ClothingMatching extends Shop {
             ClothesForPhonesRemanis clothes = new ClothesForPhonesRemanis();
             XSSFRow row = worksheet.getRow(i);
             clothes.setNameShop(row.getCell(0).getStringCellValue());
-            clothes.setNameClothes(row.getCell(1).getStringCellValue());
+            clothes.setNamesClothes(row.getCell(1).getStringCellValue());
             clothes.setRemanisClothes((int) row.getCell(2).getNumericCellValue());
             сlothesForPhonesRemanis.add(clothes);
         }

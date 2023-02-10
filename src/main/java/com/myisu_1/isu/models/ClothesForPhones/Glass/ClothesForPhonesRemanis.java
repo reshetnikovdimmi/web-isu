@@ -1,41 +1,38 @@
 package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+@Data
 @Entity
 public class ClothesForPhonesRemanis implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nameShop;
-    private String nameClothes;
+    private String namesClothes;
     private int remanisClothes;
 
-    public ClothesForPhonesRemanis(int id, String nameShop, String nameClothes, int remanisClothes) {
-        this.id = id;
+    public ClothesForPhonesRemanis(String nameShop, String namesClothes, int remanisClothes) {
         this.nameShop = nameShop;
-        this.nameClothes = nameClothes;
+        this.namesClothes = namesClothes;
         this.remanisClothes = remanisClothes;
     }
 
-    public ClothesForPhonesRemanis(String nameShop, String nameClothes, int remanisClothes) {
+    public ClothesForPhonesRemanis(int id, String nameShop, String namesClothes, int remanisClothes) {
+        this.id = id;
         this.nameShop = nameShop;
-        this.nameClothes = nameClothes;
+        this.namesClothes = namesClothes;
         this.remanisClothes = remanisClothes;
     }
 
     public ClothesForPhonesRemanis() {
     }
-    public String getNameShop() {
-        return nameShop;
-    }
 
-    public void setNameShop(String nameShop) {
-        this.nameShop = nameShop;
-    }
     public int getId() {
         return id;
     }
@@ -44,12 +41,20 @@ public class ClothesForPhonesRemanis implements Serializable {
         this.id = id;
     }
 
-    public String getNameClothes() {
-        return nameClothes;
+    public String getNameShop() {
+        return nameShop;
     }
 
-    public void setNameClothes(String nameClothes) {
-        this.nameClothes = nameClothes;
+    public void setNameShop(String nameShop) {
+        this.nameShop = nameShop;
+    }
+
+    public String getNamesClothes() {
+        return namesClothes;
+    }
+
+    public void setNamesClothes(String namesClothes) {
+        this.namesClothes = namesClothes;
     }
 
     public int getRemanisClothes() {

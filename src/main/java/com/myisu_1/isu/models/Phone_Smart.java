@@ -1,12 +1,20 @@
 package com.myisu_1.isu.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+
+import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothesForPhonesRemanis;
+import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
+import com.myisu_1.isu.models.SIM.RemanisSim;
+import lombok.Data;
+
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+@Data
 @Entity
-public class Phone_Smart {
+public class Phone_Smart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -15,6 +23,35 @@ public class Phone_Smart {
     private String Model;
     private String Model_GB;
     private String Phone;
+
+
+    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model")
+    private List<RemanisSim> remanisSims;
+
+    @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "nameClothes",referencedColumnName = "Brend")
+    private List<ClothingMatchingTable> clothingMatchingTableList;
+
+  /*  @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "nameClothes",referencedColumnName = "Brend")
+    private List<ClothingMatchingTable> clothingMatchingTableList;*/
+
+
+    public Phone_Smart(int id, String matrix_T2, String brend, String model, String model_GB, String phone, List<RemanisSim> remanisSims) {
+        this.id = id;
+        Matrix_T2 = matrix_T2;
+        Brend = brend;
+        Model = model;
+        Model_GB = model_GB;
+        Phone = phone;
+        this.remanisSims = remanisSims;
+    }
+
+    public Phone_Smart(String model, List<RemanisSim> remanisSims) {
+        Model = model;
+        this.remanisSims = remanisSims;
+    }
 
     public Phone_Smart(String matrix_T2, String brend, String model, String model_GB, String phone) {
         Matrix_T2 = matrix_T2;
