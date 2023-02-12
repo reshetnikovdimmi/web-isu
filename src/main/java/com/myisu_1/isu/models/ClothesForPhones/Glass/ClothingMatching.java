@@ -60,14 +60,13 @@ System.out.println(сlothesForPhonesRemanis.size());
         return сlothesForPhonesRemanis;
     }
 
-    public List<ClothesForPhonesSale6> creatClothingMatchingSale6(MultipartFile clothingMatching, List<ClothingMatchingTable> all) throws IOException {
-        ClothesForPhonesSale6 clothes;
-        List<ClothesForPhonesSale6> сlothesForPhonesRemanis = new ArrayList<ClothesForPhonesSale6>();
+    public List<ClothesForPhonesSale6> creatClothingMatchingSale6(MultipartFile clothingMatching) throws IOException {
 
+        List<ClothesForPhonesSale6> сlothesForPhonesRemanis = new ArrayList<ClothesForPhonesSale6>();
         XSSFWorkbook workbook = new XSSFWorkbook(clothingMatching.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
         for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
-            clothes = new ClothesForPhonesSale6();
+            ClothesForPhonesSale6  clothes = new ClothesForPhonesSale6();
             XSSFRow row = worksheet.getRow(i);
             clothes.setNameShop(row.getCell(0).getStringCellValue());
             clothes.setNameClothes(row.getCell(1).getStringCellValue());

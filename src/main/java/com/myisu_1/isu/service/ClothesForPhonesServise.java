@@ -73,7 +73,7 @@ public class ClothesForPhonesServise {
         glass = new Glass();
         clothesForPhonesSale6Repositoriy.deleteAll();
 
-        clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6, clothingMatchingTableRepositoriy.findAll()));
+        clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6));
     }
 
     public List<BrendRemanis> remainderSaleClothing(String view) {
