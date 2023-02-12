@@ -25,12 +25,13 @@ public class Phone_Smart implements Serializable {
     private String Phone;
 
 
-    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model")
     private List<RemanisSim> remanisSims;
 
-    @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "nameClothes",referencedColumnName = "Brend")
+
     private List<ClothingMatchingTable> clothingMatchingTableList;
 
   /*  @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)

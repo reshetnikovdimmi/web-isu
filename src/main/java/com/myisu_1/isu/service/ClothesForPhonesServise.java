@@ -1,26 +1,17 @@
 package com.myisu_1.isu.service;
 
-import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothesForPhonesRemanis;
+import com.myisu_1.isu.dto.BrendRemanis;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatching;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
-import com.myisu_1.isu.models.SIM.SaleSim_6m;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.*;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 @Service
 public class ClothesForPhonesServise {
@@ -81,6 +72,15 @@ public class ClothesForPhonesServise {
     public void LoadingClothingMatchingSale6(MultipartFile clothingMatchingSale6) throws IOException {
         glass = new Glass();
         clothesForPhonesSale6Repositoriy.deleteAll();
-        clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6));
+
+        clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6, clothingMatchingTableRepositoriy.findAll()));
+    }
+
+    public List<BrendRemanis> remainderSaleClothing(String view) {
+        glass = new Glass();
+
+        glass.loadRemainderSaleClothing(phoneRepositoriy.getBrendRemanis(),clothingMatchingTableRepositoriy.getRemanisClothes(view),clothingMatchingTableRepositoriy.getSal6Clothes(view),clothingMatchingTableRepositoriy.getSal1Clothes(view));
+
+      return glass.brendRemanisList;
     }
 }

@@ -2,10 +2,7 @@ package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 @Data
 @Entity
@@ -14,6 +11,7 @@ public class ClothesForPhonesRemanis implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nameShop;
+
     private String namesClothes;
     private int remanisClothes;
 

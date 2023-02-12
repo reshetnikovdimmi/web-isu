@@ -4,25 +4,26 @@ import com.myisu_1.isu.dto.BrendRemanis;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ClothingMatchingTableRepositoriy extends JpaRepository<ClothingMatchingTable, Integer>{
-    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.phoneClothes, SUM (r.remanisClothes)) FROM ClothingMatchingTable c " +
 
-            "LEFT JOIN c.clothersPhone r WHERE c.viewClothes = 'Glass' GROUP BY c.nameClothes")
 
-    List<BrendRemanis> getRemanisClothes();
+    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.nameClothes,SUM (p.saleClothes)) FROM ClothingMatchingTable c " +
+            "JOIN c.clothersSale6 p WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
+    List<BrendRemanis> getSal6Clothes(String vtew);
 
-    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.phoneClothes,SUM (p.saleClothes)) FROM ClothingMatchingTable c " +
+    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.nameClothes,SUM (p.saleClothes)) FROM ClothingMatchingTable c " +
+            "JOIN c.clothersSale1 p WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
+    List<BrendRemanis> getSal1Clothes(String vtew);
 
-            "LEFT JOIN c.clothersSale6 p WHERE c.viewClothes = 'CoverBook' GROUP BY c.nameClothes")
+    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.nameClothes,SUM (r.remanisClothes)) FROM ClothingMatchingTable c " +
+            "JOIN c.clothersPhone r WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
+    List<BrendRemanis> getRemanisClothes(String vtew);
 
-    List<BrendRemanis> getSal6Clothes();
+   /* @Query("INSERT INTO ClothingMatchingTable (nameClothes, phoneClothes, viewClothes) ('cawcacsasa', 'as sa', 'as s')")
+   void getSave();*/
 
-    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.phoneClothes,SUM (p.saleClothes)) FROM ClothingMatchingTable c " +
-
-            "LEFT JOIN c.clothersSale1 p WHERE c.viewClothes = 'CoverBook' GROUP BY c.nameClothes")
-
-    List<BrendRemanis> getSal1Clothes();
 }

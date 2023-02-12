@@ -1,9 +1,6 @@
 package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -12,6 +9,7 @@ public class ClothesForPhonesSale1 implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nameShop;
+
     private String nameClothes;
     private int saleClothes;
 

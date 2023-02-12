@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ClothesForPhonesController {
     @Autowired
-    private ClothesForPhonesServise loadingDBServise;
+    private ClothesForPhonesServise clothesForPhonesServise;
     @GetMapping("/ClothesForPhones")
     public String home(Model model) {
-        loadingDBServise.Loading();
-        model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
+        clothesForPhonesServise.Loading();
 
+        model.addAttribute("BrendRemanisGlass", clothesForPhonesServise.remainderSaleClothing("Glass"));
+        model.addAttribute("BrendRemanisCase", clothesForPhonesServise.remainderSaleClothing("Case"));
         return "ClothesForPhones";
     }
 }

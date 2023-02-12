@@ -18,7 +18,16 @@ public class BrendRemanis {
     String Brend;
     long remanis;
     long sale6;
-    String phoneClothes;
+    long sale1;
+    long remanisCloters;
+
+    public BrendRemanis(String brend, long remanis,long remanisCloters, long sale6, long sale1 ) {
+        Brend = brend;
+        this.remanis = remanis;
+        this.sale6 = sale6;
+        this.sale1 = sale1;
+        this.remanisCloters = remanisCloters;
+    }
 
     public BrendRemanis(String brend, long remanis) {
         Brend = brend;
@@ -26,9 +35,5 @@ public class BrendRemanis {
 
     }
 
-    public BrendRemanis(String brend, long remanis, long sale6) {
-        Brend = brend;
-        this.remanis = remanis;
-        this.sale6 = sale6;
-    }
+
 }

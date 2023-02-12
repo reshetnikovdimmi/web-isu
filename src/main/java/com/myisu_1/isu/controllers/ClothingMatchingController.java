@@ -24,7 +24,8 @@ public class ClothingMatchingController {
     private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
     @Autowired
     private PhoneRepositoriy phone_smart;
-
+    @Autowired
+    private ClothesForPhonesServise clothesForPhonesServise;
 
     @GetMapping("/ClothingMatching")
     public String home(Model model) {
@@ -58,7 +59,7 @@ public class ClothingMatchingController {
     @RequestMapping(value = "slotongMatchingTablesss", method = RequestMethod.GET)
     public List<BrendRemanis> lotongMatchingTables() {
 
-        return clothingMatchingTableRepositoriy.getSal1Clothes();
+        return clothingMatchingTableRepositoriy.getSal6Clothes("Case");
     }
 
     @PostMapping(path = "/slotongMatchingTableDel")
@@ -80,6 +81,7 @@ public class ClothingMatchingController {
     @PostMapping("/uploadClothingMatchingSale1")
     public String mapReapExcelDatatoDB1(@RequestParam("ClothingMatchingSale1") MultipartFile ClothingMatchingSale1, Model model) throws IOException, ParseException {
         model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
+        System.out.println(ClothingMatchingSale1.getName());
         loadingDBServise.LoadingClothingMatchingSale1(ClothingMatchingSale1);
         return "ClothingMatching";
     }

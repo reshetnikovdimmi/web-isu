@@ -1,9 +1,6 @@
 package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class ClothesForPhonesSale6 {
@@ -11,8 +8,15 @@ public class ClothesForPhonesSale6 {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nameShop;
+
     private String nameClothes;
     private int saleClothes;
+
+    public ClothesForPhonesSale6(String nameShop, String nameClothes, int saleClothes) {
+        this.nameShop = nameShop;
+        this.nameClothes = nameClothes;
+        this.saleClothes = saleClothes;
+    }
 
     public ClothesForPhonesSale6() {
     }
