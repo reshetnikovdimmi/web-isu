@@ -2,6 +2,7 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.dto.BrendRemanis;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
+import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.service.ClothesForPhonesServise;
@@ -51,9 +52,9 @@ public class ClothingMatchingController {
     }
     @ResponseBody
     @RequestMapping(value = "slotongMatchingTabless", method = RequestMethod.GET)
-    public List<BrendRemanis> lotongMatchingTable() {
+    public List<Phone_Smart> lotongMatchingTable() {
 
-        return phone_smart.getBrendRemanis();
+        return phone_smart.findAll();
     }
     @ResponseBody
     @RequestMapping(value = "slotongMatchingTablesss", method = RequestMethod.GET)

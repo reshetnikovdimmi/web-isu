@@ -15,18 +15,18 @@ public class ClothingMatchingTable implements Serializable {
     private String nameClothes;
     private String phoneClothes;
 
-     @OneToMany(targetEntity = ClothesForPhonesRemanis.class, cascade = CascadeType.ALL)
+     @ManyToMany(targetEntity = ClothesForPhonesRemanis.class, cascade = CascadeType.ALL)
 
     @JoinColumn(name = "namesClothes",referencedColumnName = "phoneClothes", updatable = false, insertable = false)
      @Column(updatable = false, insertable = false, unique = true)
     private List<ClothesForPhonesRemanis> clothersPhone;
 
-    @OneToMany(targetEntity = ClothesForPhonesSale6.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = ClothesForPhonesSale6.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "nameClothes",referencedColumnName = "phoneClothes", updatable = false, insertable = false)
     @Column(updatable = false, insertable = false)
     private List<ClothesForPhonesSale6> clothersSale6;
 
-    @OneToMany(targetEntity = ClothesForPhonesSale1.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = ClothesForPhonesSale1.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "nameClothes",referencedColumnName = "phoneClothes" )
     @Column(updatable = false, insertable = false)
     private List<ClothesForPhonesSale1> clothersSale1;

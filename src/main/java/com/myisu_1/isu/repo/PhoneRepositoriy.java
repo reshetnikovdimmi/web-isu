@@ -22,4 +22,5 @@ GROUP BY `brend`
           "JOIN p.remanisSims r GROUP BY p.Brend")
          // "LEFT JOIN p.clothingMatchingTableList c WHERE c.viewClothes = 'Glass' GROUP BY p.Brend"*)
    List<BrendRemanis> getBrendRemanis();
+
 }

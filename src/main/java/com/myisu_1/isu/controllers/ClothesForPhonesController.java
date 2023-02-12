@@ -13,8 +13,8 @@ public class ClothesForPhonesController {
     public String home(Model model) {
         clothesForPhonesServise.Loading();
 
-        model.addAttribute("BrendRemanisGlass", clothesForPhonesServise.remainderSaleClothing("Glass"));
-        model.addAttribute("BrendRemanisCase", clothesForPhonesServise.remainderSaleClothing("Case"));
+       // model.addAttribute("BrendRemanisGlass", clothesForPhonesServise.remainderSaleClothing("Glass"));
+      //  model.addAttribute("BrendRemanisCase", clothesForPhonesServise.remainderSaleClothing("Case"));
         return "ClothesForPhones";
     }
 }
