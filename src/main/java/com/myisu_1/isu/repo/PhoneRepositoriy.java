@@ -23,4 +23,5 @@ GROUP BY `brend`
          // "LEFT JOIN p.clothingMatchingTableList c WHERE c.viewClothes = 'Glass' GROUP BY p.Brend"*)
    List<BrendRemanis> getBrendRemanis();
 
+
 }

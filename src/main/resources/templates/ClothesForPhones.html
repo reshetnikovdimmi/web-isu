@@ -94,20 +94,15 @@
     <br>
     <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active" href="#home1">Home</a>
+        <a class="nav-link active" href="#home1">СТЕКЛО</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#menu1">SIM TELE 2</a>
+        <a class="nav-link" href="#menu1">ЧЕХОЛ</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#menu2">SIM MTS</a>
+        <a class="nav-link" href="#menu2">ЧЕХОЛ-КНИЖКА</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#menu3">SIM MegaFon</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#menu4">RTK</a>
-    </li>
+
 </ul>
     <div class="container-xxl themed-container text-center"><!-- Nav tabs -->
 
@@ -152,15 +147,11 @@
 
                 </div>
 
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            теле 2
-                        </div>
-                        <div class="row">
-                            <div class="row mb-3 text-center">
-                                <h7 name="ShopDistribution" id="ShopDistribution">Потребность</h7>
-                            </div>
+
+
+
+
+
                             <div class="row mb-3 text-center">
                                 <div class="table" id="table_t2_Zak">
                                     <table class="table-borderless" id="table_t3_Zak">
@@ -189,93 +180,17 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
 
 
-                    </div>
-                    <div class="col">
-                        <div class="row">
-                            не теле 2
-                        </div>
-                        <div class="row">
-                            <div class="row mb-3 text-center">
-                                <a id="MovementsPhone" class="btn">все перемещения</a>
-                            </div>
-                            <div class="row mb-3 text-center">
-                                <div class="table" id="table_requirement_t2_mult">
-                                    <table class="table-responsive table-hover" id="tables_requirement_t2_mult">
-                                        <thead class="table-dark table-hover">
-
-                                        </thead>
-                                        <tbody>
 
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
 
 
-                        </div>
 
 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="table" id="table_from_wheret">
-                            <table class="table-responsive table-hover" id="tables_from_wheret">
-                                <thead class="table-dark table-hover">
-
-                                </thead>
-                                <tbody>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="table" id="table_to_where">
-                            <table class="table-responsive table-hover" id="tables_to_where">
-                                <thead class="table-dark table-hover">
-
-                                </thead>
-                                <tbody>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="row mb-3 text-center">
-                            Матрица Теле2
-                        </div>
-                        <div class="col">
-                            <div class="row mb-3 text-center">
-                                <div class="table" id="table_MatrixT2">
-                                    <table class="table-responsive table-hover" id="tables_MatrixT2">
-                                        <thead class="table-dark table-hover">
-
-                                        </thead>
-                                        <tbody>
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div id="menu1" class="container tab-pane fade"><br>
-                <div class="row">
-                    <h3>МОНОБРЕНД</h3>
-                </div>
+
                 <div class="row mb-3 text-center">
                     <div class="table" >
                         <table class="table-borderless" >
@@ -305,7 +220,40 @@
                     </div>
                 </div>
             </div>
+            <div id="menu2" class="container tab-pane fade"><br>
+
+                <div class="row mb-3 text-center">
+                    <div class="table" >
+                        <table class="table-borderless" >
+                            <thead>
+                            <tr style="font-size:.7em">
+                                <th>Name SIM</th>
+                                <th>Остаток на складе</th>
+                                <th>Остаток на спо сети</th>
+                                <th>средние продажи</th>
+                                <th>рекоменлуется заказать</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="current : ${BrendRemanisCoverBook}">
+                                <td>
+                                    <button class="btn" th:text="${current.Brend}" type="submit"></button>
+                                </td>
+                                <td th:text="${current.remanis}"></td>
+                                <td th:text="${current.remanisCloters}"></td>
+                                <td th:text="${current.sale6}">
+                                <td th:text="${current.sale1}"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+
+    </div>
 
     </div>
 

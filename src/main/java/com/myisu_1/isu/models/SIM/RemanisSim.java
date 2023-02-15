@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @Entity
 public class RemanisSim {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public String shop;
     public String nameSimAndModem;

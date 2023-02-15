@@ -52,9 +52,9 @@ public class ClothingMatchingController {
     }
     @ResponseBody
     @RequestMapping(value = "slotongMatchingTabless", method = RequestMethod.GET)
-    public List<Phone_Smart> lotongMatchingTable() {
+    public List<BrendRemanis> lotongMatchingTable() {
 
-        return phone_smart.findAll();
+        return phone_smart.getBrendRemanis();
     }
     @ResponseBody
     @RequestMapping(value = "slotongMatchingTablesss", method = RequestMethod.GET)

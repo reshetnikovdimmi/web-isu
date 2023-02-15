@@ -12,15 +12,15 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
 
     @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.nameClothes,SUM (p.saleClothes)) FROM ClothingMatchingTable c " +
-            "LEFT JOIN c.clothersSale6 p WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
+            "JOIN c.clothersSale6 p WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
     List<BrendRemanis> getSal6Clothes(String vtew);
 
     @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.nameClothes,SUM (p.saleClothes)) FROM ClothingMatchingTable c " +
-            "LEFT JOIN c.clothersSale1 p WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
+            "JOIN c.clothersSale1 p WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
     List<BrendRemanis> getSal1Clothes(String vtew);
 
     @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.BrendRemanis(c.nameClothes,SUM (r.remanisClothes)) FROM ClothingMatchingTable c " +
-            "LEFT JOIN c.clothersPhone r WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
+            "JOIN c.clothersPhone r WHERE c.viewClothes = ?1 GROUP BY c.nameClothes")
     List<BrendRemanis> getRemanisClothes(String vtew);
 
    /* @Query("INSERT INTO ClothingMatchingTable (nameClothes, phoneClothes, viewClothes) ('cawcacsasa', 'as sa', 'as s')")

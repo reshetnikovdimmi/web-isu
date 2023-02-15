@@ -3,7 +3,6 @@ package com.myisu_1.isu.models;
 
 
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothesForPhonesRemanis;
-import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothesForPhonesSale1;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import lombok.Data;
@@ -17,21 +16,26 @@ import java.util.List;
 @Entity
 public class Phone_Smart implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String Matrix_T2;
     private String Brend;
+    
     private String Model;
     private String Model_GB;
     private String Phone;
 
 
-    @ManyToMany(targetEntity = RemanisSim.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model")
+
     private List<RemanisSim> remanisSims;
 
+ /*   @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "nameClothes",referencedColumnName = "Brend")
+    private List<ClothingMatchingTable> clothingMatchingTableList;
 
-  /*  @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "nameClothes",referencedColumnName = "Brend")
     private List<ClothingMatchingTable> clothingMatchingTableList;*/
 
