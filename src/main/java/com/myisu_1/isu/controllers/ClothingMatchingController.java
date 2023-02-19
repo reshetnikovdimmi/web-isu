@@ -1,8 +1,8 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.dto.BrendRemanis;
+
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
-import com.myisu_1.isu.models.Phone_Smart;
+import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.service.ClothesForPhonesServise;
@@ -52,15 +52,15 @@ public class ClothingMatchingController {
     }
     @ResponseBody
     @RequestMapping(value = "slotongMatchingTabless", method = RequestMethod.GET)
-    public List<BrendRemanis> lotongMatchingTable() {
+    public List<Glass> lotongMatchingTable() {
 
         return phone_smart.getBrendRemanis();
     }
     @ResponseBody
     @RequestMapping(value = "slotongMatchingTablesss", method = RequestMethod.GET)
-    public List<BrendRemanis> lotongMatchingTables() {
+    public List<Glass> lotongMatchingTables() {
 
-        return clothingMatchingTableRepositoriy.getSal6Clothes("Case");
+        return clothingMatchingTableRepositoriy.tableShopRemanis( "Infinix HOT 11S", "Glass");
     }
 
     @PostMapping(path = "/slotongMatchingTableDel")

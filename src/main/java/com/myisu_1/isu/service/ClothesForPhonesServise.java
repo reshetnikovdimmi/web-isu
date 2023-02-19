@@ -1,6 +1,5 @@
 package com.myisu_1.isu.service;
 
-import com.myisu_1.isu.dto.BrendRemanis;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatching;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
@@ -76,11 +75,20 @@ public class ClothesForPhonesServise {
         clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6));
     }
 
-    public List<BrendRemanis> remainderSaleClothing(String view) {
+    public List<Glass> remainderSaleClothing(String view) {
         glass = new Glass();
 
         glass.loadRemainderSaleClothing(phoneRepositoriy.getBrendRemanis(),clothingMatchingTableRepositoriy.getRemanisClothes(view),clothingMatchingTableRepositoriy.getSal6Clothes(view),clothingMatchingTableRepositoriy.getSal1Clothes(view));
 
       return glass.brendRemanisList;
+    }
+
+    public List<Glass> tableShopRemanis(String s, String view ) {
+        glass = new Glass();
+        glass.authorization_ttList = (List<authorization_tt>) authorization_tt.findAll();
+
+        glass.loadTableShopRemanis(phoneRepositoriy.getBrendShopRemanis(s),clothingMatchingTableRepositoriy.tableShopRemanis(s,view));
+
+        return glass.brendRemanisList;
     }
 }

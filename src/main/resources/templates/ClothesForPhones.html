@@ -93,161 +93,267 @@
     </header>
     <br>
     <ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" href="#home1">СТЕКЛО</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#menu1">ЧЕХОЛ</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#menu2">ЧЕХОЛ-КНИЖКА</a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="#home1">СТЕКЛО</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#menu1">ЧЕХОЛ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#menu2">ЧЕХОЛ-КНИЖКА</a>
+        </li>
 
-</ul>
+    </ul>
     <div class="container-xxl themed-container text-center"><!-- Nav tabs -->
+        <div class="row mb-3">
+            <div class="col-6 themed-grid-col">
+                <div id="richList"></div>
 
+                <!-- Модальное окно -->
+                <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+                                </button>
+                                <button type="button" class="btn btn-primary">Понял</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="loader" class="lds-dual-ring hidden overlay"></div>
+
+            </div>
+
+
+        </div>
         <div class="tab-content">
+
             <div id="home1" class="container tab-pane active"><br>
                 <!-- Tab panes -->
 
 
-                <div class="row mb-3">
-                    <div class="col-6 themed-grid-col">
-                        <div id="richList"></div>
+                <div class="row mb-3 text-center">
+                    <div class="col">
+                        <div class="table_Glass" id="table_t2_Zak">
+                            <table class="table-borderless" id="Glass">
+                                <thead>
+                                <tr style="font-size:.7em">
+                                    <th>Модель</th>
+                                    <th>Остаток нтелефонов</th>
+                                    <th>Остаток стекол</th>
+                                    <th>Продажи 6мес</th>
+                                    <th>продажи 1мес</th>
 
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${BrendRemanisGlass}">
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                type="submit"></button>
+                                    </td>
+                                    <td th:text="${current.remanis}"></td>
+                                    <td th:text="${current.remanisCloters}"></td>
+                                    <td th:text="${current.sale6}"></td>
+                                    <td th:text="${current.sale1}"></td>
+                                </tr>
 
-                        <div id="loader" class="lds-dual-ring hidden overlay"></div>
-
-                    </div>
-                    <!-- Модальное окно -->
-                    <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false"
-                         tabindex="-1"
-                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-
-                                    <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Закрыть"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="container-fluid">
-
-
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
-                                    </button>
-                                    <button type="button" class="btn btn-primary">Понял</button>
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="GlassShop" th:fragment="GlassShop">
+                            <table class="table-borderless" id="GlassShop">
 
+                                <thead>
+                                <tr style="font-size:.7em">
+
+                                    <th>TT</th>
+                                    <th>Остаток СТЕКЛ</th>
+                                    <th>Остаток ТЕЛ</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current:${GlassShop}">
+
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                type="submit"></button>
+                                    </td>
+                                    <td th:text="${current.remanis}"></td>
+                                    <td th:text="${current.remanisCloters}"></td>
+
+
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="col">
+
+                        3
+                    </div>
                 </div>
-
-
-
-
-
-
-                            <div class="row mb-3 text-center">
-                                <div class="table" id="table_t2_Zak">
-                                    <table class="table-borderless" id="table_t3_Zak">
-                                        <thead>
-                                        <tr style="font-size:.7em">
-                                            <th>Name SIM</th>
-                                            <th>Остаток на складе</th>
-                                            <th>Остаток на спо сети</th>
-                                            <th>средние продажи</th>
-                                            <th>рекоменлуется заказать</th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="current : ${BrendRemanisGlass}">
-                                            <td>
-                                                <button class="btn" th:text="${current.Brend}" type="submit"></button>
-                                            </td>
-                                            <td th:text="${current.remanis}"></td>
-                                            <td th:text="${current.remanisCloters}"></td>
-                                            <td th:text="${current.sale6}">
-                                            <td th:text="${current.sale1}"></td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-
-
-
-
-
 
 
             </div>
+
             <div id="menu1" class="container tab-pane fade"><br>
 
                 <div class="row mb-3 text-center">
-                    <div class="table" >
-                        <table class="table-borderless" >
-                            <thead>
-                            <tr style="font-size:.7em">
-                                <th>Name SIM</th>
-                                <th>Остаток на складе</th>
-                                <th>Остаток на спо сети</th>
-                                <th>средние продажи</th>
-                                <th>рекоменлуется заказать</th>
+                    <div class="col">
+                        <div class="table_Case">
+                            <table class="table-borderless">
+                                <thead>
+                                <tr style="font-size:.7em">
+                                    <th>Модель</th>
+                                    <th>Остаток нтелефонов</th>
+                                    <th>Остаток стекол</th>
+                                    <th>Продажи 6мес</th>
+                                    <th>продажи 1мес</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="current : ${BrendRemanisCase}">
-                                <td>
-                                    <button class="btn" th:text="${current.Brend}" type="submit"></button>
-                                </td>
-                                <td th:text="${current.remanis}"></td>
-                                <td th:text="${current.remanisCloters}"></td>
-                                <td th:text="${current.sale6}">
-                                <td th:text="${current.sale1}"></td>
-                            </tr>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${BrendRemanisCase}">
+                                    <td>
+                                        <button class="btn" th:text="${current.Brend}" type="submit"></button>
+                                    </td>
+                                    <td th:text="${current.remanis}"></td>
+                                    <td th:text="${current.remanisCloters}"></td>
+                                    <td th:text="${current.sale6}"></td>
+                                    <td th:text="${current.sale1}"></td>
+                                </tr>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="CaseShop" th:fragment="CaseShop">
+                            <table class="table-borderless" id="CaseShop">
+
+                                <thead>
+                                <tr style="font-size:.7em">
+
+                                    <th>TT</th>
+                                    <th>Остаток СТЕКЛ</th>
+                                    <th>Остаток ТЕЛ</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current:${CaseShop}">
+
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                type="submit"></button>
+                                    </td>
+                                    <td th:text="${current.remanis}"></td>
+                                    <td th:text="${current.remanisCloters}"></td>
+
+
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                    <div class="col">3
                     </div>
                 </div>
+
             </div>
             <div id="menu2" class="container tab-pane fade"><br>
 
                 <div class="row mb-3 text-center">
-                    <div class="table" >
-                        <table class="table-borderless" >
-                            <thead>
-                            <tr style="font-size:.7em">
-                                <th>Name SIM</th>
-                                <th>Остаток на складе</th>
-                                <th>Остаток на спо сети</th>
-                                <th>средние продажи</th>
-                                <th>рекоменлуется заказать</th>
+                    <div class="col">
+                        <div class="table_CoverBook">
+                            <table class="table-borderless">
+                                <thead>
+                                <tr style="font-size:.7em">
+                                    <th>Модель</th>
+                                    <th>Остаток нтелефонов</th>
+                                    <th>Остаток стекол</th>
+                                    <th>Продажи 6мес</th>
+                                    <th>продажи 1мес</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="current : ${BrendRemanisCoverBook}">
-                                <td>
-                                    <button class="btn" th:text="${current.Brend}" type="submit"></button>
-                                </td>
-                                <td th:text="${current.remanis}"></td>
-                                <td th:text="${current.remanisCloters}"></td>
-                                <td th:text="${current.sale6}">
-                                <td th:text="${current.sale1}"></td>
-                            </tr>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${BrendRemanisCoverBook}">
+                                    <td>
+                                        <button class="btn" th:text="${current.Brend}" type="submit"></button>
+                                    </td>
+                                    <td th:text="${current.remanis}"></td>
+                                    <td th:text="${current.remanisCloters}"></td>
+                                    <td th:text="${current.sale6}"></td>
+                                    <td th:text="${current.sale1}"></td>
+                                </tr>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="CoverBookShop" th:fragment="CoverBookShop">
+                            <table class="table-borderless" id="CoverBookShop">
+
+                                <thead>
+                                <tr style="font-size:.7em">
+
+                                    <th>TT</th>
+                                    <th>Остаток СТЕКЛ</th>
+                                    <th>Остаток ТЕЛ</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current:${CoverBookShop}">
+
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                type="submit"></button>
+                                    </td>
+                                    <td th:text="${current.remanis}"></td>
+                                    <td th:text="${current.remanisCloters}"></td>
+
+
+                                </tr>
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                    <div class="col">3
                     </div>
                 </div>
             </div>

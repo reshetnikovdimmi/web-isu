@@ -1,7 +1,8 @@
 package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
-import com.myisu_1.isu.dto.BrendRemanis;
+
 import com.myisu_1.isu.models.Shop.Shop;
+import com.myisu_1.isu.models.authorization_tt;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,7 +15,7 @@ import java.util.List;
 public class ClothingMatching extends Shop {
 
     public List<ClothingMatchingTable> clothingMatchingTableList;
-    public List<BrendRemanis> brendRemanisList;
+    public List<Glass> brendRemanisList;
 
 
     public List<ClothingMatchingTable> saveCloting(List<ClothingMatchingTable> sim) {
@@ -77,27 +78,55 @@ System.out.println(сlothesForPhonesRemanis.size());
         return сlothesForPhonesRemanis;
     }
 
-    public void loadRemainderSaleClothing(List<BrendRemanis> remanisPhone, List<BrendRemanis> remanisClothes, List<BrendRemanis> sal6Clothes, List<BrendRemanis> sal1Clothes) {
+    public void loadRemainderSaleClothing(List<Glass> remanisPhone, List<Glass> remanisClothes, List<Glass> sal6Clothes, List<Glass> sal1Clothes) {
         brendRemanisList = new ArrayList<>();
-        for (BrendRemanis remPhone : remanisPhone) {
-            BrendRemanis brendRemanis = new BrendRemanis();
+        for (Glass remPhone : remanisPhone) {
+            Glass brendRemanis = new Glass();
+
             brendRemanis.setBrend(remPhone.getBrend());
             brendRemanis.setRemanis(remPhone.getRemanis());
-            for (BrendRemanis remlothes : remanisClothes) {
+            for (Glass remlothes : remanisClothes) {
                 if (remPhone.getBrend().equals(remlothes.getBrend())){
                     brendRemanis.setRemanisCloters(remlothes.getRemanis());
                 }
             }
-            for (BrendRemanis sale6Clothes : sal6Clothes) {
+            for (Glass sale6Clothes : sal6Clothes) {
                 if (remPhone.getBrend().equals(sale6Clothes.getBrend())){
                     brendRemanis.setSale6(sale6Clothes.getRemanis());
                 }
             }
-            for (BrendRemanis sale1Clothes : sal1Clothes) {
+            for (Glass sale1Clothes : sal1Clothes) {
                 if(remPhone.getBrend().equals(sale1Clothes.getBrend())){
                     brendRemanis.setSale1(sale1Clothes.getRemanis());
                 }
             }
+
+
+            brendRemanisList.add(brendRemanis);
+
+
+        }
+
+    }
+
+    public void loadTableShopRemanis(List<Glass> brendShopRemanis, List<Glass> glasses) {
+        brendRemanisList = new ArrayList<>();
+
+        for (authorization_tt remPhone : getAuthorization_ttList()) {
+            Glass brendRemanis = new Glass();
+            brendRemanis.setBrend(remPhone.getName());
+
+            for (Glass remlothes : brendShopRemanis) {
+                if (remPhone.getName().equals(remlothes.getBrend())){
+                    brendRemanis.setRemanisCloters(remlothes.getRemanis());
+                }
+            }
+            for (Glass sale6Clothes : glasses) {
+                if (remPhone.getName().equals(sale6Clothes.getBrend())){
+                    brendRemanis.setRemanis(sale6Clothes.getRemanis());
+                }
+            }
+
 
 
             brendRemanisList.add(brendRemanis);
