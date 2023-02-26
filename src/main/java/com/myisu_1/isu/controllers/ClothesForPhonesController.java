@@ -1,12 +1,13 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.service.ClothesForPhonesServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class ClothesForPhonesController {
@@ -27,6 +28,33 @@ public class ClothesForPhonesController {
         model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"Glass"));
 
         return "ClothesForPhones::GlassShop";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "tableGlasShops/{Shop}/{brend}/{View}", method = RequestMethod.GET)
+    public List<List<Glass>> update(@PathVariable("Shop") String shop, @PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
+       return clothesForPhonesServise.tableShopBrend(shop,brend,view);
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "orderЕable/{brend}/{View}", method = RequestMethod.GET)
+    public List<Glass> orderЕable(@PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
+        return clothesForPhonesServise.tableOrderЕable(brend,view);
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "warehouseRemnants/{Shop}/{brend}/{View}", method = RequestMethod.GET)
+    public List<Glass> warehouseRemnants(@PathVariable("Shop") String shop,@PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
+
+        return clothesForPhonesServise.warehouseRemnants(shop,brend,view);
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "movingWarehouse/{Shop}/{brend}/{View}", method = RequestMethod.GET)
+    public List<Glass> movingWarehouse(@PathVariable("Shop") String shop,@PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
+
+        return clothesForPhonesServise.movingWarehouse(shop,brend,view);
+
     }
 
     @PostMapping(path = "/tableCaseShop")

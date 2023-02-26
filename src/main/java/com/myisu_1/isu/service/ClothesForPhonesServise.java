@@ -69,14 +69,14 @@ public class ClothesForPhonesServise {
     }
 
     public void LoadingClothingMatchingSale6(MultipartFile clothingMatchingSale6) throws IOException {
-        glass = new Glass();
+
         clothesForPhonesSale6Repositoriy.deleteAll();
 
         clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6));
     }
 
     public List<Glass> remainderSaleClothing(String view) {
-        glass = new Glass();
+
 
         glass.loadRemainderSaleClothing(phoneRepositoriy.getBrendRemanis(),clothingMatchingTableRepositoriy.getRemanisClothes(view),clothingMatchingTableRepositoriy.getSal6Clothes(view),clothingMatchingTableRepositoriy.getSal1Clothes(view));
 
@@ -84,11 +84,37 @@ public class ClothesForPhonesServise {
     }
 
     public List<Glass> tableShopRemanis(String s, String view ) {
-        glass = new Glass();
+
         glass.authorization_ttList = (List<authorization_tt>) authorization_tt.findAll();
 
         glass.loadTableShopRemanis(phoneRepositoriy.getBrendShopRemanis(s),clothingMatchingTableRepositoriy.tableShopRemanis(s,view));
 
         return glass.brendRemanisList;
+    }
+
+    public List<List<Glass>> tableShopBrend(String shop, String brend, String view) {
+
+
+        return glass.loadPhoneRemanisShop(clothingMatchingTableRepositoriy.getBrendList(clothingMatchingTableRepositoriy.getClothingList(brend,view)),clothingMatchingTableRepositoriy.getBrendShop(brend,view,shop),phoneRepositoriy.getPhoneRemanisShop(shop),clothingMatchingTableRepositoriy.getClothingList(brend,view));
+
+    }
+
+    public List<Glass> tableOrderЕable(String brend, String view) {
+
+
+      return glass.loadOrderTable(clothingMatchingTableRepositoriy.getBrendList(clothingMatchingTableRepositoriy.getClothingList(brend,view)),phoneRepositoriy.getBrendRemanis(),clothingMatchingTableRepositoriy.getRemanisClothes(view));
+    }
+
+    public List<Glass> warehouseRemnants(String shop,String brend, String view) {
+
+
+        return glass.loadWarehouseRemnants(clothingMatchingTableRepositoriy.getClothingAll(view,shop),clothingMatchingTableRepositoriy.getClothingList(brend,view));
+
+    }
+
+    public List<Glass> movingWarehouse(String shop, String kol, String view) {
+
+      return glass.movingWarehouse(shop,kol,view);
+
     }
 }

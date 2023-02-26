@@ -3,6 +3,7 @@ package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
 import com.myisu_1.isu.models.Shop.Shop;
 import com.myisu_1.isu.models.authorization_tt;
+import org.apache.commons.math3.util.ArithmeticUtils;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -10,12 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ClothingMatching extends Shop {
 
     public List<ClothingMatchingTable> clothingMatchingTableList;
     public List<Glass> brendRemanisList;
+    List<Glass> warehouseRemnants;
 
 
     public List<ClothingMatchingTable> saveCloting(List<ClothingMatchingTable> sim) {
@@ -133,6 +136,94 @@ System.out.println(сlothesForPhonesRemanis.size());
 
 
         }
+      //  System.out.println(brendRemanisList);
+    }
 
+    public List<List<Glass>> loadPhoneRemanisShop(List<String> brendList, List<Glass> brendShop, List<Glass> phoneRemanisShop, List<String> clothingList) {
+        List<Glass> clothing = new ArrayList<>();
+        List<Glass> phone = new ArrayList<>();
+        List<List<Glass>> listRemanis = new ArrayList<>();
+        for (String clothings : clothingList) {
+            Glass clothingShop = new Glass();
+            clothingShop.setBrend(clothings);
+
+            for (Glass brendShops : brendShop) {
+                if (brendShops.getBrend().equals(clothings)){
+                    clothingShop.setRemanis(brendShops.getRemanisCloterse());
+                }
+            }
+            clothing.add(clothingShop);
+        }
+        listRemanis.add(clothing);
+
+        for (String brends : brendList) {
+            Glass brendsShop = new Glass();
+            brendsShop.setBrend(brends);
+            brendsShop.setRemanis(0);
+            for (Glass phoneShops : phoneRemanisShop) {
+
+                if (phoneShops.getBrend().equals(brends)){
+                    brendsShop.setRemanis( phoneShops.getRemanis());
+                }
+            }
+            phone.add(brendsShop);
+        }
+        listRemanis.add(phone);
+        return listRemanis;
+    }
+
+    public List<Glass> loadOrderTable(List<String> brendList, List<Glass> brendRemanis, List<Glass> remanisClothes) {
+
+        List<Glass> phone = new ArrayList<>();
+
+
+        for (String brends : brendList) {
+            Glass brendsShop = new Glass();
+            brendsShop.setBrend(brends);
+            brendsShop.setRemanis(0);
+            for (Glass phoneShops : brendRemanis) {
+
+                if (phoneShops.getBrend().equals(brends)){
+                    brendsShop.setRemanis( phoneShops.getRemanis());
+                }
+            }
+            for (Glass phoneShops : remanisClothes) {
+
+                if (phoneShops.getBrend().equals(brends)){
+                    brendsShop.setRemanisCloters( phoneShops.getRemanis());
+                }
+            }
+            phone.add(brendsShop);
+        }
+
+        return phone;
+    }
+
+    public List<Glass> loadWarehouseRemnants(List<Glass> brendShop, List<String> clothingList) {
+        long sum = 0;
+        warehouseRemnants = new ArrayList<>();
+        for (String brends : clothingList) {
+            Glass brendsShop = new Glass();
+            brendsShop.setBrend(brends);
+            brendsShop.setRemanis(0);
+            for (Glass phoneShops : brendShop) {
+
+                if (phoneShops.getBrend().equals(brends)){
+                    System.out.println(phoneShops.getBrend()+"--"+brends);
+                    brendsShop.setRemanis( phoneShops.getRemanisCloterse());
+                    sum +=  phoneShops.getRemanisCloterse();
+
+                }
+            }
+
+            warehouseRemnants.add(brendsShop);
+        }
+        warehouseRemnants.add(new Glass("Итого", sum));
+       return warehouseRemnants;
+    }
+
+    public List<Glass> movingWarehouse(String shop, String kol, String view) {
+
+        return warehouseRemnants;
     }
 }

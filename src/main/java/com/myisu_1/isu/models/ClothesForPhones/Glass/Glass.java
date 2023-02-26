@@ -18,6 +18,16 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class Glass extends ClothingMatching {
     String Brend;
+    long remanis;
+    long sale6;
+    long sale1;
+    long remanisCloters;
+    int remanisCloterse;
+
+    public Glass(String brend, int remanisCloterse) {
+        Brend = brend;
+        this.remanisCloterse = remanisCloterse;
+    }
 
     public Glass(String brend, long remanis, long remanisCloters) {
         Brend = brend;
@@ -25,10 +35,6 @@ public class Glass extends ClothingMatching {
         this.remanisCloters = remanisCloters;
     }
 
-    long remanis;
-    long sale6;
-    long sale1;
-    long remanisCloters;
 
     public Glass(String brend, long remanis,long remanisCloters, long sale6, long sale1 ) {
         Brend = brend;

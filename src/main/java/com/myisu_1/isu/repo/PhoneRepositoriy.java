@@ -5,6 +5,7 @@ import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.models.Phone_Smart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -21,4 +22,10 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
 
     List<Glass> getBrendShopRemanis(String s);
 
+    @Query("SELECT  new com.myisu_1.isu.models.ClothesForPhones.Glass.Glass(p.Brend, SUM (r.remainsSimAndModem)) FROM Phone_Smart p " +
+            "JOIN p.remanisSims r WHERE r.shop = ?1  GROUP BY p.Brend")
+    List<Glass> getPhoneRemanisShop(String shop);
+
+
 }
+

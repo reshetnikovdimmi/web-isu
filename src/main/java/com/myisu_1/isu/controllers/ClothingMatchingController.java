@@ -60,7 +60,7 @@ public class ClothingMatchingController {
     @RequestMapping(value = "slotongMatchingTablesss", method = RequestMethod.GET)
     public List<Glass> lotongMatchingTables() {
 
-        return clothingMatchingTableRepositoriy.tableShopRemanis( "Infinix HOT 11S", "Glass");
+        return clothingMatchingTableRepositoriy.getBrendShop("Infinix HOT 11S","Glass", "1-ТТ \"Бетховена - TELE2\"");
     }
 
     @PostMapping(path = "/slotongMatchingTableDel")
