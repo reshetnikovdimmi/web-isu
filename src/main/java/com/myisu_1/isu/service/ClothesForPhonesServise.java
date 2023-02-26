@@ -113,7 +113,7 @@ public class ClothesForPhonesServise {
     }
 
     public List<Glass> movingWarehouse(String shop, String kol, String view) {
-
+System.out.println(shop);
       return glass.movingWarehouse(shop,kol,view);
 
     }
