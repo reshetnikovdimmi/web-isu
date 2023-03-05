@@ -1,12 +1,22 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.exporte.ExselFileExporteClotingPhone;
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
+import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
+import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.service.ClothesForPhonesServise;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -50,10 +60,10 @@ public class ClothesForPhonesController {
 
     }
     @ResponseBody
-    @RequestMapping(value = "movingWarehouse/{Shop}/{brend}/{View}", method = RequestMethod.GET)
-    public List<Glass> movingWarehouse(@PathVariable("Shop") String shop,@PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
+    @RequestMapping(value = "movingWarehouse/{models}/{brend}/{kol}/{View}/{shop}", method = RequestMethod.GET)
+    public List<Glass> movingWarehouse(@PathVariable("models") String models,@PathVariable("brend") String brend,@PathVariable("kol") String kol, @PathVariable("View") String view,@PathVariable("shop") String shop, Model model) {
 
-        return clothesForPhonesServise.movingWarehouse(shop,brend,view);
+        return clothesForPhonesServise.movingWarehouse(models,brend,kol,view,shop);
 
     }
 
@@ -71,5 +81,19 @@ public class ClothesForPhonesController {
         model.addAttribute("CoverBookShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"CoverBook"));
 
         return "ClothesForPhones::CoverBook";
+    }
+
+
+    @GetMapping("/ExselFileExporteClotingPhone")
+    public void exselFileExporteClotingPhone(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment; filename=DistributionClotingPhone.xlsx");
+
+        ByteArrayInputStream inputStream = ExselFileExporteClotingPhone.exportClotingPhone(clothesForPhonesServise.exselFileExporteClotingPhone());
+
+        IOUtils.copy(inputStream, response.getOutputStream());
+
+
     }
 }

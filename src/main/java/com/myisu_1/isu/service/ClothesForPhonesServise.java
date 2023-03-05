@@ -1,5 +1,6 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.exporte.ExselFileExporteClotingPhone;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatching;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -95,7 +97,7 @@ public class ClothesForPhonesServise {
     public List<List<Glass>> tableShopBrend(String shop, String brend, String view) {
 
 
-        return glass.loadPhoneRemanisShop(clothingMatchingTableRepositoriy.getBrendList(clothingMatchingTableRepositoriy.getClothingList(brend,view)),clothingMatchingTableRepositoriy.getBrendShop(brend,view,shop),phoneRepositoriy.getPhoneRemanisShop(shop),clothingMatchingTableRepositoriy.getClothingList(brend,view));
+        return glass.loadPhoneRemanisShop(clothingMatchingTableRepositoriy.getBrendList(clothingMatchingTableRepositoriy.getClothingList(brend,view)),clothingMatchingTableRepositoriy.getBrendShop(brend,view,shop),phoneRepositoriy.getPhoneRemanisShop(shop),clothingMatchingTableRepositoriy.getClothingList(brend,view),shop);
 
     }
 
@@ -112,9 +114,14 @@ public class ClothesForPhonesServise {
 
     }
 
-    public List<Glass> movingWarehouse(String shop, String kol, String view) {
-System.out.println(shop);
-      return glass.movingWarehouse(shop,kol,view);
+    public List<Glass> movingWarehouse(String models, String brend, String kol, String view, String shop) {
 
+      return glass.movingWarehouse(brend,kol,clothingMatchingTableRepositoriy.getClothingList(models,view),shop);
+
+    }
+
+    public HashMap<String, List<List<Glass>>> exselFileExporteClotingPhone() {
+
+        return glass.shopRemanis;
     }
 }
