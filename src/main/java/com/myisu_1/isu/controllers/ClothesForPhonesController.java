@@ -35,8 +35,9 @@ public class ClothesForPhonesController {
     @PostMapping(path = "/tableGlasShop")
 
     private String tableGlass(@RequestBody String sim, Model model) {
+        System.out.println(sim);
         model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"Glass"));
-
+        System.out.println(sim.replaceAll("text=", "").replaceAll("[+]", " "));
         return "ClothesForPhones::GlassShop";
     }
 
@@ -63,7 +64,7 @@ public class ClothesForPhonesController {
     @RequestMapping(value = "movingWarehouse/{models}/{brend}/{kol}/{View}/{shop}", method = RequestMethod.GET)
     public List<Glass> movingWarehouse(@PathVariable("models") String models,@PathVariable("brend") String brend,@PathVariable("kol") String kol, @PathVariable("View") String view,@PathVariable("shop") String shop, Model model) {
 
-        return clothesForPhonesServise.movingWarehouse(models,brend,kol,view,shop);
+        return clothesForPhonesServise.movingWarehouse(models,brend.replaceAll("_","/"),kol,view,shop);
 
     }
 
@@ -79,8 +80,7 @@ public class ClothesForPhonesController {
 
     private String tableCoverBook(@RequestBody String sim, Model model) {
         model.addAttribute("CoverBookShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"CoverBook"));
-
-        return "ClothesForPhones::CoverBook";
+        return "ClothesForPhones::CoverBookShop";
     }
 
 
