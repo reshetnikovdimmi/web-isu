@@ -31,13 +31,7 @@ public class Phone_Smart implements Serializable {
 
     private List<RemanisSim> remanisSims;
 
- /*   @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "nameClothes",referencedColumnName = "Brend")
-    private List<ClothingMatchingTable> clothingMatchingTableList;
 
-    @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "nameClothes",referencedColumnName = "Brend")
-    private List<ClothingMatchingTable> clothingMatchingTableList;*/
 
 
     public Phone_Smart(int id, String matrix_T2, String brend, String model, String model_GB, String phone, List<RemanisSim> remanisSims) {

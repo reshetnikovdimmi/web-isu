@@ -50,18 +50,7 @@ public class ClothingMatchingController {
 
         return loadingDBServise.slotongMatchingTable();
     }
-    @ResponseBody
-    @RequestMapping(value = "slotongMatchingTabless", method = RequestMethod.GET)
-    public List<Glass> lotongMatchingTable() {
 
-        return phone_smart.getBrendRemanis();
-    }
-    @ResponseBody
-    @RequestMapping(value = "slotongMatchingTablesss", method = RequestMethod.GET)
-    public List<Glass> lotongMatchingTables() {
-
-        return clothingMatchingTableRepositoriy.getBrendShop("Infinix HOT 11S","Glass", "1-ТТ \"Бетховена - TELE2\"");
-    }
 
     @PostMapping(path = "/slotongMatchingTableDel")
 

@@ -1,17 +1,18 @@
 package com.myisu_1.isu.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.myisu_1.isu.models.Phone.ButtonsPhone;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class retail_price {
+public class retail_price implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     String name;
     String price;
+
 
     public retail_price() {
     }
@@ -20,6 +21,11 @@ public class retail_price {
         this.id = id;
         this.name = name;
         this.price = prise;
+    }
+
+    public retail_price(String name, String price) {
+        this.name = name;
+        this.price = price;
     }
 
     public int getId() {

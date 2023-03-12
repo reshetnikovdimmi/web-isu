@@ -4,12 +4,14 @@ import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.authorization_tt;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class Shop {
     String nameShop;
     public List<authorization_tt> authorization_ttList;
     public List<Phone_Smart> phoneSmartList;
     public List<String> brendDisting;
+    public Map<String,List<String>> graduationButton;
 
 
 

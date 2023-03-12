@@ -37,7 +37,7 @@ public class ClothesForPhonesController {
     private String tableGlass(@RequestBody String sim, Model model) {
         System.out.println(sim);
         model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"Glass"));
-        System.out.println(sim.replaceAll("text=", "").replaceAll("[+]", " "));
+
         return "ClothesForPhones::GlassShop";
     }
 
