@@ -1,16 +1,7 @@
 $(document).ready(function() {
     var tds = document.querySelectorAll('.table_graduation .btn');
-    for (var i = 0; i < tds.length; i++) {
-        tds[i].addEventListener('click', function func() {
-            var brend = this.innerHTML;
-            $.get('/tableShopRemanisSele/' + brend, {}, function(data) {
-                $(".graduation").html(data);
-            });
-            $.get('/tableShopRemanisCash/' + brend, {}, function(data) {
-                $(".RemanisCash").html(data);
-            });
-        });
-    }
+    table_DistributionButton(tds);
+
     window.onload = function() {
         var tds1 = document.querySelectorAll('.table_Requirement .btn');
         for (var i = 1; i < tds1.length; i++) {
@@ -23,9 +14,21 @@ $(document).ready(function() {
         }
     }
 });
+function table_DistributionButton(tds) {
+for (var i = 0; i < tds.length; i++) {
+        tds[i].addEventListener('click', function func() {
+            var brend = this.innerHTML;
+            $.get('/tableShopRemanisSele/' + brend, {}, function(data) {
+                $(".graduation").html(data);
+            });
+            $.get('/tableShopRemanisCash/' + brend, {}, function(data) {
+                $(".RemanisCash").html(data);
+            });
+        });
+        }
+}
 
 function orderFromMinMatrixT2Warehouse(data, shop) {
-
     var elem = document.querySelector('#table_DistributionButton');
     var elem1 = document.querySelector('#tables_DistributionButton');
     elem1.parentNode.removeChild(elem1);
@@ -87,30 +90,19 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
                 if (keys != "ИТОГО") {
                     if (j == 0) {
                         td.innerHTML = keys;
-
                     } else if (j > 0) {
-                        //  td.innerHTML = data[i].quantity;
+                        for (keyss in data[key][keys]) {
 
-                            // td.innerHTML = keys
-
-                                for (keyss in data[key][keys]) {
-                                 console.log("Ключ = " + keyss +"-"+ "Значение = " + data[key][keys][keyss]);
-                                    if (j == 1 && keyss === "ОСТ") {
-                                        td.innerHTML = data[key][keys][keyss];
-
-                                    }
-                                    if (j == 2 && keyss === "ПРОД1") {
-                                        td.innerHTML = data[key][keys][keyss];
-
-                                    }
-                                    if (j == 3 && keyss === "ПРОД6") {
-                                        td.innerHTML = data[key][keys][keyss]
-
-                                    }
-
-                                }
-
-
+                            if (j == 1 && keyss === "ОСТ") {
+                                td.innerHTML = data[key][keys][keyss];
+                            }
+                            if (j == 2 && keyss === "ПРОД1") {
+                                td.innerHTML = data[key][keys][keyss];
+                            }
+                            if (j == 3 && keyss === "ПРОД6") {
+                                td.innerHTML = data[key][keys][keyss]
+                            }
+                        }
                     }
                 }
                 tr.appendChild(td);
@@ -127,4 +119,7 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
     $(document).find('.minMatrix').on('click', function() {
         $(this).parents().next('.hide_minMatrix').toggle();
     });
+    var tds = document.querySelectorAll('.minMatrix');
+
+        table_DistributionButton(tds);
 }

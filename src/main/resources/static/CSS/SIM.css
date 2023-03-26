@@ -220,7 +220,7 @@ display: none;
     transition: all 0.5s;
 }
 .labels tr td {
-	background-color: #dfe6ed;
+
 	height: 10px;
 	color: #55677d;
 }
