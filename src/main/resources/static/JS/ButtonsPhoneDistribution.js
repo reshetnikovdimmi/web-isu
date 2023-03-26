@@ -45,7 +45,7 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
     tbody.classList.add("labels2");
     for (key in data) {
         let tbody1 = document.createElement('tbody');
-        table.id = 'toggle';
+        table.id = 'tables_DistributionButton';
         var tr = document.createElement('tr');
         for (var j = 0; j < 4; j++) {
             var td = document.createElement('td');
