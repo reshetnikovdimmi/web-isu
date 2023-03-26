@@ -32,7 +32,7 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
     var table = document.createElement(`table`);
     table.id = 'tables_DistributionButton';
     table.classList.add("table-borderless");
-    table.classList.add("tables_minMatrix");
+    table.classList.add("tables_DistributionButton");
     let thead = document.createElement('thead');
     let row_1 = document.createElement('tr');
     let heading_1 = document.createElement('th');
