@@ -12,6 +12,7 @@ public abstract class Shop {
     public List<Phone_Smart> phoneSmartList;
     public List<String> brendDisting;
     public Map<String,List<String>> graduationButton;
+    public List<String> modelsGraduation;
 
 
 

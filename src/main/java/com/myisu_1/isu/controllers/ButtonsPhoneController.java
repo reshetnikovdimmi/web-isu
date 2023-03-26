@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,7 +25,7 @@ public class ButtonsPhoneController {
     }
     @GetMapping("/ButtonsPhoneDistribution")
     public String ButtonsPhoneDistribution(Model model) {
-
+        model.addAttribute("Requirement",buttonsPhoneServise.tabletableRequirement());
         model.addAttribute("Phone", buttonsPhoneServise.graduationPhone());
         return "ButtonsPhoneDistribution";
     }
@@ -64,12 +63,42 @@ System.out.println(ID);
 
         return buttonsPhoneServise.graduationPhone();
     }
-    @PostMapping(path = "/tableShopRemanisSele")
+  //  @PostMapping(path = "/tableShopRemanisSele")
 
-    private String tableShopRemanisSele(@RequestBody String sim, Model model) {
-        System.out.println(sim.replaceAll("text=", "").replaceAll("[+]", " "));
-        model.addAttribute("GlassShop",buttonsPhoneServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " ")));
+    @RequestMapping(value="/tableShopRemanisSele/{brend}", method=RequestMethod.GET)
+    private String tableShopRemanisSele(@PathVariable("brend")  String brend, Model model) {
 
-        return "ButtonsPhone::graduation";
+       model.addAttribute("graduation",buttonsPhoneServise.tableShopRemanisSele(brend));
+
+        return "ButtonsPhoneDistribution::graduation";
+    }
+    @RequestMapping(value="/tableShopRemanisCash/{brend}", method=RequestMethod.GET)
+    private String tableShopRemanisCash(@PathVariable("brend")  String brend, Model model) {
+
+        model.addAttribute("graduation",buttonsPhoneServise.tableShopRemanisCash(brend));
+
+        return "ButtonsPhoneDistribution::RemanisCash";
+    }
+    @ResponseBody
+    @RequestMapping(value="/tableDistributionButton/{shop}", method=RequestMethod.GET)
+    private Map<String, Map<String, Map<String, String>>> tableDistributionButton(@PathVariable("shop")  String shop, Model model) {
+//System.out.println(shop);
+       // model.addAttribute("DistributionButton",buttonsPhoneServise.tableShopRemanis(shop));
+
+        return buttonsPhoneServise.tableShopRemanis(shop);
+    }
+    @ResponseBody
+    @RequestMapping(value = "tableShopRemanis/{shop}", method = RequestMethod.GET)
+    public Map<String, Map<String, Map<String, String>>> tableShopRemanis(@PathVariable("shop")  String shop) {
+
+
+
+        return buttonsPhoneServise.tableShopRemanis(shop);
+    }
+    @GetMapping("/CardsArrayExpDate")
+    public String JS(Model model) {
+
+
+        return "CardsArrayExpDate";
     }
 }

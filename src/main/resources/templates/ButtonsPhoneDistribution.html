@@ -82,7 +82,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody">
                                 <tr th:each="entry, stats  : ${Phone}" th:with="user=${entry.value}">
                                     <td>
                                         <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
@@ -91,7 +91,7 @@
 
                                     <span th:each="word : ${entry.value}">
                                     <td th:text="${word.value}"></td>
-
+                                    </span>
 
                                 </tr>
 
@@ -101,22 +101,118 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="graduation" th:fragment="graduation">
 
-                            ТТ с продажами
 
+                        <div class="table_Requirement">
+                            <table class="table-borderless">
+                                <thead>
+                                <tr>
+                                    <th>МОДЕЛЬ</th>
+                                    <th>ОСТАТОК</th>
+                                    <th>ПРОД 1М</th>
+                                    <th>ПРОД 6/3М</th>
+
+                                </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                <tr th:each="entry, stats  : ${Requirement}" th:with="user=${entry.value}">
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
+                                                type="submit"></button>
+                                    </td>
+
+                                    <span th:each="word : ${entry.value}">
+                                    <td th:text="${word.value}"></td>
+                                    </span>
+
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
                         </div>
+
+
                     </div>
                 </div>
                 <div class="col-md-6 themed-grid-col">
-                    Данные по ТТ
+                    <div class="table" id="table_DistributionButton">
+                        <table class="table-responsive table-hover" id="tables_DistributionButton">
+                            <thead class="table-dark table-hover">
+
+                            </thead>
+                            <tbody>
+
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col">
                     <div class="row">
-                        остаток на складе
+
+                        <div class="RemanisCash" th:fragment="RemanisCash">
+
+                            <div class="table_graduation">
+                                <table class="table-borderless">
+                                    <thead>
+                                    <tr>
+                                        <th>МОДЕЛЬ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr th:each="entry, stats  : ${graduation}" th:with="user=${entry.value}">
+                                        <td th:text="${entry.key}"></td>
+                                        <td th:text="${entry.value}"></td>
+
+
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="row">
-                        заказ
+                        <div class="graduation" th:fragment="graduation">
+
+                            <div class="table_graduation">
+                                <table class="table-borderless">
+                                    <thead>
+                                    <tr>
+                                        <th>МОДЕЛЬ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr th:each="entry, stats  : ${graduation}" th:with="user=${entry.value}">
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
+                                                    type="submit"></button>
+                                        </td>
+
+                                        <span th:each="word : ${entry.value}">
+                                    <td th:text="${word.value}"></td>
+                                    </span>
+
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
