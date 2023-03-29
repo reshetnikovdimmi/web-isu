@@ -32,14 +32,15 @@ public class ClothesForPhonesController {
         model.addAttribute("BrendRemanisCoverBook", clothesForPhonesServise.remainderSaleClothing("CoverBook"));
         return "ClothesForPhones";
     }
-    @PostMapping(path = "/tableGlasShop")
+    @RequestMapping(value="/tableGlasShop/{brend}", method=RequestMethod.GET)
 
-    private String tableGlass(@RequestBody String sim, Model model) {
-        System.out.println(sim);
-        model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"Glass"));
+    private String tableGlasShop(@PathVariable("brend")  String brend, Model model) {
+
+        model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(brend.replaceAll("_", "/"),"Glass"));
 
         return "ClothesForPhones::GlassShop";
     }
+
 
     @ResponseBody
     @RequestMapping(value = "tableGlasShops/{Shop}/{brend}/{View}", method = RequestMethod.GET)

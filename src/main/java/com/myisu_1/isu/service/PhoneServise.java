@@ -578,8 +578,9 @@ if(shop.equals(requirementPhoneList.get(i).getShop())&& requirementPhone.getRema
                 .collect(Collectors.toList());
 
         requirementPhoneList = sortedUsers;
-
+System.out.println(skyPhone);
         return distributionPhoneList;
+
     }
 
     public Iterable<RequirementPhone> requirementUpPhone() {

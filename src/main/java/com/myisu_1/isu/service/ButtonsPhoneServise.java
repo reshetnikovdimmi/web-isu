@@ -103,7 +103,8 @@ public class ButtonsPhoneServise {
         model.put("ОСТ", buttonsPhoneRepositoriy.getShopRemanisModel(authorizationList, lis));
         model.put("ПРОД6", buttonsPhoneRepositoriy.getShopRemanisSele6mModel(authorizationList, lis));
         model.put("ПРОД1", buttonsPhoneRepositoriy.getShopRemanisSele1mModel(authorizationList, lis));
-
+        model.put("ОСТСК", buttonsPhoneRepositoriy.getShopRemanisModel(button.authorization_ttList.get(0).getName(), lis));
+        model.put("ЗАКАЗ", "0");
 
         return model;
 
@@ -154,6 +155,20 @@ public class ButtonsPhoneServise {
 
         }
         shopRemanisSele.put("Sale 1m", String.valueOf(sumsale));
+        sumsale = 0;
+
+
+        for (RemanisSim sal : remanis) {
+            if (button.authorization_ttList.get(0).getName().equals(sal.getShop())) {
+                sumsale += sal.getRemainsSimModem();
+            }
+
+        }
+
+        shopRemanisSele.put("RemanisCash", String.valueOf(sumsale));
+
+        shopRemanisSele.put("Order", "0");
+
         return shopRemanisSele;
     }
 

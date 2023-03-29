@@ -404,12 +404,12 @@ function uniqueArray(a) {
 }
 
 function updateSkyTables(data) {
-   // $('#loader').addClass('hidden')
-        //matrixT2Phone(requestURLmatrixT2);
+
     var tds = document.querySelectorAll('table.tables_distributionPhone td');
     for (var i = 0; i < tds.length; i += 4) {
         $.each(data, function(key, value) {
-            if (tds[i].innerHTML == value.modelPhone && tds[i + 2].innerHTML != value.remanisPhone) {
+            if (tds[i].innerHTML == value.modelPhone && tds[i + 2].innerHTML != value.remanisPhone && value.shop == $('#ShopDistribution').text()) {
+
                 tds[i + 2].innerHTML = value.remanisPhone;
             }
         });

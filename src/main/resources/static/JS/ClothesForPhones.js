@@ -14,9 +14,8 @@ function tableGlasShop() {
     for (var i = 0; i < tds.length; i++) {
         tds[i].addEventListener('click', function func() {
             var brend = this.innerHTML;
-            $.post('/tableGlasShop', {
-                text: brend
-            }, function(data) {
+            $.get('/tableGlasShop/' + brend.replaceAll('/','_'), {}, function(data, status) {
+
                 $(".GlassShop").html(data);
                 tableGlasShops(brend);
                 $.get('/orderЕable/' + brend + '/Glass', {}, function(data, status) {
@@ -449,8 +448,9 @@ function cloterTableCase(data, brend, shop) {
     $(document).find('.UPDATE').on('change', function() {
         var models = $(this).parents('tr:first').find('td:eq(0)').text(),
             data;
+            console.log(models)
         var kol = this.value;
-        $.get('/movingWarehouse/' + brend + '/' + models + '/' + kol + '/Case/' + shop, {}, function(data, status) {
+        $.get('/movingWarehouse/' + brend + '/' + models.replaceAll('/','_') + '/' + kol + '/Case/' + shop, {}, function(data, status) {
             tableWarehouseRemnantsCase(data);
         });
     });
@@ -545,7 +545,7 @@ function cloterTable(data, brend, shop) {
         var models = $(this).parents('tr:first').find('td:eq(0)').text(),
             data;
         var kol = this.value;
-        $.get('/movingWarehouse/' + brend + '/' + models + '/' + kol + '/Glass/' + shop, {}, function(data, status) {
+        $.get('/movingWarehouse/' + brend + '/' + models.replaceAll('/','_') + '/' + kol + '/Glass/' + shop, {}, function(data, status) {
             tableWarehouseRemnants(data);
         });
     });
