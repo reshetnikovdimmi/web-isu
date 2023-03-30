@@ -36,7 +36,7 @@ public class ClothesForPhonesController {
 
     private String tableGlasShop(@PathVariable("brend")  String brend, Model model) {
 
-        model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(brend.replaceAll("_", "/"),"Glass"));
+        model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(brend,"Glass"));
 
         return "ClothesForPhones::GlassShop";
     }
@@ -69,18 +69,22 @@ public class ClothesForPhonesController {
 
     }
 
-    @PostMapping(path = "/tableCaseShop")
 
-    private String tableCase(@RequestBody String sim, Model model) {
-        model.addAttribute("CaseShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"Case"));
+
+    @RequestMapping(value="/tableCaseShop/{brend}", method=RequestMethod.GET)
+
+    private String tableCaseShop(@PathVariable("brend")  String brend, Model model) {
+        model.addAttribute("CaseShop",clothesForPhonesServise.tableShopRemanis(brend,"Case"));
 
         return "ClothesForPhones::CaseShop";
     }
 
-    @PostMapping(path = "/tableCoverBookShop")
 
-    private String tableCoverBook(@RequestBody String sim, Model model) {
-        model.addAttribute("CoverBookShop",clothesForPhonesServise.tableShopRemanis(sim.replaceAll("text=", "").replaceAll("[+]", " "),"CoverBook"));
+
+    @RequestMapping(value="/tableCoverBookShop/{brend}", method=RequestMethod.GET)
+
+    private String tableCoverBookShop(@PathVariable("brend")  String brend, Model model) {
+        model.addAttribute("CoverBookShop",clothesForPhonesServise.tableShopRemanis(brend,"CoverBook"));
         return "ClothesForPhones::CoverBookShop";
     }
 

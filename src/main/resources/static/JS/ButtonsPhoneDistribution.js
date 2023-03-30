@@ -12,7 +12,7 @@ function orderFromWarehouse(tds1) {
         tds1[i].addEventListener('click', function func() {
             var shop = this.innerHTML;
             $.get('/tableDistributionButton/' + shop, {}, function(data) {
-                orderFromMinMatrixT2Warehouse(data);
+                orderFromMinMatrixT2Warehouse(data,shop);
             });
         });
     }
@@ -34,7 +34,7 @@ function table_DistributionButton(tds) {
     }
 }
 
-function orderFromMinMatrixT2Warehouse(data) {
+function orderFromMinMatrixT2Warehouse(data,shop) {
     var elem = document.querySelector('#table_DistributionButton');
     var elem1 = document.querySelector('#tables_DistributionButton');
     elem1.parentNode.removeChild(elem1);
@@ -65,10 +65,7 @@ function orderFromMinMatrixT2Warehouse(data) {
                 button.innerHTML = key;
                 td.appendChild(button);
             } else if (j > 0) {
-                //  td.innerHTML = data[i].quantity;
-                for (keys in data[key]) {
-                    // td.innerHTML = keys
-                    for (keys in data[key]) {
+                 for (keys in data[key]) {
                         for (keyss in data[key][keys]) {
                             if (j == 1 && keyss === "Remanis") {
                                 td.innerHTML = data[key][keys][keyss];
@@ -87,8 +84,8 @@ function orderFromMinMatrixT2Warehouse(data) {
                             }
 
                         }
-                    }
-                }
+                 }
+
             }
             tr.appendChild(td);
         }
@@ -142,4 +139,14 @@ function orderFromMinMatrixT2Warehouse(data) {
     });
     var tds = document.querySelectorAll('.minMatrix');
     table_DistributionButton(tds);
+       $(document).find('.SKYPhone').on('change', function() {
+            body = [];
+            $('.btn-primary').attr('disabled', false);
+            body = {
+                shop: shop,
+                modelPhone: $(this).parents('tr:first').find('td:eq(0)').text(),
+                skyPhone: this.value
+            }
+            console.log(body)
+        });
 }

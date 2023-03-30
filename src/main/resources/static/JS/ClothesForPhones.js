@@ -14,7 +14,7 @@ function tableGlasShop() {
     for (var i = 0; i < tds.length; i++) {
         tds[i].addEventListener('click', function func() {
             var brend = this.innerHTML;
-            $.get('/tableGlasShop/' + brend.replaceAll('/','_'), {}, function(data, status) {
+            $.get('/tableGlasShop/' + brend, {}, function(data, status) {
 
                 $(".GlassShop").html(data);
                 tableGlasShops(brend);
@@ -174,9 +174,7 @@ function tableCaseShop() {
     for (var i = 0; i < tds.length; i++) {
         tds[i].addEventListener('click', function func() {
             var brend = this.innerHTML;
-            $.post('/tableCaseShop', {
-                text: this.innerHTML
-            }, function(data) {
+            $.get('/tableCaseShop/'+ brend, {}, function(data, status) {
                 $(".CaseShop").html(data);
                 tableCaseShops(brend);
                 $.get('/orderЕable/' + brend + '/Case', {}, function(data, status) {
@@ -196,9 +194,7 @@ function tableCoverBookShop() {
     for (var i = 0; i < tds.length; i++) {
         tds[i].addEventListener('click', function func() {
             var brend = this.innerHTML;
-            $.post('/tableCoverBookShop', {
-                text: brend
-            }, function(data) {
+            $.get('/tableCoverBookShop/'+ brend, {}, function(data, status) {
 
                 $(".CoverBookShop").html(data);
                 tableCoverBookShops(brend);
@@ -216,13 +212,13 @@ function tableCoverBookShop() {
     }
 }
 function tableCoverBookShops(brend) {
-console.log(brend)
+
     var tds = document.querySelectorAll('.CoverBookShop .btn');
     for (var i = 0; i < tds.length; i++) {
         tds[i].addEventListener('click', function func() {
             var shop = this.innerHTML;
             $.get('/tableGlasShops/' + this.innerHTML + '/' + brend + '/CoverBook', {}, function(data, status) {
-            console.log(data)
+
                 phoneTableCoverBook(data, shop);
                 cloterTableCoverBook(data, brend, shop);
             });
