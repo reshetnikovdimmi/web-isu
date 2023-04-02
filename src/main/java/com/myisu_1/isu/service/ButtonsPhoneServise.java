@@ -24,6 +24,7 @@ public class ButtonsPhoneServise {
     private PostRepositoriy authorizationRep;
     List<String> model;
     List<String> buttonModel;
+    Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem = new TreeMap<>();
 
     public List<Buttons> findAllButtonsPhone() {
 
@@ -73,25 +74,26 @@ public class ButtonsPhoneServise {
 
     public Map<String, Map<String, Map<String, String>>> tableShopRemanis(String shop) {
 
-        Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem = new TreeMap<>();
-        Map<String, Map<String, Map<String, String>>> modelShopSale = new TreeMap<>();
-        Map<String, Map<String, String>> modelShop;
+        if (!modelShopSaleRem.isEmpty() && modelShopSaleRem.containsKey(shop)) {
+            return modelShopSaleRem.get(shop);
+        } else {
+
+            Map<String, Map<String, Map<String, String>>> modelShopSale = new TreeMap<>();
+            Map<String, Map<String, String>> modelShop;
 
 
-        for (String List : button.graduationButton.keySet()) {
-            modelShop = new TreeMap<>();
-            modelShop.put("ИТОГО", shopRemanisSele(button.graduationButton.get(List), shop));
-            for (String Lis : button.graduationButton.get(List)) {
-                modelShop.put(Lis, model(shop, Lis));
+            for (String List : button.graduationButton.keySet()) {
+                modelShop = new TreeMap<>();
+                modelShop.put("ИТОГО", shopRemanisSele(button.graduationButton.get(List), shop));
+                for (String Lis : button.graduationButton.get(List)) {
+                    modelShop.put(Lis, model(shop, Lis));
+                }
+
+                modelShopSale.put(List, modelShop);
+
             }
-
-            modelShopSale.put(List, modelShop);
-
+            modelShopSaleRem.put(shop, modelShopSale);
         }
-        modelShopSaleRem.put(shop, modelShopSale);
-
-
-        System.out.println(shop);
 
         return modelShopSaleRem.get(shop);
     }
@@ -173,15 +175,16 @@ public class ButtonsPhoneServise {
     }
 
     public Map<String, Integer> tableShopRemanisCash(String brendPhone) {
-
         Map<String, Integer> shopRemanisSele = new TreeMap<>();
-        List<RemanisSim> remanis = buttonsPhoneRepositoriy.getShopRemanis(button.graduationButton.get(brendPhone));
+        if (!modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())) {
+            tableShopRemanis(button.authorization_ttList.get(0).getName());
+        }
 
-        for (RemanisSim sal : remanis) {
-
-            if (button.authorization_ttList.get(0).getName().equals(sal.getShop())) {
-                shopRemanisSele.put(sal.getNameSimAndModem(), sal.getRemainsSimAndModem());
+        for (Map.Entry entry : modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brendPhone).entrySet()) {
+            if (!entry.getKey().equals("ИТОГО") && modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brendPhone).get(entry.getKey()).get("ОСТСК") != null) {
+                shopRemanisSele.put(String.valueOf(entry.getKey()), Integer.parseInt(modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brendPhone).get(entry.getKey()).get("ОСТСК")));
             }
+
 
         }
         Integer result = shopRemanisSele.entrySet()
@@ -189,6 +192,7 @@ public class ButtonsPhoneServise {
                 .mapToInt(Map.Entry::getValue)
                 .sum();
         shopRemanisSele.put("Итого", result);
+
 
         return shopRemanisSele;
     }
@@ -237,5 +241,26 @@ public class ButtonsPhoneServise {
         remanisRequirement.put("Reg", String.valueOf(max));
         remanisRequirement.put("Percent", String.format("%.0f", percent) + "%");
         return remanisRequirement;
+    }
+
+    public Map<String, Map<String, Map<String, String>>> tableUpDistributionButton(String shop, String models, String quantity, String brend) {
+        String orderResult= String.valueOf(Integer.parseInt(modelShopSaleRem.get(shop).get(brend).get("ИТОГО").get("Order")) + Integer.parseInt(quantity));
+        String rem = String.valueOf(Integer.parseInt(modelShopSaleRem.get(shop).get(brend).get(models).get("ОСТСК")) - Integer.parseInt(quantity));;
+        String remCash = String.valueOf(Integer.parseInt(modelShopSaleRem.get(shop).get(brend).get("ИТОГО").get("RemanisCash")) - Integer.parseInt(quantity));
+
+        modelShopSaleRem.get(shop).get(brend).get(models).replace("ЗАКАЗ", quantity);
+        modelShopSaleRem.get(shop).get(brend).get("ИТОГО").replace("Order", orderResult);
+        modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brend).get(models).replace("ОСТСК", rem);
+        modelShopSaleRem.get(shop).get(brend).get(models).replace("ОСТСК", rem);
+        modelShopSaleRem.get(shop).get(brend).get("ИТОГО").replace("RemanisCash", remCash);
+
+
+
+        return  modelShopSaleRem.get(shop);
+    }
+
+    public Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionButto() {
+
+        return modelShopSaleRem;
     }
 }

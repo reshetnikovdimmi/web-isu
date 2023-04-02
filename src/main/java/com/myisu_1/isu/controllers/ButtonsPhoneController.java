@@ -1,13 +1,21 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionButton;
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
+import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.repo.ButtonsPhoneRepositoriy;
 import com.myisu_1.isu.service.ButtonsPhoneServise;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,13 +40,12 @@ public class ButtonsPhoneController {
     @ResponseBody
     @RequestMapping(value = "update_ButtonsPhone/{id}", method = RequestMethod.GET)
     public Optional<ButtonsPhone> update(@PathVariable("id") int id) {
-        System.out.println(buttonsPhoneRepositoriy.findById(id));
+
         return buttonsPhoneRepositoriy.findById(id);
     }
 
     @PostMapping("/add_ButtonsPhone")
     public String add_ButtonsPhone(@RequestParam int ID,@RequestParam String Brend,@RequestParam String Model,Model model) {
-System.out.println(ID);
 
         if (ID != 0) {
             buttonsPhoneRepositoriy.save((new ButtonsPhone(ID,Brend, Model)));
@@ -63,7 +70,6 @@ System.out.println(ID);
 
         return buttonsPhoneServise.graduationPhone();
     }
-  //  @PostMapping(path = "/tableShopRemanisSele")
 
     @RequestMapping(value="/tableShopRemanisSele/{brend}", method=RequestMethod.GET)
     private String tableShopRemanisSele(@PathVariable("brend")  String brend, Model model) {
@@ -82,8 +88,6 @@ System.out.println(ID);
     @ResponseBody
     @RequestMapping(value="/tableDistributionButton/{shop}", method=RequestMethod.GET)
     private Map<String, Map<String, Map<String, String>>> tableDistributionButton(@PathVariable("shop")  String shop, Model model) {
-//System.out.println(shop);
-       // model.addAttribute("DistributionButton",buttonsPhoneServise.tableShopRemanis(shop));
 
         return buttonsPhoneServise.tableShopRemanis(shop);
     }
@@ -91,13 +95,28 @@ System.out.println(ID);
     @RequestMapping(value = "tableShopRemanis/{shop}", method = RequestMethod.GET)
     public Map<String, Map<String, Map<String, String>>> tableShopRemanis(@PathVariable("shop")  String shop) {
 
-
-
         return buttonsPhoneServise.tableShopRemanis(shop);
+    }
+    @ResponseBody
+    @RequestMapping(value = "tableUpDistributionButton/{shop}/{models}/{quantity}/{brend}", method = RequestMethod.GET)
+    public Map<String, Map<String, Map<String, String>>> tableUpDistributionButton(@PathVariable("shop")  String shop, @PathVariable("models")  String models,@PathVariable("quantity")  String quantity,@PathVariable("brend")  String brend) {
+
+        return buttonsPhoneServise.tableUpDistributionButton(shop,models,quantity,brend);
+    }
+    @GetMapping("/exselDistributionButton")
+    public void downloadExselFile(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment; filename=DistributionButton.xlsx");
+
+        ByteArrayInputStream inputStream = ExselFileExporteDistributionButton.exportPrisePromoFile(buttonsPhoneServise.exselDistributionButto(), buttonsPhoneRepositoriy.getModelsButton());
+
+        IOUtils.copy(inputStream, response.getOutputStream());
+
+
     }
     @GetMapping("/CardsArrayExpDate")
     public String JS(Model model) {
-
 
         return "CardsArrayExpDate";
     }
