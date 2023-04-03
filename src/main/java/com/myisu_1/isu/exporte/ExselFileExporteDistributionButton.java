@@ -56,26 +56,18 @@ public class ExselFileExporteDistributionButton {
                     for (Map.Entry entry: exselDistributionButto.get(distingCell.get(j)).entrySet()) {
                         Map<String, Map<String, String>> ppp = (Map<String, Map<String, String>>) entry.getValue();
                         if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ОСТСК")!=null && j==1 && Integer.parseInt(ppp.get(distingRow.get(i)).get("ОСТСК")) > 0){
-                            System.out.println(distingRow.get(i) +"--"+ ppp.get(distingRow.get(i)).get("ОСТСК")+"--"+distingCell.get(j));
+
                             dataRow.createCell(j-1).setCellValue(distingRow.get(i));
                             dataRow.createCell(j).setCellValue(ppp.get(distingRow.get(i)).get("ОСТСК"));
                         }
-                     //   if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ОСТСК")!=null && j==2 && Integer.parseInt(ppp.get(distingRow.get(i)).get("ОСТСК")) > 0){
 
-
-                     //   }
-                        if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ЗАКАЗ")!=null && ppp.get(distingRow.get(i)).equals(distingRow.get(i)) && j>2 && Integer.parseInt(ppp.get(distingRow.get(i)).get("ЗАКАЗ")) > 0){
-
+                        if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ЗАКАЗ")!=null &&  Integer.parseInt(ppp.get(distingRow.get(i)).get("ЗАКАЗ")) > 0){
+                            System.out.println(distingRow.get(i) +"--"+ ppp.get(distingRow.get(i)).get("ЗАКАЗ")+"--"+distingCell.get(j)+"--"+j);
                             dataRow.createCell(j).setCellValue(ppp.get(distingRow.get(i)).get("ЗАКАЗ"));
                         }
 
                     }
 
-                 //  for (int k=0;k<requirementUpPhone.size();k++){
-                  //      if (distingRow.get(i).equals(requirementUpPhone.get(k).getModelPhone())&& distingCell.get(j).equals(requirementUpPhone.get(k).getShop())&&requirementUpPhone.get(k).getSkyPhone()>0){
-
-                 //       }
-                //    }
                 }
             }
             sheetStartPromo.autoSizeColumn(0);

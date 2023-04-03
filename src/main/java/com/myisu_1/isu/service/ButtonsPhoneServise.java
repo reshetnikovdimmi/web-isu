@@ -24,7 +24,7 @@ public class ButtonsPhoneServise {
     private PostRepositoriy authorizationRep;
     List<String> model;
     List<String> buttonModel;
-    Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem = new TreeMap<>();
+    Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem;
 
     public List<Buttons> findAllButtonsPhone() {
 
@@ -38,7 +38,7 @@ public class ButtonsPhoneServise {
         List<Buttons> buttonsList = buttonsPhoneRepositoriy.getButtonPhonePrice();
         button.modelsGraduation = buttonsPhoneRepositoriy.getModelsGraduation();
         button.graduationButton = new TreeMap<>();
-
+        modelShopSaleRem = new TreeMap<>();
         for (Integer graduation : arrayGraduation) {
             for (String modelGraduation : button.modelsGraduation) {
 
