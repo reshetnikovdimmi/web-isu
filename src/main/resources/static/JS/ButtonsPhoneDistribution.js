@@ -14,6 +14,7 @@ function orderFromWarehouse(tds1) {
             var shop = this.innerHTML;
             $.get('/tableDistributionButton/' + shop, {}, function(data) {
                 orderFromMinMatrixT2Warehouse(data, shop);
+
             });
         });
     }
@@ -27,9 +28,11 @@ function table_DistributionButton(tds) {
                 $(".graduation").html(data);
                 var tds = document.querySelectorAll('.graduation .btn');
                 orderFromWarehouse(tds);
+
             });
             $.get('/tableShopRemanisCash/' + brend, {}, function(data) {
                 $(".RemanisCash").html(data);
+                $('#grad').html(brend);
             });
         });
     }
@@ -46,11 +49,24 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
     let thead = document.createElement('thead');
     let row_1 = document.createElement('tr');
     let heading_1 = document.createElement('th');
-    heading_1.innerHTML = "Модель";
+    heading_1.innerHTML = shop;
+
     let heading_2 = document.createElement('th');
-    heading_2.innerHTML = "Количество";
+    heading_2.innerHTML = "ОСТ";
+    let heading_3 = document.createElement('th');
+    heading_3.innerHTML = "ПРОД6";
+    let heading_4 = document.createElement('th');
+    heading_4.innerHTML = "ПРОД";
+    let heading_5 = document.createElement('th');
+    heading_5.innerHTML = "ОСТСК";
+    let heading_6 = document.createElement('th');
+    heading_6.innerHTML = "ЗАКАЗ";
     row_1.appendChild(heading_1);
     row_1.appendChild(heading_2);
+    row_1.appendChild(heading_3);
+    row_1.appendChild(heading_4);
+    row_1.appendChild(heading_5);
+    row_1.appendChild(heading_6);
     let tbody = document.createElement('tbody');
     tbody.classList.add("labels2");
     for (key in data) {
@@ -147,6 +163,7 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
             tableUpDistributionButton(data);
         });
     });
+
 }
 function tableUpDistributionButton(data) {
     var tds = document.querySelectorAll('table.tables_DistributionButton td');

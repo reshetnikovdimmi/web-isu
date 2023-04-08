@@ -84,9 +84,9 @@ public class ButtonsPhoneServise {
 
             for (String List : button.graduationButton.keySet()) {
                 modelShop = new TreeMap<>();
-                modelShop.put("ИТОГО", shopRemanisSele(button.graduationButton.get(List), shop));
+                modelShop.put("ИТОГО", shopRemanisSele(button.graduationButton.get(List), shop,List));
                 for (String Lis : button.graduationButton.get(List)) {
-                    modelShop.put(Lis, model(shop, Lis));
+                    modelShop.put(Lis, model(shop, Lis, List));
                 }
 
                 modelShopSale.put(List, modelShop);
@@ -98,14 +98,21 @@ public class ButtonsPhoneServise {
         return modelShopSaleRem.get(shop);
     }
 
-    private Map<String, String> model(String authorizationList, String lis) {
+    private Map<String, String> model(String authorizationList, String lis, String list) {
         Map<String, String> model = new TreeMap<>();
 
 
         model.put("ОСТ", buttonsPhoneRepositoriy.getShopRemanisModel(authorizationList, lis));
         model.put("ПРОД6", buttonsPhoneRepositoriy.getShopRemanisSele6mModel(authorizationList, lis));
         model.put("ПРОД1", buttonsPhoneRepositoriy.getShopRemanisSele1mModel(authorizationList, lis));
-        model.put("ОСТСК", buttonsPhoneRepositoriy.getShopRemanisModel(button.authorization_ttList.get(0).getName(), lis));
+        if(modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())){
+
+
+            model.put("ОСТСК", String.valueOf(modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(list).get(lis).get("ОСТСК")));
+        }else {
+            model.put("ОСТСК", buttonsPhoneRepositoriy.getShopRemanisModel(button.authorization_ttList.get(0).getName(), lis));
+        }
+
         model.put("ЗАКАЗ", "0");
 
         return model;
@@ -119,13 +126,13 @@ public class ButtonsPhoneServise {
         Map<String, Map<String, String>> shopRemanisSele = new TreeMap<>();
 
         for (authorization_tt authorizationList : button.authorization_ttList) {
-            shopRemanisSele.put(authorizationList.getName(), shopRemanisSele(button.graduationButton.get(brendPhone), authorizationList.getName()));
+            shopRemanisSele.put(authorizationList.getName(), shopRemanisSele(button.graduationButton.get(brendPhone), authorizationList.getName(), brendPhone));
 
         }
         return shopRemanisSele;
     }
 
-    private Map<String, String> shopRemanisSele(List<String> strings, String name) {
+    private Map<String, String> shopRemanisSele(List<String> strings, String name, String list) {
         int sumsale = 0;
         Map<String, String> shopRemanisSele = new TreeMap<>();
         List<RemanisSim> remanis = buttonsPhoneRepositoriy.getShopRemanis(strings);
@@ -166,8 +173,14 @@ public class ButtonsPhoneServise {
             }
 
         }
+if(modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())){
 
-        shopRemanisSele.put("RemanisCash", String.valueOf(sumsale));
+
+    shopRemanisSele.put("RemanisCash", String.valueOf(tableShopRemanisCash(list).get("Итого")));
+}else {
+    shopRemanisSele.put("RemanisCash", String.valueOf(sumsale));
+}
+
 
         shopRemanisSele.put("Order", "0");
 

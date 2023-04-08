@@ -113,7 +113,6 @@ public class ButtonsPhoneController {
 
         IOUtils.copy(inputStream, response.getOutputStream());
 
-
     }
     @GetMapping("/CardsArrayExpDate")
     public String JS(Model model) {

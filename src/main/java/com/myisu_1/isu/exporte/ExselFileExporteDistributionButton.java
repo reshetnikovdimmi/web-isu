@@ -3,14 +3,17 @@ package com.myisu_1.isu.exporte;
 import com.myisu_1.isu.service.ButtonsPhoneServise;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+@Service
 
 public class ExselFileExporteDistributionButton {
     public static ByteArrayInputStream exportPrisePromoFile(Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionButto, List<String> modelsButton) {
@@ -32,8 +35,19 @@ public class ExselFileExporteDistributionButton {
 
             distingCell.add("Модель распределения");
             distingCell.addAll(exselDistributionButto.keySet());
+            for (Map.Entry entry: exselDistributionButto.get(exselDistributionButto.keySet().stream().findFirst().get()).entrySet()) {
+                Map<String, Map<String, String>> ppp = (Map<String, Map<String, String>>) entry.getValue();
+                for (Map.Entry entry1: ppp.entrySet()) {
+                    Map<String, String> ppp1 = (Map<String, String>) entry1.getValue();
+                    if (ppp1.get("ОСТ")!=null && Integer.parseInt(ppp1.get("ОСТ"))>0){
 
-            distingRow.addAll(modelsButton);
+                        distingRow.add((String) entry1.getKey());
+                    }
+
+                }
+
+            }
+
 
 
             Cell nomenclatureReferenceRowCell;
@@ -62,7 +76,7 @@ public class ExselFileExporteDistributionButton {
                         }
 
                         if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ЗАКАЗ")!=null &&  Integer.parseInt(ppp.get(distingRow.get(i)).get("ЗАКАЗ")) > 0){
-                            System.out.println(distingRow.get(i) +"--"+ ppp.get(distingRow.get(i)).get("ЗАКАЗ")+"--"+distingCell.get(j)+"--"+j);
+                          //  System.out.println(distingRow.get(i) +"--"+ ppp.get(distingRow.get(i)).get("ЗАКАЗ")+"--"+distingCell.get(j)+"--"+j);
                             dataRow.createCell(j).setCellValue(ppp.get(distingRow.get(i)).get("ЗАКАЗ"));
                         }
 
