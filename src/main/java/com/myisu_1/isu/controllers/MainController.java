@@ -68,7 +68,7 @@ public class MainController {
         for(int i = 0;i<suppliersList.size();i++){
             suppliersList1.add(suppliersList.get(i).getImei());
         }
-        System.out.println(suppliersList.contains("Infinix Hot 10 Lite 2/32Gb Quetzal cyan"));
+
 
         return  null;
     }

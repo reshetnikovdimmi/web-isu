@@ -28,11 +28,11 @@ function table_DistributionButton(tds) {
                 $(".graduation").html(data);
                 var tds = document.querySelectorAll('.graduation .btn');
                 orderFromWarehouse(tds);
-
+                $('#grad').html(brend);
             });
             $.get('/tableShopRemanisCash/' + brend, {}, function(data) {
                 $(".RemanisCash").html(data);
-                $('#grad').html(brend);
+
             });
         });
     }
@@ -159,8 +159,10 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
         $.get('/tableUpDistributionButton/' + shop + '/' + $(this).parents('tr:first').find('td:eq(0)').text() + '/' + this.value + '/' + brend, {}, function(data) {
             $.get('/tableShopRemanisCash/' + brend, {}, function(data) {
                 $(".RemanisCash").html(data);
+                $('#grad').html(brend);
             });
             tableUpDistributionButton(data);
+
         });
     });
 
