@@ -26,7 +26,7 @@ public class SettingAccessoriesController {
         model.addAttribute("Accessories",  settingAccessoriesRepositoriy.findAll());
 
 
-        return "AddAccessories";
+        return "SettingAccessories";
     }
     @GetMapping("/AddAccessories")
     public String AddAccessories(Model model) {
