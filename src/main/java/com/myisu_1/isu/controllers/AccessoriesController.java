@@ -11,11 +11,11 @@ public class AccessoriesController {
     @Autowired
     private PhoneServise phoneServise;
 
-    @GetMapping("/accessories")
+    @GetMapping("/Accessories")
     public String home(Model model) {
         phoneServise.LoadAuthorization_ttList();
 
 
-        return "accessories";
+        return "Accessories";
     }
 }
