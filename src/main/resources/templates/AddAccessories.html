@@ -71,7 +71,7 @@
             <h6 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'"/></h6>
 
             <p class="lead">
-            <form action="/add_group_accessories" name='myForm' method="post">
+
 
                 <div class="row mb-3 text-center">
 
@@ -82,7 +82,7 @@
                         </div>
                         <div class="row">
                             <input type="hidden" name="ID" id="ID" value="0">
-                            <input type="text" name="group" id="group" placeholder="Введите имя">
+                            <input type="text" name="accessoriesName" id="accessoriesName" placeholder="Введите имя">
 
                         </div>
                     </div>
@@ -90,8 +90,8 @@
                         <div class="row">
                             <label>Price from</label>
                         </div>
-                        <div class="row">
-                            <select id="AddAccessories" name="AddAccessories">
+                        <div class="row" >
+                            <select id="accessoriesCategory" name="accessoriesCategory">
                                 <option value="">----</option>
                                 <option th:each="phone : ${AddAccessories}"
                                         th:value="${phone.group}"
@@ -101,23 +101,31 @@
 
                         </div>
                     </div>
-
+                    <div class="col">
+                        <div class="row">
+                            <label>Tele 2</label>
+                        </div>
+                        <div class="row">
+                            <input type="checkbox" id="Tele2" name="Tele2" checked>
+                        </div>
+                    </div>
 
                     <div class="col">
                         <div class="row">
                             <label>сохранить</label>
                         </div>
                         <div class="row">
-                            <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
+                            <button class="btn btn-outline-primary me-2" id="save" name="save" type="submit">Сохранить</button>
                         </div>
                     </div>
 
                 </div>
-            </form>
+
             </p>
             <p class="lead">
             <h6>SIM TELE2</h6>
-            <div class="table">
+            <div class="AccessoriesCategory" th:fragment="AccessoriesCategory">
+            <div class="table" >
                 <table class="table-responsive table-hover">
                     <thead class="table-dark table-hover">
                     <tr>
@@ -130,25 +138,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="current : ${Accessories}">
+                    <tr th:each="current : ${AccessoriesCategory}">
 
                         <td th:text="${current.id}"></td>
-                        <td th:text="${current.group}"></td>
-                        <td th:text="${current.priceMin}"></td>
-                        <td th:text="${current.priceMax}"></td>
+                        <td th:text="${current.accessoriesName}"></td>
+                        <td th:text="${current.accessoriesCategory}"></td>
+                        <td th:text="${current.tele2}"></td>
 
-                        <td><a th:href="@{/update_Accessories/{id}(id = ${current.id})}"
-                               class="btn btn-outline-primary me-2">
+                        <td><a class="btn btn-outline-primary me-2">
                             <span th:text="update"></span>
                         </a></td>
-                        <form id="form" action="/delet_Accessories" method="post">
+
                             <input type="hidden" id="IDAccessories" name="IDAccessories" th:value="${current.id}">
 
                             <td>
                                 <button type="submit">delet</button>
                             </td>
 
-                        </form>
+
 
                     </tr>
 
@@ -156,6 +163,7 @@
                     </tbody>
                 </table>
             </div>
+    </div>
 
 
             </p>

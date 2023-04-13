@@ -1,11 +1,15 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
+import com.myisu_1.isu.models.SIM.RemanisSim;
+import com.myisu_1.isu.models.accessories.RangeAccessories;
 import com.myisu_1.isu.models.accessories.SettingAccessories;
+import com.myisu_1.isu.repo.RangeAccessoriesRepositoriy;
 import com.myisu_1.isu.repo.SettingAccessoriesRepositoriy;
 import com.myisu_1.isu.service.PhoneServise;
 import com.myisu_1.isu.service.SettingAccessoriesServise;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,8 @@ public class SettingAccessoriesController {
     private SettingAccessoriesServise settingAccessoriesServise;
     @Autowired
     private SettingAccessoriesRepositoriy settingAccessoriesRepositoriy;
+    @Autowired
+    private RangeAccessoriesRepositoriy rangeAccessoriesRepositoriy;
 
     @GetMapping("/SettingAccessories")
     public String home(Model model) {
@@ -32,7 +38,7 @@ public class SettingAccessoriesController {
     public String AddAccessories(Model model) {
 
         model.addAttribute("AddAccessories",  settingAccessoriesRepositoriy.findAll());
-
+        model.addAttribute("AccessoriesCategory", rangeAccessoriesRepositoriy.findAll());
 
         return "AddAccessories";
     }
@@ -61,4 +67,16 @@ public class SettingAccessoriesController {
 
         return settingAccessoriesRepositoriy.findById(id);
     }
+
+
+    @RequestMapping(value="/AddAccessoriesCategory/{accessoriesName}/{accessoriesCategory}/{tele2}", method=RequestMethod.GET)
+
+    private String addAccessoriesCategory(@PathVariable("accessoriesName") String accessoriesName,@PathVariable("accessoriesCategory") String accessoriesCategory,@PathVariable("tele2") boolean tele2, Model model) {
+
+       rangeAccessoriesRepositoriy.save(new RangeAccessories(accessoriesName,accessoriesCategory,tele2));
+
+        model.addAttribute("AccessoriesCategory", rangeAccessoriesRepositoriy.findAll());
+        return "AddAccessories::AccessoriesCategory";
+    }
+
 }

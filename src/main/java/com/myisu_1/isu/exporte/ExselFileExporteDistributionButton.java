@@ -39,10 +39,10 @@ public class ExselFileExporteDistributionButton {
                 Map<String, Map<String, String>> ppp = (Map<String, Map<String, String>>) entry.getValue();
                 for (Map.Entry entry1: ppp.entrySet()) {
                     Map<String, String> ppp1 = (Map<String, String>) entry1.getValue();
-                    if (ppp1.get("ОСТ")!=null && Integer.parseInt(ppp1.get("ОСТ"))>0){
+
 
                         distingRow.add((String) entry1.getKey());
-                    }
+
 
                 }
 
