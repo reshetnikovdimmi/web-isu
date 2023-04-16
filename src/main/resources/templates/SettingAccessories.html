@@ -68,7 +68,30 @@
         </header>
 
         <main class="px-3">
-            <h6 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'"/></h6>
+            <div class="row">
+                <div class="col">
+                    <label>остатки</label>
+                    <form th:action="@{/uploadAccessories}" method="post" enctype="multipart/form-data">
+                        <input type="file" th:name="Accessories"/>
+                        <input th:type="submit" value="Import"/>
+                    </form>
+
+                </div>
+                <div class="col">
+                    <label>продажи 1м</label>
+                    <form th:action="@{/uploadAccessoriesSale1}" method="post" enctype="multipart/form-data">
+                        <input type="file" th:name="AccessoriesSale1"/>
+                        <input th:type="submit" value="Import"/>
+                    </form>
+                </div>
+                <div class="col">
+                    <label>продажи 6м</label>
+                    <form th:action="@{/uploadAccessoriesSale6}" method="post" enctype="multipart/form-data">
+                        <input type="file" th:name="AccessoriesSale6"/>
+                        <input th:type="submit" value="Import"/>
+                    </form>
+                </div>
+            </div>
 
             <p class="lead">
             <form action="/add_group_accessories" name='myForm' method="post">

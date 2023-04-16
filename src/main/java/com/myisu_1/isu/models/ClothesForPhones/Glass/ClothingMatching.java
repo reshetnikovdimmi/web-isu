@@ -59,7 +59,7 @@ public class ClothingMatching extends Shop {
             clothes.setSaleClothes((int) row.getCell(2).getNumericCellValue());
             сlothesForPhonesRemanis.add(clothes);
         }
-        System.out.println(сlothesForPhonesRemanis.size());
+
         return сlothesForPhonesRemanis;
     }
 

@@ -38,11 +38,8 @@ public class ExselFileExporteDistributionButton {
             for (Map.Entry entry: exselDistributionButto.get(exselDistributionButto.keySet().stream().findFirst().get()).entrySet()) {
                 Map<String, Map<String, String>> ppp = (Map<String, Map<String, String>>) entry.getValue();
                 for (Map.Entry entry1: ppp.entrySet()) {
-                    Map<String, String> ppp1 = (Map<String, String>) entry1.getValue();
-
 
                         distingRow.add((String) entry1.getKey());
-
 
                 }
 
@@ -60,23 +57,30 @@ public class ExselFileExporteDistributionButton {
                 sheetStartPromo.autoSizeColumn(i);
 
             }
-
+           int cou = 0;
             for (int i = 0; i<distingRow.size();i++){
-
-                Row dataRow = sheetStartPromo.createRow(i+1);
+                Row dataRow = null;
+                
                // dataRow.createCell(0).setCellValue(distingRow.get(i));
 
                 for (int j=1;j<distingCell.size();j++){
                     for (Map.Entry entry: exselDistributionButto.get(distingCell.get(j)).entrySet()) {
                         Map<String, Map<String, String>> ppp = (Map<String, Map<String, String>>) entry.getValue();
-                        if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ОСТСК")!=null && j==1 && Integer.parseInt(ppp.get(distingRow.get(i)).get("ОСТСК")) > 0){
-
+                        if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ОСТСК")!=null && j==1 && Integer.parseInt(ppp.get(distingRow.get(i)).get("ЗАКАЗ")) > 0){
+                            cou++;
+                            dataRow = sheetStartPromo.createRow(cou+1);
                             dataRow.createCell(j-1).setCellValue(distingRow.get(i));
                             dataRow.createCell(j).setCellValue(ppp.get(distingRow.get(i)).get("ОСТСК"));
                         }
 
                         if(ppp.get(distingRow.get(i)) !=null && ppp.get(distingRow.get(i)).get("ЗАКАЗ")!=null &&  Integer.parseInt(ppp.get(distingRow.get(i)).get("ЗАКАЗ")) > 0){
                           //  System.out.println(distingRow.get(i) +"--"+ ppp.get(distingRow.get(i)).get("ЗАКАЗ")+"--"+distingCell.get(j)+"--"+j);
+                           if (dataRow==null){
+                               cou++;
+                               dataRow = sheetStartPromo.createRow(cou+1);
+                               dataRow.createCell(0).setCellValue(distingRow.get(i));
+                           }
+
                             dataRow.createCell(j).setCellValue(ppp.get(distingRow.get(i)).get("ЗАКАЗ"));
                         }
 
