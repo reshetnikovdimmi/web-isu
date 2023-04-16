@@ -1,11 +1,11 @@
 package com.myisu_1.isu.models.accessories;
 
+import com.myisu_1.isu.models.retail_price;
 import lombok.ToString;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 @ToString
 @Entity
@@ -16,6 +16,14 @@ public class RangeAccessories implements Serializable {
     private String accessoriesName;
     private String accessoriesCategory;
     boolean tele2;
+    @OneToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "accessoriesName",
+            referencedColumnName = "name",
+            insertable = false, updatable = false,
+            foreignKey = @javax.persistence
+                    .ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    public retail_price prices;
 
     public RangeAccessories() {
     }

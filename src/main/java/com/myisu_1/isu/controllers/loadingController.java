@@ -488,6 +488,7 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
 
             price.setName(row.getCell(0).getStringCellValue());
             price.setPrice(String.valueOf(row.getCell(3).getNumericCellValue()));
+            price.setPriceInt((int) row.getCell(3).getNumericCellValue());
             System.out.println(String.valueOf(row.getCell(3).getNumericCellValue()));
             retail_prices.add(price);
 

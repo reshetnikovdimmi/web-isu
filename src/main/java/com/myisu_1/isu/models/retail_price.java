@@ -12,7 +12,21 @@ public class retail_price implements Serializable {
     int id;
     String name;
     String price;
+    int priceInt;
 
+    public retail_price(String name, String price, int priceInt) {
+        this.name = name;
+        this.price = price;
+        this.priceInt = priceInt;
+    }
+
+    public int getPriceInt() {
+        return priceInt;
+    }
+
+    public void setPriceInt(int priceInt) {
+        this.priceInt = priceInt;
+    }
 
     public retail_price() {
     }
