@@ -15,6 +15,6 @@ public interface RangeAccessoriesRepositoriy extends CrudRepository<RangeAccesso
     List<String> getAccessoriesNamePrice(String s, String i);
 
     @Query("SELECT p.accessoriesName  FROM RangeAccessories p " +
-            "LEFT JOIN p.prices r  WHERE p.accessoriesCategory = ?1 AND r.priceInt = ?2")
-    List<String> getButtonPhonePrice(String s, int s1);
+            "LEFT JOIN p.prices r  WHERE p.accessoriesCategory = ?1 AND r.priceInt > ?2 AND r.priceInt <= ?3 ")
+    List<String> getButtonPhonePrice(String s, int s1, int priceMax);
 }
