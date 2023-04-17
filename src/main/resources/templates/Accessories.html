@@ -103,7 +103,7 @@
                     <div class="row">
 
 
-                        <div class="table_Requirement">
+                        <div class="AccessoriesCategoryShop" th:fragment="AccessoriesCategoryShop">
                             <table class="table-borderless">
                                 <thead>
                                 <tr>
@@ -115,7 +115,7 @@
                                 </tr>
                                 </thead>
                                 <tbody class="tbody">
-                                <tr th:each="entry, stats  : ${Requirement}" th:with="user=${entry.value}">
+                                <tr th:each="entry, stats  : ${AccessoriesCategoryShop}" th:with="user=${entry.value}">
                                     <td>
                                         <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
                                                 type="submit"></button>
