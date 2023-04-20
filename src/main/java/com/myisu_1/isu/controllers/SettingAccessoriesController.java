@@ -1,6 +1,5 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatching;
 import com.myisu_1.isu.models.accessories.RangeAccessories;
 import com.myisu_1.isu.models.accessories.SettingAccessories;
 import com.myisu_1.isu.repo.RangeAccessoriesRepositoriy;
@@ -48,8 +47,13 @@ public class SettingAccessoriesController {
     public String add_group_accessories(@RequestParam int ID, @RequestParam String group, @RequestParam int PriceMin, @RequestParam int PriceMax, Model model) {
 
         if (ID != 0) {
+
+
+           rangeAccessoriesRepositoriy.updateRangeAccessories(group, settingAccessoriesRepositoriy.findById(ID).get().getGroup());
+
             settingAccessoriesRepositoriy.save((new SettingAccessories(ID, group, PriceMin, PriceMax)));
         } else {
+
             settingAccessoriesRepositoriy.save((new SettingAccessories(group, PriceMin, PriceMax)));
         }
 
@@ -79,6 +83,7 @@ public class SettingAccessoriesController {
         if (id == 0) {
             rangeAccessoriesRepositoriy.save(new RangeAccessories(accessoriesName, accessoriesCategory, tele2));
         } else {
+
             rangeAccessoriesRepositoriy.save(new RangeAccessories(id,accessoriesName, accessoriesCategory, tele2));
         }
 
@@ -119,4 +124,5 @@ public class SettingAccessoriesController {
         model.addAttribute("Accessories", settingAccessoriesRepositoriy.findAll());
         return "SettingAccessories";
     }
+
 }

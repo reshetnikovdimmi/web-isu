@@ -1,15 +1,16 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.models.accessories.SettingAccessories;
 import com.myisu_1.isu.repo.SettingAccessoriesRepositoriy;
 import com.myisu_1.isu.service.AccessoriesServise;
 import com.myisu_1.isu.service.PhoneServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class AccessoriesController {
@@ -30,5 +31,12 @@ public class AccessoriesController {
 
         model.addAttribute("AccessoriesCategoryShop", accessoriesServise.accessoriesCategoryShop(Grup));
         return "Accessories::AccessoriesCategoryShop";
+    }
+    @ResponseBody
+    @RequestMapping(value = "AccessoriesCategoryNomenclatureShop/{shop}", method = RequestMethod.GET)
+    public Map<String, Map<String, Map<String, String>>> AccessoriesCategoryNomenclatureShop(@PathVariable("shop") String shop) {
+
+        return accessoriesServise.accessoriesCategoryNomenclatureShop(shop);
+
     }
 }

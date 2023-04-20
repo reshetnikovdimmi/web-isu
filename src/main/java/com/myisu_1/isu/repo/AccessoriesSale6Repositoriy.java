@@ -11,4 +11,8 @@ public interface AccessoriesSale6Repositoriy extends JpaRepository<AccessoriesSa
 
     @Query("SELECT SUM(saleAccessories) FROM AccessoriesSale6 WHERE nameAccessories IN :strings")
     String getAccessoriesSale6(List<String> strings);
+
+
+    @Query("SELECT SUM(saleAccessories) FROM AccessoriesSale6 WHERE nameShop = ?1 AND nameAccessories IN ?2")
+    String getAccessoriesSale6Shop(String name, List<String> nomeklature);
 }
