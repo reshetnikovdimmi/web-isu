@@ -1,12 +1,12 @@
 package com.myisu_1.isu.models.accessories;
 
+import com.myisu_1.isu.models.retail_price;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -19,4 +19,13 @@ public class RemanisAccessories implements Serializable {
     public String shop;
     public String nameAccessories;
     public int remainsAccessories;
+
+    @OneToOne
+    @NotFound(action = NotFoundAction.IGNORE)
+    @JoinColumn(name = "nameAccessories",
+            referencedColumnName = "name",
+            insertable = false, updatable = false,
+            foreignKey = @javax.persistence
+                    .ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    public retail_price prices;
 }

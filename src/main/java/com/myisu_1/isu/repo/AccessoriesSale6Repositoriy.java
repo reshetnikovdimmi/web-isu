@@ -15,4 +15,8 @@ public interface AccessoriesSale6Repositoriy extends JpaRepository<AccessoriesSa
 
     @Query("SELECT SUM(saleAccessories) FROM AccessoriesSale6 WHERE nameShop = ?1 AND nameAccessories IN ?2")
     String getAccessoriesSale6Shop(String name, List<String> nomeklature);
+
+    @Query("SELECT p.saleAccessories  FROM AccessoriesSale6 p " +
+            "LEFT JOIN p.prices r  WHERE p.nameAccessories = ?1 AND p.nameShop = ?2 AND r.priceInt > ?3 AND r.priceInt <= ?4 ")
+    String getSale6AccesShopPriceMinMax(String nameAccessories, String shop, int priceMin, int priceMax);
 }

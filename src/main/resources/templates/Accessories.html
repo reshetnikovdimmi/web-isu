@@ -167,10 +167,11 @@
                                     <tbody class="tbody">
                                     <tr th:each="entry, stats  : ${graduation}" th:with="user=${entry.value}">
                                         <td th:text="${entry.key}"></td>
-
-                                        <td th:text="${entry.value}"></td>
-
-
+                                        <span th:each="word : ${entry.value}">
+                                            <span th:if="${word.key == 'ОСТСК'}">
+                                        <td th:text="${word.value}"></td>
+                                        </span>
+</span>
                                     </tr>
 
 

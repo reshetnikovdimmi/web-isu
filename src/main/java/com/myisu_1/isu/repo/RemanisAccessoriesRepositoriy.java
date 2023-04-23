@@ -15,4 +15,8 @@ public interface RemanisAccessoriesRepositoriy extends CrudRepository<RemanisAcc
 
     @Query("SELECT SUM(remainsAccessories) FROM RemanisAccessories WHERE shop = ?1 AND nameAccessories IN ?2")
     String getRemainsAccessoriesShop(String authorization, List<String> nomeklature);
+
+    @Query("SELECT p.remainsAccessories  FROM RemanisAccessories p " +
+            "LEFT JOIN p.prices r  WHERE p.nameAccessories = ?1 AND p.shop = ?2 AND r.priceInt > ?3 AND r.priceInt <= ?4 ")
+    String getNameAccesShopPriceMinMax(String nameAccessories, String shop, int priceMin, int priceMax);
 }

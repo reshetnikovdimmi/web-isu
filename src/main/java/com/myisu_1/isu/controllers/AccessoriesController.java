@@ -29,14 +29,27 @@ public class AccessoriesController {
 
     private String DelAccessoriesCategory(@PathVariable("Grup") String Grup, Model model) {
 
-        model.addAttribute("AccessoriesCategoryShop", accessoriesServise.accessoriesCategoryShop(Grup));
+        model.addAttribute("AccessoriesCategoryShop", accessoriesServise.accessoriesCategoryShop(Grup.trim()));
         return "Accessories::AccessoriesCategoryShop";
     }
     @ResponseBody
     @RequestMapping(value = "AccessoriesCategoryNomenclatureShop/{shop}", method = RequestMethod.GET)
     public Map<String, Map<String, Map<String, String>>> AccessoriesCategoryNomenclatureShop(@PathVariable("shop") String shop) {
 
-        return accessoriesServise.accessoriesCategoryNomenclatureShop(shop);
+        return accessoriesServise.accessoriesCategoryNomenclatureShop(shop.trim());
 
+    }
+    @RequestMapping(value = "/AccessoriesCategoryCash/{Grup}", method = RequestMethod.GET)
+
+    private String AccessoriesCategoryCash(@PathVariable("Grup") String Grup, Model model) {
+
+        model.addAttribute("graduation", accessoriesServise.accessoriesCategoryCash(Grup.trim()));
+        return "Accessories::RemanisCash";
+    }
+    @ResponseBody
+    @RequestMapping(value = "tableUpDistributionShop/{shop}/{models}/{quantity}/{brend}", method = RequestMethod.GET)
+    public Map<String, Map<String, Map<String, String>>> tableUpDistributionButton(@PathVariable("shop")  String shop, @PathVariable("models")  String models,@PathVariable("quantity")  String quantity,@PathVariable("brend")  String brend) {
+System.out.println(shop+"--"+models+"--"+quantity +"--"+ brend);
+        return accessoriesServise.tableUpDistributionShop(shop,models,quantity,brend);
     }
 }
