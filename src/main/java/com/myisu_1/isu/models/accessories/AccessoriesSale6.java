@@ -26,4 +26,6 @@ public class AccessoriesSale6 {
             foreignKey = @javax.persistence
                     .ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     public retail_price prices;
+
+
 }

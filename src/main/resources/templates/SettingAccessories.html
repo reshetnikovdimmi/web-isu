@@ -125,6 +125,14 @@
                             <input type="text" name="PriceMax" id="PriceMax" placeholder="Введите имя">
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="row">
+                            <label>Min Remanis</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="MinRemanis" id="MinRemanis" placeholder="Введите имя">
+                        </div>
+                    </div>
 
 
                     <div class="col">
@@ -149,6 +157,7 @@
                         <th>Category</th>
                         <th>Price from</th>
                         <th>Price up to</th>
+                        <th>Min Remanis</th>
                         <th>___________</th>
                         <th>___________</th>
                     </tr>
@@ -160,6 +169,7 @@
                         <td th:text="${current.group}"></td>
                         <td th:text="${current.priceMin}"></td>
                         <td th:text="${current.priceMax}"></td>
+                        <td th:text="${current.minRemanis}"></td>
 
                         <td><a th:href="@{/update_Accessories/{id}(id = ${current.id})}"
                                class="btn btn-outline-primary me-2">

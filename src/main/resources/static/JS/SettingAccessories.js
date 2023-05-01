@@ -12,6 +12,7 @@ $(document).ready(function(){
                             $('#group').val(SimSetup.group);
                             $('#PriceMin').val(SimSetup.priceMin);
                             $('#PriceMax').val(SimSetup.priceMax);
+                            $('#MinRemanis').val(SimSetup.minRemanis);
                             $('#ID').val(SimSetup.id);
 
                      });

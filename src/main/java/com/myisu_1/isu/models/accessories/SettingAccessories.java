@@ -15,6 +15,30 @@ public class SettingAccessories implements Serializable {
     private String group;
     private int priceMin;
     private int priceMax;
+    private int minRemanis;
+
+    public SettingAccessories(String group, int priceMin, int priceMax, int minRemanis) {
+        this.group = group;
+        this.priceMin = priceMin;
+        this.priceMax = priceMax;
+        this.minRemanis = minRemanis;
+    }
+
+    public SettingAccessories(int id, String group, int priceMin, int priceMax, int minRemanis) {
+        this.id = id;
+        this.group = group;
+        this.priceMin = priceMin;
+        this.priceMax = priceMax;
+        this.minRemanis = minRemanis;
+    }
+
+    public int getMinRemanis() {
+        return minRemanis;
+    }
+
+    public void setMinRemanis(int minRemanis) {
+        this.minRemanis = minRemanis;
+    }
 
     public SettingAccessories() {
     }

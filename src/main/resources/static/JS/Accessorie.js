@@ -6,10 +6,27 @@ $(document).ready(function() {
             $(".AccessoriesCategoryShop").html(data);
             updateAccessoriesCategoryShop();
             accessoriesCategoryCash(grop);
+            accessoriesCategoryMaxSale(grop);
         });
 
     });
 });
+function accessoriesCategoryShop(grop){
+
+ $.get('/AccessoriesCategoryShop/' + grop, {}, function(data) {
+            $(".AccessoriesCategoryShop").html(data);
+updateAccessoriesCategoryShop();
+        });
+
+}
+function accessoriesCategoryMaxSale(grop){
+$.get('/AccessoriesCategoryMaxSale/' + grop, {}, function(data) {
+
+            $(".AccessoriesCategoryMaxSale").html(data);
+            $("#grad").html(grop);
+        });
+}
+
 function accessoriesCategoryCash(grop){
  $.get('/AccessoriesCategoryCash/' + grop, {}, function(data) {
                     $(".RemanisCash").html(data);
@@ -24,6 +41,7 @@ function updateAccessoriesCategoryShop() {
         $.get('/AccessoriesCategoryNomenclatureShop/' + shop, {}, function(data) {
             orderFromMinMatrixT2Warehouse(data, shop);
             //  $(".AccessoriesCategoryShop").html(data);
+
         });
     });
 }
@@ -140,8 +158,16 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
     thead.appendChild(row_1);
     table.appendChild(thead);
     elem.appendChild(table);
+    var d;
     $(document).find('.minMatrix').on('click', function() {
-        $(this).parents().next('.hide_minMatrix').toggle();
+
+    if(d!=undefined){
+    d.parents().next('.hide_minMatrix').toggle();
+    }
+
+   d = $(this);
+        d.parents().next('.hide_minMatrix').toggle();
+
     });
     var tds = document.querySelectorAll('.minMatrix');
     for (var i = 0; i < tds.length; i++) {
@@ -152,7 +178,9 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
         }
          tds[i].addEventListener('click', function func() {
                     grop = this.innerHTML;
+                    accessoriesCategoryShop(grop);
                     accessoriesCategoryCash(grop);
+                    accessoriesCategoryMaxSale(grop);
                 });
     }
     //  table_DistributionButton(tds);
@@ -160,8 +188,9 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
         $('.btn-primary').attr('disabled', false);
 
         $.get('/tableUpDistributionShop/' + shop.trim() + '/' + $(this).parents('tr:first').find('td:eq(0)').text().trim() + '/' + this.value + '/' + grop.trim(), {}, function(data) {
-            accessoriesCategoryCash(grop);
+
             tableUpDistributionButton(data);
+            accessoriesCategoryCash(grop);
         });
     });
 }
@@ -178,7 +207,7 @@ console.log(data)
                             if (keyss == "ЗАКАЗ") {
                                 tds[i + 5].innerHTML = data[key][keys][keyss];
                             }
-                            if (keyss == "ОСТАТОК") {
+                            if (keyss == "ОСТСК") {
                                 tds[i + 4].innerHTML = data[key][keys][keyss];
                             }
                         }

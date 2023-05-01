@@ -94,8 +94,8 @@
                             <select id="accessoriesCategory" name="accessoriesCategory">
                                 <option value="">----</option>
                                 <option th:each="phone : ${AddAccessories}"
-                                        th:value="${phone.group}"
-                                        th:text="${phone.group}">
+                                        th:value="${phone}"
+                                        th:text="${phone}">
                                 </option>
                             </select>
 

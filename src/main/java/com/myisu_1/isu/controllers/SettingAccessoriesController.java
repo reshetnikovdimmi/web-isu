@@ -37,24 +37,23 @@ public class SettingAccessoriesController {
     @GetMapping("/AddAccessories")
     public String AddAccessories(Model model) {
 
-        model.addAttribute("AddAccessories", settingAccessoriesRepositoriy.findAll());
+       model.addAttribute("AddAccessories", rangeAccessoriesRepositoriy.getAccessoriesCategoryDist());
         model.addAttribute("AccessoriesCategory", rangeAccessoriesRepositoriy.findAll());
 
         return "AddAccessories";
     }
 
     @PostMapping("/add_group_accessories")
-    public String add_group_accessories(@RequestParam int ID, @RequestParam String group, @RequestParam int PriceMin, @RequestParam int PriceMax, Model model) {
+    public String add_group_accessories(@RequestParam int ID, @RequestParam String group, @RequestParam int PriceMin, @RequestParam int PriceMax, @RequestParam int MinRemanis, Model model) {
 
         if (ID != 0) {
 
-
            rangeAccessoriesRepositoriy.updateRangeAccessories(group, settingAccessoriesRepositoriy.findById(ID).get().getGroup());
 
-            settingAccessoriesRepositoriy.save((new SettingAccessories(ID, group, PriceMin, PriceMax)));
+            settingAccessoriesRepositoriy.save((new SettingAccessories(ID, group, PriceMin, PriceMax,MinRemanis)));
         } else {
 
-            settingAccessoriesRepositoriy.save((new SettingAccessories(group, PriceMin, PriceMax)));
+            settingAccessoriesRepositoriy.save((new SettingAccessories(group, PriceMin, PriceMax,MinRemanis)));
         }
 
         model.addAttribute("Accessories", settingAccessoriesRepositoriy.findAll());
