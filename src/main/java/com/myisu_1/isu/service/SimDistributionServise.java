@@ -33,7 +33,7 @@ public class SimDistributionServise {
         shopsSimRTK = new HashMap<>();
         shopSimRTK = new HashMap<>();
 
-       // for (authorization_tt authorization:authorization_ttRepositoriy.findAll()) {
+
             for (SimAndRtkTable simAndRtkTable : rtkTableRepositoriy.findAll()) {
                 shopssSimRTK = new TreeMap<>();
                 shopssSimRTK.put("view",simAndRtkTable.getView());
@@ -46,8 +46,7 @@ public class SimDistributionServise {
                 shopssSimRTK.put("sale1",saleSimModemRepository1m.getSale1Sim(simAndRtkTable.getNameRainbow()));
                 shopsSimRTK.put(simAndRtkTable.getNameRainbow(),shopssSimRTK);
             }
-           // shopSimRTK.put(authorization.getName(),shopsSimRTK);
-       // }
+
         return shopsSimRTK;
     }
 }
