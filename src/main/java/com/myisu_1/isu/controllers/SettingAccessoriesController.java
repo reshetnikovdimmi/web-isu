@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -37,7 +38,7 @@ public class SettingAccessoriesController {
     @GetMapping("/AddAccessories")
     public String AddAccessories(Model model) {
 
-       model.addAttribute("AddAccessories", rangeAccessoriesRepositoriy.getAccessoriesCategoryDist());
+       model.addAttribute("AddAccessories", settingAccessoriesRepositoriy.getDistAccessoriesCategory().stream().distinct().collect(Collectors.toList()));
         model.addAttribute("AccessoriesCategory", rangeAccessoriesRepositoriy.findAll());
 
         return "AddAccessories";
@@ -80,10 +81,10 @@ public class SettingAccessoriesController {
 
     private String addAccessoriesCategory(@PathVariable("id") int id, @PathVariable("accessoriesName") String accessoriesName, @PathVariable("accessoriesCategory") String accessoriesCategory, @PathVariable("tele2") boolean tele2, Model model) {
         if (id == 0) {
-            rangeAccessoriesRepositoriy.save(new RangeAccessories(accessoriesName, accessoriesCategory, tele2));
+            rangeAccessoriesRepositoriy.save(new RangeAccessories(accessoriesName.replaceAll("_","/"), accessoriesCategory, tele2));
         } else {
 
-            rangeAccessoriesRepositoriy.save(new RangeAccessories(id,accessoriesName, accessoriesCategory, tele2));
+            rangeAccessoriesRepositoriy.save(new RangeAccessories(id,accessoriesName.replaceAll("_","/"), accessoriesCategory, tele2));
         }
 
 

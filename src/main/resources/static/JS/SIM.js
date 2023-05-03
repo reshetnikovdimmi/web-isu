@@ -457,10 +457,12 @@ $(document).ready(function() {
                                 id: $(this).parent().index(), shop: tab
                             }
 
+
                             $('#table_t3m td').off('click');
-                            sendRequest('POST', requestURL, body)
-                                .then(data => console.log(data))
-                                .catch(err => console.log(err))
+                             $.get('/AddSimPlan/' + tab + '/' + shops[1].shop + '/' + $(this).parents('tr:first').find('td:eq(0)').text(), {}, function(data) {
+
+
+                                    });
                         });
                     });
                     this.removeEventListener('click', func)

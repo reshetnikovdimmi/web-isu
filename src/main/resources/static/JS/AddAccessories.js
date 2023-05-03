@@ -7,7 +7,7 @@ $(document).ready(function() {
         } else {
             tele2 = false;
         }
-        $.get('/AddAccessoriesCategory/' + id + '/' + $('#accessoriesName').val() + '/' + $('#accessoriesCategory').val() + "/" + tele2, {}, function(data) {
+        $.get('/AddAccessoriesCategory/' + id + '/' + $('#accessoriesName').val().replaceAll('/', '_') + '/' + $('#accessoriesCategory').val() + "/" + tele2, {}, function(data) {
             $(".AccessoriesCategory").html(data);
             delet();
             update();

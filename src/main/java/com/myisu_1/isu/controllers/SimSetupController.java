@@ -25,7 +25,7 @@ public class SimSetupController {
     @Autowired
     private SimAndRtkTableRepositoriy simAndRtkTableRepositoriy;
     @Autowired
-    private SaleSimModemRepository saleSimModemRepository_6m;
+    private SaleSimModemRepository_6m saleSimModemRepository_6m;
     @Autowired
     private SaleSimModemRepository_1m saleSimModemRepository_1m;
     @Autowired

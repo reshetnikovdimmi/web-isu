@@ -13,6 +13,7 @@ public interface SettingAccessoriesRepositoriy extends JpaRepository<SettingAcce
     @Query("SELECT minRemanis  FROM SettingAccessories WHERE group = ?1 AND priceMin = ?2 AND priceMax = ?3")
     Integer getMinRemanis(String group, Integer priceMin, Integer priceMax);
 
-
+    @Query("SELECT group FROM SettingAccessories")
+    List<String> getDistAccessoriesCategory();
 }
 

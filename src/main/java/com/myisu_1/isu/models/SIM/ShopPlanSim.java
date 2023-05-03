@@ -10,13 +10,19 @@ public class ShopPlanSim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String shop;
-    private String nameSimAndModem;
+    private String nameSimModem;
     private int plan;
 
     public ShopPlanSim(int id, String shop, String nameSimAndModem, int plan) {
         this.id = id;
         this.shop = shop;
-        this.nameSimAndModem = nameSimAndModem;
+        this.nameSimModem = nameSimAndModem;
+        this.plan = plan;
+    }
+
+    public ShopPlanSim(String shop, String nameSimModem, int plan) {
+        this.shop = shop;
+        this.nameSimModem = nameSimModem;
         this.plan = plan;
     }
 
@@ -39,12 +45,12 @@ public class ShopPlanSim {
         this.shop = shop;
     }
 
-    public String getNameSimAndModem() {
-        return nameSimAndModem;
+    public String getNameSimModem() {
+        return nameSimModem;
     }
 
-    public void setNameSimAndModem(String nameSimAndModem) {
-        this.nameSimAndModem = nameSimAndModem;
+    public void setNameSimModem(String nameSimModem) {
+        this.nameSimModem = nameSimModem;
     }
 
     public int getPlan() {

@@ -14,8 +14,15 @@ public abstract class SimList {
     List<authorization_tt> authorization_ttList;
     List<SimAndRtkTable> simAndRtkTables;
     List<MatrixRTK> matrixRTKList;
+    List<ShopPlanSim> shopPlanSimsList;
 
+    public List<ShopPlanSim> getShopPlanSimsList() {
+        return shopPlanSimsList;
+    }
 
+    public void setShopPlanSimsList(List<ShopPlanSim> shopPlanSimsList) {
+        this.shopPlanSimsList = shopPlanSimsList;
+    }
 
     public abstract Iterable<SimSvod> parse(String shop, String t2);
     public abstract void parse2();

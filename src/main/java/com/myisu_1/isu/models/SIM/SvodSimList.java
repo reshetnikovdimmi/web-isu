@@ -44,7 +44,7 @@ public class SvodSimList extends SimList {
                 String sale_6 = sale_6(shopIskra, shopRaduga, simIskra, simRaduga);
                 String sale_1 = Sele(shopIskra, shopRaduga, simIskra, simRaduga);
 
-                int plan = plan(sale_6);
+                int plan = plan(sale_6, authorization_ttList.get(i).getName().trim(),simAndRtkTables.get(j).getNameRainbow().trim());
 
                 simSvodList.add(new SimSvod(k,
                         idDlan(),
@@ -222,10 +222,20 @@ public class SvodSimList extends SimList {
         return Integer.parseInt(sale_1) * 100 / plan + " " + "%";
     }
 
-    public int plan(String sale_6) {
+    public int plan(String sale_6, String shopRaduga, String simRaduga) {
+        int plans = 0;
+        for (ShopPlanSim shopPlanSim : shopPlanSimsList){
+            if (shopPlanSim.getNameSimModem().equals(simRaduga)&&shopPlanSim.getShop().equals(shopRaduga)){
+                plans = shopPlanSim.getPlan();
+            }
+           
+        }
         int plan = Integer.parseInt(sale_6) * 110 / 100;
         if (plan < 2) {
             plan = 2;
+        }
+        if (plan < plans) {
+            plan = plans;
         }
         return plan;
     }

@@ -28,7 +28,7 @@ public class PhoneServise {
     @Autowired
     private RemanisSimRepository remanisSimRepository;
     @Autowired
-    private SaleSimModemRepository saleSimModemRepository;
+    private SaleSimModemRepository_6m saleSimModemRepository6m;
     @Autowired
     private SaleSimModemRepository_1m saleSimModemRepository_1m;
     @Autowired
@@ -59,7 +59,7 @@ public class PhoneServise {
         phoneSmartList = phoneRepositoriy.findAll();
         remanisSimList = (List<RemanisSim>) remanisSimRepository.findAll();
         saleSim_1mList = (List<SaleSim_1m>) saleSimModemRepository_1m.findAll();
-        saleSim_6mList = (List<SaleSim_6m>) saleSimModemRepository.findAll();
+        saleSim_6mList = (List<SaleSim_6m>) saleSimModemRepository6m.findAll();
         matrixT2List = matrixT2Repository.findAll();
         matrixSparkList = matrixSparkRepository.findAll();
         distributionPhoneList = new ArrayList<>();
