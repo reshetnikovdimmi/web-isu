@@ -1,5 +1,6 @@
 package com.myisu_1.isu.controllers;
 
+
 import com.myisu_1.isu.models.SIM.*;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.*;
@@ -48,7 +49,7 @@ public class SimDistributionController {
 
     @ResponseBody
     @RequestMapping(value = "updateShopsSimDistribution/{Shop}/{t2}", method = RequestMethod.GET)
-    public Iterable<SimSvod> update(@PathVariable("Shop") String shop,@PathVariable("t2") String t2) {
+    public Iterable<SimSvod> update(@PathVariable("Shop") String shop, @PathVariable("t2") String t2) {
 
               return simList.parse(shop,t2);
 
@@ -75,12 +76,12 @@ public class SimDistributionController {
 
     }
     //=======SimDistributionNew.html
-    @GetMapping("/SimDistributionNew")
+    @GetMapping("/SimDistributionsNew")
     public String SimDistributionNew (Model model) {
 
-       // model.addAttribute("Accessories", simDistributionServise.needSim());
+        model.addAttribute("Accessories", simDistributionServise.needSim());
 
-        return "SimDistributionNew";
+        return "SimDistributionsNew";
 
     }
 }
