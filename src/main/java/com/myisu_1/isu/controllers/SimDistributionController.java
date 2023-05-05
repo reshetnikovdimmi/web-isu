@@ -78,7 +78,7 @@ public class SimDistributionController {
     @GetMapping("/SimDistributionNew")
     public String SimDistributionNew (Model model) {
 
-        model.addAttribute("Accessories", simDistributionServise.needSim());
+       // model.addAttribute("Accessories", simDistributionServise.needSim());
 
         return "SimDistributionNew";
 
