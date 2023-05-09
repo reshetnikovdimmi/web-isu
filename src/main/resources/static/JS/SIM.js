@@ -83,7 +83,6 @@ $(document).ready(function() {
                                 id: $(this).parent().index(),
                                 shop: tab
                             }
-
                             $('#table_RTK3 td').off('click');
                             sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
                         });
@@ -98,7 +97,6 @@ $(document).ready(function() {
         var href = $(this).attr("href");
         $.get(href, function(SIM, status) {
             var sim = SIM;
-
             var shop = SIM[0].shop;
             document.querySelector('#Shopmf').innerHTML = shop;
             var elem = document.querySelector('#table_mf2');
@@ -176,7 +174,6 @@ $(document).ready(function() {
                                 id: $(this).parent().index(),
                                 shop: tab
                             }
-
                             $('#table_mf3 td').off('click');
                             sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
                         });
@@ -269,7 +266,6 @@ $(document).ready(function() {
                                 id: $(this).parent().index(),
                                 shop: tab
                             }
-
                             $('#table_mts3 td').off('click');
                             sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
                         });
@@ -343,7 +339,7 @@ $(document).ready(function() {
             }
             table.appendChild(tbody);
             parent.appendChild(table);
-            var tds = document.querySelectorAll('table.table-borderless-1 td');
+            var tds = document.querySelectorAll('#table_t2 td');
             for (var i = 4; i < tds.length; i += 6) {
                 tds[i].addEventListener('click', function func() {
                     var input = document.createElement('input');
@@ -362,11 +358,9 @@ $(document).ready(function() {
                                 id: $(this).parent().index(),
                                 shop: tab
                             }
-                            console.log($(this).parent().index());
                             $('#table_t3 td').off('click');
-                            sendRequest('POST', requestURL, body)
-                            .then(data => console.log(data))
-                            .catch(err => console.log(err))
+                            alert($(this).parents('tr:first').find('td:eq(0)').text())
+                            $.get('/AddSimPlan/' + tab + '/' + shops[1].shop + '/' + $(this).parents('tr:first').find('td:eq(0)').text().replaceAll('/', '_'), {}, function(data) {});
                         });
                     });
                     this.removeEventListener('click', func)
@@ -437,8 +431,7 @@ $(document).ready(function() {
             }
             table.appendChild(tbody);
             parent.appendChild(table);
-            var tds = document.querySelectorAll('table.table-borderless-1 td');
-
+            var tds = document.querySelectorAll('#table_t2m td');
             for (var i = 4; i < tds.length; i += 6) {
                 tds[i].addEventListener('click', function func() {
                     var input = document.createElement('input');
@@ -454,15 +447,11 @@ $(document).ready(function() {
                     input.addEventListener('change', function() {
                         $('#table_t3m td').on('click', function() {
                             const body = {
-                                id: $(this).parent().index(), shop: tab
+                                id: $(this).parent().index(),
+                                shop: tab
                             }
-
-
                             $('#table_t3m td').off('click');
-                             $.get('/AddSimPlan/' + tab + '/' + shops[1].shop + '/' + $(this).parents('tr:first').find('td:eq(0)').text(), {}, function(data) {
-
-
-                                    });
+                            $.get('/AddSimPlan/' + tab + '/' + shops[1].shop + '/' + $(this).parents('tr:first').find('td:eq(0)').text(), {}, function(data) {});
                         });
                     });
                     this.removeEventListener('click', func)

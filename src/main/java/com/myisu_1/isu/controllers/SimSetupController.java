@@ -181,17 +181,15 @@ public class SimSetupController {
         XSSFWorkbook workbook = new XSSFWorkbook(remainsSimRarus.getInputStream());
         XSSFSheet worksheet = workbook.getSheetAt(0);
         remanisSimRarusrepository.deleteAll();
-        for (int i = 5; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
+        for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             RemanisSimRarus remanisSimRarus = new RemanisSimRarus();
             XSSFRow row = worksheet.getRow(i);
             remanisSimRarus.setShop(row.getCell(0).getStringCellValue());
 
-            remanisSimRarus.setNameSimAndModem(row.getCell(4).getStringCellValue());
-            if (row.getCell(5).getCellType() == CellType.NUMERIC) {
-                remanisSimRarus.setRemainsSimModem((int) row.getCell(5).getNumericCellValue());
-            } else if (row.getCell(5) == null || row.getCell(5).getCellType() == CellType.BLANK) {
-                remanisSimRarus.setRemainsSimModem(Integer.parseInt(row.getCell(5).getStringCellValue()));
-            }
+            remanisSimRarus.setNameSimAndModem(row.getCell(1).getStringCellValue());
+
+            remanisSimRarus.setRemainsSimModem((int) row.getCell(2).getNumericCellValue());
+
             RemanisSimRarusList.add(remanisSimRarus);
         }
         remanisSimRarusrepository.saveAll(RemanisSimRarusList);

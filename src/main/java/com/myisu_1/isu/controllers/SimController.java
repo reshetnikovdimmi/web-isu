@@ -86,14 +86,16 @@ public class SimController {
     @ResponseBody
     @RequestMapping(value = "AddSimPlan/{plan}/{shops}/{nameSim}", method = RequestMethod.GET)
     public String AddSimPlan(@PathVariable("plan") Integer plan, @PathVariable("shops") String shops, @PathVariable("nameSim") String nameSim) {
+        System.out.println(nameSim);
         if (shopPlanSimRepository.existsByShopAndNameSimModem(shops, nameSim)) {
-            shopPlanSimRepository.updatePlanSim(plan, shops, nameSim);
+            shopPlanSimRepository.updatePlanSim(plan, shops, nameSim.replaceAll("_","/"));
         } else {
-            shopPlanSimRepository.save(new ShopPlanSim(shops, nameSim, plan));
+            shopPlanSimRepository.save(new ShopPlanSim(shops, nameSim.replaceAll("_","/"), plan));
         }
 
 
         return "SIM";
 
     }
+
 }

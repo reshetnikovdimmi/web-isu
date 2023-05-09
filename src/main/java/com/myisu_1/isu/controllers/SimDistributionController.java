@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SimDistributionController {
@@ -82,6 +83,29 @@ public class SimDistributionController {
         model.addAttribute("Accessories", simDistributionServise.needSim());
 
         return "SimDistributionsNew";
+
+    }
+    @RequestMapping(value = "/NameSimShop/{nameSim}/{view}", method = RequestMethod.GET)
+
+    private String accessoriesCategoryMaxSale(@PathVariable("nameSim") String nameSim,@PathVariable("view") String view, Model model) {
+
+        model.addAttribute("NameSimShop", simDistributionServise.nameSimShop(nameSim.replaceAll("_","/"),view));
+        return "SimDistributionsNew::NameSimShop";
+
+    }
+    @RequestMapping(value = "/RemanSimCash/{nameSim}", method = RequestMethod.GET)
+
+    private String remanSimCash(@PathVariable("nameSim") String nameSim, Model model) {
+
+        model.addAttribute("RemanSimCash", simDistributionServise.remanSimCash(nameSim.replaceAll("_","/")));
+        return "SimDistributionsNew::RemanSimCash";
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "RemanSaleSimShop/{shop}", method = RequestMethod.GET)
+    public Map<String,Map<String, Map<String, String>>> remanSaleSimShop(@PathVariable("shop") String shop) {
+
+        return simDistributionServise.remanSaleSimShop(shop);
 
     }
 }

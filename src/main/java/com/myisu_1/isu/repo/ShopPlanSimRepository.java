@@ -2,10 +2,13 @@ package com.myisu_1.isu.repo;
 
 import com.myisu_1.isu.models.SIM.ShopPlanSim;
 import com.myisu_1.isu.models.Sales;
+import com.myisu_1.isu.models.authorization_tt;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface ShopPlanSimRepository extends CrudRepository<ShopPlanSim, Integer> {
     @Transactional
@@ -17,4 +20,7 @@ public interface ShopPlanSimRepository extends CrudRepository<ShopPlanSim, Integ
 
     boolean existsByShopAndNameSimModem(String s, String s1);
 
+
+    @Query("SELECT SUM(plan)  FROM ShopPlanSim WHERE shop IN ?1 AND nameSimModem = ?2")
+    Integer getPlanShopSim(List<String> authorization, String nameRainbow);
 }
