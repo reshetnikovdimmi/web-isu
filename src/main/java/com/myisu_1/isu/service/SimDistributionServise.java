@@ -113,7 +113,7 @@ public class SimDistributionServise {
     }
 
     public Map<String,Map<String,String>> nameSimShop(String nameSim, String view) {
-
+System.out.println(view+"--"+nameSim);
         Map<String,Map<String,String>> ddd = new TreeMap<>();
 
 
@@ -125,12 +125,16 @@ public class SimDistributionServise {
                 if(sale6==null){
                     sale6 =0;
                 }
+
                 dddd.put("remanis", String.valueOf(remanisSimRepository.getRemanisSimShop(nameSim,shop.getName())));
                 dddd.put("sale1", String.valueOf(saleSimModemRepository1m.getSale1SimShop(nameSim,shop.getName())));
                 dddd.put("sale6",String.valueOf(sale6/6));
 
                 ddd.put(shop.getName(),dddd);
+            }else if (shop.getSimMts().equals(view)){
+
             }
+
 
         }
 
@@ -161,10 +165,13 @@ public class SimDistributionServise {
 
                 for (String nameRainbow : rtkTableRepositoriy.getNameRainbow(distrModel)) {
                     String remanisCash;
+                    String totalRemanisCash;
                     if (!remanSaleSimShop.containsKey(authorization.get(0).getName())) {
                         remanisCash = String.valueOf(remanisSimRepository.getRemanisSimShop(nameRainbow, authorization.get(0).getName()));
+                        totalRemanisCash = String.valueOf(remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(distrModel), authorization.get(0).getName()));
                     } else {
-                        remanisCash = remanSaleSimShop.get(authorization.get(0).getName()).get(distrModel).get(nameRainbow).get("remanis");
+                        remanisCash = remanSaleSimShop.get(authorization.get(0).getName()).get(distrModel).get(nameRainbow).get("remanisCash");
+                        totalRemanisCash = remanSaleSimShop.get(authorization.get(0).getName()).get(distrModel).get("total").get("totalRemanisCash");
                     }
 
                     Map<String, String> simIndicators = new TreeMap<>();
@@ -178,10 +185,11 @@ public class SimDistributionServise {
                     sim.put(nameRainbow, simIndicators);
 
                     simIndicators = new TreeMap<>();
+                    simIndicators.put("view", rtkTableRepositoriy.findByNameRainbow(nameRainbow).getView());
                     simIndicators.put("totalRemanis", String.valueOf(remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(distrModel), shop)));
                     simIndicators.put("totalSale1", String.valueOf(saleSimModemRepository1m.getSale1DistrModel(rtkTableRepositoriy.getNameRainbow(distrModel), shop)));
                     simIndicators.put("totalSale6", String.valueOf(saleSimModemRepository6m.getSale6DistrModel(rtkTableRepositoriy.getNameRainbow(distrModel), shop)));
-                    simIndicators.put("totalRemanisCash", String.valueOf(remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(distrModel), authorization.get(0).getName())));
+                    simIndicators.put("totalRemanisCash", totalRemanisCash);
                     simIndicators.put("orderCash", "0");
                     sim.put("total", simIndicators);
 
@@ -192,5 +200,41 @@ public class SimDistributionServise {
 
             return remanSaleSimShop.get(shop);
         }
+    }
+
+    public Object updateRemanisCash(String grop) {
+
+
+        return remanSaleSimShop(authorization.get(0).getName()).get(grop);
+    }
+
+    public Map<String, Map<String, Map<String, String>>> tableUpDistributionSim(String shop, String nameRainbow, String quantity, String brend) {
+        System.out.println(shop+"--"+nameRainbow+"--"+quantity+"--"+brend);
+
+        String orderResult = String.valueOf(Integer.parseInt(remanSaleSimShop.get(shop).get(brend).get("total").get("orderCash")) + Integer.parseInt(quantity));
+        remanSaleSimShop.get(shop).get(brend).get("total").replace("orderCash", orderResult);
+
+        String remCash = String.valueOf(Integer.parseInt(remanSaleSimShop.get(shop).get(brend).get("total").get("totalRemanisCash")) - Integer.parseInt(quantity));
+        remanSaleSimShop.get(shop).get(brend).get("total").replace("totalRemanisCash", remCash);
+
+        String sumRemCash = String.valueOf(Integer.parseInt(remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get("total").get("totalRemanisCash")) - Integer.parseInt(quantity));
+        remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get("total").replace("totalRemanisCash", sumRemCash);
+
+        String rem = String.valueOf(Integer.parseInt(remanSaleSimShop.get(shop).get(brend).get(nameRainbow).get("remanisCash")) - Integer.parseInt(quantity));
+
+        for (Map.Entry entry : remanSaleSimShop.entrySet()) {
+            remanSaleSimShop.get(entry.getKey()).get(brend).get(nameRainbow).replace("remanisCash", rem);
+            remanSaleSimShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash", remCash);
+        }
+
+        remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get(nameRainbow).replace("remanisCash", rem);
+        remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get("total").replace("totalRemanisCash", remCash);
+        remanSaleSimShop.get(shop).get(brend).get(nameRainbow).replace("order", quantity);
+
+        return remanSaleSimShop.get(shop);
+    }
+
+    public Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionSim() {
+        return remanSaleSimShop;
     }
 }

@@ -52,7 +52,7 @@ function orderFromMinMatrixT2Warehouse(data, shop) {
     elem1.parentNode.removeChild(elem1);
     var table = document.createElement(`table`);
     table.id = 'tables_DistributionButton';
-    table.classList.add("table-borderless");
+    table.classList.add("table-borderless-1");
     table.classList.add("tables_DistributionButton");
     let thead = document.createElement('thead');
     let row_1 = document.createElement('tr');
