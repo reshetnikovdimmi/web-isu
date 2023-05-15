@@ -415,7 +415,7 @@ function orderFromSimT2m(data, shop) {
             gropT2m = this.innerHTML;
 
             //    accessoriesCategoryShop(grop);
-              updateRemanisCash(gropT2m);
+              updateRemanisCashT2m(gropT2m);
             //  accessoriesCategoryMaxSale(grop);
         });
     }
