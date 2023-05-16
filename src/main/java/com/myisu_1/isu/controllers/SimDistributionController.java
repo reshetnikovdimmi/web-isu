@@ -99,6 +99,14 @@ public class SimDistributionController {
         return "SimDistributionsNew::NameSimShop";
 
     }
+    @RequestMapping(value = "/NameSimShopMTS/{nameSim}/{view}", method = RequestMethod.GET)
+
+    private String nameSimShopMTS(@PathVariable("nameSim") String nameSim,@PathVariable("view") String view, Model model) {
+
+        model.addAttribute("NameSimShopMTS", simDistributionServise.nameSimShop(nameSim.replaceAll("_","/"),view));
+        return "SimDistributionsNew::NameSimShopMTS";
+
+    }
     @RequestMapping(value = "/NameSimShopT2mult/{nameSim}/{view}", method = RequestMethod.GET)
 
     private String nameSimShopT2mult(@PathVariable("nameSim") String nameSim,@PathVariable("view") String view, Model model) {
@@ -121,6 +129,14 @@ public class SimDistributionController {
 
         model.addAttribute("RemanSimCashT2mult", simDistributionServise.remanSimCash(nameSim.replaceAll("_","/")));
         return "SimDistributionsNew::RemanSimCashT2mult";
+
+    }
+    @RequestMapping(value = "/RemanSimCashMTS/{nameSim}", method = RequestMethod.GET)
+
+    private String remanSimCashMTS(@PathVariable("nameSim") String nameSim, Model model) {
+
+        model.addAttribute("RemanSimCashMTS", simDistributionServise.remanSimCash(nameSim.replaceAll("_","/")));
+        return "SimDistributionsNew::RemanSimCashMTS";
 
     }
     @RequestMapping(value = "/UpdateRemanisCash/{grop}", method = RequestMethod.GET)

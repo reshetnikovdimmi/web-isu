@@ -481,7 +481,199 @@
 
             <div id="menu2" class="container-fluid tab-pane fade"><br>
                 <div class="row">
-                    <h3>menu2</h3>
+                    <div class="col">
+                        <div class="row">
+                            <div class="table_simMTS">
+                                <table class="table-borderless">
+                                    <thead>
+                                    <tr>
+                                        <th>МОДЕЛЬ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+                                        <th>ПОТРЕБНОСТЬ</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr th:each="entry, stats  : ${Accessories}" th:with="user=${entry.value}">
+                                        <span th:each="word : ${entry.value}">
+
+                                              <span th:if="${word.value == 'mts'}">
+                                              <td>
+                                                  <button class="btn btn-primary btn-sm btn-block"
+                                                          th:text="${entry.key}"
+                                                          type="submit"></button>
+                                              </td>
+
+                                        <span th:each="word : ${entry.value}">
+                                            <span th:if="${word.value != 'mts'}">
+                                          <td th:text="${word.value}"></td>
+                                            </span>
+                                        </span>
+                                          </span>
+                                        </span>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+
+
+                            <div class="NameSimShopMTS" th:fragment="NameSimShopMTS">
+                                <table class="table-borderless">
+                                    <thead>
+                                    <tr>
+                                        <th>ТТ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+                                        <th>ПОТРЕБНОСТЬ</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr th:each="entry, stats  : ${NameSimShopMTS}"
+                                        th:with="user=${entry.value}">
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
+                                                    type="submit"></button>
+                                        </td>
+
+                                        <span th:each="word : ${entry.value}">
+                                          <td th:text="${word.value}"></td>
+                                          </span>
+
+
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 themed-grid-col">
+                        <div class="table" id="table_DistribSimMTS">
+                            <table class="table-responsive table-hover" id="tables_DistribSimMTS">
+                                <thead class="table-dark table-hover">
+
+                                </thead>
+                                <tbody>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <div class="row">
+
+                            <div class="RemanSimCashMTS" th:fragment="RemanSimCashMTS">
+                                <div class="row">
+                                    <div class="table_graduation">
+                                        <table class="table-borderless">
+                                            <thead>
+                                            <tr>
+                                                <th>МОДЕЛЬ</th>
+                                                <th>ОСТАТОК</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody class="tbody">
+                                            <tr th:each="entry, stats  : ${RemanSimCashMTS}"
+                                                th:with="user=${entry.value}">
+                                                  <span th:if="${entry.key != 'total'}">
+                                                  <td th:text="${entry.key}"></td>
+                                                  <span th:each="word : ${entry.value}">
+                                                  <span th:if="${word.key == 'remanisCash'}">
+                                              <td th:text="${word.value}"></td>
+                                              </span>
+                                                      </span>
+                                    </span>
+                                            </tr>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                      <span th:each="entry, stats  : ${RemanSimCashMTS}"
+                                            th:with="user=${entry.value}">
+                                          <span th:if="${entry.key == 'total'}">
+
+
+                                          <span th:each="word : ${entry.value}">
+                                                  <span th:if="${word.key == 'totalRemanisCash'}">
+                                                      <h8 class="mt-4"><p th:text="${entry.key} +'   '+ ${word.value}"/></h8>
+
+                                              </span>
+                                                 </span>
+                                      </span>
+                                      </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"><span class="fs-4"></span></div>
+                        <div class="row">
+                            <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
+
+                                <div class="table_graduation">
+                                    <table class="table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th name="grad" id="grad">МОДЕЛЬ</th>
+                                            <th>ПРОД 1М</th>
+                                            <th>ПРОД 6m</th>
+                                            <th>ТЕЛЕ2</th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                        <tr th:each="entry, stats  : ${AccessoriesCategoryMaxSale}"
+                                            th:with="user=${entry.value}">
+                                            <td th:text="${entry.key}">
+
+                                            </td>
+
+                                            <span th:each="word : ${entry.value}">
+                                                   <span th:if="${word.key == 'ПРОД 6/3М' }">
+                                                       <td th:text="${word.value}"></td>
+                                                   </span>
+                                                  <span th:if="${word.key == 'ПРОД 1М' }">
+                                                       <td th:text="${word.value}"></td>
+                                                   </span>
+                                                  <span th:if="${word.key == 'ТЕЛЕ2' }">
+                                                       <td th:text="${word.value}"></td>
+                                                   </span>
+
+
+                                              </span>
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    Будет что нибудь
+                    <div class="row mb-3 text-center">
+                        <a href="/exselDistributionSim" class="btn">EXSEL</a>
+                    </div>
                 </div>
             </div>
             <div id="menu3" class="container-fluid tab-pane fade"><br>

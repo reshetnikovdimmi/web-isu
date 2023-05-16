@@ -113,7 +113,7 @@ public class SimDistributionServise {
     }
 
     public Map<String,Map<String,String>> nameSimShop(String nameSim, String view) {
-System.out.println(view+"--"+nameSim);
+
         Map<String,Map<String,String>> ddd = new TreeMap<>();
 
 
@@ -132,7 +132,16 @@ System.out.println(view+"--"+nameSim);
 
                 ddd.put(shop.getName(),dddd);
             }else if (shop.getSimMts().equals(view)){
+                Integer sale6 = saleSimModemRepository6m.getSale6SimShop(nameSim,shop.getSimMts());
+                if(sale6==null){
+                    sale6 =0;
+                }
 
+                dddd.put("remanis", String.valueOf(remanisSimRepository.getRemanisSimShop(nameSim,shop.getName())));
+                dddd.put("sale1", String.valueOf(saleSimModemRepository1m.getSale1SimShop(nameSim,shop.getName())));
+                dddd.put("sale6",String.valueOf(sale6/6));
+
+                ddd.put(shop.getName(),dddd);
             }
 
 
