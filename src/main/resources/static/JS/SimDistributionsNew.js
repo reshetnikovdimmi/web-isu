@@ -105,6 +105,12 @@ $.get('/UpdateRemanisCash/' + grop, {}, function(data) {
             $(".RemanSimCash").html(data);
             });
 }
+function updateRemanisCashMTS(gropMTS){
+$.get('/UpdateRemanisCashMTS/' + gropMTS, {}, function(data) {
+
+            $(".RemanSimCashMTS").html(data);
+            });
+}
 function updateRemanisCashT2m(gropT2m){
 $.get('/UpdateRemanisCashT2mult/' + gropT2m, {}, function(data) {
 
@@ -543,7 +549,7 @@ function orderFromSimMTS(data, shop) {
     for (key in data) {
         if (viewMTS(key, data)) {
             let tbody1 = document.createElement('tbody');
-            table.id = 'tables_DistribSim';
+            table.id = 'tables_DistribSimMTS';
             var tr = document.createElement('tr');
             for (var j = 0; j < 6; j++) {
                 var td = document.createElement('td');
@@ -646,23 +652,23 @@ function orderFromSimMTS(data, shop) {
         tds[i].addEventListener('click', function func() {
             gropMTS = this.innerHTML;
 
-            //    accessoriesCategoryShop(grop);
-             // updateRemanisCashT2m(gropMTS);
-            //  accessoriesCategoryMaxSale(grop);
+              // accessoriesCategoryShop(grop);
+             updateRemanisCashMTS(gropMTS);
+            // accessoriesCategoryMaxSale(grop);
         });
     }
     $(document).find('.SKYPhone').on('click', function() {
     nameMTS = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
-    remanSimShopT2mult();
+    remanSimShopMTS();
     });
 
     $(document).find('.SKYPhone').on('change', function() {
         $('.btn-primary').attr('disabled', false);
 
-        $.get('/tableUpDistributionSim/' + shopT2m.trim() + '/' + nameSimT2m + '/' + this.value + '/' + gropT2m.trim(), {}, function(data) {
+        $.get('/tableUpDistributionSim/' + shopMTS.trim() + '/' + nameMTS + '/' + this.value + '/' + gropMTS.trim(), {}, function(data) {
 
-          // tableUpDistriSim(data);
-          // updateRemanisCashT2m(gropT2m);
+           tableUpDistriSimMTS(data);
+           updateRemanisCashMTS(gropMTS);
         });
     });
 }
@@ -677,4 +683,35 @@ function viewMTS(key, data) {
         }
     }
     return view;
+}
+function tableUpDistriSimMTS(data) {
+
+    var tds = document.querySelectorAll('table.tables_DistribSimMTS td');
+    for (var i = 0; i < tds.length; i++) {
+        for (key in data) {
+            if (tds[i].lastElementChild != null && key == tds[i].lastElementChild.innerHTML) {
+                for (keys in data[key]) {
+                    if (keys == "total") {
+                        for (keyss in data[key][keys]) {
+                            if (keyss == "orderCash") {
+                                tds[i + 5].innerHTML = data[key][keys][keyss];
+                            }
+                            if (keyss == "totalRemanisCash") {
+                                tds[i + 4].innerHTML = data[key][keys][keyss];
+                            }
+                        }
+                    }
+                }
+            }
+            for (keys in data[key]) {
+                if (keys == tds[i].innerHTML) {
+                    for (keyss in data[key][keys]) {
+                        if (keyss == "remanisCash" && tds[i + 4].innerHTML != data[key][keys][keyss]) {
+                            tds[i + 4].innerHTML = data[key][keys][keyss];
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

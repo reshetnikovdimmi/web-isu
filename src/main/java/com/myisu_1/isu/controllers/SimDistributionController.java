@@ -155,6 +155,14 @@ public class SimDistributionController {
         return "SimDistributionsNew::RemanSimCashT2mult";
 
     }
+    @RequestMapping(value = "/UpdateRemanisCashMTS/{grop}", method = RequestMethod.GET)
+
+    private String updateRemanisCashMTS(@PathVariable("grop") String grop, Model model) {
+
+        model.addAttribute("RemanSimCashMTS", simDistributionServise.updateRemanisCash(grop));
+        return "SimDistributionsNew::RemanSimCashMTS";
+
+    }
     @ResponseBody
     @RequestMapping(value = "RemanSaleSimShop/{shop}", method = RequestMethod.GET)
     public Map<String,Map<String, Map<String, String>>> remanSaleSimShop(@PathVariable("shop") String shop) {
