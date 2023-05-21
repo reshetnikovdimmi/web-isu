@@ -4,94 +4,12 @@ $(document).ready(function() {
     $(".nav-tabs a").click(function() {
         $(this).tab('show');
     });
-    $('.table_RTK .btn').on('click', function(event) {
-        event.preventDefault();
-        var href = $(this).attr("href");
-        $.get(href, function(SIM, status) {
-            var sim = SIM;
-            console.log(sim);
-            var shop = SIM[1].shop;
-            console.log(shop);
-            document.querySelector('#ShopRTK').innerHTML = shop;
-            var elem = document.querySelector('#table_RTK2');
-            var elem1 = document.querySelector('#table_RTK3');
-            elem1.parentNode.removeChild(elem1);
-            createTableRTK(elem, 6, sim.length, sim);
-        });
 
-        function createTableRTK(parent, cols, rows, shops) {
-            var table = document.createElement(`table`);
-            table.id = 'table_RTK3';
-            table.classList.add("table-borderless-1");
-            let thead = document.createElement('thead');
-            let row_1 = document.createElement('tr');
-            let heading_1 = document.createElement('th');
-            heading_1.innerHTML = "Модель распределения";
-            let heading_2 = document.createElement('th');
-            heading_2.innerHTML = "НОМЕНКЛАТУРА";
-            let heading_3 = document.createElement('th');
-            heading_3.innerHTML = "Остатки";
-            let heading_4 = document.createElement('th');
-            heading_4.innerHTML = "Достаточность";
-            let heading_6 = document.createElement('th');
-            heading_6.innerHTML = "Матрица";
-            row_1.appendChild(heading_1);
-            row_1.appendChild(heading_2);
-            row_1.appendChild(heading_3);
-            row_1.appendChild(heading_4);
-            row_1.appendChild(heading_6);
-            thead.appendChild(row_1);
-            table.appendChild(thead);
-            let tbody = document.createElement('tbody');
-            for (var i = 0; i < rows; i++) {
-                var tr = document.createElement('tr');
-                for (var j = 0; j < cols; j++) {
-                    var td = document.createElement('td');
-                    if (j == 0) {
-                        td.innerHTML = shops[i].distributionModel;
-                    } else if (j == 1) {
-                        td.innerHTML = shops[i].nomenclature;
-                    } else if (j == 2) {
-                        td.innerHTML = shops[i].remanis;
-                    } else if (j == 3) {
-                        td.innerHTML = shops[i].sufficiency;
-                    } else if (j == 4) {
-                        td.innerHTML = shops[i].matrixRTK;
-                    }
-                    tr.appendChild(td);
-                }
-                tbody.appendChild(tr);
-            }
-            table.appendChild(tbody);
-            parent.appendChild(table);
-            var tds = document.querySelectorAll('table.table-borderless-1 td');
-            for (var i = 4; i < tds.length; i += 6) {
-                tds[i].addEventListener('click', function func() {
-                    var input = document.createElement('input');
-                    input.value = this.innerHTML;
-                    this.innerHTML = '';
-                    this.appendChild(input);
-                    var td = this;
-                    input.addEventListener('blur', function() {
-                        td.innerHTML = this.value;
-                        tab = this.value;
-                        td.addEventListener('click', func);
-                    });
-                    input.addEventListener('change', function() {
-                        $('#table_mf3 td').on('click', function() {
-                            const body = {
-                                id: $(this).parent().index(),
-                                shop: tab
-                            }
-                            $('#table_RTK3 td').off('click');
-                            sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
-                        });
-                    });
-                    this.removeEventListener('click', func)
-                });
-            }
-        }
-    });
+
+
+
+
+
     $('.table_mf .btn').on('click', function(event) {
         event.preventDefault();
         var href = $(this).attr("href");

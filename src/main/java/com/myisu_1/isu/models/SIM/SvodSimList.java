@@ -1,9 +1,5 @@
 package com.myisu_1.isu.models.SIM;
 
-import com.myisu_1.isu.models.RTK.AndroidMatrixRTK;
-import com.myisu_1.isu.models.RTK.DistribModelRTK;
-import com.myisu_1.isu.models.RTK.MatrixRTK;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -271,57 +267,7 @@ public class SvodSimList extends SimList {
         return simSvodList;
     }
 
-    public List<MatrixRTK> MatrixRTK() {
 
-        List<MatrixRTK> matrixRTKArrayList = new ArrayList<>();
-
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-            for (int j = 0; j < matrixRTKList.size(); j++) {
-                if (authorization_ttList.get(i).getClusterRtk().equals(matrixRTKList.get(j).getCluster())) {
-                    String nameShop = authorization_ttList.get(i).getName();
-                    Cluster(matrixRTKList.get(j).getCluster());
-
-                    String internalLov = distribModelRTK(nameShop, DistribModelRTK.InternalLov.getModelRTK(), DistribModelRTK.InternalLov.getCluster());
-                    String internalMiddle = distribModelRTK(nameShop, DistribModelRTK.InternalMiddle.getModelRTK(), DistribModelRTK.InternalMiddle.getCluster());
-                    String internalHigh = distribModelRTK(nameShop, DistribModelRTK.InternalHigh.getModelRTK(), DistribModelRTK.InternalHigh.getCluster());
-                    String externalDome = distribModelRTK(nameShop, DistribModelRTK.ExternalDome.getModelRTK(), DistribModelRTK.ExternalDome.getCluster());
-                    String externalCylindrical = distribModelRTK(nameShop, DistribModelRTK.ExternalCylindrical.getModelRTK(), DistribModelRTK.ExternalCylindrical.getCluster());
-                    String externalHigh = distribModelRTK(nameShop, DistribModelRTK.ExternalHigh.getModelRTK(), DistribModelRTK.ExternalHigh.getCluster());
-                    String externalWiFi = distribModelRTK(nameShop, DistribModelRTK.ExternalWiFi.getModelRTK(), DistribModelRTK.ExternalWiFi.getCluster());
-                    String IPTVbox = distribModelRTK(nameShop, DistribModelRTK.IPTVbox.getModelRTK(), DistribModelRTK.IPTVbox.getCluster());
-                    String miniColumn = distribModelRTK(nameShop, DistribModelRTK.MiniColumn.getModelRTK(), DistribModelRTK.MiniColumn.getCluster());
-                    String capsuleColumn = distribModelRTK(nameShop, DistribModelRTK.CapsuleColumn.getModelRTK(), DistribModelRTK.CapsuleColumn.getCluster());
-                    String rostelecomRouter = distribModelRTK(nameShop, DistribModelRTK.RostelecomRouter.getModelRTK(), DistribModelRTK.RostelecomRouter.getCluster());
-                    String powerInjector = distribModelRTK(nameShop, DistribModelRTK.PowerInjector.getModelRTK(), DistribModelRTK.PowerInjector.getCluster());
-                    String gameController = distribModelRTK(nameShop, DistribModelRTK.GameController.getModelRTK(), DistribModelRTK.GameController.getCluster());
-                    String[] sufficiencyList = {internalLov, internalMiddle, internalHigh, externalDome, externalCylindrical, externalHigh, externalWiFi, IPTVbox, miniColumn, rostelecomRouter, powerInjector, gameController};
-                    String sufficiency = Sufficiency(sufficiencyList);
-
-                    matrixRTKArrayList.add(new MatrixRTK(authorization_ttList.get(i).getName(),
-                            internalLov,
-                            internalMiddle,
-                            internalHigh,
-                            externalDome,
-                            externalCylindrical,
-                            externalHigh,
-                            externalWiFi,
-                            IPTVbox,
-                            miniColumn,
-                            capsuleColumn,
-                            rostelecomRouter,
-                            powerInjector,
-                            gameController,
-                            sufficiency));
-
-                }
-
-
-            }
-
-        }
-
-        return matrixRTKArrayList;
-    }
 
     private String Sufficiency(String[] sufficiencyList) {
         int count = 0;
@@ -339,28 +285,7 @@ public class SvodSimList extends SimList {
         return String.format("%.1f", sum / count) + "%";
     }
 
-    private void Cluster(String cluster) {
-        for (int i = 0; i < matrixRTKList.size(); i++) {
-            if (cluster.equals(matrixRTKList.get(i).getCluster())) {
-                DistribModelRTK.InternalLov.setCluster(matrixRTKList.get(i).getVnutrLowVideoCam());
-                DistribModelRTK.InternalMiddle.setCluster(matrixRTKList.get(i).getVideoCamVnutrMiddle());
-                DistribModelRTK.InternalHigh.setCluster(matrixRTKList.get(i).getVnutrHighVideoCam());
-                DistribModelRTK.ExternalDome.setCluster(matrixRTKList.get(i).getVneshKupolVideoCam());
-                DistribModelRTK.ExternalCylindrical.setCluster(matrixRTKList.get(i).getVneshCylindrVideoCam());
-                DistribModelRTK.ExternalHigh.setCluster(matrixRTKList.get(i).getVneshHighVideoCam());
-                DistribModelRTK.ExternalWiFi.setCluster(matrixRTKList.get(i).getVneshWiFiVideoCam());
-                DistribModelRTK.IPTVbox.setCluster(matrixRTKList.get(i).getIptvBox());
-                DistribModelRTK.MiniColumn.setCluster(matrixRTKList.get(i).getSmartMiniSpeaker());
-                DistribModelRTK.CapsuleColumn.setCluster(matrixRTKList.get(i).getSmartColumnCapsule());
-                DistribModelRTK.RostelecomRouter.setCluster(matrixRTKList.get(i).getRostelecomRouter());
-                DistribModelRTK.PowerInjector.setCluster(matrixRTKList.get(i).getPowerInjectorForVideoCam());
-                DistribModelRTK.GameController.setCluster(matrixRTKList.get(i).getGameController());
-            }
 
-        }
-
-
-    }
 
 
     private String distribModelRTK(String nameShop, String distribModelRTK, String cluster) {
@@ -393,92 +318,5 @@ public class SvodSimList extends SimList {
         return remanisP;
     }
 
-    public List<AndroidMatrixRTK> AndroidMatrixRTK() {
-        ArrayList<String> distribModelRTK;
 
-        HashSet<String> distribModelRTKDisting = new HashSet<>();
-        for (int i = 1; i < simAndRtkTables.size(); i++) {
-            if (simAndRtkTables.get(i).getView().equals("RTK")) {
-                distribModelRTKDisting.add(simAndRtkTables.get(i).getDistributionModel());
-            }
-        }
-
-        distribModelRTK = new ArrayList<>(distribModelRTKDisting);
-        List<String> shoplist = new ArrayList<>();
-        List<AndroidMatrixRTK> androidMatrixRTKList = new ArrayList<>();
-        AndroidMatrixRTK androidMatrixRTK;
-
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-            if (!authorization_ttList.get(i).getClusterRtk().isEmpty()) {
-                Cluster(authorization_ttList.get(i).getClusterRtk());
-                shoplist.add(authorization_ttList.get(i).getName());
-
-            }
-        }
-        DistribModelRTK[] types = DistribModelRTK.values();
-        int cou = 0;
-        int remanis =0;
-        for (int j = 0; j < shoplist.size(); j++) {
-            for (int k = 0; k < distribModelRTK.size(); k++) {
-
-            for (int z = 0; z < simAndRtkTables.size(); z++) {
-
-                    for (int i = 0; i < remanisSimList.size(); i++) {
-
-                        if (remanisSimList.get(i).getShop().equals(shoplist.get(j)) && distribModelRTK.get(k).equals(simAndRtkTables.get(z).getDistributionModel())) {
-
-                            if (simAndRtkTables.get(z).getNameRainbow().equals(remanisSimList.get(i).getNameSimAndModem())) {
-                                cou++;
-                                remanis = remanis+remanisSimList.get(i).getRemainsSimModem();
-                                androidMatrixRTK = new AndroidMatrixRTK();
-                                androidMatrixRTK.setShop(shoplist.get(j));
-                                androidMatrixRTK.setDistributionModel(distribModelRTK.get(k));
-                                androidMatrixRTK.setNomenclature(remanisSimList.get(i).getNameSimAndModem());
-                                androidMatrixRTK.setRemanis(String.valueOf(remanisSimList.get(i).getRemainsSimModem()));
-                                androidMatrixRTKList.add(androidMatrixRTK);
-
-                            }
-
-                        }
-
-                    }
-                if(z==0&&k>0){
-
-                    androidMatrixRTK = new AndroidMatrixRTK();
-                    androidMatrixRTK.setDistributionModel(distribModelRTK.get(k-1));
-                    androidMatrixRTK.setNomenclature("ИТОГО");
-                    androidMatrixRTK.setShop(shoplist.get(j));
-                    androidMatrixRTK.setRemanis(String.valueOf(remanis));
-                    androidMatrixRTK.setSufficiency(String.valueOf(cou));
-                    androidMatrixRTKList.add(androidMatrixRTK);
-                    for (DistribModelRTK s : types) {
-                        if(s.getModelRTK().equals(distribModelRTK.get(k-1))&&s.getCluster()!=null&&!s.getCluster().isEmpty()){
-                            //System.out.println(s.getModelRTK() +"--"+distribModelRTK.get(k-1)+"--"+s.getCluster());
-                            androidMatrixRTK.setMatrixRTK(String.valueOf(s.getCluster()));
-                        }
-                    }
-                    cou=0;
-                    remanis=0;
-                }
-                }
-
-            }
-        }
-
-        // System.out.println(distribModelRTK);
-        return androidMatrixRTKList;
-    }
-
-    public Iterable<AndroidMatrixRTK> AndroidMatrixRTKItog(String shop) {
-        List<AndroidMatrixRTK> androidMatrixRTKList1 = AndroidMatrixRTK();
-        List<AndroidMatrixRTK> androidMatrixRTKList = new ArrayList<>();
-        for (int i=0;i<androidMatrixRTKList1.size();i++){
-if (shop.equals(androidMatrixRTKList1.get(i).getShop())){
-    androidMatrixRTKList.add(new AndroidMatrixRTK(androidMatrixRTKList1.get(i).getShop(),androidMatrixRTKList1.get(i).getNomenclature(),androidMatrixRTKList1.get(i).getRemanis(),androidMatrixRTKList1.get(i).getDistributionModel(),androidMatrixRTKList1.get(i).getSufficiency(),androidMatrixRTKList1.get(i).getMatrixRTK()));
-
-}
-         }
-
-        return androidMatrixRTKList;
-    }
 }

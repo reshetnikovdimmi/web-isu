@@ -601,98 +601,51 @@
                     <h3>RTK</h3>
                 </div>
                 <div class="row">
-                    
-                </div>
-                <div class="row">
 
-                        <div class="table_RTK">
-                            <table class="table table-borderless-sm table-hover">
-                                <thead>
-                                <tr>
-                                    <th name="ShopRTK" id="ShopRTK">МАГАЗИН</th>
-                                </tr>
-                                <tr>
+                        <div class="col-6 col-md-3 themed-grid-col">
+                            <div class="row mb-3 text-center"> Загрузка матрицы РТК с EXEL</div>
+                            <div class="row mb-3 text-center">
 
-                                    <th name="Shopmf" id="Shopmf">МАГАЗИН</th>
-                                    <th name="Shopmf" id="Shopmf">внутренняя Low</th>
-                                    <th name="Shopmf" id="Shopmf">внутренняя Middle</th>
-                                    <th name="Shopmf" id="Shopmf">внутренняя High</th>
-                                    <th name="Shopmf" id="Shopmf">внешняя купольная</th>
-                                    <th name="Shopmf" id="Shopmf">внешняя цилиндрическая</th>
-                                    <th name="Shopmf" id="Shopmf">внешняя High</th>
-                                    <th name="Shopmf" id="Shopmf">внешняя WiFi</th>
-                                    <th name="Shopmf" id="Shopmf">Приставка IPTV</th>
-                                    <th name="Shopmf" id="Shopmf">колонка Мини</th>
-                                    <th name="Shopmf" id="Shopmf">колонка Капсула</th>
-                                    <th name="Shopmf" id="Shopmf">Роутер Ростелеком</th>
-                                    <th name="Shopmf" id="Shopmf">Инжектор питания</th>
-                                    <th name="Shopmf" id="Shopmf">Игровой контроллер</th>
-                                    <th name="Shopmf" id="Shopmf">Достаточность</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="current : ${MatrixRTK}">
+                                <form th:action="@{/loadExelRTK}" method="post" enctype="multipart/form-data">
+                                    <input type="file" th:name="loadExelRTK"/>
+                                    <input th:type="submit" value="Import"/>
+                                </form>
 
 
-                                    <td><a th:href="@{/updateRTK/{Shop}(Shop = ${current.Cluster})}"
-                                           class="btn btn-primary btn-sm btn-block"><span th:text="${current.Cluster}"></span></a>
-                                    </td>
-                                    <td th:text="${current.VnutrLowVideoCam}"></td>
-                                    <td th:text="${current.VideoCamVnutrMiddle}"></td>
-                                    <td th:text="${current.VnutrHighVideoCam}"></td>
-                                    <td th:text="${current.VneshKupolVideoCam}"></td>
-                                    <td th:text="${current.VneshCylindrVideoCam}"></td>
-                                    <td th:text="${current.VneshHighVideoCam}"></td>
-                                    <td th:text="${current.VneshWiFiVideoCam}"></td>
-                                    <td th:text="${current.IptvBox}"></td>
-                                    <td th:text="${current.SmartMiniSpeaker}"></td>
-                                    <td th:text="${current.SmartColumnCapsule}"></td>
-                                    <td th:text="${current.RostelecomRouter}"></td>
-                                    <td th:text="${current.PowerInjectorForVideoCam}"></td>
-                                    <td th:text="${current.GameController}"></td>
-                                    <td th:text="${current.Sufficiency}"></td>
-
-
-                                </tr>
-
-
-                                </tbody>
-                            </table>
+                            </div>
                         </div>
 
-
                 </div>
-
                 <div class="row">
+                    <table class="table-borderless-sm">
+                        <thead >
+                        <tr>
+                            <th >кластер/мод распр</th>
+<span th:each="entry  : ${distributionModel}">
+
+                            <th ><span th:text="${entry}"></span></th>
+</span>
+
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        <tr th:each="entry, stats  : ${matrixRTK}"
+                            th:with="user=${entry.value}">
+                            <td>
+                                <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
+                                        type="submit"></button>
+                            </td>
+
+                            <span th:each="word : ${entry.value}">
+                                          <td th:text="${word.value}"></td>
+                                          </span>
 
 
-                        <div class="table table-borderless-sm"  id = "table_RTK2">
-                            <table class= "table-borderless-1"  id = "table_RTK3">
-                                <thead>
-                                <tr>
-                                    <th name="Shopmf" id="Shopmf">внутренняя Low</th>
-                                    <th name="Shopmf" id="Shopmf">внутренняя Middle</th>
-                                    <th name="Shopmf" id="Shopmf">внутренняя High</th>
-                                    <th name="Shopmf" id="Shopmf">внешняя купольная</th>
-                                    <th name="Shopmf" id="Shopmf">внешняя цилиндрическая</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 </div>
             </div>
         </div>

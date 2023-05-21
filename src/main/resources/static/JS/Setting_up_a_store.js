@@ -7,7 +7,7 @@ $(document).ready(function(){
                      var href = $(this).attr("href");
 
                      $.get(href, function(SimSetup, status){
-                        console.log(SimSetup.id);
+                        console.log(SimSetup);
                             $('#IDupdateSHOP').val(SimSetup.id);
                             $('#LOGIN').val(SimSetup.login);
                             $('#PASWORD').val(SimSetup.pasword);
@@ -27,3 +27,4 @@ $(document).ready(function(){
 
      });
 
+  });

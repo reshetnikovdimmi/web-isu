@@ -19,4 +19,7 @@ public interface SimAndRtkTableRepositoriy extends JpaRepository<SimAndRtkTable,
     String getDistributionModelS(String nameRainbow);
 
     SimAndRtkTable findByNameRainbow(String s);
+
+    @Query("SELECT DISTINCT distributionModel FROM SimAndRtkTable WHERE view = 'RTK'")
+    List<String> getMatrixRTKAll();
 }

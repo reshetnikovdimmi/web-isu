@@ -1,14 +1,21 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.models.Phone.MatrixT2;
+import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.SIM.SimAndRtkTable;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.*;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class SimDistributionServise {
@@ -24,6 +31,8 @@ public class SimDistributionServise {
     private PostRepositoriy authorization_ttRepositoriy;
     @Autowired
     private ShopPlanSimRepository shopPlanSimRepository;
+    @Autowired
+    private MatrixRTKRepository matrixRTKRepository;
     Map<String,Map<String,Map<String,String>>> shopSimRTK;
     List<authorization_tt> authorization;
     Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
@@ -245,5 +254,60 @@ public class SimDistributionServise {
 
     public Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionSim() {
         return remanSaleSimShop;
+    }
+
+
+        public String loadExelRTK(MultipartFile loadExelRTK) throws IOException {
+
+            long start = System.currentTimeMillis();
+            List<MatrixRTK> matrixRTKList = new ArrayList<>();
+            XSSFWorkbook workbook = new XSSFWorkbook(loadExelRTK.getInputStream());
+            XSSFSheet worksheet = workbook.getSheetAt(0);
+            matrixRTKRepository.deleteAll();
+
+            int cell = worksheet.getRow(0).getPhysicalNumberOfCells();
+            for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
+
+                XSSFRow row = worksheet.getRow(i);
+                for (int j = 1; j<cell;j++) {
+                    MatrixRTK matrixRTK = new MatrixRTK();
+
+                    matrixRTK.setCluster(row.getCell(0).getStringCellValue());
+                    matrixRTK.setDistributionModel(worksheet.getRow(0).getCell(j).getStringCellValue());
+                    matrixRTK.setQuantity((int) row.getCell(j).getNumericCellValue());
+                    matrixRTKList.add(matrixRTK);
+                }
+
+            }
+            matrixRTKRepository.saveAll(matrixRTKList);
+            long timeWorkCode = System.currentTimeMillis() - start;
+            DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+            df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+
+            return df.format(new Date(timeWorkCode));
+        }
+
+    public Object getMatrixRTK() {
+        Map<String,Map<String,Integer>> matrixRTK = new TreeMap<>();
+        Map<String,Integer> distributionModel;
+        List<String> cluster = matrixRTKRepository.getClusterDistinct();
+        List<String> model = matrixRTKRepository.getDistributionModelDistinct();
+
+      for (String clusters: cluster){
+          distributionModel = new TreeMap<>();
+          for (String models: model){
+              distributionModel.put(models,matrixRTKRepository.getQuantity(clusters,models));
+
+          }
+
+          matrixRTK.put(clusters,distributionModel);
+
+      }
+
+        return matrixRTK;
+    }
+
+    public Object distributionModel() {
+        return matrixRTKRepository.getDistributionModelDistinct();
     }
 }

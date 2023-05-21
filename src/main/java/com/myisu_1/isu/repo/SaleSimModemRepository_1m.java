@@ -20,4 +20,7 @@ public interface SaleSimModemRepository_1m extends CrudRepository<SaleSim_1m, In
 
     @Query("SELECT remainsSimModem  FROM SaleSim_1m WHERE nameSimAndModem = ?1 AND shop = ?2")
     Integer getSale1SimShop(String nameSim, String name);
+
+    @Query("SELECT remainsSimModem  FROM SaleSim_1m WHERE nameSimAndModem IN ?1")
+    Integer getSale1RTK(List<String> nameRainbow);
 }

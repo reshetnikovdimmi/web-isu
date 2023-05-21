@@ -21,4 +21,7 @@ public interface SaleSimModemRepository_6m extends CrudRepository<SaleSim_6m, In
 
     @Query("SELECT SUM(remainsSimModem)  FROM SaleSim_6m WHERE nameSimAndModem IN ?1 AND shop = ?2")
     Integer getSale6DistrModel(List<String> nameRainbow, String shop);
+
+    @Query("SELECT SUM(remainsSimModem)  FROM SaleSim_6m WHERE nameSimAndModem IN ?1")
+    Integer getSale6RTK(List<String> nameRainbow);
 }
