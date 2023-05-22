@@ -1,5 +1,6 @@
 var grop;
 var shop;
+var name;
 $(document).ready(function() {
     remanisCash();
 });
@@ -13,6 +14,14 @@ function remanisCash() {
         });
     });
 }
+function updateRemanisCash() {
+
+        $.get('/RemanisCashRTK/' + grop, {}, function(data) {
+            $(".RemanRTKCash").html(data);
+
+        });
+
+}
 
 function remanisSaleRTKShop() {
         $.get('/RemanisSaleRTKShop/' + grop, {}, function(data) {
@@ -21,6 +30,12 @@ function remanisSaleRTKShop() {
             createTableDistributionRTK();
         });
     }
+    function updateRemanisSaleRTKShop() {
+            $.get('/RemanisSaleRTKShop/' + grop, {}, function(data) {
+                $(".MatrixRTKShop").html(data);
+
+            });
+        }
 
 function createTableMatrixRTK() {
   $.get('/TableMatrixRTK/', {}, function(data) {
@@ -33,7 +48,7 @@ function createTableDistributionRTK() {
 $(document).find('.MatrixRTKShop .btn').on('click', function() {
         shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
         $.get('/TableDistributionRTK/' + shop, {}, function(data) {
-            console.log(data)
+
             tableDistributionRTK(data);
         });
     });
@@ -174,20 +189,20 @@ function tableDistributionRTK(data) {
         tds[i].addEventListener('click', function func() {
             grop = this.innerHTML;
 
-            //    accessoriesCategoryShop(grop);
-            //   updateRemanisCash(grop);
-            //  accessoriesCategoryMaxSale(grop);
+
+            updateRemanisCash();
+            updateRemanisSaleRTKShop()
         });
     }
     $(document).find('.SKYPhone').on('click', function() {
-  //  nameSim = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
-   // remanSimShop();
+  name = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
+
     });
 
     $(document).find('.SKYPhone').on('change', function() {
         $('.btn-primary').attr('disabled', false);
 
-        $.get('/tableUpDistributionSim/' + shop.trim() + '/' + nameSim + '/' + this.value + '/' + grop.trim(), {}, function(data) {
+        $.get('/tableUpDistributionSim/' + shop.trim() + '/' + name + '/' + this.value + '/' + grop.trim(), {}, function(data) {
 
         //   tableUpDistributionButton(data);
          //   updateRemanisCash(grop);

@@ -50,7 +50,7 @@ public class MatrixRTKServise {
     }
 
     public Object getSaleRemanisShop(String grop) {
-System.out.println(grop);
+
         Map<String,Map<String,Integer>> distributionModel = new TreeMap<>();
         Map<String,Integer> saleRemanis;
 
@@ -80,15 +80,19 @@ if (shopRTK.containsKey(shop)){
             for (String name : nameRTK){
                 Map<String,Integer> indicator = new TreeMap<>();
 
-                indicator.put("gvu",111);
-                indicator.put("gvu1",111);
-                indicator.put("remanisCash",111);
-
+                indicator.put("sale1", saleSimModemRepository1m.getSale1SimShop(name, shops));
+                indicator.put("sale6", saleSimModemRepository6m.getSale6SimShop(name, shops));
+                indicator.put("remanis", remanisSimRepository.getRemanisSimShop(name, shops));
+                indicator.put("remanisCash",remanisSimRepository.getRemanisSimShop(name,shops));
+                indicator.put("order", 0);
                 model.put(name,indicator);
 
                 indicator = new TreeMap<>();
-                indicator.put("totalRemanisCash",111);
-
+                indicator.put("totalRemanis", remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(matrixRTK), shops));
+                indicator.put("totalSale1", saleSimModemRepository1m.getSale1DistrModel(rtkTableRepositoriy.getNameRainbow(matrixRTK), shops));
+                indicator.put("totalSale6", saleSimModemRepository6m.getSale6DistrModel(rtkTableRepositoriy.getNameRainbow(matrixRTK), shops));
+                indicator.put("totalRemanisCash",remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(matrixRTK), authorization.get(2).getName()));
+                indicator.put("orderCash", 0);
                 model.put("total",indicator);
 
 
