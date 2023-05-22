@@ -33,7 +33,7 @@ function remanisSaleRTKShop() {
     function updateRemanisSaleRTKShop() {
             $.get('/RemanisSaleRTKShop/' + grop, {}, function(data) {
                 $(".MatrixRTKShop").html(data);
-
+                createTableDistributionRTK()
             });
         }
 
