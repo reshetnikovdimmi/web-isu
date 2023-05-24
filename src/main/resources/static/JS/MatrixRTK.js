@@ -40,7 +40,13 @@ function remanisSaleRTKShop() {
 function createTableMatrixRTK() {
   $.get('/TableMatrixRTK/', {}, function(data) {
             $(".TableMatrixRTK").html(data);
-
+            var tds = document.querySelectorAll('table.TableMatrixRTK');
+                for (var i = 0; i < tds.length; i++) {
+                console.log(tds[i].innerHTML)
+                if(tds[i].innerHTML<100){
+                                    tds[i].innerHTML.style.color = "#ff0000";
+                }
+}
         });
 
 }

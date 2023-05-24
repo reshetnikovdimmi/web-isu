@@ -83,7 +83,7 @@ if (shopRTK.containsKey(shop)){
                 indicator.put("sale1", saleSimModemRepository1m.getSale1SimShop(name, shops));
                 indicator.put("sale6", saleSimModemRepository6m.getSale6SimShop(name, shops));
                 indicator.put("remanis", remanisSimRepository.getRemanisSimShop(name, shops));
-                indicator.put("remanisCash",remanisSimRepository.getRemanisSimShop(name,shops));
+                indicator.put("remanisCash",remanisSimRepository.getRemanisSimShop(name,shop));
                 indicator.put("order", 0);
                 model.put(name,indicator);
 
@@ -117,11 +117,13 @@ if (shopRTK.containsKey(shop)){
     }
 
     public Object getTableMatrixRTK() {
-    Map<String,Map<String,Double>> shop = new TreeMap<>();
+    Map<String,Map<String,String>> shop = new TreeMap<>();
 
         for (String shops : shopRTKList){
+            Double sufficiencyTotal = 0.0;
+            int cou = 0;
           List<String> distributionModel = matrixRTKRepository.getDistributionModelDistinct();
-            Map<String,Double> indicator = new TreeMap<>();
+            Map<String,String> indicator = new TreeMap<>();
             for (String model : distributionModel){
 
                 Integer remanis = remanisSimRepository.getRemanisRTKGropShop(rtkTableRepositoriy.getNameRainbow(model),shops);
@@ -129,6 +131,7 @@ if (shopRTK.containsKey(shop)){
                 Integer matrix = matrixRTKRepository.getQuantity(authorization_ttRepositoriy.getClusterRTK(shops),model);
 
                 Double sufficiency = null;
+                String s = null;
 
                 if (matrix!=null && matrix!=0 && remanis!=null){
                     sufficiency =  (double)remanis/ (double)matrix;
@@ -142,11 +145,21 @@ if (shopRTK.containsKey(shop)){
                     sufficiency = 1.0;
 
                 }
+                if (matrix!=null && sufficiency!=null){
+                    sufficiencyTotal += sufficiency;
+                    cou++;
+                }
+                if (sufficiency!=null){
+                    s = String.format("%.0f", sufficiency * 100) + "%";
 
-                indicator.put(model,sufficiency);
+                }
+                
+
+                indicator.put(model,s);
 
             }
-            indicator.put("и",100.0);
+
+            indicator.put("total",String.format("%.0f",sufficiencyTotal/cou*100)+"%");
 
             shop.put(shops,indicator);
         }

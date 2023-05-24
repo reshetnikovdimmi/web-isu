@@ -638,8 +638,14 @@
                             </td>
 
                             <span th:each="word : ${entry.value}">
-                                          <td th:text="${word.value}"></td>
-                                          </span>
+<span th:each="entry1  : ${distributionModel}">
+    <span  th:if="${word.key == entry1 }">
+                                                       <td   th:text="${word.value}"></td>
+
+</span>
+</span>
+
+                                              </span>
 
 
                         </tr>
