@@ -39,10 +39,12 @@ function remanisSaleRTKShop() {
 
 function createTableMatrixRTK() {
   $.get('/TableMatrixRTK/', {}, function(data) {
+
             $(".TableMatrixRTK").html(data);
-            var tds = document.querySelectorAll('table.TableMatrixRTK');
+            console.log("ok")
+            var tds = document.querySelectorAll('.TableMatrixRTK');
                 for (var i = 0; i < tds.length; i++) {
-                console.log(tds[i].innerHTML)
+                console.log(tds[i])
                 if(tds[i].innerHTML<100){
                                     tds[i].innerHTML.style.color = "#ff0000";
                 }

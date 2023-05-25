@@ -268,10 +268,13 @@
 
                                     </td>
 
-                                    <span th:each="word : ${entry.value}">
+                                    <span th:each="word : ${entry.value}"
+                                          >
                                         <span th:each="entry1  : ${distributionModel}">
                                             <span  th:if="${word.key == entry1 }">
-                                                <td   th:text="${word.value}"></td>
+
+                                                <td   th:text="${word.value}"   th:style="${word.value}!='100%' ? 'color: red'" ></td>
+
 
                                               </span>
                                         </span>
@@ -280,7 +283,7 @@
                                     <span th:each="word : ${entry.value}">
 
     <span  th:if="${word.key == 'total' }">
-                                                       <td   th:text="${word.value}"></td>
+                                                       <td   th:text="${word.value}" th:style="${word.value}!='100%' ? 'color: red'"></td>
 
 </span>
 </span>
