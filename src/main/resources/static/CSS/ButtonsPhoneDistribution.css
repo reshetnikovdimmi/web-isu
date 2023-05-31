@@ -25,14 +25,14 @@
       	box-sizing: border-box;
 
             display: block;
-            width: 80%;
+            width: 200px;
 
       	padding: 0 1px;
       	margin: 0 1px 1px 0;
       	outline: none;
       	border: none;
       	border-radius: 4px;
-      	height: 40px;
+      	height: 20px;
       	line-height: 20px;
       	font-size: 9px;
       	font-weight: normal;
@@ -109,7 +109,7 @@
           font-size: 9px;
       }
       .labels2 {
-                height: 300px;
+                height: 450px;
                 overflow-y: auto;
                 overflow-x: hidden;
                 font-size: 9px;
@@ -133,7 +133,14 @@
           width: 180px;
            overflow: hidden;
 /* 140px + 16px scrollbar width */
+
       }
+
+ #first {
+
+   width: 920px;
+
+ }
       /* Стили для скролла */
       ::-webkit-scrollbar {
       	width: 6px;

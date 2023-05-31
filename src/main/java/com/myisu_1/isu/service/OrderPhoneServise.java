@@ -39,85 +39,10 @@ public class OrderPhoneServise extends MovementsPhoneServise {
     HashMap<String, String> sale;
 
 
-    public List<OrderPhone> orderFromT2Warehouse() {
-        distinctMatrix_T2 = distinctMatrix_T2();
-        orderPhoneMatrixT2List = new ArrayList<>();
-        orderPhoneList = new ArrayList<>();
-        matrixSparkList = matrixSparkTableUpdate();
-        distingShop = new ArrayList<>();
-        distributionPhoneList = new ArrayList<>();
-      //  List<MatrixT2> matrixT2List = matrixT2Repository.findAll();
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-            if (!authorization_ttList.get(i).getClusterT2().isEmpty()) {
-                distributionsPhoneList(authorization_ttList.get(i).getName());
-                distingShop.add(authorization_ttList.get(i).getName());
-            }
-
-        }
-        saleall(distingShop);
-        for (int j = 0; j < distinctMatrix_T2.size(); j++) {
-            int quantity = 0;
-            for (int i = 0; i < distributionPhoneList.size(); i++) {
-                if (distinctMatrix_T2.get(j).equals(distributionPhoneList.get(i).getModelPhone()) && distributionPhoneList.get(i).getSkyPhone() > distributionPhoneList.get(i).getRemanisPhone()) {
-                    quantity = quantity + distributionPhoneList.get(i).getRemanisPhone() - distributionPhoneList.get(i).getSkyPhone();
-
-                }
-
-            }
-            orderPhoneList.add(new OrderPhone(distinctMatrix_T2.get(j), String.valueOf(quantity), salePhone(matrixSparkList, distinctMatrix_T2.get(j))));
-        }
 
 
-        return orderPhoneList;
-    }
-
-    public List<OrderPhone> orderFromMatrixT2Warehouse() {
-
-        orderPhoneMatrixT2List = new ArrayList<>();
-        orderPhoneList = new ArrayList<>();
-        matrixSparkList = matrixSparkTableUpdate();
-        distingShop = new ArrayList<>();
-        distributionPhoneList = new ArrayList<>();
-        List<MatrixT2> matrixT2List = matrixT2Repository.findAll();
-        List<String> distingMatrixT2List = new ArrayList<>();
-        List<String> distingMatrixT2;
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-            if (!authorization_ttList.get(i).getClusterT2().isEmpty()) {
-                distributionsPhoneList(authorization_ttList.get(i).getName());
-                distingShop.add(authorization_ttList.get(i).getName());
-            }
-
-        }
-        for (int i = 0; i < matrixT2List.size(); i++) {
-
-            distingMatrixT2List.add(matrixT2List.get(i).getDistributionModel());
-
-        }
-        distingMatrixT2 = distingMatrixT2List
-                .stream()
-                .distinct()
-                .collect(Collectors.toList());
 
 
-        saleall(distingShop);
-        for (int j = 0; j < distingMatrixT2.size(); j++) {
-
-            int quantity = 0;
-            for (int i = 0; i < distributionPhoneList.size(); i++) {
-                for (int k = 0; k < authorization_ttList.size(); k++) {
-                    if (distingMatrixT2.get(j).equals(distributionPhoneList.get(i).getModelPhone())&&authorization_ttList.get(k).getName().equals(distributionPhoneList.get(i).getShop())) {
-                        quantity = quantity + orderInMatrixT2(matrixT2List, authorization_ttList.get(k),distributionPhoneList.get(i),distingMatrixT2.get(j));
-                       }
-                }
-
-            }
-
-            orderPhoneList.add(new OrderPhone(distingMatrixT2.get(j), String.valueOf(quantity), salePhone(matrixSparkList, distingMatrixT2.get(j))));
-        }
-
-
-        return orderPhoneList;
-    }
 
     private int orderInMatrixT2(List<MatrixT2> matrixT2List, com.myisu_1.isu.models.authorization_tt authorization_tt, DistributionPhone distributionPhone, String s) {
         int quantity = 0;
@@ -180,66 +105,9 @@ public class OrderPhoneServise extends MovementsPhoneServise {
 
     }
 
-    public List<OrderPhone> orderFromAllWarehouse() {
-        distinctMatrix_T2 = distinctMatrix_T2();
-        orderPhoneList = new ArrayList<>();
-        matrixSparkList = matrixSparkTableUpdate();
-        distingShop = new ArrayList<>();
-        distributionPhoneList = new ArrayList<>();
-        for (int i = 2; i < authorization_ttList.size(); i++) {
-
-            distributionsPhoneList(authorization_ttList.get(i).getName());
-            distingShop.add(authorization_ttList.get(i).getName());
 
 
-        }
-        saleall(distingShop);
-        for (int j = 0; j < distinctMatrix_T2.size(); j++) {
-            int quantity = 0;
-            for (int i = 0; i < distributionPhoneList.size(); i++) {
-                if (distinctMatrix_T2.get(j).equals(distributionPhoneList.get(i).getModelPhone()) && distributionPhoneList.get(i).getSkyPhone() > distributionPhoneList.get(i).getRemanisPhone()) {
-                    quantity = quantity + distributionPhoneList.get(i).getRemanisPhone() - distributionPhoneList.get(i).getSkyPhone();
 
-                }
-
-            }
-            orderPhoneList.add(new OrderPhone(distinctMatrix_T2.get(j), String.valueOf(quantity), salePhone(matrixSparkList, distinctMatrix_T2.get(j))));
-        }
-
-
-        return orderPhoneList;
-    }
-
-    public List<OrderPhone> orderFromWarehouse() {
-        distinctMatrix_T2 = distinctMatrix_T2();
-        orderPhoneList = new ArrayList<>();
-        matrixSparkList = matrixSparkTableUpdate();
-        distingShop = new ArrayList<>();
-        distributionPhoneList = new ArrayList<>();
-
-        for (int i = 2; i < authorization_ttList.size(); i++) {
-            if (authorization_ttList.get(i).getClusterT2().isEmpty()) {
-                distributionsPhoneList(authorization_ttList.get(i).getName());
-                distingShop.add(authorization_ttList.get(i).getName());
-
-            }
-
-        }
-        saleall(distingShop);
-        for (int j = 0; j < distinctMatrix_T2.size(); j++) {
-            int quantity = 0;
-            for (int i = 0; i < distributionPhoneList.size(); i++) {
-                if (distinctMatrix_T2.get(j).equals(distributionPhoneList.get(i).getModelPhone()) && distributionPhoneList.get(i).getSkyPhone() > distributionPhoneList.get(i).getRemanisPhone()) {
-                    quantity = quantity + distributionPhoneList.get(i).getRemanisPhone() - distributionPhoneList.get(i).getSkyPhone();
-                }
-
-            }
-            orderPhoneList.add(new OrderPhone(distinctMatrix_T2.get(j), String.valueOf(quantity), salePhone(matrixSparkList, distinctMatrix_T2.get(j))));
-        }
-
-
-        return orderPhoneList;
-    }
 
     private HashMap<String, String[]> salePhone(List<MatrixSpark> matrixSparkList, String s) {
 
@@ -355,24 +223,6 @@ public class OrderPhoneServise extends MovementsPhoneServise {
     }
 
 
-    public List<OrderPhone> orderFromMinT2Warehouse() {
-        allMovements();
-        requirementPhone();
 
-        return orderFromT2Warehouse();
-    }
-
-    public List<OrderPhone> orderFromMinWarehouse() {
-        return orderFromWarehouse();
-    }
-
-    public List<OrderPhone> orderFromMinAllWarehouse() {
-        return orderFromAllWarehouse();
-    }
-
-    public List<OrderPhone> orderFromMinMatrixWarehouse() {
-        System.out.println("ok");
-        return orderFromMatrixT2Warehouse();
-    }
 }
 

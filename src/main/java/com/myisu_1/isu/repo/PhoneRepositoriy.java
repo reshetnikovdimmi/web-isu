@@ -13,6 +13,15 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT DISTINCT Brend FROM Phone_Smart")
     List<String> getBrendDisting();
 
+    @Query("SELECT DISTINCT Matrix_T2 FROM Phone_Smart")
+    List<String> getMatrixT2Disting();
+
+    @Query("SELECT Model  FROM Phone_Smart WHERE Matrix_T2 = ?1")
+    List<String> getModelMatrixT2List(String matrix);
+
+    @Query("SELECT Model  FROM Phone_Smart")
+    List<String> getModelList();
+
   @Query("SELECT  new com.myisu_1.isu.models.ClothesForPhones.Glass.Glass(p.Brend, SUM (r.remainsSimAndModem)) FROM Phone_Smart p " +
           "JOIN p.remanisSims r GROUP BY p.Brend")
    List<Glass> getBrendRemanis();
@@ -26,6 +35,32 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
             "JOIN p.remanisSims r WHERE r.shop = ?1  GROUP BY p.Brend")
     List<Glass> getPhoneRemanisShop(String shop);
 
+    @Query("SELECT  SUM (r.remainsSimAndModem) FROM Phone_Smart p " +
+            "INNER JOIN p.remanisSims r WHERE p.Matrix_T2 = ?1 ")
+    Integer getPhoneRemanisSum(String matrixT2);
 
+    @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
+            "JOIN p.saleSim_1m r WHERE p.Matrix_T2 = ?1 ")
+    Integer getPhoneSale1Sum(String matrixT2);
+
+    @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
+            "JOIN p.saleSim_6m r WHERE p.Matrix_T2 = ?1 ")
+    Integer getPhoneSale6Sum(String matrixT2);
+
+    @Query("SELECT  SUM (r.remainsSimAndModem) FROM Phone_Smart p " +
+            "JOIN p.remanisSims r WHERE p.Matrix_T2 = ?1 AND r.shop =?2 OR p.Matrix_T2 = ?1 AND r.shop =?3")
+    Integer getPhoneRemanSachAll(String matrix, String name, String name1);
+
+    @Query("SELECT  SUM (r.remainsSimAndModem) FROM Phone_Smart p " +
+            "JOIN p.remanisSims r WHERE p.Matrix_T2 = ?1 AND r.shop =?2")
+    Integer getPhoneRemanMatrix(String matrix, String shop);
+
+    @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
+            "JOIN p.saleSim_1m r WHERE p.Matrix_T2 = ?1 AND r.shop =?2")
+    Integer getPhoneSale1Matrix(String matrix, String shop);
+
+    @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
+            "JOIN p.saleSim_6m r WHERE p.Matrix_T2 = ?1 AND r.shop =?2")
+    Integer getPhoneSale6Matrix(String matrix, String shop);
 }
 

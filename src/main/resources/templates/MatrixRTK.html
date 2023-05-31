@@ -248,7 +248,7 @@
                     <div class="TableMatrixRTK" th:fragment="TableMatrixRTK">
 
                         <div class="table_graduation">
-                            <table class="table-borderless">
+                            <table class="table-responsive table-hover">
                                 <thead>
                                 <tr>
                                     <th>магазин</th>
@@ -282,11 +282,11 @@
                                               </span>
                                     <span th:each="word : ${entry.value}">
 
-    <span  th:if="${word.key == 'total' }">
-                                                       <td   th:text="${word.value}" th:style="${word.value}!='100%' ? 'color: red'"></td>
+                                    <span  th:if="${word.key == 'total' }">
+                                                                                       <td   th:text="${word.value}" th:style="${word.value}!='100%' ? 'color: red'"></td>
 
-</span>
-</span>
+                                </span>
+                                </span>
 
                                     </span>
 

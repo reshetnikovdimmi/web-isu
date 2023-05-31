@@ -10,7 +10,7 @@ public interface MatrixRTKRepository extends JpaRepository<MatrixRTK, Integer> {
     @Query("SELECT DISTINCT cluster FROM MatrixRTK")
     List<String> getClusterDistinct();
 
-    @Query("SELECT DISTINCT distributionModel FROM MatrixRTK")
+    @Query("SELECT DISTINCT distributionModel FROM MatrixRTK ORDER BY distributionModel ASC")
     List<String> getDistributionModelDistinct();
 
 

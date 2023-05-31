@@ -14,58 +14,12 @@ public class OrderPhone {
     private OrderPhoneServise orderPhoneServise;
     @GetMapping("/OrderPhone")
     public String home(Model model) {
-        orderPhoneServise.LoadAuthorization_ttList();
+        orderPhoneServise.distributionModel();
 
 
         return "OrderPhone";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "orderFromT2Warehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromT2Warehouse() {
-        orderPhoneServise.requirementPhone();
-        return orderPhoneServise.orderFromT2Warehouse();
-    }
-    @ResponseBody
-    @RequestMapping(value = "orderFromWarehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromWarehouse() {
 
-        return orderPhoneServise.orderFromWarehouse();
-    }
-    @ResponseBody
-    @RequestMapping(value = "orderFromAllWarehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromAllWarehouse() {
 
-        return orderPhoneServise.orderFromAllWarehouse();
-    }
-    @ResponseBody
-    @RequestMapping(value = "orderFromMatrixWarehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMatrixWarehouse() {
-
-        return orderPhoneServise.orderFromMatrixT2Warehouse();
-    }
-    @ResponseBody
-    @RequestMapping(value = "orderFromMinT2Warehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinT2Warehouse() {
-
-        return orderPhoneServise.orderFromMinT2Warehouse();
-    }
-    @ResponseBody
-    @RequestMapping(value = "orderFromMinWarehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinWarehouse() {
-
-        return orderPhoneServise.orderFromMinWarehouse();
-    }
-    @ResponseBody
-    @RequestMapping(value = "orderFromMinAllWarehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinAllWarehouse() {
-
-        return orderPhoneServise.orderFromMinAllWarehouse();
-    }
-    @ResponseBody
-    @RequestMapping(value = "orderFromMinMatrixWarehouse", method = RequestMethod.GET)
-    public List<com.myisu_1.isu.models.Phone.OrderPhone> orderFromMinMatrixWarehouse() {
-
-        return orderPhoneServise.orderFromMinMatrixWarehouse();
-    }
 }

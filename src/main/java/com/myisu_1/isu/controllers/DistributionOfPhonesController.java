@@ -5,7 +5,6 @@ import com.myisu_1.isu.models.Phone.*;
 import com.myisu_1.isu.service.PhoneServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DistributionOfPhonesController {
@@ -22,52 +22,53 @@ public class DistributionOfPhonesController {
 
     @GetMapping("/distributionOFphones")
     public String home(Model model) {
-        phoneServise.LoadAuthorization_ttList();
 
+        model.addAttribute("DistributionModelPhone",phoneServise.distributionModel());
 
         return "distributionOFphones";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "requirementPhone", method = RequestMethod.GET)
-    public Iterable<RequirementPhone> requirementPhone() {
+    @RequestMapping(value = "/RemanisPhoneSach/{matrixT2}", method = RequestMethod.GET)
 
-        return phoneServise.requirementPhone();
+    private String remanisPhoneSach(@PathVariable("matrixT2") String matrixT2, Model model) {
+
+        model.addAttribute("RemanisPhoneSach", phoneServise.remanisPhoneSach(matrixT2.replaceAll("_","/")));
+
+        return "distributionOFphones::RemanisPhoneSach";
+
     }
 
+    @GetMapping("/CreateRemanisPhonesShopT2")
+    private String createRemanisPhoneShopT2(Model model) {
+
+       model.addAttribute("RemanisPhoneShop", phoneServise.remanisPhoneShopT2());
+       model.addAttribute("RemanisPhoneShopMuilt", phoneServise.remanisPhoneShopMult());
+
+        return "distributionOFphones::RemanisPhoneShop";
+
+    }
+    @GetMapping("/CreateMatrixT2")
+    private String createMatrixT2(Model model) {
+        model.addAttribute("distributionModel",phoneServise.distributionModelMatrix());
+        model.addAttribute("CreateMatrixT2", phoneServise.createMatrixT2());
+     //   model.addAttribute("RemanisPhoneShopMuilt", phoneServise.remanisPhoneShopMult());
+
+        return "distributionOFphones::CreateMatrixT2";
+
+    }
 
     @ResponseBody
-    @RequestMapping(value = "remanisWarehousePhone", method = RequestMethod.GET)
-    public Iterable<RemanisPhoneWarehouse> remanisWarehousePhone() {
+    @RequestMapping(value = "TableDistributionPhone/{shop}", method = RequestMethod.GET)
+    public Map<String,Map<String, Map<String, Integer>>> createTableDistributionPhone(@PathVariable("shop") String shop) {
 
-        return phoneServise.remanisWarehousePhone();
+        return phoneServise.remanisSaleShop(shop);
+
     }
     @ResponseBody
-    @RequestMapping(value = "requirementPhone/{Shop}", method = RequestMethod.GET)
-    public Iterable<DistributionPhone> distributionPhone(@PathVariable("Shop") String shop) {
-
-
-        return phoneServise.distributionPhone(shop);
-    }
-    @ResponseBody
-    @RequestMapping(value = "matrixT2Phone", method = RequestMethod.GET)
-    public Iterable<TableMatrixT2> matrixT2Phone() {
-
-        return phoneServise.matrixT2Phone();
-    }
-    @PostMapping(path = "/skyPhone")
-    private ResponseEntity skyPhone(@RequestBody DistributionPhone skyPhone) {
-
-
-
-        return ResponseEntity.ok(phoneServise.distributionSkyPhone(skyPhone));
-    }
-    @ResponseBody
-    @RequestMapping(value = "requirementUpPhone", method = RequestMethod.GET)
-    public Iterable<RequirementPhone> requirementUpPhone() {
-
-        return phoneServise.requirementUpPhone();
-
+    @RequestMapping(value = "tableUpDistriPhone/{shop}/{models}/{quantity}/{brend}", method = RequestMethod.GET)
+    public Map<String, Map<String, Map<String, Integer>>> tableUpDistriPhone(@PathVariable("shop")  String shop, @PathVariable("models")  String models,@PathVariable("quantity")  String quantity,@PathVariable("brend")  String brend) {
+System.out.println(models+"--"+brend);
+        return phoneServise.tableUpDistriPhone(shop,models.replaceAll("_","/"),quantity,brend.replaceAll("_","/"));
     }
     @GetMapping("/exselDistributionPhones")
     public void downloadExselFile(HttpServletResponse response) throws IOException {

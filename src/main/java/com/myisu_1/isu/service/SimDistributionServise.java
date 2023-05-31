@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SimDistributionServise {
@@ -308,6 +309,7 @@ public class SimDistributionServise {
     }
 
     public Object distributionModel() {
+
         return matrixRTKRepository.getDistributionModelDistinct();
     }
 }

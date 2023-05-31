@@ -17,37 +17,14 @@ public class MovementsPhone {
     private MovementsPhoneServise movementsPhoneServise;
     @GetMapping("/MovementsPhone")
     public String home(Model model) {
-        movementsPhoneServise.LoadAuthorization_ttList();
+        movementsPhoneServise.distributionModel();
 
 
         return "MovementsPhone";
     }
 
 
-    @ResponseBody
-    @RequestMapping(value = "movementsPhone", method = RequestMethod.GET)
-    public Iterable<RequirementPhone> movementsPhone() {
-
-        return movementsPhoneServise.requirementPhone();
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "allMovements", method = RequestMethod.GET)
-    public List<From_whereTo_where> allMovements() {
-
-        return movementsPhoneServise.allMovements();
-    }
-    @ResponseBody
-    @RequestMapping(value = "shopMovements/{Shop}", method = RequestMethod.GET)
-    public List<From_whereTo_where> shopMovements(@PathVariable("Shop") String shop) {
 
 
-        return movementsPhoneServise.shopMovements(shop);
-    }
-    @ResponseBody
-    @RequestMapping(value = "requirementMatrixT2Phone", method = RequestMethod.GET)
-    public Iterable<TableMatrixT2> requirementMatrixT2Phone() {
 
-        return movementsPhoneServise.requirementMatrixT2Phone();
-    }
 }

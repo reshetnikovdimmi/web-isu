@@ -19,21 +19,7 @@ public class MovementsPhoneServise extends PhoneServise {
     List<String> listPhone = null;
     List<From_whereTo_where> from_whereTo_whereList;
 
-    public List<From_whereTo_where> allMovements() {
-        from_whereTo_whereList = new ArrayList<>();
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-            distributionsPhoneList(authorization_ttList.get(i).getName());
-        }
-        for (int i = 0; i < authorization_ttList.size(); i++) {
 
-            redistributingPhones(authorization_ttList.get(i).getName());
-        }
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-
-            redistributingPhonesтNeT2(authorization_ttList.get(i).getName());
-        }
-        return from_whereTo_whereList;
-    }
 
     private void redistributingPhonesтNeT2(String name) {
         int requirement = 0;
@@ -254,22 +240,5 @@ public class MovementsPhoneServise extends PhoneServise {
         return t2;
     }
 
-    public List<From_whereTo_where> shopMovements(String shop) {
-        from_whereTo_whereList = new ArrayList<>();
 
-        for (int i = 0; i < authorization_ttList.size(); i++) {
-            distributionsPhoneList(authorization_ttList.get(i).getName());
-        }
-            redistributingPhones(shop);
-            redistributingPhonesтNeT2(shop);
-
-        return from_whereTo_whereList;
-
-    }
-
-    public Iterable<TableMatrixT2> requirementMatrixT2Phone() {
-
-
-        return matrixT2Phone();
-    }
 }
