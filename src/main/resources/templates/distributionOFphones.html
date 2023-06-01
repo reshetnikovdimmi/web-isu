@@ -309,7 +309,7 @@
                 </div>
                 <div class="row"><span class="fs-4"></span></div>
                 <div class="row">
-                    <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
+                    <div class="RemanisSaleMatrixT2Shop" th:fragment="RemanisSaleMatrixT2Shop">
 
                         <div class="table_graduation">
                             <table class="table-borderless">
@@ -323,24 +323,59 @@
                                 </tr>
                                 </thead>
                                 <tbody class="tbody">
-                                <tr th:each="entry, stats  : ${AccessoriesCategoryMaxSale}"
+                                <tr th:each="entry, stats  : ${RemanisSaleMatrixT2Shop}"
+                                    th:with="user=${entry.value}">
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
+                                                type="submit"></button>
+                                    </td>
+
+
+
+                                                       <td th:each="word : ${entry.value}" th:text="${word.value}"></td>
+
+
+
+
+
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="RemanisSaleModelShop" th:fragment="RemanisSaleModelShop">
+
+                        <div class="table_graduation">
+                            <table class="table-borderless">
+                                <thead>
+                                <tr>
+                                    <th name="grad" id="grad">МОДЕЛЬ</th>
+                                    <th>ПРОД 1М</th>
+                                    <th>ПРОД 6m</th>
+                                    <th>ТЕЛЕ2</th>
+
+                                </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                <tr th:each="entry, stats  : ${RemanisSaleModelShop}"
                                     th:with="user=${entry.value}">
                                     <td th:text="${entry.key}">
 
                                     </td>
 
-                                    <span th:each="word : ${entry.value}">
-                                                   <span th:if="${word.key == 'ПРОД 6/3М' }">
-                                                       <td th:text="${word.value}"></td>
-                                                   </span>
-                          <span th:if="${word.key == 'ПРОД 1М' }">
-                                                       <td th:text="${word.value}"></td>
-                                                   </span>
-                          <span th:if="${word.key == 'ТЕЛЕ2' }">
-                                                       <td th:text="${word.value}"></td>
-                                                   </span>
 
-                          </span>
+
+                                                       <td th:each="word : ${entry.value}" th:text="${word.value}"></td>
+
+
+
+
+
                                 </tr>
 
                                 </tbody>

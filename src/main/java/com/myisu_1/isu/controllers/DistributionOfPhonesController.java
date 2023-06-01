@@ -37,6 +37,24 @@ public class DistributionOfPhonesController {
         return "distributionOFphones::RemanisPhoneSach";
 
     }
+    @RequestMapping(value = "/UpdateRemanisSaleMatrixT2Shop/{matrixT2}", method = RequestMethod.GET)
+
+    private String updateRemanisSaleMatrixT2Shop(@PathVariable("matrixT2") String matrixT2, Model model) {
+
+        model.addAttribute("RemanisSaleMatrixT2Shop", phoneServise.updateRemanisSaleMatrixT2Shop(matrixT2.replaceAll("_","/")));
+
+        return "distributionOFphones::RemanisSaleMatrixT2Shop";
+
+    }
+    @RequestMapping(value = "/UpdateRemanisSaleModelShop/{models}", method = RequestMethod.GET)
+
+    private String updateRemanisSaleModelShop(@PathVariable("models") String models, Model model) {
+
+        model.addAttribute("RemanisSaleModelShop", phoneServise.updateRemanisSaleModelShop(models.replaceAll("_","/")));
+
+        return "distributionOFphones::RemanisSaleModelShop";
+
+    }
 
     @GetMapping("/CreateRemanisPhonesShopT2")
     private String createRemanisPhoneShopT2(Model model) {

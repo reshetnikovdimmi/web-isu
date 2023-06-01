@@ -87,14 +87,14 @@ public class PhoneServise {
 
                     indicator.put("sale1", saleSimModemRepository_1m.getSale1SimShop(models, shop));
                     indicator.put("sale6", saleSimModemRepository_6m.getSale6SimShop(models, shop));
-                    if(remanisSaleShop.containsKey(authorization_ttList.get(0).getName())){
+                    if (remanisSaleShop.containsKey(authorization_ttList.get(0).getName())) {
                         indicator.put("remanisCash", remanisSaleShop.get(authorization_ttList.get(0).getName()).get(matrix).get(models).get("remanisCash"));
-                    }else {
+                    } else {
                         indicator.put("remanisCash", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(0).getName()));
                     }
-                    if(remanisSaleShop.containsKey(authorization_ttList.get(2).getName())){
+                    if (remanisSaleShop.containsKey(authorization_ttList.get(2).getName())) {
                         indicator.put("remanisCash2", remanisSaleShop.get(authorization_ttList.get(2).getName()).get(matrix).get(models).get("remanisCash2"));
-                    }else {
+                    } else {
                         indicator.put("remanisCash2", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(2).getName()));
                     }
 
@@ -108,14 +108,14 @@ public class PhoneServise {
                 indicator.put("totalRemanis", phoneRepositoriy.getPhoneRemanMatrix(matrix, shop));
                 indicator.put("totalSale1", phoneRepositoriy.getPhoneSale1Matrix(matrix, shop));
                 indicator.put("totalSale6", phoneRepositoriy.getPhoneSale6Matrix(matrix, shop));
-                if(remanisSaleShop.containsKey(authorization_ttList.get(0).getName())){
+                if (remanisSaleShop.containsKey(authorization_ttList.get(0).getName())) {
                     indicator.put("totalRemanisCash", remanisSaleShop.get(authorization_ttList.get(0).getName()).get(matrix).get("total").get("totalRemanisCash"));
-                }else {
+                } else {
                     indicator.put("totalRemanisCash", phoneRepositoriy.getPhoneRemanMatrix(matrix, authorization_ttList.get(0).getName()));
                 }
-                if(remanisSaleShop.containsKey(authorization_ttList.get(2).getName())){
+                if (remanisSaleShop.containsKey(authorization_ttList.get(2).getName())) {
                     indicator.put("totalRemanisCash2", remanisSaleShop.get(authorization_ttList.get(2).getName()).get(matrix).get("total").get("totalRemanisCash2"));
-                }else {
+                } else {
                     indicator.put("totalRemanisCash2", phoneRepositoriy.getPhoneRemanMatrix(matrix, authorization_ttList.get(2).getName()));
                 }
 
@@ -251,8 +251,8 @@ public class PhoneServise {
         remanisSaleShop.get(shop).get(brend).get(models).replace("order", Integer.valueOf(quantity));
 
         Integer orderCash = remanisSaleShop.get(shop).get(brend).get("total").get("orderCash");
-        if (orderCash==null) {
-            orderCash=0;
+        if (orderCash == null) {
+            orderCash = 0;
         }
         remanisSaleShop.get(shop).get(brend).get("total").replace("orderCash", Integer.valueOf(quantity) + orderCash);
 
@@ -262,44 +262,44 @@ public class PhoneServise {
         Integer totalRemanisCash2 = remanisSaleShop.get(shop).get(brend).get("total").get("totalRemanisCash2");
         Integer totalRemanisCash = remanisSaleShop.get(shop).get(brend).get("total").get("totalRemanisCash");
 
-System.out.println(totalRemanisCash2);
+        System.out.println(totalRemanisCash2);
 
-        if (remanisCash2==null) {
-            remanisCash2=0;
+        if (remanisCash2 == null) {
+            remanisCash2 = 0;
         }
-        if (remanisCash==null) {
-            remanisCash=0;
+        if (remanisCash == null) {
+            remanisCash = 0;
         }
-        if (totalRemanisCash2==null) {
-            totalRemanisCash2=0;
+        if (totalRemanisCash2 == null) {
+            totalRemanisCash2 = 0;
         }
-        if (totalRemanisCash==null) {
-            totalRemanisCash=0;
+        if (totalRemanisCash == null) {
+            totalRemanisCash = 0;
         }
 
-        if (authorization_tt.getShopMatrixT2().contains(shop) && remanisCash2>0){
-            remanisSaleShop.get(authorization_ttList.get(2).getName()).get(brend).get(models).replace("remanis",remanisCash2-Integer.valueOf(quantity));
+        if (authorization_tt.getShopMatrixT2().contains(shop) && remanisCash2 > 0) {
+            remanisSaleShop.get(authorization_ttList.get(2).getName()).get(brend).get(models).replace("remanis", remanisCash2 - Integer.valueOf(quantity));
             for (Map.Entry entry : remanisSaleShop.entrySet()) {
 
-                remanisSaleShop.get(entry.getKey()).get(brend).get(models).replace("remanisCash2",remanisCash2-Integer.valueOf(quantity));
+                remanisSaleShop.get(entry.getKey()).get(brend).get(models).replace("remanisCash2", remanisCash2 - Integer.valueOf(quantity));
             }
 
-        }else{
-            remanisSaleShop.get(authorization_ttList.get(0).getName()).get(brend).get(models).replace("remanis",remanisCash-Integer.valueOf(quantity));
+        } else {
+            remanisSaleShop.get(authorization_ttList.get(0).getName()).get(brend).get(models).replace("remanis", remanisCash - Integer.valueOf(quantity));
             for (Map.Entry entry : remanisSaleShop.entrySet()) {
-                remanisSaleShop.get(entry.getKey()).get(brend).get(models).replace("remanisCash",remanisCash-Integer.valueOf(quantity));
+                remanisSaleShop.get(entry.getKey()).get(brend).get(models).replace("remanisCash", remanisCash - Integer.valueOf(quantity));
             }
 
         }
 
-        if (authorization_tt.getShopMatrixT2().contains(shop) && totalRemanisCash2>0){
+        if (authorization_tt.getShopMatrixT2().contains(shop) && totalRemanisCash2 > 0) {
             for (Map.Entry entry : remanisSaleShop.entrySet()) {
-                remanisSaleShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash2",totalRemanisCash2-Integer.valueOf(quantity));
+                remanisSaleShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash2", totalRemanisCash2 - Integer.valueOf(quantity));
             }
 
-        }else{
+        } else {
             for (Map.Entry entry : remanisSaleShop.entrySet()) {
-                remanisSaleShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash",totalRemanisCash-Integer.valueOf(quantity));
+                remanisSaleShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash", totalRemanisCash - Integer.valueOf(quantity));
             }
 
         }
@@ -308,4 +308,33 @@ System.out.println(totalRemanisCash2);
         return remanisSaleShop.get(shop);
     }
 
+    public Object updateRemanisSaleMatrixT2Shop(String model) {
+        Map<String, Map<String, Integer>> shop = new TreeMap<>();
+System.out.println(model);
+        for (authorization_tt shops: authorization_ttList){
+            Map<String, Integer> indicators = new TreeMap<>();
+            indicators.put("remanis",phoneRepositoriy.getPhoneRemanMatrix(model, shops.getName()));
+            indicators.put("sale1", phoneRepositoriy.getPhoneSale1Matrix(model, shops.getName()));
+            indicators.put("sale6", phoneRepositoriy.getPhoneSale6Matrix(model, shops.getName()));
+            shop.put(shops.getName(),indicators);
+        }
+
+        return shop;
+    }
+
+    public Object updateRemanisSaleModelShop(String model) {
+        Map<String, Map<String, Integer>> shop = new TreeMap<>();
+
+        List<String> modelGb = phoneRepositoriy.getPhonaModelGb(model);
+        System.out.println(modelGb);
+        for (authorization_tt shops: authorization_ttList){
+            Map<String, Integer> indicators = new TreeMap<>();
+            indicators.put("remanis",phoneRepositoriy.getRemanisModelGbShop(modelGb, shops.getName()));
+            indicators.put("sale1", phoneRepositoriy.getSale1DistrModelGb(modelGb, shops.getName()));
+            indicators.put("sale6", phoneRepositoriy.getSale6DistrModelGb(modelGb, shops.getName()));
+            shop.put(shops.getName(),indicators);
+        }
+
+        return shop;
+    }
 }

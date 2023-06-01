@@ -52,7 +52,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     Integer getPhoneRemanSachAll(String matrix, String name, String name1);
 
     @Query("SELECT  SUM (r.remainsSimAndModem) FROM Phone_Smart p " +
-            "JOIN p.remanisSims r WHERE p.Matrix_T2 = ?1 AND r.shop =?2")
+            "JOIN p.remanisSims r WHERE p.Matrix_T2 = ?1 AND r.shop =?2 ")
     Integer getPhoneRemanMatrix(String matrix, String shop);
 
     @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
@@ -62,5 +62,20 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
             "JOIN p.saleSim_6m r WHERE p.Matrix_T2 = ?1 AND r.shop =?2")
     Integer getPhoneSale6Matrix(String matrix, String shop);
+
+    @Query("SELECT Model_GB  FROM Phone_Smart WHERE Model = ?1")
+    List<String> getPhonaModelGb(String model);
+
+    @Query("SELECT  SUM (r.remainsSimAndModem) FROM Phone_Smart p " +
+            "JOIN p.remanisSims r WHERE p.Model_GB IN ?1 AND r.shop =?2 ")
+    Integer getRemanisModelGbShop(List<String> modelGb, String name);
+
+    @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
+            "JOIN p.saleSim_1m r WHERE p.Model_GB IN ?1 AND r.shop =?2 ")
+    Integer getSale1DistrModelGb(List<String> modelGb, String name);
+
+    @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
+            "JOIN p.saleSim_6m r WHERE p.Model_GB IN ?1 AND r.shop =?2 ")
+    Integer getSale6DistrModelGb(List<String> modelGb, String name);
 }
 

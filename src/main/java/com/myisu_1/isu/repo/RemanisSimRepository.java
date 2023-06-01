@@ -25,4 +25,6 @@ public interface RemanisSimRepository extends CrudRepository<RemanisSim, Integer
 
     @Query("SELECT SUM(remainsSimAndModem)  FROM RemanisSim WHERE nameSimAndModem IN ?1 AND shop = ?2")
     Integer getRemanisRTKGropShop(List<String> nameRainbow, String shop);
+
+
 }

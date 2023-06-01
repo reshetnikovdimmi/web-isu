@@ -31,7 +31,7 @@ public class Phone_Smart implements Serializable {
 
     @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.ALL)
 
-    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model")
+    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model", insertable = false, updatable = false)
 
     private List<RemanisSim> remanisSims;
 

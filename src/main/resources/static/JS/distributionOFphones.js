@@ -11,15 +11,33 @@ function remanisPhoneSach() {
 
     $(document).find('.tableDistributionModelPhone .btn').on('click', function() {
     $('#loader').removeClass('hidden')
-        matrixT2 = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_');
-        $.get('/RemanisPhoneSach/' + matrixT2, {}, function(data) {
+        matrixT2 = $(this).parents('tr:first').find('td:eq(0)').text();
+        $.get('/RemanisPhoneSach/' + matrixT2.trim().replaceAll('/', '_'), {}, function(data) {
         createRemanisPhoneShopT2();
+        updateRemanisSaleMatrixT2Shop();
             $(".RemanisPhoneSach").html(data);
         });
 
     });
 }
+function updateRemanisCash(){
+$.get('/RemanisPhoneSach/' + matrixT2.trim().replaceAll('/', '_'), {}, function(data) {
 
+            $(".RemanisPhoneSach").html(data);
+        });
+}
+function updateRemanisSaleMatrixT2Shop(){
+$.get('/UpdateRemanisSaleMatrixT2Shop/' + matrixT2.trim().replaceAll('/', '_'), {}, function(data) {
+
+            $(".RemanisSaleMatrixT2Shop").html(data);
+        });
+}
+function updateRemanisSaleModelShop(){
+$.get('/UpdateRemanisSaleModelShop/' + name.trim().replaceAll('/', '_'), {}, function(data) {
+
+            $(".RemanisSaleModelShop").html(data);
+        });
+}
 function createRemanisPhoneShopT2() {
     $.get('/CreateRemanisPhonesShopT2', {}, function(data) {
         $(".RemanisPhoneShop").html(data);
@@ -209,20 +227,20 @@ function tableDistributionPhone(data) {
             matrixT2 = this.innerHTML;
 
 
-           // updateRemanisCash();
-           // updateRemanisSaleRTKShop()
+           updateRemanisCash();
+           updateRemanisSaleMatrixT2Shop();
         });
     }
     $(document).find('.SKYPhone').on('click', function() {
-  name = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
-
+  name = $(this).parents('tr:first').find('td:eq(0)').text();
+updateRemanisSaleModelShop();
     });
 
     $(document).find('.SKYPhone').on('change', function() {
         $('.btn-primary').attr('disabled', false);
-alert(name+"--"+matrixT2)
-        $.get('/tableUpDistriPhone/' + shop.trim() + '/' + name + '/' + this.value + '/' + matrixT2.trim().replaceAll('/', '_'), {}, function(data) {
-console.log(data)
+
+        $.get('/tableUpDistriPhone/' + shop.trim() + '/' + name.trim().replaceAll('/', '_') + '/' + this.value + '/' + matrixT2.trim().replaceAll('/', '_'), {}, function(data) {
+
           tableUpDistributionButton(data);
          //   updateRemanisCash(grop);
         });
