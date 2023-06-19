@@ -94,7 +94,7 @@ System.out.println(models+"--"+brend);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition","attachment; filename=DistributionPhones.xlsx");
 
-        ByteArrayInputStream inputStream = ExselFileExporteDistributionPhones.exportPrisePromoFile((List<DistributionPhone>) phoneServise.distributionPhoneList());
+        ByteArrayInputStream inputStream = ExselFileExporteDistributionPhones.exportPrisePromoFile(phoneServise.distributionPhoneList());
 
         IOUtils.copy(inputStream, response.getOutputStream());
 

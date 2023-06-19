@@ -242,6 +242,7 @@ updateRemanisSaleModelShop();
         $.get('/tableUpDistriPhone/' + shop.trim() + '/' + name.trim().replaceAll('/', '_') + '/' + this.value + '/' + matrixT2.trim().replaceAll('/', '_'), {}, function(data) {
 
           tableUpDistributionButton(data);
+          createMatrixT2();
          //   updateRemanisCash(grop);
         });
     });

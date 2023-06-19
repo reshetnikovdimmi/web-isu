@@ -41,6 +41,7 @@ public class PhoneServise {
     List<DistributionPhone> distributionPhoneList;
     List<String> matrix_T2;
     List<String> distributionModelMatrix;
+    Map<String, Map<String, String>> shopMatrix;
 
     private int remanis;
 
@@ -65,10 +66,10 @@ public class PhoneServise {
     }
 
 
-    public Iterable<DistributionPhone> distributionPhoneList() {
+    public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
 
 
-        return distributionPhoneList;
+        return remanisSaleShop;
     }
 
     public Map<String, Map<String, Map<String, Integer>>> remanisSaleShop(String shop) {
@@ -205,43 +206,44 @@ public class PhoneServise {
     }
 
     public Object createMatrixT2() {
-        Map<String, Map<String, String>> shopMatrix = new TreeMap<>();
+        if (shopMatrix == null){
+            shopMatrix = new TreeMap<>();
+            for (String shop : authorization_tt.getShopMatrixT2()) {
+                Map<String, String> indicator = new TreeMap<>();
+                int cou = 0;
+                Double total = 0.0;
+                for (String matrix : distributionModelMatrix) {
+                    String proz = null;
+                    Integer remMatr = phoneRepositoriy.getPhoneRemanMatrix(matrix, shop);
 
+                    Integer kl = matrixT2Repository.getQuantityMatrix(matrix, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
+                    if (remMatr == null) {
+                        remMatr = 0;
+                    }
+                    if (remMatr != null && kl != 0) {
+                        proz = String.format("%.0f", (double) remMatr / (double) kl * 100);
+                        if (Double.parseDouble(proz) > 100) {
+                            proz = "100";
+                        }
 
-        for (String shop : authorization_tt.getShopMatrixT2()) {
-            Map<String, String> indicator = new TreeMap<>();
-            int cou = 0;
-            Double total = 0.0;
-            for (String matrix : distributionModelMatrix) {
-                String proz = null;
-                Integer remMatr = phoneRepositoriy.getPhoneRemanMatrix(matrix, shop);
-
-                Integer kl = matrixT2Repository.getQuantityMatrix(matrix, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
-                if (remMatr == null) {
-                    remMatr = 0;
-                }
-                if (remMatr != null && kl != 0) {
-                    proz = String.format("%.0f", (double) remMatr / (double) kl * 100);
-                    if (Double.parseDouble(proz) > 100) {
-                        proz = "100";
+                    }
+                    if (remMatr != null && kl == 0) {
+                        proz = "ЛОЖЬ";
+                    }
+                    if (kl > 0) {
+                        total += Double.parseDouble(proz);
+                        cou++;
                     }
 
+                    indicator.put(matrix, proz + "%");
                 }
-                if (remMatr != null && kl == 0) {
-                    proz = "ЛОЖЬ";
-                }
-                if (kl > 0) {
-                    total += Double.parseDouble(proz);
-                    cou++;
-                }
+                indicator.put("total", String.format("%.0f", total / cou) + "%");
+                shopMatrix.put(shop, indicator);
 
-                indicator.put(matrix, proz + "%");
             }
-            indicator.put("total", String.format("%.0f", total / cou) + "%");
-            shopMatrix.put(shop, indicator);
 
+            return shopMatrix;
         }
-
         return shopMatrix;
     }
 
@@ -254,7 +256,13 @@ public class PhoneServise {
         if (orderCash == null) {
             orderCash = 0;
         }
+        Integer remanisShop = phoneRepositoriy.getPhoneRemanMatrix(brend, shop);
+        if (remanisShop == null) {
+            remanisShop = 0;
+        }
         remanisSaleShop.get(shop).get(brend).get("total").replace("orderCash", Integer.valueOf(quantity) + orderCash);
+
+        updateMatrixT2(remanisShop+Integer.valueOf(quantity) + orderCash,shop,brend);
 
         Integer remanisCash2 = remanisSaleShop.get(shop).get(brend).get(models).get("remanisCash2");
         Integer remanisCash = remanisSaleShop.get(shop).get(brend).get(models).get("remanisCash");
@@ -308,9 +316,37 @@ public class PhoneServise {
         return remanisSaleShop.get(shop);
     }
 
+    private void updateMatrixT2(int i, String shop, String brend) {
+        Integer kl = matrixT2Repository.getQuantityMatrix(brend, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
+        Double remMatr = null;
+
+        if(kl<i){
+            remMatr = 100.00;
+        }else {
+            remMatr = (double)i/(double)kl*100;
+        }
+        shopMatrix.get(shop).replace(brend, String.format("%.0f", remMatr)+"%");
+
+        int cou =0;
+        int matrix = 0;
+        for (Map.Entry entry : shopMatrix.get(shop).entrySet()) {
+
+
+            if(!entry.getKey().equals("total")&&!entry.getValue().equals("ЛОЖЬ%")){
+                cou++;
+               matrix += Integer.parseInt(entry.getValue().toString().replace("%",""));
+
+            }
+
+
+        }
+        shopMatrix.get(shop).replace("total", String.format("%.0f", (double)matrix/(double)cou)+"%");
+    }
+
+
     public Object updateRemanisSaleMatrixT2Shop(String model) {
         Map<String, Map<String, Integer>> shop = new TreeMap<>();
-System.out.println(model);
+
         for (authorization_tt shops: authorization_ttList){
             Map<String, Integer> indicators = new TreeMap<>();
             indicators.put("remanis",phoneRepositoriy.getPhoneRemanMatrix(model, shops.getName()));

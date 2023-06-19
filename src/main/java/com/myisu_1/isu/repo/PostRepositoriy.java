@@ -23,7 +23,7 @@ public interface PostRepositoriy extends CrudRepository <authorization_tt, Integ
     @Query("SELECT name  FROM authorization_tt WHERE clusterT2 != ' '")
     List<String> getShopMatrixT2();
 
-    @Query("SELECT name  FROM authorization_tt WHERE simT2 = 't2m'")
+    @Query("SELECT name  FROM authorization_tt WHERE clusterT2 = ' '")
     List<String> getShopMult();
 
     @Query("SELECT clusterRtk  FROM authorization_tt WHERE name = ?1")

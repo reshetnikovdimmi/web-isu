@@ -254,6 +254,7 @@ public class SimDistributionServise {
     }
 
     public Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionSim() {
+        System.out.println(remanSaleSimShop);
         return remanSaleSimShop;
     }
 
