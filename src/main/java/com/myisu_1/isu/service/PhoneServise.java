@@ -207,7 +207,7 @@ public class PhoneServise {
     }
 
     public Object createMatrixT2() {
-        if (!shopMatrix.isEmpty()){
+        if (shopMatrix.isEmpty()){
             shopMatrix = new TreeMap<>();
             for (String shop : authorization_tt.getShopMatrixT2()) {
                 Map<String, String> indicator = new TreeMap<>();
