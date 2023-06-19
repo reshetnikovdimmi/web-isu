@@ -50,6 +50,7 @@ public class PhoneServise {
         authorization_ttList = (List<com.myisu_1.isu.models.authorization_tt>) authorization_tt.findAll();
         matrix_T2 = phoneRepositoriy.getMatrixT2Disting();
         remanisSaleShop = new TreeMap<>();
+        shopMatrix = new TreeMap<>();
         Map<String, Map<String, Integer>> distributionModel = new TreeMap<>();
 
         for (String matrix : matrix_T2) {
@@ -206,7 +207,7 @@ public class PhoneServise {
     }
 
     public Object createMatrixT2() {
-        if (shopMatrix == null){
+        if (!shopMatrix.isEmpty()){
             shopMatrix = new TreeMap<>();
             for (String shop : authorization_tt.getShopMatrixT2()) {
                 Map<String, String> indicator = new TreeMap<>();
