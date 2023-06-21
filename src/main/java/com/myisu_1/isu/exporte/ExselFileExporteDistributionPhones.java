@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ExselFileExporteDistributionPhones {
     public static ByteArrayInputStream exportPrisePromoFile(Map<String, Map<String, Map<String, Map<String, Integer>>>> exselDistributionButto) {
         try (Workbook workbook = new XSSFWorkbook()) {
-            Sheet sheetStartPromo = workbook.createSheet("DistributionButton");
+            Sheet sheetStartPromo = workbook.createSheet("DistributionPhone");
             Row nameShopRow = sheetStartPromo.createRow(0);
 
             CellStyle headlerCellStyle = workbook.createCellStyle();
@@ -78,7 +78,7 @@ public class ExselFileExporteDistributionPhones {
                                 dataRow.createCell(0).setCellValue(distingRow.get(i));
                             }
 
-                            dataRow.createCell(j).setCellValue(ppp.get(distingRow.get(i)).get("remanisCash"));
+                            dataRow.createCell(j).setCellValue(ppp.get(distingRow.get(i)).get("order"));
                         }
 
                     }

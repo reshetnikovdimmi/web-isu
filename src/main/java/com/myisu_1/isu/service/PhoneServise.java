@@ -301,7 +301,7 @@ public class PhoneServise {
 
         }
 
-        if (authorization_tt.getShopMatrixT2().contains(shop) && totalRemanisCash2 > 0) {
+        if (authorization_tt.getShopMatrixT2().contains(shop) && remanisCash2 > 0) {
             for (Map.Entry entry : remanisSaleShop.entrySet()) {
                 remanisSaleShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash2", totalRemanisCash2 - Integer.valueOf(quantity));
             }
@@ -318,30 +318,33 @@ public class PhoneServise {
     }
 
     private void updateMatrixT2(int i, String shop, String brend) {
+        if(authorization_tt.getShopMatrixT2().contains(shop)) {
         Integer kl = matrixT2Repository.getQuantityMatrix(brend, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
         Double remMatr = null;
 
-        if(kl<i){
-            remMatr = 100.00;
-        }else {
-            remMatr = (double)i/(double)kl*100;
-        }
-        shopMatrix.get(shop).replace(brend, String.format("%.0f", remMatr)+"%");
+            if (kl < i) {
+                remMatr = 100.00;
+            } else {
+                remMatr = (double) i / (double) kl * 100;
+            }
+            shopMatrix.get(shop).replace(brend, String.format("%.0f", remMatr) + "%");
 
-        int cou =0;
-        int matrix = 0;
-        for (Map.Entry entry : shopMatrix.get(shop).entrySet()) {
+            int cou = 0;
+            int matrix = 0;
+            for (Map.Entry entry : shopMatrix.get(shop).entrySet()) {
 
 
-            if(!entry.getKey().equals("total")&&!entry.getValue().equals("ЛОЖЬ%")){
-                cou++;
-               matrix += Integer.parseInt(entry.getValue().toString().replace("%",""));
+                if (!entry.getKey().equals("total") && !entry.getValue().equals("ЛОЖЬ%")) {
+                    cou++;
+                    matrix += Integer.parseInt(entry.getValue().toString().replace("%", ""));
+
+                }
+
 
             }
 
-
+            shopMatrix.get(shop).replace("total", String.format("%.0f", (double) matrix / (double) cou) + "%");
         }
-        shopMatrix.get(shop).replace("total", String.format("%.0f", (double)matrix/(double)cou)+"%");
     }
 
 
