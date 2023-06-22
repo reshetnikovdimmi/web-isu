@@ -251,100 +251,126 @@
                 </div>
             </div>
 
-            <div id="menu1" class="container tab-pane fade"><br>
+            <div id="menu1" class="container-fluid tab-pane fade"><br>
 
                 <div class="row">
                     <div class="col">
-                        <div class="table_Case">
-                            <table class="table-borderless">
-                                <thead>
-                                <tr style="font-size:.7em">
-                                    <th>Модель</th>
-                                    <th>Остаток нтелефонов</th>
-                                    <th>Остаток стекол</th>
-                                    <th>Продажи 6мес</th>
-                                    <th>продажи 1мес</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="current : ${BrendRemanisCase}">
-                                    <td>
-                                        <button class="btn" th:text="${current.Brend}" type="submit"></button>
-                                    </td>
-                                    <td th:text="${current.remanis}"></td>
-                                    <td th:text="${current.remanisCloters}"></td>
-                                    <td th:text="${current.sale6}"></td>
-                                    <td th:text="${current.sale1}"></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="CaseShop" th:fragment="CaseShop">
-                            <table class="table-borderless" id="CaseShop">
-
-                                <thead>
-                                <tr style="font-size:.7em">
-
-                                    <th>TT</th>
-                                    <th>Остаток СТЕКЛ</th>
-                                    <th>Остаток ТЕЛ</th>
-
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="current:${CaseShop}">
-
-                                    <td>
-                                        <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
-                                                type="submit"></button>
-                                    </td>
-                                    <td th:text="${current.remanis}"></td>
-                                    <td th:text="${current.remanisCloters}"></td>
-
-
-                                </tr>
-                                </tbody>
-
-                            </table>
-
-
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="table" id="table_warehouseRemnantsCase">
-                            <table class="table-responsive table-hover" id="tables_warehouseRemnantsCase">
-                                <thead>
-
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3 text-center">
-
-                    <div class="col">
-                        <div class="table" id="table_clotherRemanisCase">
-                            <table class="table-responsive table-hover" id="tables_clotherRemanisCase">
-                                <thead>
-
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col">
                         <div class="row">
-                            <div class="col-6 col-md-4 themed-grid-col">
+                            <div class="table_Case">
+                                <table class="table-borderless">
+                                    <thead>
+                                    <tr>
+                                        <th>МОДЕЛЬ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+                                        <th>ПОТРЕБНОСТЬ</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr th:each="current : ${BrendRemanisCase}">
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                    type="submit"></button>
+                                        </td>
+                                        <td th:text="${current.remanis}"></td>
+                                        <td th:text="${current.remanisCloters}"></td>
+                                        <td th:text="${current.sale6}"></td>
+                                        <td th:text="${current.sale1}"></td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+
+
+                            <div class="CaseShop" th:fragment="CaseShop">
+                                <div class="table_NameSimShop">
+                                    <table class="table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th>ТТ</th>
+                                            <th>ОСТАТОК</th>
+                                            <th>ПРОД 1М</th>
+                                            <th>ПРОД 6/3М</th>
+                                            <th>ПОТРЕБНОСТЬ</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                        <tr th:each="current:${CaseShop}">
+
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                        type="submit"></button>
+                                            </td>
+                                            <td class="remanis" th:text="${current.remanis}"></td>
+                                            <td th:text="${current.remanisCloters}"></td>
+
+
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="table" id="table_clotherRemanisCase">
+                                <table class="table-responsive table-hover" id="tables_clotherRemanisCase">
+                                    <thead>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 themed-grid-col">
+                        <div class="table" id="table_clotherRemanisShopCase">
+                            <table class="table-responsive table-hover" id="tables_clotherRemanisShopCase">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <div class="row">
+
+                            <div class="RemanSimCash" th:fragment="RemanSimCash">
+                                <div class="table" id="table_warehouseRemnantsCase">
+                                    <table class="table-responsive table-hover" id="tables_warehouseRemnantsCase">
+                                        <thead>
+
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row"><span class="fs-4"></span></div>
+                        <div class="row">
+                            <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
+
                                 <div class="table" id="table_phoneRemanisShopCase">
                                     <table class="table-responsive table-hover" id="tables_phoneRemanisShopCase">
                                         <thead>
@@ -355,10 +381,122 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
-                            <div class="col">
-                                <div class="table" id="table_clotherRemanisShopCase">
-                                    <table class="table-responsive table-hover" id="tables_clotherRemanisShopCase">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    Будет что нибудь
+                    <div class="row mb-3 text-center">
+                        <a href="/ExselFileExporteClotingPhone" class="btn">EXSEL</a>
+                    </div>
+                </div>
+            </div>
+            <div id="menu2" class="container-fluid tab-pane fade"><br>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="table_CoverBook">
+                                <table class="table-borderless">
+                                    <thead>
+                                    <tr>
+                                        <th>МОДЕЛЬ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+                                        <th>ПОТРЕБНОСТЬ</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr th:each="current : ${BrendRemanisCoverBook}">
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                    type="submit"></button>
+                                        </td>
+                                        <td th:text="${current.remanis}"></td>
+                                        <td th:text="${current.remanisCloters}"></td>
+                                        <td th:text="${current.sale6}"></td>
+                                        <td th:text="${current.sale1}"></td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+
+
+                            <div class="CoverBookShop" th:fragment="CoverBookShop">
+                                <div class="table_NameSimShop">
+                                    <table class="table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th>ТТ</th>
+                                            <th>ОСТАТОК</th>
+                                            <th>ПРОД 1М</th>
+                                            <th>ПРОД 6/3М</th>
+                                            <th>ПОТРЕБНОСТЬ</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                        <tr th:each="current:${CoverBookShop}">
+
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                        type="submit"></button>
+                                            </td>
+                                            <td class="remanis" th:text="${current.remanis}"></td>
+                                            <td th:text="${current.remanisCloters}"></td>
+
+
+                                        </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="table" id="table_clotherRemanisCoverBook">
+                                <table class="table-responsive table-hover" id="tables_clotherRemanisCoverBook">
+                                    <thead>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 themed-grid-col">
+                        <div class="table" id="table_clotherRemanisShopCoverBook">
+                            <table class="table-responsive table-hover" id="tables_clotherRemanisShopCoverBook">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <div class="row">
+
+                            <div class="RemanSimCash" th:fragment="RemanSimCash">
+                                <div class="table" id="table_warehouseRemnantsCoverBook">
+                                    <table class="table-responsive table-hover" id="tables_warehouseRemnantsCoverBook">
                                         <thead>
 
                                         </thead>
@@ -367,105 +505,14 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div id="menu2" class="container tab-pane fade"><br>
-
-                <div class="row mb-3 text-center">
-                    <div class="col">
-                        <div class="table_CoverBook">
-                            <table class="table-borderless">
-                                <thead>
-                                <tr style="font-size:.7em">
-                                    <th>Модель</th>
-                                    <th>Остаток нтелефонов</th>
-                                    <th>Остаток стекол</th>
-                                    <th>Продажи 6мес</th>
-                                    <th>продажи 1мес</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="current : ${BrendRemanisCoverBook}">
-                                    <td>
-                                        <button class="btn" th:text="${current.Brend}" type="submit"></button>
-                                    </td>
-                                    <td th:text="${current.remanis}"></td>
-                                    <td th:text="${current.remanisCloters}"></td>
-                                    <td th:text="${current.sale6}"></td>
-                                    <td th:text="${current.sale1}"></td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="CoverBookShop" th:fragment="CoverBookShop">
-                            <table class="table-borderless" id="CoverBookShop">
-
-                                <thead>
-                                <tr style="font-size:.7em">
-
-                                    <th>TT</th>
-                                    <th>Остаток СТЕКЛ</th>
-                                    <th>Остаток ТЕЛ</th>
-
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="current:${CoverBookShop}">
-
-                                    <td>
-                                        <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
-                                                type="submit"></button>
-                                    </td>
-                                    <td th:text="${current.remanis}"></td>
-                                    <td th:text="${current.remanisCloters}"></td>
-
-
-                                </tr>
-                                </tbody>
-
-                            </table>
-
-
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="table" id="table_warehouseRemnantsCoverBook">
-                            <table class="table-responsive table-hover" id="tables_warehouseRemnantsCoverBook">
-                                <thead>
-
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3 text-center">
-
-                    <div class="col">
-                        <div class="table" id="table_clotherRemanisCoverBook">
-                            <table class="table-responsive table-hover" id="tables_clotherRemanisCoverBook">
-                                <thead>
-
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col">
+                        <div class="row"><span class="fs-4"></span></div>
                         <div class="row">
-                            <div class="col-6 col-md-4 themed-grid-col">
+                            <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
+
                                 <div class="table" id="table_phoneRemanisShopCoverBook">
                                     <table class="table-responsive table-hover" id="tables_phoneRemanisShopCoverBook">
                                         <thead>
@@ -476,20 +523,15 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="table" id="table_clotherRemanisShopCoverBook">
-                                    <table class="table-responsive table-hover" id="tables_clotherRemanisShopCoverBook">
-                                        <thead>
 
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    Будет что нибудь
+                    <div class="row mb-3 text-center">
+                        <a href="/ExselFileExporteClotingPhone" class="btn">EXSEL</a>
                     </div>
                 </div>
 
@@ -499,10 +541,7 @@
         </div>
 
     </div>
-    <div class="row mb-3 text-center">
-        <a href="/ExselFileExporteClotingPhone" class="btn">EXSEL</a>
-    </div>
-    </div>
+
 
 </main>
 
