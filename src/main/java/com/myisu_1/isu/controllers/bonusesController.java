@@ -201,6 +201,7 @@ List<Bonuses> bonuses = new ArrayList<>();
                   Double.parseDouble(all_promo.get(v).getMerlion().replace(",",".")));
           count = count + Double.parseDouble (all_promo.get(v).getMerlion().replace(",","."));
       }else if (vendor.equals("ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 ")){
+          System.out.println(all_promo.get(v).getVvp());
           bonuses =  new Bonuses(all_listSales.get(i).getNomenclature(),
                   all_listSales.get(i).getImeis(),
                   String.valueOf(all_listSales.get(i).getDateSales()),

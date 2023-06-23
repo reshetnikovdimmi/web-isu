@@ -4,8 +4,10 @@ package com.myisu_1.isu.repo;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.models.Phone_Smart;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -77,5 +79,11 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT  SUM (r.remainsSimModem) FROM Phone_Smart p " +
             "JOIN p.saleSim_6m r WHERE p.Model_GB IN ?1 AND r.shop =?2 ")
     Integer getSale6DistrModelGb(List<String> modelGb, String name);
+
+    @Modifying
+    @Transactional
+    @Query("update Phone_Smart u set u.Model_GB = ?1 where u.Model_GB = ?2")
+
+    void updateModelsGbPhoneSmart(String s, String s1);
 }
 

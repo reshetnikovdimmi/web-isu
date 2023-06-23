@@ -3,6 +3,7 @@ package com.myisu_1.isu.controllers;
 import com.myisu_1.isu.models.SIM.SimAndRtkTable;
 import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.PostRepositoriy;
+import com.myisu_1.isu.repo.SalesRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,8 @@ import java.util.Optional;
 public class Setting_up_a_storeController {
     @Autowired
     private PostRepositoriy shop;
+    @Autowired
+    private SalesRepositoriy salesRepositoriy;
 
     @GetMapping("/Setting_up_a_store")
     public String Setting_up_a_store(Model model) {
@@ -44,7 +47,14 @@ public class Setting_up_a_storeController {
                             Model model) {
 
         if (IDupdateSHOP != 0) {
+            String name = shop.findById(IDupdateSHOP).get().getName();
+            if(!NAMERAINBOW.equals(name)){
+                salesRepositoriy.updateNameShop(NAMERAINBOW, name);
+
+            }
+
             shop.save((new authorization_tt(IDupdateSHOP, LOGIN, PASWORD, NAMERAINBOW, CLUSTERT2, CLUSTERRTK, SIMT2, CLUSTERMTS, SIMBEE, SIMMF, NAMESPARK, NAMERARUS)));
+
         } else {
             shop.save((new authorization_tt(LOGIN, PASWORD, NAMERAINBOW, CLUSTERT2, CLUSTERRTK, SIMT2, CLUSTERMTS, SIMBEE, SIMMF, NAMESPARK, NAMERARUS)));
         }

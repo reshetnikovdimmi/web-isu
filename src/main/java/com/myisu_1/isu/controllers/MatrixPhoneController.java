@@ -1,12 +1,11 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.exporte.ExselFileExporte;
 import com.myisu_1.isu.exporte.ExselFileExporteMatrixPhone;
 import com.myisu_1.isu.models.Phone_Smart;
-import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
+import com.myisu_1.isu.repo.PromoRepositoriy;
+import com.myisu_1.isu.repo.SalesRepositoriy;
 import com.myisu_1.isu.service.MatrixPhoneServise;
-import com.myisu_1.isu.service.PhoneServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +25,10 @@ public class MatrixPhoneController {
     private MatrixPhoneServise matrixPhoneServise;
     @Autowired
     private PhoneRepositoriy phoneRepositoriy;
+    @Autowired
+    private PromoRepositoriy promoRepositoriy;
+    @Autowired
+    private SalesRepositoriy salesRepositoriy;
     @GetMapping("/MatrixPhone")
     public String MatrixPhone(Model model) {
         model.addAttribute("Phone", phoneRepositoriy.findAll());
@@ -47,7 +50,20 @@ public class MatrixPhoneController {
                             Model model) {
 
         if (IDupdateMatrixPhone != 0) {
+            String modelGb = phoneRepositoriy.findById(IDupdateMatrixPhone).get().getModel_GB();
+            String models = phoneRepositoriy.findById(IDupdateMatrixPhone).get().getModel();
+            if(!Model_GB.equals(modelGb)){
+                promoRepositoriy.updateModelsPricePromo(Model_GB, modelGb);
+
+            }
+            if(!Model.equals(models)){
+                salesRepositoriy.updatModelSale(Model, models);
+
+            }
             phoneRepositoriy.save((new Phone_Smart(IDupdateMatrixPhone, Matrix_T2, Brend, Model, Model_GB, Phone)));
+            phoneRepositoriy.updateModelsGbPhoneSmart(Model_GB, modelGb);
+
+
         } else {
             phoneRepositoriy.save((new Phone_Smart(Matrix_T2, Brend, Model, Model_GB, Phone)));
         }

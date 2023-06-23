@@ -126,40 +126,29 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
             listOFgoods1.setName(row.getCell(2).getStringCellValue());
             listOFgoods1.setBrend(row.getCell(4).getStringCellValue());
             listOFgoods1.setModel(row.getCell(5).getStringCellValue());
-            if (row.getCell(6).getCellType() == CellType.STRING) {
+            if(row.getCell(6).getCellType() == CellType.STRING) {
                 listOFgoods1.setMatrix(row.getCell(6).getStringCellValue());
-            } else {
+            }else{
                 listOFgoods1.setMatrix(String.valueOf(row.getCell(6).getNumericCellValue()));
             }
             listOFgoods1.setPriceZak((int) row.getCell(8).getNumericCellValue());
             listOFgoods1.setPrice((int) row.getCell(11).getNumericCellValue());
-            if(row.getCell(12).getCellType() == CellType.NUMERIC) {
-                listOFgoods1.setPricePromo((int) row.getCell(12).getNumericCellValue());
-                 }else if(row.getCell(12).getStringCellValue().length()==0) {
-                listOFgoods1.setPricePromo(0);
-            }else{
-                try {
-                    listOFgoods1.setPricePromo(Integer.parseInt(row.getCell(12).getStringCellValue()));
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
+            listOFgoods1.setPricePromo((int) row.getCell(12).getNumericCellValue());
             listOFgoods1.setStartPromo( row.getCell(13).getDateCellValue());
             listOFgoods1.setEndPromo( row.getCell(14).getDateCellValue());
             if(row.getCell(15).getCellType() == CellType.NUMERIC) {
             listOFgoods1.setDiscountUE((int) row.getCell(15).getNumericCellValue());
             }else if(row.getCell(15).getCellType() == CellType.STRING){
-
                 String g = row.getCell(15).getStringCellValue().trim().replaceAll(" ","");
-                g = g.replaceAll("[\\s|\\u00A0]+", "");
-                System.out.println(g.trim() +"--"+g.length());
+                System.out.println(g+"--"+g.length());
 
+                try {
+                    listOFgoods1.setDiscountUE((int) Double.parseDouble(row.getCell(15).getStringCellValue().replace("\\s+","")));
 
-                    listOFgoods1.setDiscountUE((int) Double.parseDouble(g.replace(",",".")));
-
-
+                } catch (NumberFormatException e) {
+                    listOFgoods1.setDiscountUE(666);
+                    e.printStackTrace();
+                }
 
 
             }else{
@@ -287,7 +276,7 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
                 if (all_listSuppliers.get(j).getImei().equals(listSuppliers1.getImei())) {
                     count++;
                     suppliersRepositoriy.deleteById(all_listSuppliers.get(j).getId());
-           //         System.out.println(count);
+           //         System.out.println(all_listSuppliers.get(j).getId());
                 }
             }
         }
@@ -327,7 +316,7 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
                 if (all_listSales.get(j).getImeis().equals(listSales1.getImeis())) {
                     count++;
                     salesRepositoriy.deleteById(all_listSales.get(j).getId());
-           //         System.out.println(count);
+                   // System.out.println(count);
                 }
             }
         }
