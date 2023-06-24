@@ -1,12 +1,14 @@
 $(document).ready(function() {
     var tab;
+    tableGlasShop();
+        tableCaseShop();
+        tableCoverBookShop();
+
     const requestURL = '/tableGlasShop'
     $(".nav-tabs a").click(function() {
         $(this).tab('show');
     });
-    tableGlasShop();
-    tableCaseShop();
-    tableCoverBookShop();
+
 });
 
 function tableGlasShop() {
