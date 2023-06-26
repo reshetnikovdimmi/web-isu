@@ -319,12 +319,12 @@ public class PhoneServise {
     }
 
     private void updateMatrixT2(int i, String shop, String brend) {
-        Integer kl = matrixT2Repository.getQuantityMatrix(brend, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
-        if(kl!=null && authorization_tt.getShopMatrixT2().contains(shop)) {
 
+        if(authorization_tt.getShopMatrixT2().contains(shop)) {
 
-        Double remMatr = null;
-
+            Integer kl = matrixT2Repository.getQuantityMatrix(brend, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
+            Double remMatr = null;
+            if (kl!=null) {
             if (kl < i) {
                 remMatr = 100.00;
             } else {
@@ -347,6 +347,7 @@ public class PhoneServise {
             }
 
             shopMatrix.get(shop).replace("total", String.format("%.0f", (double) matrix / (double) cou) + "%");
+        }
         }
     }
 
