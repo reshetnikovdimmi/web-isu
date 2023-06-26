@@ -218,6 +218,7 @@ public class PhoneServise {
                     Integer remMatr = phoneRepositoriy.getPhoneRemanMatrix(matrix, shop);
 
                     Integer kl = matrixT2Repository.getQuantityMatrix(matrix, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
+                    System.out.println(kl);
                     if (remMatr == null) {
                         remMatr = 0;
                     }
@@ -318,8 +319,10 @@ public class PhoneServise {
     }
 
     private void updateMatrixT2(int i, String shop, String brend) {
-        if(authorization_tt.getShopMatrixT2().contains(shop)) {
         Integer kl = matrixT2Repository.getQuantityMatrix(brend, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
+        if(kl!=null && authorization_tt.getShopMatrixT2().contains(shop)) {
+
+
         Double remMatr = null;
 
             if (kl < i) {
