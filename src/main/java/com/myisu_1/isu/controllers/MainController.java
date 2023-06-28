@@ -46,6 +46,7 @@ public class MainController {
     @PostMapping("/entrance")
     public String entrance(@RequestParam String login, @RequestParam String pasword, Model model) {
         logins = login;
+
         model.addAttribute("login", login);
         for (int i = 1; i < tests.size(); i++) {
             if (login.equals(tests.get(i).getLogin()) & pasword.equals(tests.get(i).getPasword())) {
@@ -71,7 +72,13 @@ public class MainController {
 
     }
 
+    @GetMapping("/entrance")
+    public String entranc(Model model) {
 
+        model.addAttribute("login", logins);
+        model.addAttribute("takeAlook", incassationTomorrow());
+        return "menu";
+    }
     public List<String> incassationTomorrow() {
         Date dt = new Date();
         Calendar c = Calendar.getInstance();
