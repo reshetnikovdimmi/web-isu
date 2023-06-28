@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" class="h-100">
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
 
@@ -8,10 +8,10 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
-    <script type="text/javascript" th:src="@{/JS/matrixT2.js}"></script>
+    <script type="text/javascript" th:src="@{/JS/CollectionSchedule.js}"></script>
     <link rel="stylesheet" th:href="@{/CSS/SIM.css}"/>
 
 
@@ -68,54 +68,16 @@
         </header>
 
         <main class="px-3">
-
+            <h6>Таблица SIM and RTK</h6>
             <h2 class="mt-4"><p th:text="'Hello, ' + ${time} + '!'"/></h2>
             <p class="lead">
 
 
-            <div class="row mb-3 text-center"> Загрузка матрицы</div>
+            <div class="row mb-3 text-center"> Загрузка продажи 6 мес</div>
             <div class="row mb-3 text-center">
-                <!-- Модальное окно -->
-                <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Закрыть"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="container-fluid">
-
-
-                                    <div class="row">
-                                        <button type="button" class="btn btn-sm">ADD кластер</button>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">модель распределения</div>
-                                        <div class="col-md-6">
-                                            <input type="text" name="Promo_price" id="Promo_price" placeholder="Введите имя"  />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">кластер</div>
-                                        <div class="col-md-6">количество</div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                                <button type="button" class="btn btn-primary">Понял</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-6 col-md-4 themed-grid-col">
-                    <form th:action="@{/matrixT2Import}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="matrixT2Import"/>
+                    <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
+                        <input type="file" th:name="sales_6"/>
                         <input th:type="submit" value="Import"/>
                     </form>
                 </div>
@@ -123,66 +85,119 @@
             </div>
 
 
+
+
             </p>
             <p class="lead">
+            <form action="/add_CollectionSchedule" method="post">
 
+                <div class="row mb-3 text-center">
 
-            <div class="row mb-3 text-center">
+                    <div class="col">
 
-
-                <div class="col">
-                    <div class="row">
-                        <div class="col"> модель распределения</div>
-                        <div class="col"><input type="text" name="price" id="pdistributionModel" placeholder="Введите имя"></div>
-                    </div>
-                    <div class="row">
-                        <div class="table table-borderless-sm" id="matrixT2">
-                            <table class="table-borderless-1" id="matrixT2_3">
-
-                            </table>
+                        <div class="row">
+                            <label>shop</label>
                         </div>
+                        <div class="row">
+                            <input type="hidden" name="IDupdateSHOP" id="IDupdateSHOP" value="0">
+                            <input type="text" name="shop" id="shop" placeholder="Введите имя">
 
+                        </div>
                     </div>
-                    <div class="row">
 
-
-                        <button type="button" id="addCluster" class="btn btn-primary" data-bs-toggle="modal">
-                            добавить кластер
-                        </button>
-
+                    <div class="col">
+                        <div class="row">
+                            <label>monday</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="monday" id="monday" placeholder="Введите имя">
+                        </div>
                     </div>
-                    <div class="row">
-
-
-                        <button type="button" id="delCluster" class="btn btn-primary" data-bs-toggle="modal">
-                            удалить кластер
-                        </button>
-
+                    <div class="col">
+                        <div class="row">
+                            <label>tuesday</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="tuesday" id="tuesday" placeholder="Введите имя">
+                        </div>
                     </div>
+                    <div class="col">
+                        <div class="row">
+                            <label>wednesday</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="wednesday" id="wednesday"
+                                   placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <label>thursday</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="thursday" id="thursday" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <label>friday</label>
+                        </div>
+                        <div class="row">
+                            <input type="text" name="friday" id="friday" placeholder="Введите имя">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="row">
+                            <label>сохранить</label>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
+                        </div>
+                    </div>
+
                 </div>
-
-
-                <div class="col">
-
-                    <div class="row">
-                        <button type="button" id="submit" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#myModal">
-                            ADD
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-
+            </form>
             </p>
             <p class="lead">
-
-            <div class="table" id="table_MatrixT2">
-                <table class="table-responsive table-hover" id="tables_MatrixT2">
+            <h6>SIM TELE2</h6>
+            <div class="table">
+                <table class="table-responsive table-hover">
                     <thead class="table-dark table-hover">
+                    <tr>
+                        <th>№ п/п</th>
+                        <th>Логин</th>
+                        <th>monday</th>
+                        <th>tuesday</th>
+                        <th>wednesday</th>
+                        <th>thursday</th>
+                        <th>friday Т2</th>
+                        <th>___________</th>
+                        <th>___________</th>
 
+                    </tr>
                     </thead>
                     <tbody>
+                    <tr th:each="current : ${CollectionSchedule}">
+
+                        <td th:text="${current.id}"></td>
+                        <td th:text="${current.shop}" ></td>
+                        <td ><a th:text="${current.monday}" th:if="${current.monday == true}"/></td>
+                        <td ><a th:text="${current.tuesday}" th:if="${current.tuesday == true}"/></td>
+                        <td ><a th:text="${current.wednesday}" th:if="${current.wednesday == true}"/></td>
+                        <td ><a th:text="${current.thursday}" th:if="${current.thursday == true}"/></td>
+                        <td ><a th:text="${current.friday}" th:if="${current.friday == true}"/></td>
+
+                        <td> <a th:href="@{/update_CollectionSchedule/{id}(id = ${current.id})}" class="btn btn-outline-primary me-2"> <span  th:text="update"></span>
+                        </a></td>
+                        <form id="form" action="/delet_CollectionSchedule" method="post">
+                            <input type="hidden" id="IDshop" name="IDshop" th:value="${current.id}">
+
+                            <td> <button type="submit">delet</button></td>
+
+                        </form>
+
+                    </tr>
 
 
                     </tbody>

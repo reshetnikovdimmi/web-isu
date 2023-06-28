@@ -27,4 +27,5 @@ public interface RemanisSimRepository extends CrudRepository<RemanisSim, Integer
     Integer getRemanisRTKGropShop(List<String> nameRainbow, String shop);
 
 
+    List<RemanisSim> findByShop(String shop);
 }

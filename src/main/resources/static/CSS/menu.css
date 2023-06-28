@@ -48,3 +48,43 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
+         .btn, button {
+            	display: inline-block;
+            	box-sizing: border-box;
+
+                  display: block;
+                  width: 200px;
+
+            	padding: 0 1px;
+            	margin: 0 1px 1px 0;
+            	outline: none;
+            	border: none;
+            	border-radius: 4px;
+            	height: 20px;
+            	line-height: 20px;
+            	font-size: 9px;
+            	font-weight: normal;
+            	text-decoration: none;
+            	vertical-align: top;
+            	color: #55677d;
+            	background-color: #dfe6ed;
+            	cursor: pointer;
+            	user-select: none;
+            	appearance: none;
+            	touch-action: manipulation;
+            	overflow: hidden;
+            }
+            .btn:focus-visible {
+            	box-shadow: 0 0 0 3px lightskyblue;
+            }
+            .btn:hover {
+            	opacity: 0.88;
+            }
+            .btn:active {
+            	line-height: 32px;
+            }
+            .btn:disabled {
+            	pointer-events: none;
+            	opacity: 0.65;
+            }
