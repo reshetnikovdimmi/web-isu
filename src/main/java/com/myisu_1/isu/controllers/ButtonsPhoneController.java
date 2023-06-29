@@ -1,10 +1,10 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.exporte.ExselFileExporteDistributionButton;
-import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionImei;
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
-import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.repo.ButtonsPhoneRepositoriy;
+import com.myisu_1.isu.repo.SuppliersRepositoriy;
 import com.myisu_1.isu.service.ButtonsPhoneServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -25,6 +24,9 @@ public class ButtonsPhoneController {
     private ButtonsPhoneRepositoriy buttonsPhoneRepositoriy;
     @Autowired
     private ButtonsPhoneServise buttonsPhoneServise;
+
+    @Autowired
+    private SuppliersRepositoriy suppliersRepositoriy;
     @GetMapping("/ButtonsPhone")
     public String bonuses(Model model) {
 
@@ -119,5 +121,26 @@ public class ButtonsPhoneController {
     public String JS(Model model) {
 
         return "CardsArrayExpDate";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/imeiDistribution/{imei}", method = RequestMethod.GET)
+    public String ImeiDistribution(@PathVariable String imei, Model model) {
+
+        System.out.println(suppliersRepositoriy.imeiDistribution(imei));
+
+
+        return suppliersRepositoriy.imeiDistribution(imei);
+    }
+    @GetMapping("/exselDistributionImei")
+    public void exselDistributionImei(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment; filename=DistributionImei.xlsx");
+
+        ByteArrayInputStream inputStream = ExselFileExporteDistributionImei.exportPrisePromoFile(suppliersRepositoriy.findAll());
+
+        IOUtils.copy(inputStream, response.getOutputStream());
+
     }
 }

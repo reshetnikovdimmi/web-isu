@@ -30,4 +30,5 @@ public interface SalesRepositoriy extends CrudRepository<Sales, Integer> {
 
     @Query("SELECT DISTINCT MONTH(dateSales) FROM Sales where dateSales > ?1  ORDER BY dateSales ASC")
     List<String> getDistinct(Date yearStartDate);
+
 }
