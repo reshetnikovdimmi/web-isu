@@ -90,6 +90,7 @@ public class AccessoriesServise {
         Map<String, String> indicators;
 
         List<String> nomeklature = rangeAccessoriesRepositoriy.getButtonPhonePrice(accessoriesGrup.get(grup.trim()).get("ГРУППА"), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМИН")), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМАКС")));
+
         Integer minRemanis = settingAccessoriesRepositoriy.getMinRemanis(accessoriesGrup.get(grup.trim()).get("ГРУППА"), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМИН")), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМАКС")));
 
         for (authorization_tt authorization : authorization_ttList) {

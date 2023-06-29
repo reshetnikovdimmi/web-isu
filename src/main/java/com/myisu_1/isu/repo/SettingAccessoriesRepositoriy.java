@@ -11,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface SettingAccessoriesRepositoriy extends JpaRepository<SettingAccessories, Integer> {
-    @Transactional
-    @Modifying
+
 
     @Query("SELECT minRemanis  FROM SettingAccessories WHERE group = ?1 AND priceMin = ?2 AND priceMax = ?3")
     Integer getMinRemanis(String group, Integer priceMin, Integer priceMax);
