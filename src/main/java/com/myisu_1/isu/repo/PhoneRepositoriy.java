@@ -21,6 +21,9 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT Model  FROM Phone_Smart WHERE Matrix_T2 = ?1")
     List<String> getModelMatrixT2List(String matrix);
 
+    @Query("SELECT DISTINCT Model_GB  FROM Phone_Smart")
+    List<String> getModel_GBList();
+
     @Query("SELECT Model  FROM Phone_Smart")
     List<String> getModelList();
 

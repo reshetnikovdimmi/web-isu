@@ -53,6 +53,9 @@ public class bonusesController {
 
     @GetMapping("/bonuses")
     public String bonuses(Model model) {
+        System.out.println(authorizationTt.getShopList());
+        model.addAttribute("optionsShop",authorizationTt.getShopList());
+        model.addAttribute("optionsBrend",phoneRepositoriy.getModel_GBList());
         all_listSales = (List<Sales>) salesRepositoriy.findAll();
         all_listSuppliers = (List<Suppliers>) suppliersRepositoriy.findAll();
         all_promo = (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
