@@ -23,7 +23,7 @@ public class MainServise {
             c.setTime(dt);
 
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-
+            System.out.println(c+"--"+dayOfWeek);
 
             switch (dayOfWeek) {
                 case 2:
