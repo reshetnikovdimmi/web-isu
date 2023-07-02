@@ -1,14 +1,18 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.dto.Bonuses;
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.repo.*;
+import com.myisu_1.isu.service.BonusesServise;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.text.DateFormat;
@@ -38,6 +42,9 @@ public class bonusesController {
     private ValueVUERepositoriy valueVUERepositoriy;
     @Autowired
     private PostRepositoriy authorizationTt;
+    @Autowired
+    private BonusesServise bonusesServise;
+
 
     List<Sales> all_listSales;
     List<Suppliers> all_listSuppliers;
@@ -53,9 +60,9 @@ public class bonusesController {
 
     @GetMapping("/bonuses")
     public String bonuses(Model model) {
-        System.out.println(authorizationTt.getShopList());
         model.addAttribute("optionsShop",authorizationTt.getShopList());
-        model.addAttribute("optionsBrend",phoneRepositoriy.getModel_GBList());
+        model.addAttribute("optionsPhone",phoneRepositoriy.getPhoneList());
+        model.addAttribute("optionsProvider",suppliersRepositoriy.getProviderList());
         all_listSales = (List<Sales>) salesRepositoriy.findAll();
         all_listSuppliers = (List<Suppliers>) suppliersRepositoriy.findAll();
         all_promo = (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
@@ -65,6 +72,20 @@ public class bonusesController {
         authorizationTtList = (List<authorization_tt>) authorizationTt.findAll();
         storeInitialization();
         return "bonuses";
+    }
+    @RequestMapping(value = "/dropDownListModelGB/{phone}", method = RequestMethod.GET)
+    private String dropDownListModelGB(@PathVariable("phone") String phone, Model model) {
+        model.addAttribute("optionsBrend",phoneRepositoriy.getModel_GBList(phone));
+        return "bonuses::dropDownListModelGB";
+
+    }
+
+    @PostMapping("/buttonShowAll")
+    private ResponseEntity<List<Bonuses>> buttonShowAll(@RequestBody Bonuses bonuses, Model model) {
+
+        return new ResponseEntity<>(bonusesServise.bonusesShowAll(bonuses), HttpStatus.OK);
+
+
     }
 
     private void storeInitialization() {
@@ -204,7 +225,7 @@ List<Bonuses> bonuses = new ArrayList<>();
                   Double.parseDouble(all_promo.get(v).getMerlion().replace(",",".")));
           count = count + Double.parseDouble (all_promo.get(v).getMerlion().replace(",","."));
       }else if (vendor.equals("ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 ")){
-          System.out.println(all_promo.get(v).getVvp());
+
           bonuses =  new Bonuses(all_listSales.get(i).getNomenclature(),
                   all_listSales.get(i).getImeis(),
                   String.valueOf(all_listSales.get(i).getDateSales()),

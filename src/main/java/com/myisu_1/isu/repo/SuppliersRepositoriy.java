@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SuppliersRepositoriy extends JpaRepository<Suppliers, Integer> {
     @Query("SELECT suppliers FROM Suppliers where imei = ?1")
     String imeiDistribution(String imei);
 
-
+    @Query("SELECT DISTINCT suppliers FROM Suppliers")
+    List<String> getProviderList();
 }
