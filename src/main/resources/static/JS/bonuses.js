@@ -16,11 +16,11 @@ $(document).ready(function() {
         if ($('#dropDownListModelGB').val() != 'null') {
             bonuses.models = $('#dropDownListModelGB').val().trim();
         }
-        if ($('#dropDownListPhone').val() != 'null') {
-            bonuses.shop = $('#dropDownListPhone').val().trim();
+        if ($('#dropDownListShop').val() != 'null') {
+            bonuses.shop = $('#dropDownListShop').val().trim();
         }
         if ($('#dropDownListProvider').val() != 'null') {
-            bonuses.provider = $('#dropDownListProvider').val().trim();
+            bonuses.provider = $('#dropDownListProvider').val()
         }
         if ($('#dropDownListPhone').val() != 'null') {
             bonuses.phone = $('#dropDownListPhone').val().trim();

@@ -23,6 +23,16 @@ public class price_promo {
     String vvp;
     String merlion;
 
+    public price_promo(String models, Date startPromo, Date endPromo, String marwel, String tfn, String vvp, String merlion) {
+        this.models = models;
+        this.startPromo = startPromo;
+        this.endPromo = endPromo;
+        this.marwel = marwel;
+        this.tfn = tfn;
+        this.vvp = vvp;
+        this.merlion = merlion;
+    }
+
     public price_promo(String brend, String models, String price, String price_promo, Date startPromo, Date endPromo, String marwel, String tfn, String vvp, String merlion) {
         this.brend = brend;
         this.models = models;

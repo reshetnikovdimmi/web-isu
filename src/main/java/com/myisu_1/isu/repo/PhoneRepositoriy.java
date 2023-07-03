@@ -91,5 +91,9 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("update Phone_Smart u set u.Model_GB = ?1 where u.Model_GB = ?2")
 
     void updateModelsGbPhoneSmart(String s, String s1);
+    @Query("SELECT  Model FROM Phone_Smart   WHERE (?1 is null or Model_GB=?1)")
+    List<String> getListModels(String models);
+    @Query("SELECT new com.myisu_1.isu.models.Phone_Smart (Model_GB, Model) FROM Phone_Smart WHERE Model IN ?1")
+    List<Phone_Smart> getSaleModelList(List<String> model);
 }
 

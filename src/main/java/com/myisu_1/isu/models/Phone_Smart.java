@@ -45,6 +45,10 @@ public class Phone_Smart implements Serializable {
 
     private List<SaleSim_6m> saleSim_6m;
 
+    public Phone_Smart(String model, String model_GB) {
+        Model = model;
+        Model_GB = model_GB;
+    }
 
     public Phone_Smart(int id, String matrix_T2, String brend, String model, String model_GB, String phone, List<RemanisSim> remanisSims) {
         this.id = id;
