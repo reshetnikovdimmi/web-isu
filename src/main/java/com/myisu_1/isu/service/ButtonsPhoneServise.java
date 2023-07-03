@@ -36,6 +36,7 @@ public class ButtonsPhoneServise {
 
         int[] arrayGraduation = {1000, 2000, 3000, 4000, 5000, 6000};
         List<Buttons> buttonsList = buttonsPhoneRepositoriy.getButtonPhonePrice();
+
         button.modelsGraduation = buttonsPhoneRepositoriy.getModelsGraduation();
         button.graduationButton = new TreeMap<>();
         modelShopSaleRem = new TreeMap<>();

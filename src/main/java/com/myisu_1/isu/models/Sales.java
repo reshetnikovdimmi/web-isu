@@ -76,4 +76,5 @@ public class Sales implements Serializable {
     public void setDateSales(Date dateSales) {
         this.dateSales = dateSales;
     }
+
 }
