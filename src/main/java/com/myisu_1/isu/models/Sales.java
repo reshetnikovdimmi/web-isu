@@ -20,31 +20,21 @@ public class Sales implements Serializable {
     Date dateSales;
 
 
-    @OneToOne
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "imeis",
-            referencedColumnName = "imei",
-            insertable = false, updatable = false,
-            foreignKey = @javax.persistence
-                    .ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    public Suppliers provider;
 
-    public Sales(int id, String imeis, String shop, String nomenclature, Date dateSales, Suppliers provider) {
-        this.id = id;
-        this.imeis = imeis;
-        this.shop = shop;
-        this.nomenclature = nomenclature;
-        this.dateSales = dateSales;
-        this.provider = provider;
-    }
 
-    public Suppliers getProvider() {
-        return provider;
-    }
 
-    public void setProvider(Suppliers provider) {
-        this.provider = provider;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public Sales(int id, String imeis, String shop, String nomenclature, Date dateSales) {
         this.id = id;
