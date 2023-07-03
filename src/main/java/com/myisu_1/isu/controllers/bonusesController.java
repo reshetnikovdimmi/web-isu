@@ -71,6 +71,7 @@ public class bonusesController {
         vues = valueVUERepositoriy.findAll();
         authorizationTtList = (List<authorization_tt>) authorizationTt.findAll();
         storeInitialization();
+        System.out.println(salesRepositoriy.findAll());
         return "bonuses";
     }
     @RequestMapping(value = "/dropDownListModelGB/{phone}", method = RequestMethod.GET)
