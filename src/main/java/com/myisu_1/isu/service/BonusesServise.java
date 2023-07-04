@@ -36,12 +36,9 @@ public class BonusesServise {
 
         List<price_promo> modelGb = null;
 
-        try {
 
-            modelGb = promoRepositoriy.getPrormoAll(bonuses.getModels(), dateString(bonuses.getStartDate()), null);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+            modelGb = promoRepositoriy.getPrormoAll(bonuses.getModels());
+
         List<Sales> salesPhone = null;
         try {
             salesPhone = salesRepositoriy.getSaleAll(dateString(bonuses.getStartDate()), dateString(bonuses.getEndDate()), bonuses.getShop());
@@ -63,7 +60,7 @@ public class BonusesServise {
                     modelPromoBonus =  promoSearch(sales.getNomenclature(), sales.getDateSales(), listPhone, modelGb);
                     if(modelPromoBonus!=null){
                     Bonuses bonusesList = new Bonuses();
-                      //  System.out.println(suppliers.getImei() + "--" + sales.getNomenclature() + "--" + sales.getDateSales() + "--" + suppliers.getSuppliers());
+
                         switch (suppliers.getSuppliers()) {
                             case "МАРВЕЛ КТ ООО":
                                 bonusesList.setCompensation(Double.valueOf(modelPromoBonus[0]));

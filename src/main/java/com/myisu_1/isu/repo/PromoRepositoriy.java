@@ -25,6 +25,6 @@ public interface PromoRepositoriy extends JpaRepository<price_promo, Integer> {
     @Query("update price_promo u set u.brend = ?1 where u.brend = ?2 AND u.models = ?3")
     void updateBrendPricePromo(String brend, String brend1, String model_GB);
 
-    @Query("SELECT new com.myisu_1.isu.models.price_promo (models,  startPromo, endPromo,tfn, vvp, merlion, marwel) FROM price_promo WHERE (?3 is null or endPromo <= ?3) AND (?2 is null or startPromo >= ?2) AND (?1 is null or models=?1)")
-    List<price_promo> getPrormoAll(String models, Date startDate, Date endDate);
+    @Query("SELECT new com.myisu_1.isu.models.price_promo (models,  startPromo, endPromo,tfn, vvp, merlion, marwel) FROM price_promo WHERE(?1 is null or models=?1)")
+    List<price_promo> getPrormoAll(String models);
 }
