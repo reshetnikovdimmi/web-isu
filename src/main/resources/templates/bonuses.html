@@ -371,23 +371,26 @@
                         <label>поставщик</label>
                         <select id="dropDownListProvider">
                             <option value="null">select option</option>
-                            <option th:each="option : ${optionsProvider}" th:value="${option}" th:text="${option}"></option>
+                            <option th:each="option : ${optionsProvider}" th:value="${option}"
+                                    th:text="${option}"></option>
                         </select>
                     </div>
                     <div class="col">
                         <label>модель</label>
                         <select id="dropDownListPhone">
                             <option value="null">select option</option>
-                            <option th:each="option : ${optionsPhone}" th:value="${option}" th:text="${option}"></option>
+                            <option th:each="option : ${optionsPhone}" th:value="${option}"
+                                    th:text="${option}"></option>
                         </select>
                     </div>
                     <div class="col">
                         <div class="dropDownListModelGB" th:fragment="dropDownListModelGB">
-                        <label>модель_гб</label>
-                        <select id="dropDownListModelGB">
-                            <option value="null">select option</option>
-                            <option th:each="option : ${optionsBrend}" th:value="${option}" th:text="${option}"></option>
-                        </select>
+                            <label>модель_гб</label>
+                            <select id="dropDownListModelGB">
+                                <option value="null">select option</option>
+                                <option th:each="option : ${optionsBrend}" th:value="${option}"
+                                        th:text="${option}"></option>
+                            </select>
                         </div>
                     </div>
                     <div class="col">
@@ -396,7 +399,7 @@
                     </div>
                     <div class="col">
                         <label>конец</label>
-                        <input  type="date" name="price" id="endDate" placeholder="Введите имя">
+                        <input type="date" name="price" id="endDate" placeholder="Введите имя">
                     </div>
                     <div class="col">
                         <label></label>
@@ -404,32 +407,18 @@
                     </div>
                 </div>
                 <div class="row" style=" padding: 12px 40px;">
-                    <table class="table table-dark table-hover" >
-                        <thead>
-                        <tr>
 
-                            <th>models</th>
-                            <th>IMEI</th>
-                            <th>дата продажи</th>
-                            <th>период_promo</th>
-                            <th>компенсация</th>
+                    <div class="table" id="table_DistributionButton">
+                        <table class="table-responsive table-hover" id="tables_DistributionButton">
+                            <thead class="table-dark table-hover">
+
+                            </thead>
+                            <tbody>
 
 
-                        </tr>
-                        </thead>
-                        <tbody class="tbody">
-
-                        <tr th:each="current : ${MARWEL}">
-
-                            <td th:text="svsdv"></td>
-                            <td th:text="dsbsdb"></td>
-                            <td th:text="sdbhr"></td>
-                            <td th:text="egwgw"></td>
-                            <td th:text="${current.compensation}"></td>
-
-
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

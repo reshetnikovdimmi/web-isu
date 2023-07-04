@@ -83,7 +83,7 @@ public class bonusesController {
 
     @PostMapping("/buttonShowAll")
     private ResponseEntity<List<Bonuses>> buttonShowAll(@RequestBody Bonuses bonuses, Model model) {
-
+        model.addAttribute("optionsBrend",bonusesServise.bonusesShowAll(bonuses));
         return new ResponseEntity<>(bonusesServise.bonusesShowAll(bonuses), HttpStatus.OK);
 
 

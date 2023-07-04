@@ -15,6 +15,6 @@ public interface SuppliersRepositoriy extends JpaRepository<Suppliers, Integer> 
 
     @Query("SELECT DISTINCT suppliers FROM Suppliers")
     List<String> getProviderList();
-    @Query("SELECT new com.myisu_1.isu.models.Suppliers (imei, suppliers) FROM Suppliers where imei IN ?1 AND (?2 is null or suppliers >= ?2) ")
+    @Query("SELECT new com.myisu_1.isu.models.Suppliers (imei, suppliers) FROM Suppliers where imei IN ?1 AND (?2 is null or suppliers = ?2) ")
     List<Suppliers> getListSuppliers(List<String> imeiSale, String provider);
 }
