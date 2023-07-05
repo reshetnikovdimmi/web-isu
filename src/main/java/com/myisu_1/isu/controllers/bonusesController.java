@@ -83,7 +83,7 @@ public class bonusesController {
 
     @PostMapping("/buttonShowAll")
     private ResponseEntity<List<Bonuses>> buttonShowAll(@RequestBody Bonuses bonuses, Model model) {
-        model.addAttribute("optionsBrend",bonusesServise.bonusesShowAll(bonuses));
+
         return new ResponseEntity<>(bonusesServise.bonusesShowAll(bonuses), HttpStatus.OK);
 
 
@@ -104,6 +104,9 @@ public class bonusesController {
 
     @PostMapping("/bonuses")
     public String entrance(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start, @DateTimeFormat(pattern = "yyyy-MM-dd") Date stop, Model model) throws ParseException {
+        model.addAttribute("optionsShop",authorizationTt.getShopList());
+        model.addAttribute("optionsPhone",phoneRepositoriy.getPhoneList());
+        model.addAttribute("optionsProvider",suppliersRepositoriy.getProviderList());
 
         model.addAttribute("MARWEL", MARWEL(start,stop,"МАРВЕЛ КТ ООО",shop));
         model.addAttribute("MARWELcount", count);
