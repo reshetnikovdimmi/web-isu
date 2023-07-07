@@ -27,7 +27,6 @@ public class LoadBonusesAll extends CalculationBonusesPoint{
                 if (suppliers.getImei().equals(sales.getImeis())) {
                     modelPromoBonus = promoSearch(sales.getNomenclature(), sales.getDateSales(), listPhone, modelGb);
                     if (modelPromoBonus != null) {
-
                         switch (suppliers.getSuppliers()) {
 
                             case "МАРВЕЛ КТ ООО":
@@ -53,13 +52,9 @@ public class LoadBonusesAll extends CalculationBonusesPoint{
                             default:
                                 break;
                         }
-
-
-
                     }
                 }
             }
-
         }
         bonuses1.add(new Bonuses("МАРВЕЛ КТ ООО",marwel));
         bonuses1.add(new Bonuses("ТФН ООО",tfn));
