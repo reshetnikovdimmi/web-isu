@@ -48,4 +48,9 @@ public class Bonuses {
         this.models = models;
         this.pricePromo = pricePromo;
     }
+
+    public Bonuses(String provider, Double compensation) {
+        this.provider = provider;
+        this.compensation = compensation;
+    }
 }

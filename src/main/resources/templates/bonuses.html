@@ -59,312 +59,68 @@
             </ul>
         </header>
         <div class="row">
-            <div class="col">
-                <form action="/bonuses" method="post" style="width: 500px; padding: 10px 30px;">
-                    <div class="row mb-3">
+            <div class="col-4">
 
-                        <div class="col-6 col-md-4 themed-grid-col"><input type="date" name="start" id="start"></div>
-                        <div class="col-6 col-md-4 themed-grid-col"><input type="date" name="stop" id="stop"></div>
-                        <div class="col-6 col-md-4 themed-grid-col">
-                            <button class="btn btn-primary btn-sm" type="submit">Показать</button>
-                        </div>
+                <div class="row">
 
-                    </div>
-                </form>
-                <div class="row mb-3">
-                    <div class="col-md-4 themed-grid-col">
+                    <div class="col "style=" padding: 10px 20px;">
                         <div class="row">
-                            <div class="col-md-6 themed-grid-col">MARWEL</div>
-                            <div class="col-md-6 themed-grid-col">
-                                <h10><p th:text="${MARWELcount} + '  RUB'"/></h10>
-                            </div>
+                        <label>начало</label>
+                        </div>
+                        <div class="row">
+                        <input type="date" name="start" id="start" placeholder="Введите имя">
                         </div>
                     </div>
-                    <div class="col-md-8 themed-grid-col">
+                    <div class="col"style=" padding: 10px 20px;">
+                        <div class="row">
+                        <label>конец</label>
+                        </div>
+                        <div class="row">
+                        <input type="date" name="stop" id="stop" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col"style=" padding: 10px 20px;">
+                        <div class="row">
+                        <label>показать</label>
+                        </div>
+                        <div class="row">
+                        <button class="btn btn-primary btn-sm" id="button-all" type="submit">Показать</button>
+                        </div>
+                    </div>
+                </div>
 
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
+                <div class="row" style=" padding: 12px 40px;">
+                    <div class="table" id="table_TableAllBonus">
+                        <table class="table-responsive table-hover" id="tables_TableAllBonus">
+                            <thead class="table-dark table-hover">
 
-                                <th>models</th>
-                                <th>IMEI</th>
-                                <th>дата продажи</th>
-                                <th>период_promo</th>
-                                <th>компенсация</th>
-
-
-                            </tr>
                             </thead>
-                            <tbody class="tbody">
-
-                            <tr th:each="current : ${MARWEL}">
-
-                                <td th:text="${current.models}"></td>
-                                <td th:text="${current.imei}"></td>
-                                <td th:text="${current.dataSale}"></td>
-                                <td th:text="${current.dataPeriod}"></td>
-                                <td th:text="${current.compensation}"></td>
+                            <tbody>
 
 
                             </tbody>
                         </table>
-
                     </div>
+
 
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-4 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-6 themed-grid-col">TFN</div>
-                            <div class="col-md-6 themed-grid-col">
-                                <h10><p th:text="${TFNcount} + '  RUB'"/></h10>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 themed-grid-col">
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
-
-                                <th>models</th>
-                                <th>IMEI</th>
-                                <th>дата продажи</th>
-                                <th>период_promo</th>
-                                <th>компенсация</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody class="tbody">
-
-                            <tr th:each="current : ${TFN}">
-
-                                <td th:text="${current.models}"></td>
-                                <td th:text="${current.imei}"></td>
-                                <td th:text="${current.dataSale}"></td>
-                                <td th:text="${current.dataPeriod}"></td>
-                                <td th:text="${current.compensation}"></td>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
+                    <div id="sumAll" style=" padding: 12px 40px;"></div>
                 </div>
+
                 <div class="row mb-3">
-                    <div class="col-md-4 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-6 themed-grid-col">MERLION</div>
-                            <div class="col-md-6 themed-grid-col">
-                                <h10><p th:text="${MERLIONcount} + '  RUB'"/></h10>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 themed-grid-col">
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
-
-                                <th>models</th>
-                                <th>IMEI</th>
-                                <th>дата продажи</th>
-                                <th>период_promo</th>
-                                <th>компенсация</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody class="tbody">
-
-                            <tr th:each="current : ${MERLION}">
-
-                                <td th:text="${current.models}"></td>
-                                <td th:text="${current.imei}"></td>
-                                <td th:text="${current.dataSale}"></td>
-                                <td th:text="${current.dataPeriod}"></td>
-                                <td th:text="${current.compensation}"></td>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-6 themed-grid-col">VVP</div>
-                            <div class="col-md-6 themed-grid-col">
-                                <h10><p th:text="${VVPcount} + '  RUB'"/></h10>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 themed-grid-col">
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
-
-                                <th>models</th>
-                                <th>IMEI</th>
-                                <th>дата продажи</th>
-                                <th>период_promo</th>
-                                <th>компенсация</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody class="tbody">
-
-                            <tr th:each="current : ${VVP}">
-
-                                <td th:text="${current.models}"></td>
-                                <td th:text="${current.imei}"></td>
-                                <td th:text="${current.dataSale}"></td>
-                                <td th:text="${current.dataPeriod}"></td>
-                                <td th:text="${current.compensation}"></td>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-6 themed-grid-col">neVVP</div>
-                            <div class="col-md-6 themed-grid-col">
-                                <h10><p th:text="${neVVPcount} + '  RUB'"/></h10>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 themed-grid-col">
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
-
-                                <th>models</th>
-                                <th>IMEI</th>
-                                <th>дата продажи</th>
-                                <th>период_promo</th>
-                                <th>компенсация</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody class="tbody">
-
-                            <tr th:each="current : ${neVVP}">
-
-                                <td th:text="${current.models}"></td>
-                                <td th:text="${current.imei}"></td>
-                                <td th:text="${current.dataSale}"></td>
-                                <td th:text="${current.dataPeriod}"></td>
-                                <td th:text="${current.compensation}"></td>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-4 themed-grid-col">TELE 2</div>
-                            <div class="col-md-4 themed-grid-col">Combo</div>
-
-                            <div class="col-md-4 themed-grid-col">
-                                <h10><p th:text="${ComboCount} + '  RUB'"/></h10>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 themed-grid-col">
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
-
-                                <th>models</th>
-                                <th>IMEI</th>
-                                <th>дата продажи</th>
-                                <th>период_promo</th>
-                                <th>компенсация</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody class="tbody">
-
-                            <tr th:each="current : ${Combo}">
-
-                                <td th:text="${current.imei}"></td>
-                                <td th:text="${current.resume}"></td>
-                                <td th:text="${current.payment}"></td>
-                                <td th:text="${current.date}"></td>
-                                <td th:text="${current.reason}"></td>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-4 themed-grid-col">TELE 2</div>
-                            <div class="col-md-4 themed-grid-col">У.Е.</div>
-
-                            <div class="col-md-4 themed-grid-col">
-                                <h10><p th:text="${VUECount} + '  RUB'"/></h10>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8 themed-grid-col">
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
-
-                                <th>models</th>
-                                <th>IMEI</th>
-                                <th>дата продажи</th>
-                                <th>период_promo</th>
-                                <th>компенсация</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody class="tbody">
-
-                            <tr th:each="current : ${VUE}">
-
-                                <td th:text="${current.imei}"></td>
-                                <td th:text="${current.dateOFsale}"></td>
-                                <td th:text="${current.valueVUE}"></td>
-                                <td th:text="${current.quality}"></td>
-                                <td th:text="${current.nomenclature}"></td>
-
-
-                            </tbody>
-                        </table>
-
-                    </div>
+                    не т2
 
                 </div>
             </div>
-
             <div class="col">
                 <div class="row">
                     <div class="col">
                         <label>магазин</label>
                         <select id="dropDownListShop">
                             <option value="null">select option</option>
-                            <option th:each="option : ${optionsShop}" th:value="${option}" th:text="${option}"></option>
+                            <option th:each="option : ${optionsShop}" th:value="${option}"
+                                    th:text="${option}"></option>
                         </select>
                     </div>
                     <div class="col">
@@ -408,8 +164,8 @@
                 </div>
                 <div class="row" style=" padding: 12px 40px;">
 
-                    <div class="table" id="table_DistributionButton">
-                        <table class="table-responsive table-hover" id="tables_DistributionButton">
+                    <div class="table" id="table_TableSearchBonus">
+                        <table class="table-responsive table-hover" id="tables_TableSearchBonus">
                             <thead class="table-dark table-hover">
 
                             </thead>
@@ -422,8 +178,8 @@
                 </div>
                 <div class="row" id="sum" style=" padding: 12px 40px;">
 
-                    <div>
 
+                </div>
             </div>
         </div>
     </div>

@@ -89,6 +89,14 @@ public class bonusesController {
 
     }
 
+    @PostMapping("/loadBonusesAll")
+    private ResponseEntity<List<Bonuses>> loadBonusesAll(@RequestBody Bonuses bonuses, Model model) {
+
+        return new ResponseEntity<>(bonusesServise.bonusesSumAll(bonuses), HttpStatus.OK);
+
+
+    }
+
     private void storeInitialization() {
 //
         shop = new ArrayList<>();

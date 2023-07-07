@@ -1,12 +1,9 @@
 package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.Bonuses;
-import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.Sales;
-import com.myisu_1.isu.models.Suppliers;
-import com.myisu_1.isu.models.bonuses.BonusesAll;
 import com.myisu_1.isu.models.bonuses.CalculationBonusesPoint;
-import com.myisu_1.isu.models.price_promo;
+import com.myisu_1.isu.models.bonuses.LoadBonusesAll;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PromoRepositoriy;
 import com.myisu_1.isu.repo.SalesRepositoriy;
@@ -14,12 +11,8 @@ import com.myisu_1.isu.repo.SuppliersRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,5 +43,30 @@ CalculationBonusesPoint cbp = new CalculationBonusesPoint();
 
         return cbp.bonusesCalculation();
     }
+
+    public List<Bonuses> bonusesSumAll(Bonuses bonuses) {
+
+        LoadBonusesAll lba = new LoadBonusesAll();
+        lba.modelGb = promoRepositoriy.getPrormoAll(null);
+
+
+        try {
+            lba.salesPhone = salesRepositoriy.getSaleAll(lba.dateString(bonuses.getStartDate()), lba.dateString(bonuses.getEndDate()), null);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        lba.imeiSale = lba.salesPhone.stream().map(Sales::getImeis).collect(Collectors.toList());
+
+        lba.model = lba.salesPhone.stream().map(Sales::getNomenclature).collect(Collectors.toList());
+
+        lba.imeiSuppliers = suppliersRepositoriy.getListSuppliers(lba.imeiSale, null);
+
+        lba.listPhone = phoneRepositoriy.getSaleModelList(lba.model);
+        List<Bonuses> bonuses1= lba.bonusesCalculation();
+
+        return bonuses1;
+    }
+
 
 }
