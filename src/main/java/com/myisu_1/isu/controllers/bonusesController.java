@@ -79,6 +79,13 @@ public class bonusesController {
 
 
     }
+    @PostMapping("/loadBonusesNoT2")
+    private ResponseEntity<List<Bonuses>> loadBonusesNoT2(@RequestBody Bonuses bonuses, Model model) {
+
+        return new ResponseEntity<>(bonusesServise.bonusesNoT2(bonuses), HttpStatus.OK);
+
+
+    }
 
 
 }
