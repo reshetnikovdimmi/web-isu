@@ -2,10 +2,9 @@ package com.myisu_1.isu.controllers;
 
 
 import com.myisu_1.isu.models.*;
+import com.myisu_1.isu.models.Marwel.MarvelPromo;
 import com.myisu_1.isu.repo.*;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 

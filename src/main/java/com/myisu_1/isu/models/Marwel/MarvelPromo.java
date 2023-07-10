@@ -1,4 +1,4 @@
-package com.myisu_1.isu.models;
+package com.myisu_1.isu.models.Marwel;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,6 +29,15 @@ import java.util.Date;
         StartPromo = startPromo;
         EndPromo = endPromo;
     }
+
+    public MarvelPromo(String promoCode, Date startPromo, Date endPromo, String status) {
+        PromoCode = promoCode;
+        StartPromo = startPromo;
+        EndPromo = endPromo;
+        Status = status;
+    }
+
+
 
     public MarvelPromo(int id, String promoCode, Date collecting, String status) {
         this.id = id;

@@ -53,9 +53,7 @@ public class Glass extends ClothingMatching {
     public List<List<String>> brendDistingList;
 
     public Iterable<authorization_tt> print(){
-        for (String num : brendDisting) {
-        //    System.out.println(num);
-        }
+
         return authorization_ttList;
     }
 }

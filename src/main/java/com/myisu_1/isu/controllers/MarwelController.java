@@ -61,8 +61,8 @@ public class MarwelController {
         suppliersList = suppliersRepositoriy.findAll();
         sales = (List<Sales>) salesRepositoriy.findAll();
         promoMarwel = (List<MarvelPromo>) marwelPromoRepositoriy.findAll();
-        model.addAttribute("promoCode", promoCode());
-        model.addAttribute("promoCodeDistinct", promoCodeDistinct());
+        model.addAttribute("promoCode", marwelPromoRepositoriy.findAll());
+        model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         return "Marwel";
     }

@@ -44,7 +44,7 @@
 <main>
 
 
-    <div class="container">
+    <div class="container-fluid themed-container text-center">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <svg class="bi me-2" width="40" height="32">
@@ -64,7 +64,7 @@
         </header>
         <br>
 
-        <div class="container-xxl themed-container">
+        <div class="container-fluid themed-container text-center">
 
             <br>
             <!-- Nav tabs -->
@@ -90,6 +90,38 @@
             <div class="tab-content">
                 <div id="home_hom" class="container tab-pane active"><br>
                     <h3>HOME</h3>
+                    <div class="row">
+                        <div class="col-md-6 themed-grid-col">
+                            <div class="row mb-3">
+                                <div class="col-6 col-sm-4 themed-grid-col">
+                                    <form th:action="@{/importRemainingPhonesMarwel}" method="post"
+                                          enctype="multipart/form-data">
+                                        <input type="file" th:name="importRemainingPhonesMarwel"/>
+                                        <input th:type="submit" value="Import"/>
+                                    </form>
+                                </div>
+                                <div class="col-6 col-sm-4 themed-grid-col"></div>
+                                <div class="col-6 col-sm-4 themed-grid-col">Остатки для загрузки на портал</div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 themed-grid-col">
+                           <form action="/portalMarwel" method="post">
+                            <div class="row mb-3">
+
+                                <div class="col-6 col-md-4 themed-grid-col">
+                                    <input type="date" name="start"id="start"></div>
+                                <div class="col-6 col-md-4 themed-grid-col">
+                                    <input type="date" name="stop"id="stop"></div>
+                                <div class="col-6 col-md-4 themed-grid-col">
+                                    <button class="btn btn-primary btn-sm" type="submit">Показать</button>
+                                </div>
+
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-6 themed-grid-col">
                             <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
@@ -141,28 +173,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-3 themed-grid-col">
 
-                        </div>
-                        <div class="col-md-6 themed-grid-col">
-                            <div class="row mb-3">
-                                <div class="col-6 col-sm-4 themed-grid-col">
-                                    <form th:action="@{/importRemainingPhonesMarwel}" method="post"
-                                          enctype="multipart/form-data">
-                                        <input type="file" th:name="importRemainingPhonesMarwel"/>
-                                        <input th:type="submit" value="Import"/>
-                                    </form>
-                                </div>
-                                <div class="col-6 col-sm-4 themed-grid-col"></div>
-                                <div class="col-6 col-sm-4 themed-grid-col">Остатки для загрузки на портал</div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-3 themed-grid-col">
-
-                        </div>
-                    </div>
                 </div>
 
 
@@ -170,19 +181,7 @@
                     <h3>Отчет для загрузки на портал</h3>
                     <div class="row mb-3">
                         <div class="col-md-8 themed-grid-col">
-                            <form action="/portalMarwel" method="post">
-                                <div class="row mb-3">
 
-                                    <div class="col-6 col-md-4 themed-grid-col"><input type="date" name="start"
-                                                                                       id="start"></div>
-                                    <div class="col-6 col-md-4 themed-grid-col"><input type="date" name="stop"
-                                                                                       id="stop"></div>
-                                    <div class="col-6 col-md-4 themed-grid-col">
-                                        <button class="btn btn-primary btn-sm" type="submit">Показать</button>
-                                    </div>
-
-                                </div>
-                            </form>
                         </div>
                         <div class="col-6 col-md-4 themed-grid-col">
                             <div class="col-6 col-md-4 themed-grid-col">
@@ -466,14 +465,15 @@
                                 <tbody>
 
                                 <tr th:each="current : ${promoCodeDistinct}">
-                                    <form id="forms" action="/promoCodeDistinct" method="post">
-                                        <td th:text="${current.one}"></td>
+
+                                        <td th:text="${current.PromoCode}"></td>
+                                        <td th:text="${current.StartPromo}"></td>
+                                        <td th:text="${current.EndPromo}"></td>
+                                        <td th:text="${current.Status}"></td>
                                         <td>
-                                            <button type="submit" id="promoCode" name="promoCode"
-                                                    th:value="${current.one}">Показать
-                                            </button>
+                                            <button type="submit" id="promoCode" name="promoCode">Показать</button>
                                         </td>
-                                    </form>
+
 
                                 </tbody>
                             </table>
