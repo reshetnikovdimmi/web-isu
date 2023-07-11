@@ -92,16 +92,5 @@ public class CalculationBonusesPoint extends BonusesAll{
         return modelPromoBonus;
     }
 
-    public   Date dateString(Date stringCellValue) throws ParseException {
-        if (stringCellValue == null) {
-            return null;
-        }
-        return new java.sql.Date(stringCellValue.getTime());
-    }
 
-    public   Date stringDate(String stringCellValue) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = df.parse(stringCellValue);
-        return startDate;
-    }
 }

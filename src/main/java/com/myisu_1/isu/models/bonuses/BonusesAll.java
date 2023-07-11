@@ -34,4 +34,16 @@ public abstract class BonusesAll {
     public abstract List<Bonuses> bonusesCalculation();
 
     public abstract String[] promoSearch(String nomenclature, Date dateSales, List<Phone_Smart> listPhone, List<price_promo> modelGb);
+    public   Date dateString(Date stringCellValue) throws ParseException {
+        if (stringCellValue == null) {
+            return null;
+        }
+        return new java.sql.Date(stringCellValue.getTime());
+    }
+
+    public   Date stringDate(String stringCellValue) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDate = df.parse(stringCellValue);
+        return startDate;
+    }
 }

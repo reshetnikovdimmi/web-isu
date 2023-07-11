@@ -1,9 +1,11 @@
 package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.Bonuses;
+import com.myisu_1.isu.models.Marwel.MarvelPromo;
 import com.myisu_1.isu.models.Sales;
 import com.myisu_1.isu.models.bonuses.CalculationBonusesPoint;
 import com.myisu_1.isu.models.bonuses.LoadBonusesAll;
+import com.myisu_1.isu.models.bonuses.MarvelBonus;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class BonusesServise {
     public SuppliersRepositoriy suppliersRepositoriy;
     @Autowired
     public PostRepositoriy postRepositoriy;
+    @Autowired
+    private MarvelClassifierRepositoriy marvelClassifierRepositoriy;
 
     public List<Bonuses> bonusesShowAll(Bonuses bonuses) {
         CalculationBonusesPoint cbp = new CalculationBonusesPoint();
@@ -86,5 +90,30 @@ public class BonusesServise {
 
 
         return cbp.bonusesCalculation();
+    }
+
+    public List<Bonuses> marvelReportings(MarvelPromo marvelPromo) {
+
+        MarvelBonus mB = new MarvelBonus();
+        mB.modelMarvelPromo = marvelClassifierRepositoriy.getRainbowNomenclature();
+
+
+
+        mB.modelGb = promoRepositoriy.getPrormoAll(null);
+        try {
+            mB.salesPhone = salesRepositoriy.getSaleXiaomi(mB.dateString(marvelPromo.getStartPromo()), mB.dateString(marvelPromo.getEndPromo()), mB.modelMarvelPromo);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        mB.imeiSale = mB.salesPhone.stream().map(Sales::getImeis).collect(Collectors.toList());
+
+        mB.model = mB.salesPhone.stream().map(Sales::getNomenclature).collect(Collectors.toList());
+        mB.imeiSuppliers = suppliersRepositoriy.getListSuppliers(mB.imeiSale, "МАРВЕЛ КТ ООО");
+        mB.listPhone = phoneRepositoriy.getSaleModelList(mB.model);
+
+
+
+        return mB.bonusesCalculation();
     }
 }

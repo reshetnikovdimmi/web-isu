@@ -450,10 +450,11 @@
                 <div id="menu4" class="container tab-pane fade"><br>
                     <h3>Promo Marwel</h3>
                     <div class="row mb-3 text-center">
+
                         <div class="col-6 col-md-4 themed-grid-col">
                             <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
 
-                            <table class="table table-dark table-hover">
+                            <table class="table-borderless" id="promoCode" name="promoCode">
                                 <thead>
                                 <tr>
 
@@ -462,7 +463,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${promoCodeDistinct}">
 
@@ -471,40 +472,27 @@
                                         <td th:text="${current.EndPromo}"></td>
                                         <td th:text="${current.Status}"></td>
                                         <td>
-                                            <button type="submit" id="promoCode" name="promoCode">Показать</button>
+                                            <button type="submit" class="btn btn-outline-primary me-2">Показать</button>
                                         </td>
 
 
                                 </tbody>
                             </table>
                         </div>
+
                         <div class="col-md-8 themed-grid-col">
                             <h5 class="mt-4">ОТЧЕТЫ ПО ПРОМО ДЛЯ ЗАГРУЗКИ</h5>
+                            <div class="table" id="table_TableSearchBonus">
+                                <table class="table-responsive table-hover" id="tables_TableSearchBonus">
+                                    <thead class="table-dark table-hover">
 
-                            <table class="table table-dark table-hover">
-                                <thead>
-                                <tr>
+                                    </thead>
+                                    <tbody>
 
-                                    <th>Модель</th>
-                                    <th>IMEI</th>
-                                    <th>дата продажи</th>
-                                    <th>период промо</th>
-                                    <th>код промо промо</th>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr th:each="current : ${marvelReportings}">
-
-                                    <td th:text="${current.name}"></td>
-                                    <td th:text="${current.imei}"></td>
-                                    <td th:text="${current.dataSale}"></td>
-                                    <td th:text="${current.period}"></td>
-                                    <td th:text="${current.promoCode}"></td>
-                                </tbody>
-                            </table>
-
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

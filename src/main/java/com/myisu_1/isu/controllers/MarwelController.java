@@ -1,13 +1,17 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.dto.Bonuses;
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.models.Marwel.*;
 import com.myisu_1.isu.repo.*;
+import com.myisu_1.isu.service.BonusesServise;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +41,8 @@ public class MarwelController {
     private PriceRepositoriy priceRepositoriy;
     @Autowired
     private PromoRepositoriy promoRepositoriy;
+    @Autowired
+    private BonusesServise bonusesServise;
 
 
     List<MarvelPromo> promoMarwel;
@@ -99,38 +105,19 @@ public class MarwelController {
         return "Marwel";
     }
 
-    @PostMapping("/promoCodeDistinct")
-    public String promoCodeDistinct(@RequestParam String promoCode, Model model) {
 
-        String[] words;
-        List<MarvelReporting> marvelReportings = new ArrayList<>();
-
-        for (int i = 0; i < promoMarwel.size(); i++) {
-
-            if (promoCode.equals(promoMarwel.get(i).getPromoCode())) {
-
-                words = promoMarwel.get(i).getArticleNumber().toUpperCase().replace("+", " ").replace("GB", "").split(" ");
-                for (int j = 0; j < sales.size(); j++) {
-                    if (sales.get(j).getDateSales().getTime() >= promoMarwel.get(i).getStartPromo().getTime() && sales.get(j).getDateSales().getTime() <= promoMarwel.get(i).getEndPromo().getTime()) {
-                        for (int l = 0; l < suppliersList.size(); l++) {
-                            if (suppliersList.get(l).getImei().equals(sales.get(j).getImeis()) &&
-                                    suppliersList.get(l).getSuppliers().equals("МАРВЕЛ КТ ООО") &&
-                                    marvelPromSales(sales.get(j).getDateSales(), words, sales.get(j).getNomenclature()) == true) {
-                                System.out.println(sales.get(j).getNomenclature() + "--" + sales.get(j).getImeis());
-                                marvelReportings.add(new MarvelReporting(sales.get(j).getNomenclature(), sales.get(j).getImeis(), String.valueOf(sales.get(j).getDateSales()), promoMarwel.get(i).getStartPromo() + "<-->" + promoMarwel.get(i).getEndPromo(), promoMarwel.get(i).getPromoCode()));
+/*    @RequestMapping(value="/promoCodeDistinct", method=RequestMethod.POST)
+    private String promoCodeDistinct(@RequestBody MarvelPromo marvelPromo, Model model) {
 
 
-                            }
-                        }
-                    }
-                }
+        model.addAttribute("marvelReportings",bonusesServise.marvelReportings(marvelPromo));
 
+        return "Marwel::promoCodeDistinct";
+    }*/
+    @RequestMapping(value="/promoCodeDistinct", method=RequestMethod.POST)
+    private ResponseEntity <List<Bonuses>> promoCodeDistinct(@RequestBody MarvelPromo marvelPromo, Model model) {
 
-            }
-        }
-        model.addAttribute("marvelReportings", marvelReportings);
-        model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
-        return "Marwel";
+        return new ResponseEntity<>(bonusesServise.marvelReportings(marvelPromo), HttpStatus.OK);
     }
 
     private boolean marvelPromSales(Date dateSales, String[] words, String nomenclature) {

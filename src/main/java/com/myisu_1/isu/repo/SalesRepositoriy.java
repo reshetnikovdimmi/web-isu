@@ -35,4 +35,6 @@ public interface SalesRepositoriy extends JpaRepository<Sales, Integer> {
     List<Sales> getSaleAll(Date startDate, Date endDate, String shop);
     @Query("SELECT new com.myisu_1.isu.models.Sales(imeis, shop, nomenclature, dateSales) FROM Sales where (?1 is null or dateSales >= ?1) AND (?2 is null or dateSales <= ?2) AND  shop IN ?3")
     List<Sales> getSaleNoT2(Date startDate, Date endDate, List<String> shopMult);
+    @Query("SELECT new com.myisu_1.isu.models.Sales(imeis, shop, nomenclature, dateSales) FROM Sales where (?1 is null or dateSales >= ?1) AND (?2 is null or dateSales <= ?2) AND  nomenclature IN ?3")
+    List<Sales> getSaleXiaomi(Date dateString, Date dateString1, List<String> modelMarvelPromo);
 }
