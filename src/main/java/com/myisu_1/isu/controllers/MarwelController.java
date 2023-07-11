@@ -129,7 +129,7 @@ public class MarwelController {
             }
         }
         model.addAttribute("marvelReportings", marvelReportings);
-        model.addAttribute("promoCodeDistinct", promoCodeDistinct());
+        model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         return "Marwel";
     }
 
@@ -165,19 +165,7 @@ public class MarwelController {
         return false;
     }
 
-    private List<Distinct> promoCodeDistinct() {
 
-        List<Distinct> listDistinct = new ArrayList<>();
-        HashSet<String> hashDistinct = new HashSet<>();
-        for (int i = 0; i < promoMarwel.size(); i++) {
-            hashDistinct.add(promoMarwel.get(i).getPromoCode());
-        }
-        Iterator<String> i = hashDistinct.iterator();
-        while (i.hasNext())
-
-            listDistinct.add(new Distinct(i.next()));
-        return listDistinct;
-    }
 
     private List<MarvelPromo> promoCode() {
 
@@ -291,7 +279,7 @@ public class MarwelController {
         model.addAttribute("artNaProdOst", uniquelist);
         model.addAttribute("article_imei", article_imeiList);
         model.addAttribute("promoCode", promoCode());
-        model.addAttribute("promoCodeDistinct", promoCodeDistinct());
+        model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         model.addAttribute("Poco", forRoma(start, stop, "Poco", "Poco", "Poco"));
         model.addAttribute("Xiaomi", forRoma(start, stop, "Xiaomi", "Mi True", "Redmi"));
         model.addAttribute("forRomaShares", forRomaShares(start, stop));
@@ -471,7 +459,7 @@ public class MarwelController {
         }
 
         model.addAttribute("promoCode", promoCode());
-        model.addAttribute("promoCodeDistinct", promoCodeDistinct());
+        model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         return "Marwel";
     }
 }
