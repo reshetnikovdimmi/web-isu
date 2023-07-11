@@ -28,4 +28,8 @@ public interface RemanisSimRepository extends CrudRepository<RemanisSim, Integer
 
 
     List<RemanisSim> findByShop(String shop);
+
+
+    @Query("SELECT DISTINCT nameSimAndModem  FROM RemanisSim")
+    List<String> getRemainsSimAndModem();
 }

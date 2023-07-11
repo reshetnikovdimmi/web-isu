@@ -5,6 +5,7 @@ import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.models.Marwel.*;
 import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.BonusesServise;
+import com.myisu_1.isu.service.MarwelPromoServise;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -43,6 +44,8 @@ public class MarwelController {
     private PromoRepositoriy promoRepositoriy;
     @Autowired
     private BonusesServise bonusesServise;
+    @Autowired
+    private MarwelPromoServise marwelPromoServise;
 
 
     List<MarvelPromo> promoMarwel;
@@ -70,6 +73,7 @@ public class MarwelController {
         model.addAttribute("promoCode", marwelPromoRepositoriy.findAll());
         model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
+        model.addAttribute("noPhone", marwelPromoServise.noPhone());
         return "Marwel";
     }
 
@@ -106,14 +110,7 @@ public class MarwelController {
     }
 
 
-/*    @RequestMapping(value="/promoCodeDistinct", method=RequestMethod.POST)
-    private String promoCodeDistinct(@RequestBody MarvelPromo marvelPromo, Model model) {
 
-
-        model.addAttribute("marvelReportings",bonusesServise.marvelReportings(marvelPromo));
-
-        return "Marwel::promoCodeDistinct";
-    }*/
     @RequestMapping(value="/promoCodeDistinct", method=RequestMethod.POST)
     private ResponseEntity <List<Bonuses>> promoCodeDistinct(@RequestBody MarvelPromo marvelPromo, Model model) {
 
@@ -270,31 +267,12 @@ public class MarwelController {
         model.addAttribute("Poco", forRoma(start, stop, "Poco", "Poco", "Poco"));
         model.addAttribute("Xiaomi", forRoma(start, stop, "Xiaomi", "Mi True", "Redmi"));
         model.addAttribute("forRomaShares", forRomaShares(start, stop));
-        model.addAttribute("noPhone", noPhone());
+        model.addAttribute("noPhone", marwelPromoServise.noPhone());
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         return "Marwel";
     }
 
-    private Object noPhone() {
-        List<Distinct> listDistinct = new ArrayList<>();
-        HashSet<String> hashDistinct = new HashSet<>();
-        List<String> phone = new ArrayList<>();
-        List<String> remains = new ArrayList<>();
-        for (int i = 0; i < phone_smarts.size(); i++) {
-            phone.add(phone_smarts.get(i).getModel());
-        }
-        for (int i = 0; i < listRemainingPhonesMarwel.size(); i++) {
-            remains.add(listRemainingPhonesMarwel.get(i).getModel());
-            if (!phone.contains(listRemainingPhonesMarwel.get(i).getModel())) {
-                hashDistinct.add(listRemainingPhonesMarwel.get(i).getModel());
-            }
-        }
-        Iterator<String> i = hashDistinct.iterator();
-        while (i.hasNext())
 
-            listDistinct.add(new Distinct(i.next()));
-        return listDistinct;
-    }
 
     private Object forRomaShares(Date start, Date stop) {
         List<ForRoma> listforRoma = new ArrayList<>();
