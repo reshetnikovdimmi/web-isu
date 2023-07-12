@@ -74,13 +74,14 @@ public class MarwelController {
         model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
         model.addAttribute("noPhone", marwelPromoServise.noPhone());
+        model.addAttribute("NoClassifier", marwelPromoServise.NoClassifier());
         return "Marwel";
     }
 
     @ResponseBody
     @RequestMapping(value = "update_MarClasif/{id}", method = RequestMethod.GET)
     public Optional<MarvelClassifier> update_MarClasif(@PathVariable("id") int id) {
-        System.out.println(id);
+
         return marvelClassifierRepositoriy.findById(id);
     }
 
@@ -117,65 +118,11 @@ public class MarwelController {
         return new ResponseEntity<>(bonusesServise.marvelReportings(marvelPromo), HttpStatus.OK);
     }
 
-    private boolean marvelPromSales(Date dateSales, String[] words, String nomenclature) {
-        String[] nomenclatures;
-
-        int cou = 0;
-        nomenclatures = nomenclature.replaceAll("/", " ").toUpperCase().replaceAll("GB", "").split(" ");
-
-
-        for (String nomenclaturen : nomenclatures) {
-
-
-            for (String word : words) {
-
-                if (word.equals(nomenclaturen)) {
-
-                    cou++;
-
-                }
-
-            }
-        }
-        if (cou == words.length) {
-            for (int i = 0; i < price_promoList.size(); i++) {
-                if (dateSales.getTime() >= price_promoList.get(i).getStartPromo().getTime() && dateSales.getTime() <= price_promoList.get(i).getEndPromo().getTime() && nomenclature.contains(price_promoList.get(i).getModels())) {
-                    return true;
-                }
-            }
-
-        }
-
-        return false;
-    }
 
 
 
-    private List<MarvelPromo> promoCode() {
-
-        List<MarvelPromo> promoCode = new ArrayList<>();
-
-        for (int i = 0; i < promoMarwel.size(); i++) {
-
-            promoCode.add(new MarvelPromo(
-                    promoMarwel.get(i).getId(),
-                    promoMarwel.get(i).getPromoCode(),
-                    promoMarwel.get(i).getStartPromo(),
-                    promoMarwel.get(i).getEndPromo(),
-                    promoMarwel.get(i).getArticleNumber(),
-                    promoMarwel.get(i).getVision(),
-                    promoMarwel.get(i).getNewVision(),
-                    promoMarwel.get(i).getDiscount(),
-                    promoMarwel.get(i).getCompensation(),
-                    promoMarwel.get(i).getCollecting(),
-                    promoMarwel.get(i).getStatus()
-
-            ));
 
 
-        }
-        return promoCode;
-    }
 
     @PostMapping("/portalMarwel")
     public String entrance(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start, @DateTimeFormat(pattern = "yyyy-MM-dd") Date stop, Model model) throws ParseException {
@@ -259,10 +206,10 @@ public class MarwelController {
 
         }
 
-        model.addAttribute("NoClassifier", NoClassifier);
+
         model.addAttribute("artNaProdOst", uniquelist);
         model.addAttribute("article_imei", article_imeiList);
-        model.addAttribute("promoCode", promoCode());
+        model.addAttribute("promoCode", marwelPromoRepositoriy.findAll());
         model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         model.addAttribute("Poco", forRoma(start, stop, "Poco", "Poco", "Poco"));
         model.addAttribute("Xiaomi", forRoma(start, stop, "Xiaomi", "Mi True", "Redmi"));
@@ -422,8 +369,9 @@ public class MarwelController {
             listRemainingPhonesMarwel.add(listRemainingPhonesMarwel1);
 
         }
-
-        model.addAttribute("promoCode", promoCode());
+        model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
+        model.addAttribute("noPhone", marwelPromoServise.noPhone());
+        model.addAttribute("promoCode", marwelPromoRepositoriy.findAll());
         model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
         return "Marwel";
     }

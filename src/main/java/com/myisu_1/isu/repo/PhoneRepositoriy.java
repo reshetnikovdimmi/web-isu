@@ -30,6 +30,9 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT Model  FROM Phone_Smart")
     List<String> getModelList();
 
+    @Query("SELECT Model  FROM Phone_Smart WHERE Phone = 'Poco' OR Phone = 'Xiaomi'")
+    List<String> getModelListXiaomi();
+
   @Query("SELECT  new com.myisu_1.isu.models.ClothesForPhones.Glass.Glass(p.Brend, SUM (r.remainsSimAndModem)) FROM Phone_Smart p " +
           "JOIN p.remanisSims r GROUP BY p.Brend")
    List<Glass> getBrendRemanis();

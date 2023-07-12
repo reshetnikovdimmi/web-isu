@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-6 themed-grid-col">
+                        <div class="col">
                             <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
                             <table class="table table-dark table-hover">
                                 <thead>
@@ -151,7 +151,7 @@
                             </table>
 
                         </div>
-                        <div class="col-6 themed-grid-col">
+                        <div class="col">
                             <h5 class="mt-4">НОВЫЕ ТЕЛЕФОНЫ</h5>
                             <table class="table table-dark table-hover">
                                 <thead>
@@ -171,6 +171,29 @@
 
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="col">
+                            <h5 class="mt-4">НЕТ В КЛАСИФИКАТОРЕ MARWEL</h5>
+                            <table class="table table-dark table-hover">
+                                <thead>
+                                <tr>
+
+                                    <th>Код Промо</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="current : ${NoClassifier}">
+
+                                    <td th:text="${current}"></td>
+
+
+                                </tbody>
+                            </table>
+
+
                         </div>
                     </div>
 
@@ -239,29 +262,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="row">
-                        <h5 class="mt-4">НЕТ В КЛАСИФИКАТОРЕ MARWEL</h5>
-                        <table class="table table-dark table-hover">
-                            <thead>
-                            <tr>
 
-                                <th>Код Промо</th>
-
-
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            <tr th:each="current : ${NoClassifier}">
-
-                                <td th:text="${current.one}"></td>
-
-
-                            </tbody>
-                        </table>
-
-
-                    </div>
                 </div>
                 <div id="menu2" class="container tab-pane fade"><br>
                     <h3>Отчет для Ромы</h3>
@@ -454,7 +455,7 @@
                         <div class="col-6 col-md-4 themed-grid-col">
                             <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
 
-                            <table class="table-borderless" id="promoCode" name="promoCode">
+                            <table class="table table-hover" id="promoCode" name="promoCode">
                                 <thead>
                                 <tr>
 
@@ -463,7 +464,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody class="labels2">
+                                <tbody class="labels">
 
                                 <tr th:each="current : ${promoCodeDistinct}">
 

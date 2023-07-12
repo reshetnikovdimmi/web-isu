@@ -97,8 +97,6 @@ public class BonusesServise {
         MarvelBonus mB = new MarvelBonus();
         mB.modelMarvelPromo = marvelClassifierRepositoriy.getRainbowNomenclature();
 
-
-
         mB.modelGb = promoRepositoriy.getPrormoAll(null);
         try {
             mB.salesPhone = salesRepositoriy.getSaleXiaomi(mB.dateString(marvelPromo.getStartPromo()), mB.dateString(marvelPromo.getEndPromo()), mB.modelMarvelPromo);
