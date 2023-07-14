@@ -23,6 +23,11 @@ public class RemanisSim {
         this.shop = shop;
     }
 
+    public RemanisSim(String nameSimAndModem, int remainsSimAndModem) {
+        this.nameSimAndModem = nameSimAndModem;
+        this.remainsSimAndModem = remainsSimAndModem;
+    }
+
     public RemanisSim(int id, String shop, String nameSimAndModem, int remainsSimModem) {
         this.id = id;
         this.shop = shop;

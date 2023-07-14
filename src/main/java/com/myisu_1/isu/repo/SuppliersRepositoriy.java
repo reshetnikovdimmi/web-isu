@@ -17,4 +17,6 @@ public interface SuppliersRepositoriy extends JpaRepository<Suppliers, Integer> 
     List<String> getProviderList();
     @Query("SELECT new com.myisu_1.isu.models.Suppliers (imei, suppliers) FROM Suppliers where imei IN ?1 AND (?2 is null or suppliers = ?2) ")
     List<Suppliers> getListSuppliers(List<String> imeiSale, String provider);
+    @Query("SELECT imei FROM Suppliers where suppliers = ?1 ")
+    List<String> getListSuppliersProvider(String марвел_кт_ооо);
 }

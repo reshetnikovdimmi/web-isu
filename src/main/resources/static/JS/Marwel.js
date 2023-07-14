@@ -43,21 +43,22 @@ sendRequest('POST', '/promoCodeDistinct', marvelPromo).then(data => ceateTableSe
      let row_1 = document.createElement('tr');
 
      let heading_2 = document.createElement('th');
-     heading_2.innerHTML = "Модель";
+     heading_2.innerHTML = "Нчало";
      let heading_3 = document.createElement('th');
-     heading_3.innerHTML = "ИМЕИ";
+     heading_3.innerHTML = "Конец";
      let heading_4 = document.createElement('th');
-     heading_4.innerHTML = "Компенс";
+     heading_4.innerHTML = "ИМЕИ";
      let heading_5 = document.createElement('th');
-     heading_5.innerHTML = "Дистр";
-
+     heading_5.innerHTML = "Модель";
+     let heading_6 = document.createElement('th');
+     heading_6.innerHTML = "Дата продажи";
 
 
      row_1.appendChild(heading_2);
      row_1.appendChild(heading_3);
      row_1.appendChild(heading_4);
      row_1.appendChild(heading_5);
-
+     row_1.appendChild(heading_6);
 
      let tbody = document.createElement('tbody');
      tbody.classList.add("labels2");

@@ -1,10 +1,8 @@
 package com.myisu_1.isu.repo;
 
 import com.myisu_1.isu.models.SIM.RemanisSim;
-import com.myisu_1.isu.models.SIM.SaleSim_6m;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,4 +30,6 @@ public interface RemanisSimRepository extends CrudRepository<RemanisSim, Integer
 
     @Query("SELECT DISTINCT nameSimAndModem  FROM RemanisSim")
     List<String> getRemainsSimAndModem();
+    @Query("SELECT new com.myisu_1.isu.models.SIM.RemanisSim  (nameSimAndModem, remainsSimAndModem) FROM RemanisSim where nameSimAndModem IN ?1 GROUP BY nameSimAndModem")
+    List<RemanisSim> getSaleClassifer(List<String> rainbowNomenclature);
 }

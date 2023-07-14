@@ -27,7 +27,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT DISTINCT Phone  FROM Phone_Smart ORDER BY Phone ASC")
     List<String> getPhoneList();
 
-    @Query("SELECT Model  FROM Phone_Smart")
+    @Query("SELECT Model  FROM Phone_Smart WHERE Phone != ''")
     List<String> getModelList();
 
     @Query("SELECT Model  FROM Phone_Smart WHERE Phone = 'Poco' OR Phone = 'Xiaomi'")
@@ -98,5 +98,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     List<String> getListModels(String models);
     @Query("SELECT new com.myisu_1.isu.models.Phone_Smart (Model_GB, Model) FROM Phone_Smart WHERE Model IN ?1")
     List<Phone_Smart> getSaleModelList(List<String> model);
+    @Query("SELECT DISTINCT Model  FROM Phone_Smart WHERE Phone = ?1 AND Phone != ''")
+    List<String> getModelListPhone(String p);
 }
 

@@ -2,6 +2,7 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.exporte.ExselFileExporteMatrixPhone;
 import com.myisu_1.isu.models.Phone_Smart;
+import com.myisu_1.isu.repo.MarvelClassifierRepositoriy;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PromoRepositoriy;
 import com.myisu_1.isu.repo.SalesRepositoriy;
@@ -29,6 +30,8 @@ public class MatrixPhoneController {
     private PromoRepositoriy promoRepositoriy;
     @Autowired
     private SalesRepositoriy salesRepositoriy;
+    @Autowired
+    private MarvelClassifierRepositoriy marvelClassifierRepositoriy;
     @GetMapping("/MatrixPhone")
     public String MatrixPhone(Model model) {
         model.addAttribute("Phone", phoneRepositoriy.findAll());
@@ -58,7 +61,7 @@ public class MatrixPhoneController {
             }
             if(!Model.equals(models)){
                 salesRepositoriy.updatModelSale(Model, models);
-
+                marvelClassifierRepositoriy.updatRainbowNomenclature(Model, models);
             }
             phoneRepositoriy.save((new Phone_Smart(IDupdateMatrixPhone, Matrix_T2, Brend, Model, Model_GB, Phone)));
             phoneRepositoriy.updateModelsGbPhoneSmart(Model_GB, modelGb);

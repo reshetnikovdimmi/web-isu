@@ -137,7 +137,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${promoCode}">
 
@@ -162,7 +162,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${noPhone}">
 
@@ -183,7 +183,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${NoClassifier}">
 
@@ -228,14 +228,14 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${artNaProdOst}">
 
-                                    <td th:text="${current.Article}"></td>
+                                    <td th:text="${current.article}"></td>
                                     <td th:text="${current.Name}"></td>
-                                    <td th:text="${current.Sales}"></td>
-                                    <td th:text="${current.Remains}"></td>
+                                    <td th:text="${current.sale}"></td>
+                                    <td th:text="${current.remanis}"></td>
 
 
                                 </tbody>
@@ -251,7 +251,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${article_imei}">
 
@@ -279,13 +279,13 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${Poco}">
 
-                                    <td th:text="${current.Article}"></td>
-                                    <td th:text="${current.Sales}"></td>
-                                    <td th:text="${current.Remains}"></td>
+                                    <td th:text="${current.nomenclature}"></td>
+                                    <td th:text="${current.sale}"></td>
+                                    <td th:text="${current.remanis}"></td>
                                 </tbody>
                             </table>
                         </div>
@@ -301,15 +301,15 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${Xiaomi}">
 
-                                    <td th:text="${current.article}"></td>
-                                    <td th:text="${current.Sales}"></td>
-                                    <td th:text="${current.Remains}"></td>
+                                    <td th:text="${current.nomenclature}"></td>
+                                    <td th:text="${current.sale}"></td>
+                                    <td th:text="${current.remanis}"></td>
 
-                                </tbody>
+                                <tbody class="labels2">
                             </table>
                         </div>
                         <div class="col-6 col-md-4 themed-grid-col">
@@ -326,15 +326,15 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${forRomaShares}">
 
-                                    <td th:text="${current.phone}"></td>
-                                    <td th:text="${current.quantity}"></td>
-                                    <td th:text="${current.amount}"></td>
-                                    <td th:text="${current.things}"></td>
-                                    <td th:text="${current.rubles}"></td>
+                                    <td th:text="${current.Name}"></td>
+                                    <td th:text="${current.sale}"></td>
+                                    <td th:text="${current.remanis}"></td>
+                                    <td th:text="${current.shareRubles}"></td>
+                                    <td th:text="${current.sharePercentage}"></td>
                                 </tbody>
                             </table>
                         </div>
@@ -420,7 +420,7 @@
                                 <th>___________</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="labels2">
                             <tr th:each="current : ${MarwClassif}">
 
                                 <td th:text="${current.id}"></td>
@@ -460,11 +460,15 @@
                                 <tr>
 
                                     <th>Код Промо</th>
+                                    <th>Стар Промо</th>
+                                    <th>Конец Промо</th>
+                                    <th>Сдан/Несдан</th>
+                                    <th></th>
 
 
                                 </tr>
                                 </thead>
-                                <tbody class="labels">
+                                <tbody class="labels2">
 
                                 <tr th:each="current : ${promoCodeDistinct}">
 

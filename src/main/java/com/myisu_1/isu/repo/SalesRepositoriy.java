@@ -1,11 +1,11 @@
 package com.myisu_1.isu.repo;
 
+import com.myisu_1.isu.dto.ReportUploadPortal;
 import com.myisu_1.isu.models.Sales;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -37,4 +37,15 @@ public interface SalesRepositoriy extends JpaRepository<Sales, Integer> {
     List<Sales> getSaleNoT2(Date startDate, Date endDate, List<String> shopMult);
     @Query("SELECT new com.myisu_1.isu.models.Sales(imeis, shop, nomenclature, dateSales) FROM Sales where (?1 is null or dateSales >= ?1) AND (?2 is null or dateSales <= ?2) AND  nomenclature IN ?3")
     List<Sales> getSaleXiaomi(Date dateString, Date dateString1, List<String> modelMarvelPromo);
+    @Query("SELECT new com.myisu_1.isu.dto.ReportUploadPortal    (COUNT (nomenclature), nomenclature)  FROM Sales where dateSales>=?1 AND dateSales<=?2 AND imeis IN ?3 AND nomenclature IN ?4 GROUP BY nomenclature")
+    List<ReportUploadPortal> getSaleClassiferProvider(Date start, Date stop, List<String> марвел_кт_ооо, List<String> rainbowNomenclature);
+  @Query("SELECT new com.myisu_1.isu.models.Sales    (imeis, nomenclature)  FROM Sales where dateSales>=?1 AND dateSales<=?2 AND imeis IN ?3 AND nomenclature IN ?4 ")
+   List<Sales> getSaleClassiferProviderImei(Date date, Date date1, List<String> marvelImei, List<String> rainbowNomenclature);
+    @Query("SELECT new com.myisu_1.isu.dto.ReportUploadPortal    (COUNT (nomenclature), nomenclature)  FROM Sales where nomenclature LIKE '%Poco%' AND  dateSales>=?1 AND dateSales<=?2 GROUP BY nomenclature")
+    List<ReportUploadPortal> getSaleClassiferRoma(java.sql.Date date, java.sql.Date date1, String poco);
+
+    @Query("SELECT new com.myisu_1.isu.dto.ReportUploadPortal    (COUNT (nomenclature), nomenclature)  FROM Sales where nomenclature NOT LIKE '%Poco%' AND  dateSales>=?1 AND dateSales<=?2 AND nomenclature LIKE %?3% GROUP BY nomenclature")
+    List<ReportUploadPortal> getSaleClassiferRomaNoPoco(java.sql.Date date, java.sql.Date date1, String xiaomi);
+    @Query("SELECT (COUNT (nomenclature)) FROM Sales where dateSales >= ?2 AND dateSales <= ?3 AND nomenclature IN ?1 ")
+    Long getModelPhoneData(List<String> modelListPhone, java.sql.Date date, java.sql.Date date1);
 }

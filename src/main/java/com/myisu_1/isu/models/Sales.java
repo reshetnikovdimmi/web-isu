@@ -19,6 +19,16 @@ public class Sales implements Serializable {
     @Temporal(TemporalType.DATE)
     Date dateSales;
 
+    public Sales(String imeis, String nomenclature) {
+        this.imeis = imeis;
+        this.nomenclature = nomenclature;
+    }
+
+    public Sales(int id, String nomenclature) {
+        this.id = id;
+        this.nomenclature = nomenclature;
+    }
+
     public Sales(String imeis, String shop, String nomenclature, Date dateSales) {
         this.imeis = imeis;
         this.shop = shop;
