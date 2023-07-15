@@ -62,12 +62,10 @@
                 <li class="nav-item"><a href="#" class="nav-link">About</a></li>
             </ul>
         </header>
-        <br>
 
         <div class="container-fluid themed-container text-center">
 
-            <br>
-            <!-- Nav tabs -->
+                   <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#home_hom">Home</a>
@@ -93,15 +91,15 @@
                     <div class="row">
                         <div class="col-md-6 themed-grid-col">
                             <div class="row mb-3">
-                                <div class="col-6 col-sm-4 themed-grid-col">
+                                <div class="col">
                                     <form th:action="@{/importRemainingPhonesMarwel}" method="post"
                                           enctype="multipart/form-data">
                                         <input type="file" th:name="importRemainingPhonesMarwel"/>
                                         <input th:type="submit" value="Import"/>
                                     </form>
                                 </div>
-                                <div class="col-6 col-sm-4 themed-grid-col"></div>
-                                <div class="col-6 col-sm-4 themed-grid-col">Остатки для загрузки на портал</div>
+
+                                <div class="col">Остатки для загрузки на портал</div>
 
                             </div>
                         </div>

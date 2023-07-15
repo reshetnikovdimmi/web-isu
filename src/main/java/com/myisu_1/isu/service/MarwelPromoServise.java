@@ -2,14 +2,17 @@ package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.ReportUploadPortal;
 import com.myisu_1.isu.models.Marwel.MarvelClassifier;
-import com.myisu_1.isu.models.Marwel.RemainingPhonesMarwel;
 import com.myisu_1.isu.models.Sales;
+import com.myisu_1.isu.models.retail_price;
 import com.myisu_1.isu.repo.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class MarwelPromoServise {
@@ -29,6 +32,8 @@ public class MarwelPromoServise {
     private SalesRepositoriy salesRepositoriy;
     @Autowired
     private RemainingPhonesMarwelServise remainingPhonesMarwelServise;
+    @Autowired
+    private PriceRepositoriy priceRepositoriy;
     List<ReportUploadPortal> portals;
     List<ReportUploadPortal> remanismarvel;
     List<String> marvelImei;
@@ -174,14 +179,39 @@ public class MarwelPromoServise {
     }
 
     public Object forRomaShares(Date start, Date stop) {
+        List<ReportUploadPortal> portals = new ArrayList<>();
         List<ReportUploadPortal> reportUploadPortals = new ArrayList<>();
-    List<String> phone = phoneRepositoriy.getPhoneList();
-    for(String p:phone){
-      Long sale = salesRepositoriy.getModelPhoneData(phoneRepositoriy.getModelListPhone(p),new java.sql.Date(start.getTime()),new java.sql.Date(stop.getTime()));
-        reportUploadPortals.add(new ReportUploadPortal(p, sale, null,null,null));
-    }
+        List<String> phone = phoneRepositoriy.getPhoneList();
+        List<retail_price> price = priceRepositoriy.findAll();
+        Long sumsht = 0L;
+        Long sumrub = 0L;
+        for (String p : phone) {
+            List<String> modelPhone = phoneRepositoriy.getModelListPhone(p);
+            List<String> sale = salesRepositoriy.getModelPhoneData(modelPhone, new java.sql.Date(start.getTime()), new java.sql.Date(stop.getTime()));
+            Long sht = Long.valueOf(sale.size());
+            sumsht += sht;
+            Long rub = price(sale,price);
+            sumrub += rub;
+            portals.add(new ReportUploadPortal(p, sht, rub, null, null));
+        }
+        for (ReportUploadPortal p : portals) {
+
+            reportUploadPortals.add(new ReportUploadPortal(p.getName(), p.getSale(), p.getRemanis(), String.format("%.2f",(double)p.getSale()/(double)sumsht*100), String.format("%.2f",(double)p.getRemanis()/(double)sumrub*100)));
+        }
 
 
         return reportUploadPortals;
+    }
+
+    private Long price(List<String> sale, List<retail_price> price) {
+        Long prices = 0L;
+        for (String s : sale) {
+            for (retail_price p : price) {
+                 if (p.getName().equals(s)) {
+                    prices += p.getPriceInt();
+                }
+            }
+        }
+        return prices;
     }
 }

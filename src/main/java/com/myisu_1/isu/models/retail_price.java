@@ -20,6 +20,11 @@ public class retail_price implements Serializable {
         this.priceInt = priceInt;
     }
 
+    public retail_price(String name, int priceInt) {
+        this.name = name;
+        this.priceInt = priceInt;
+    }
+
     public int getPriceInt() {
         return priceInt;
     }

@@ -46,6 +46,6 @@ public interface SalesRepositoriy extends JpaRepository<Sales, Integer> {
 
     @Query("SELECT new com.myisu_1.isu.dto.ReportUploadPortal    (COUNT (nomenclature), nomenclature)  FROM Sales where nomenclature NOT LIKE '%Poco%' AND  dateSales>=?1 AND dateSales<=?2 AND nomenclature LIKE %?3% GROUP BY nomenclature")
     List<ReportUploadPortal> getSaleClassiferRomaNoPoco(java.sql.Date date, java.sql.Date date1, String xiaomi);
-    @Query("SELECT (COUNT (nomenclature)) FROM Sales where dateSales >= ?2 AND dateSales <= ?3 AND nomenclature IN ?1 ")
-    Long getModelPhoneData(List<String> modelListPhone, java.sql.Date date, java.sql.Date date1);
+    @Query("SELECT nomenclature FROM Sales where dateSales >= ?2 AND dateSales <= ?3 AND nomenclature IN ?1 ")
+    List<String> getModelPhoneData(List<String> modelListPhone, java.sql.Date date, java.sql.Date date1);
 }
