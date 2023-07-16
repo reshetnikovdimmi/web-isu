@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +28,11 @@ public class Bonuses {
     private String dataPeriod;
     private Double compensation;
     private String pricePromo;
+    private List<String> noClassifier;
+
+    public Bonuses(List<String> noClassifier) {
+        this.noClassifier = noClassifier;
+    }
 
     public Bonuses(String models, String imei, String dataSale, String dataPeriod, Double compensation) {
         this.models = models;

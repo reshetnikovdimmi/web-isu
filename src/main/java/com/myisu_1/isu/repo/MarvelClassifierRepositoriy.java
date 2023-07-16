@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MarvelClassifierRepositoriy extends JpaRepository<MarvelClassifier, Integer> {
@@ -16,4 +17,12 @@ public interface MarvelClassifierRepositoriy extends JpaRepository<MarvelClassif
     @Transactional
     @Query("update MarvelClassifier u set u.RainbowNomenclature = ?1 where u.RainbowNomenclature = ?2 ")
     void updatRainbowNomenclature(String model, String models);
+
+    @Query("SELECT CASE WHEN COUNT(ManufacturersArticle) > 0 THEN true ELSE false END FROM MarvelClassifier where ManufacturersArticle LIKE %?1% ")
+    boolean getArticleNumber(String s);
+
+    @Query("SELECT RainbowNomenclature FROM MarvelClassifier where ManufacturersArticle LIKE %?1% ")
+    List<String> getArticleNumberList(String s);
+
+
 }

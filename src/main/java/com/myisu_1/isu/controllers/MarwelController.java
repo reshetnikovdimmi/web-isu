@@ -99,7 +99,7 @@ public class MarwelController {
         model.addAttribute("article_imei", marwelPromoServise.articleImeiList(start, stop));
         model.addAttribute("promoCode", marwelPromoRepositoriy.findAll());
         model.addAttribute("promoCodeDistinct", marwelPromoRepositoriy.getDistingMarvelPromo());
-        model.addAttribute("Poco", marwelPromoServise.forRoma(start, stop, "Poco"));
+        model.addAttribute("Poco", marwelPromoServise.forRomaPoco(start, stop, "Poco"));
         model.addAttribute("Xiaomi", marwelPromoServise.forRomaXiaomi(start, stop, "Xiaomi"));
         model.addAttribute("forRomaShares", marwelPromoServise.forRomaShares(start, stop));
         model.addAttribute("noPhone", marwelPromoServise.noPhone());

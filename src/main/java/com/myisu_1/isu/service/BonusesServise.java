@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,11 +24,13 @@ public class BonusesServise {
     @Autowired
     private PhoneRepositoriy phoneRepositoriy;
     @Autowired
-    public SuppliersRepositoriy suppliersRepositoriy;
+    private SuppliersRepositoriy suppliersRepositoriy;
     @Autowired
-    public PostRepositoriy postRepositoriy;
+    private PostRepositoriy postRepositoriy;
     @Autowired
     private MarvelClassifierRepositoriy marvelClassifierRepositoriy;
+    @Autowired
+    private MarwelPromoRepositoriy marwelPromoRepositoriy;
 
     public List<Bonuses> bonusesShowAll(Bonuses bonuses) {
         CalculationBonusesPoint cbp = new CalculationBonusesPoint();
@@ -93,25 +96,31 @@ public class BonusesServise {
     }
 
     public List<Bonuses> marvelReportings(MarvelPromo marvelPromo) {
-
         MarvelBonus mB = new MarvelBonus();
-        mB.modelMarvelPromo = marvelClassifierRepositoriy.getRainbowNomenclature();
-
+        List<String> b = new ArrayList<>();
+        List<String> a = new ArrayList<>();
         mB.modelGb = promoRepositoriy.getPrormoAll(null);
         try {
-            mB.salesPhone = salesRepositoriy.getSaleXiaomi(mB.dateString(marvelPromo.getStartPromo()), mB.dateString(marvelPromo.getEndPromo()), mB.modelMarvelPromo);
+            mB.articleNumber = marwelPromoRepositoriy.getListModelPromoCode(marvelPromo.getPromoCode(), mB.dateString(marvelPromo.getStartPromo()), mB.dateString(marvelPromo.getEndPromo()));
+
+            for (String s : mB.articleNumber) {
+                if (!marvelClassifierRepositoriy.getArticleNumber(s)) {
+                    a.add(s);
+                }
+                b.addAll(marvelClassifierRepositoriy.getArticleNumberList(s));
+            }
+            mB.salesPhone = salesRepositoriy.getSaleXiaomi(mB.dateString(marvelPromo.getStartPromo()), mB.dateString(marvelPromo.getEndPromo()), b);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
         mB.imeiSale = mB.salesPhone.stream().map(Sales::getImeis).collect(Collectors.toList());
-
         mB.model = mB.salesPhone.stream().map(Sales::getNomenclature).collect(Collectors.toList());
         mB.imeiSuppliers = suppliersRepositoriy.getListSuppliers(mB.imeiSale, "МАРВЕЛ КТ ООО");
         mB.listPhone = phoneRepositoriy.getSaleModelList(mB.model);
-
-
-
-        return mB.bonusesCalculation();
+        Bonuses noClassifier = new Bonuses(a);
+        System.out.println(noClassifier);
+        List<Bonuses> bonus = mB.bonusesCalculation();
+        bonus.add(noClassifier);
+        return bonus;
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class MarvelBonus extends CalculationBonusesPoint {
 public List<String> modelMarvelPromo = null;
+public List<String> articleNumber = null;
 
 
 }
