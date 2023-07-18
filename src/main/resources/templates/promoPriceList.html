@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
+    <script type="text/javascript" th:src="@{/JS/PromoPriceList.js}"></script>
+    <link rel="stylesheet" th:href="@{/CSS/promo.css}"/>
+    <link rel="stylesheet" th:href="@{/CSS/ButtonsPhoneDistribution.css}"/>
+    <title th:text="${title}"/>
+</head>
+PromoPriceList
+
+<body class="py-4">
+
+<main>
+
+    <header>
+        <div class="px-3 py-2 bg-dark text-white">
+            <div class="container-xxl themed-container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/"
+                       class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                            <use xlink:href="#bootstrap"></use>
+                        </svg>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                        <li>
+                            <a href="/entrance" class="nav-link text-secondary">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#home"></use>
+                                </svg>
+                                <ya-tr-span data-index="50-0" data-translated="true" data-source-lang="en"
+                                            data-target-lang="ru" data-value=" Home " data-translation=" Главная "
+                                            data-type="trSpan"> Главная
+                                </ya-tr-span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link text-white">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#speedometer2"></use>
+                                </svg>
+                                <ya-tr-span data-index="51-0" data-translated="true" data-source-lang="en"
+                                            data-target-lang="ru" data-value=" Dashboard "
+                                            data-translation=" Информационная панель " data-type="trSpan">
+                                    Информационная панель
+                                </ya-tr-span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/loading" class="nav-link text-white">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#table"></use>
+                                </svg>
+                                <ya-tr-span data-index="52-0" data-translated="true" data-source-lang="en"
+                                            data-target-lang="ru" data-value=" Orders " data-translation=" Заказы "
+                                            data-type="trSpan"> Загрузки
+                                </ya-tr-span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link text-white">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#grid"></use>
+                                </svg>
+                                <ya-tr-span data-index="53-0" data-translated="true" data-source-lang="en"
+                                            data-target-lang="ru" data-value=" Products " data-translation=" Продукты "
+                                            data-type="trSpan"> Продукты
+                                </ya-tr-span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link text-white">
+                                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                                    <use xlink:href="#people-circle"></use>
+                                </svg>
+                                <ya-tr-span data-index="54-0" data-translated="true" data-source-lang="en"
+                                            data-target-lang="ru" data-value=" Customers " data-translation=" Клиенты "
+                                            data-type="trSpan"> Клиенты
+                                </ya-tr-span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid themed-container text-center">
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="col" style=" padding: 5px 20px;">
+
+                            <div class="row">
+                                <label>модель</label>
+                            </div>
+                            <div class="row">
+
+                                <select id="dropDownListPhone">
+                                    <option value="null">select option</option>
+                                    <option th:each="option : ${optionsPhone}" th:value="${option}"
+                                            th:text="${option}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="dropDownListBrend" th:fragment="dropDownListBrend">
+                            <div class="row">
+                                <label>модель_гб</label>
+                            </div>
+                            <div class="row">
+                                <select id="dropDownListModelGB2">
+                                    <option value="null">select option</option>
+                                    <option th:each="option : ${optionsBrend}" th:value="${option}"
+                                            th:text="${option}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="dropDownListModelGB2" th:fragment="dropDownListModelGB2">
+                            <div class="row">
+                                <label>модель_гб</label>
+                            </div>
+                            <div class="row">
+                                <select id="dropDownListModelGB">
+                                    <option value="null">select option</option>
+                                    <option th:each="option : ${optionsBrend1}" th:value="${option}"
+                                            th:text="${option}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>начало</label>
+                        </div>
+                        <div class="row">
+                            <input type="date" name="price" id="startDate1" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>конец</label>
+                        </div>
+                        <div class="row">
+                            <input type="date" name="price" id="endDate1" placeholder="Введите имя">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>начало</label>
+                        </div>
+                        <div class="row">
+                            <input name="price" id="startDate2" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>конец</label>
+                        </div>
+                        <div class="row">
+                            <input name="price" id="endDate3" placeholder="Введите имя">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>начало</label>
+                        </div>
+                        <div class="row">
+                            <input name="price" id="startDate4" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>конец</label>
+                        </div>
+                        <div class="row">
+                            <input name="price" id="endDate4" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>начало</label>
+                        </div>
+                        <div class="row">
+                            <input name="price" id="startDate5" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>конец</label>
+                        </div>
+                        <div class="row">
+                            <input name="price" id="endDate5" placeholder="Введите имя">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>конец</label>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-primary btn-sm" id="button-show-all1" type="submit">Показать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-4" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>Текущее PROMO</label>
+                        </div>
+                        <div class="row-4">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+
+                                    <th>models</th>
+                                    <th>price</th>
+                                    <th>price_promo</th>
+                                    <th>start_promo</th>
+                                    <th>end_promo</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="current : ${current_promo}">
+
+                                    <td th:text="${current.models}"></td>
+                                    <td th:text="${current.price}"></td>
+                                    <td th:text="${current.price_promo}"></td>
+                                    <td th:text="${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
+                                    <td th:text="${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>Начало PROMO</label>
+                        </div>
+                        <div class="row">
+
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+
+                                    <th>models</th>
+                                    <th>price</th>
+                                    <th>price_promo</th>
+                                    <th>end_promo</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="start : ${startpromo}">
+
+                                    <td th:text="${start.models}"></td>
+                                    <td th:text="${start.price}"></td>
+                                    <td th:text="${start.price_promo}"></td>
+                                    <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>Конец PROMO</label>
+                        </div>
+                        <div class="row">
+
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+
+                                    <th>models</th>
+                                    <th>price</th>
+                                    <th>price_promo</th>
+                                    <th>end_promo</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="start : ${endpromo}">
+
+                                    <td th:text="${start.models}"></td>
+                                    <td th:text="${start.price}"></td>
+                                    <td th:text="${start.price_promo}"></td>
+                                    <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>Продление PROMO</label>
+                        </div>
+                        <div class="row">
+
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+
+                                    <th>models</th>
+                                    <th>price</th>
+                                    <th>price_promo</th>
+                                    <th>end_promo</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr th:each="start : ${promoExtension}">
+
+                                    <td th:text="${start.models}"></td>
+                                    <td th:text="${start.price}"></td>
+                                    <td th:text="${start.price_promo}"></td>
+                                    <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" style=" padding: 5px 20px;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col" style=" padding: 5px 20px;">
+                                <div class="row">
+                                    <label>конец</label>
+                                </div>
+                                <div class="row">
+                                    <input type="date" name="price" id="endDate7" placeholder="Введите имя">
+                                </div>
+                            </div>
+                            <div class="col" style=" padding: 5px 20px;">
+                                <div class="row">
+                                    <label>конец</label>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-primary btn-sm" id="button-show-all4" type="submit">Показать
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col" style=" padding: 5px 20px;">
+                                <div class="row">
+                                    <label>конец</label>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-primary btn-sm" id="button-show-all5" type="submit">Показать
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row" style=" padding: 5px 20px;">
+
+            <div class="col" style=" padding: 5px 20px;">
+                <div class="row">
+                    <label>модель</label>
+                </div>
+                <div class="row">
+                    <select id="dropDownListPhone1">
+                        <option value="null">select option</option>
+                        <option th:each="option : ${optionsPhone}" th:value="${option}"
+                                th:text="${option}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col" style=" padding: 5px 20px;">
+                <div class="dropDownListModelGB4" th:fragment="dropDownListModelGB4">
+                    <div class="row">
+                        <label>модель_гб</label>
+                    </div>
+                    <div class="row">
+                        <select id="dropDownListModelGB1">
+                            <option value="null">select option</option>
+                            <option th:each="option : ${optionsBrend1}" th:value="${option}"
+                                    th:text="${option}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style=" padding: 5px 20px;">
+                <div class="dropDownListModelGB5" th:fragment="dropDownListModelGB5">
+                    <div class="row">
+                        <label>модель_гб</label>
+                    </div>
+                    <div class="row">
+                        <select id="dropDownListModelGB11">
+                            <option value="null">select option</option>
+                            <option th:each="option : ${optionsBrend1}" th:value="${option}"
+                                    th:text="${option}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style=" padding: 5px 20px;">
+                <div class="row">
+                    <label>начало</label>
+                </div>
+                <div class="row">
+                    <input type="date" name="price" id="startDate" placeholder="Введите имя">
+                </div>
+            </div>
+            <div class="col" style=" padding: 5px 20px;">
+                <div class="row">
+                    <label>конец</label>
+                </div>
+                <div class="row">
+                    <input type="date" name="price" id="endDate" placeholder="Введите имя">
+                </div>
+            </div>
+            <div class="col" style=" padding: 5px 20px;">
+                <div class="row">
+                    <label>конец</label>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary btn-sm" id="button-show-all" type="submit">Показать</button>
+                </div>
+            </div>
+        </div>
+        <div class="col" style=" padding: 5px 20px;">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>brend</th>
+                    <th>models</th>
+                    <th>price</th>
+                    <th>price_promo</th>
+                    <th>start_promo</th>
+                    <th>end_promo</th>
+                    <th>marwel</th>
+                    <th>tfn</th>
+                    <th>vvp</th>
+                    <th>merlion</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="promo : ${all_promo}">
+
+                    <td th:text="${promo.brend}"></td>
+                    <td th:text="${promo.models}"></td>
+                    <td th:text="${promo.price}"></td>
+                    <td th:text="${promo.price_promo}"></td>
+                    <td th:text="${#dates.format (promo.startPromo, 'dd-MM-yyy')}"></td>
+                    <td th:text="${#dates.format (promo.endPromo, 'dd-MM-yyy')}"></td>
+                    <td th:text="${promo.marwel}"></td>
+                    <td th:text="${promo.tfn}"></td>
+                    <td th:text="${promo.vvp}"></td>
+                    <td th:text="${promo.merlion}"></td>
+
+                    <td><a th:href="@{/update/{id}(id = ${promo.id})}" class="btn"> <span th:text="update"></span>
+                    </a></td>
+                    <form id="form" action="/delet" method="post">
+                        <input type="hidden" id="ID" name="ID" th:value="${promo.id}">
+
+                        <td>
+                            <button type="submit">delet</button>
+                        </td>
+
+                    </form>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+
+    </div>
+
+
+</main>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+
+</body>
+</html>

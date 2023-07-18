@@ -4,15 +4,11 @@ import com.myisu_1.isu.dto.ReportUploadPortal;
 import com.myisu_1.isu.models.Marwel.MarvelClassifier;
 import com.myisu_1.isu.models.Sales;
 import com.myisu_1.isu.models.bonuses.AminusB;
-import com.myisu_1.isu.models.bonuses.CheckingLists;
 import com.myisu_1.isu.models.retail_price;
 import com.myisu_1.isu.repo.*;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 

@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -27,4 +27,10 @@ public interface PromoRepositoriy extends JpaRepository<price_promo, Integer> {
 
     @Query("SELECT new com.myisu_1.isu.models.price_promo (models,  startPromo, endPromo,tfn, vvp, merlion, marwel) FROM price_promo WHERE(?1 is null or models=?1)")
     List<price_promo> getPrormoAll(String models);
+    @Query("SELECT new com.myisu_1.isu.models.price_promo (brend, models,price,price_promo,  startPromo, endPromo,tfn, vvp, merlion, marwel) FROM price_promo WHERE startPromo <=?1 AND endPromo >=?1")
+    List<price_promo> currentPromo(Date date);
+    @Query("SELECT new com.myisu_1.isu.models.price_promo (brend, models,price,price_promo,  startPromo, endPromo,tfn, vvp, merlion, marwel) FROM price_promo WHERE startPromo =?1")
+    List<price_promo>startPromo(Date date);
+    @Query("SELECT new com.myisu_1.isu.models.price_promo (brend, models,price,price_promo,  startPromo, endPromo,tfn, vvp, merlion, marwel) FROM price_promo WHERE endPromo =?1")
+    List<price_promo> endPromo(Date date);
 }
