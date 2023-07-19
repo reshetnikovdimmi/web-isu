@@ -31,25 +31,21 @@ public class PromoPriceList {
         model.addAttribute("all_promo", (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo")));
         return "promoPriceList";
     }
+    @ResponseBody
     @RequestMapping(value = "/dropDownListModels/{phone}", method = RequestMethod.GET)
 
-    private String dropDownListModelG11B(@PathVariable("phone") String phone, Model model) {
-
-        model.addAttribute("optionsModelGB",phoneRepositoriy.getModeModel_GBList(phone));
-        return "promoPriceList::dropDownListModels";
+    private String dropDownListModels(@PathVariable("phone") String phone) {
+        Gson gson = new Gson();
+        return gson.toJson(phoneRepositoriy.getModeModel_GBList(phone));
 
     }
 
     @ResponseBody
     @RequestMapping(value = "dropDownListBrendPromo/{brend}", method = RequestMethod.GET)
     public String loadBrend(@PathVariable("brend") String brend) {
-
         Gson gson = new Gson();
         return gson.toJson(phoneRepositoriy.getModelBrendList(brend));
     }
-
-
-
 
     Date currentDate(){
         int den, mes, god;
