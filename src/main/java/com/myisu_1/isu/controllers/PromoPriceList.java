@@ -1,5 +1,6 @@
 package com.myisu_1.isu.controllers;
 
+import com.google.gson.Gson;
 import com.myisu_1.isu.models.price_promo;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PromoRepositoriy;
@@ -8,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -33,14 +31,22 @@ public class PromoPriceList {
         model.addAttribute("all_promo", (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo")));
         return "promoPriceList";
     }
-    @RequestMapping(value = "/dropDownListBrendPromo/{phone}", method = RequestMethod.GET)
-    private String dropDownListModelGB(@PathVariable("phone") String phone, Model model) {
-        model.addAttribute("optionsBrend",phoneRepositoriy.getModelBrendList(phone));
-        return "promoPriceList::dropDownListBrend";
+    @RequestMapping(value = "/dropDownListModels/{phone}", method = RequestMethod.GET)
+
+    private String dropDownListModelG11B(@PathVariable("phone") String phone, Model model) {
+
+        model.addAttribute("optionsModelGB",phoneRepositoriy.getModeModel_GBList(phone));
+        return "promoPriceList::dropDownListModels";
 
     }
 
+    @ResponseBody
+    @RequestMapping(value = "dropDownListBrendPromo/{brend}", method = RequestMethod.GET)
+    public String loadBrend(@PathVariable("brend") String brend) {
 
+        Gson gson = new Gson();
+        return gson.toJson(phoneRepositoriy.getModelBrendList(brend));
+    }
 
 
 

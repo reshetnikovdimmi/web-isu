@@ -105,34 +105,34 @@ PromoPriceList
                                 <select id="dropDownListPhone">
                                     <option value="null">select option</option>
                                     <option th:each="option : ${optionsPhone}" th:value="${option}"
-                                            th:text="${option}"></option>
+                                            th:text="${option}" ></option>
                                 </select>
                             </div>
                         </div>
 
                     <div class="col" style=" padding: 5px 20px;">
-                        <div class="dropDownListBrend" th:fragment="dropDownListBrend">
-                            <div class="row">
-                                <label>модель_гб</label>
-                            </div>
-                            <div class="row">
-                                <select id="dropDownListModelGB2">
-                                    <option value="null">select option</option>
-                                    <option th:each="option : ${optionsBrend}" th:value="${option}"
-                                            th:text="${option}"></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col" style=" padding: 5px 20px;">
-                        <div class="dropDownListModelGB2" th:fragment="dropDownListModelGB2">
+
                             <div class="row">
                                 <label>модель_гб</label>
                             </div>
                             <div class="row">
                                 <select id="dropDownListModelGB">
                                     <option value="null">select option</option>
-                                    <option th:each="option : ${optionsBrend1}" th:value="${option}"
+                                    <option th:each="option : ${optionsBrend}" th:value="${option}"
+                                            th:text="${option}" ></option>
+                                </select>
+                            </div>
+
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="dropDownListModels" th:fragment="dropDownListModels">
+                            <div class="row">
+                                <label>модель_гб</label>
+                            </div>
+                            <div class="row">
+                                <select id="dropDownListModels">
+                                    <option value="null">select option</option>
+                                    <option th:each="option : ${optionsModelGB}" th:value="${option}"
                                             th:text="${option}"></option>
                                 </select>
                             </div>
