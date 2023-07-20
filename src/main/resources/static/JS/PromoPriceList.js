@@ -7,6 +7,7 @@ $(document).ready(function() {
                 s += '<option value="' + data[i] + '">' + data[i] + '</option>';
             }
             $('#dropDownListModelGB').html(s);
+            $("#dropDownListModels").html('<option value="' + "select option" + '">' + "select option" + '</option>');
         });
     });
     $('#dropDownListModelGB ').on('change', function() {
@@ -25,18 +26,23 @@ $(document).ready(function() {
         });
     });
     $('#button-save').on('click', function() {
-        let bonuses = {
-            shop: null,
-            models: null,
-            provider: null,
-            phone: null,
-            startDate: null,
-            endDate: null,
-        };
+          let price_promo= {
+                   id: null,
+                   brend: null,
+                   models: null,
+                   price: null,
+                   price_promo: null,
+                   startPromo: null,
+                   endPromo: null,
+                   marwel: null,
+                   tfn: null,
+                   vvp: null,
+                   merlion: null,
+               };
         if ($('#dropDownListModelGB').val() == 'select option') {
             modals("l");
         } else {
-            var json = JSON.stringify(bonuses);
+            var json = JSON.stringify(price_promo);
             $.ajax({
                 type: "POST",
                 url: "savePromo",

@@ -14,22 +14,22 @@ import java.util.List;
 public class PromoPriceListServise {
     @Autowired
     private PromoRepositoriy promoRepositoriy;
+    private List<price_promo> today;
+    private List<price_promo> yesterday;
+
 
     public Object startPromo(Date date) {
-        List<price_promo> today = promoRepositoriy.startPromo(new java.sql.Date(addDays(date, 0).getTime()));
-        List<price_promo> yesterday = promoRepositoriy.endPromo(new java.sql.Date(addDays(date, -1).getTime()));
+        loadTodayYesterday(new java.sql.Date(addDays(date, -1).getTime()),new java.sql.Date(addDays(date, 0).getTime()));
         return todayStartEndPromo(today,yesterday);
     }
 
     public Object endPromo(Date date) {
-        List<price_promo> today = promoRepositoriy.startPromo(new java.sql.Date(addDays(date, 0).getTime()));
-        List<price_promo> yesterday = promoRepositoriy.endPromo(new java.sql.Date(addDays(date, -1).getTime()));
+        loadTodayYesterday(new java.sql.Date(addDays(date, -1).getTime()),new java.sql.Date(addDays(date, 0).getTime()));
         return todayStartEndPromo(yesterday,today);
     }
 
     public Object promoExtension(Date date) {
-        List<price_promo> today = promoRepositoriy.startPromo(new java.sql.Date(addDays(date, 0).getTime()));
-        List<price_promo> yesterday = promoRepositoriy.endPromo(new java.sql.Date(addDays(date, -1).getTime()));
+        loadTodayYesterday(new java.sql.Date(addDays(date, -1).getTime()),new java.sql.Date(addDays(date, 0).getTime()));
         return extensionTodayPromo(yesterday,today);
     }
 
@@ -64,6 +64,16 @@ public class PromoPriceListServise {
             }
         }
         return todays;
+    }
+
+    private void loadTodayYesterday(Date date1, Date date0){
+        if(today==null){
+            today = promoRepositoriy.startPromo(date0);
+        }
+        if (yesterday==null){
+            yesterday = promoRepositoriy.endPromo(date1);
+        }
+
     }
 
 }

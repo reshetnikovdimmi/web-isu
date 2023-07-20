@@ -32,7 +32,8 @@ public class PromoPriceList {
         model.addAttribute("endpromo", promoPriceListServise.endPromo(new java.sql.Date(currentDate().getTime())));
         model.addAttribute("startpromo", promoPriceListServise.startPromo(new java.sql.Date(currentDate().getTime())));
         model.addAttribute("current_promo", promoRepositoriy.currentPromo(new java.sql.Date(currentDate().getTime())));
-        model.addAttribute("all_promo", (List<price_promo>) promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo")));
+        model.addAttribute("all_promo", promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo")));
+
         return "promoPriceList";
     }
     @ResponseBody
@@ -59,8 +60,8 @@ public class PromoPriceList {
     @ResponseBody
     @RequestMapping(value = "savePromo", method = RequestMethod.POST)
 
-    private List<price_promo> savePromo(@RequestBody Bonuses bonuses, Model model) {
-
+    private List<price_promo> savePromo(@RequestBody price_promo pricePromo, Model model) {
+System.out.println(pricePromo.getModels());
         return promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
 
 
