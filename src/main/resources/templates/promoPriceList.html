@@ -92,36 +92,65 @@ PromoPriceList
         </div>
     </header>
     <div class="container-fluid themed-container text-center">
+        <p class="lead">
+            <!-- Модальное окно -->
+        <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h9 class="modal-title">Моделей нет в классификаторе МАРВЕЛ или не соответствует название в промо календаре МАРВЕЛ</h9>
+                        <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary">Понял</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </p>
         <div class="row">
             <div class="col-3">
                 <div class="row">
                     <div class="col" style=" padding: 5px 20px;">
+                        <div class="col">
+                            <input type="hidden" name="IDupdate" id="IDupdate" value="0">
 
-                            <div class="row">
-                                <label>модель</label>
-                            </div>
-                            <div class="row">
-
-                                <select id="dropDownListPhone">
-                                    <option value="null">select option</option>
-                                    <option th:each="option : ${optionsPhone}" th:value="${option}"
-                                            th:text="${option}" ></option>
-                                </select>
-                            </div>
                         </div>
+                        <div class="row">
+                            <label>модель</label>
+                        </div>
+                        <div class="row">
+
+                            <select id="dropDownListPhone">
+                                <option value="null">select option</option>
+                                <option th:each="option : ${optionsPhone}" th:value="${option}"
+                                        th:text="${option}"></option>
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="col" style=" padding: 5px 20px;">
 
-                            <div class="row">
-                                <label>модель_гб</label>
-                            </div>
-                            <div class="row">
-                                <select id="dropDownListModelGB">
-                                    <option value="null">select option</option>
-                                    <option th:each="option : ${optionsBrend}" th:value="${option}"
-                                            th:text="${option}" ></option>
-                                </select>
-                            </div>
+                        <div class="row">
+                            <label>модель_гб</label>
+                        </div>
+                        <div class="row">
+                            <select id="dropDownListModelGB">
+                                <option value="select option">select option</option>
+                                <option th:each="option : ${optionsBrend}" th:value="${option}"
+                                        th:text="${option}"></option>
+                            </select>
+                        </div>
 
                     </div>
                     <div class="col" style=" padding: 5px 20px;">
@@ -162,15 +191,15 @@ PromoPriceList
                 <div class="row">
                     <div class="col" style=" padding: 5px 20px;">
                         <div class="row">
-                            <label>начало</label>
+                            <label>цена</label>
                         </div>
                         <div class="row">
-                            <input name="price" id="startDate2" placeholder="Введите имя">
+                            <input name="price" id="price" placeholder="Введите имя">
                         </div>
                     </div>
                     <div class="col" style=" padding: 5px 20px;">
                         <div class="row">
-                            <label>конец</label>
+                            <label>цена промо</label>
                         </div>
                         <div class="row">
                             <input name="price" id="endDate3" placeholder="Введите имя">
@@ -213,14 +242,18 @@ PromoPriceList
                 </div>
                 <div class="row">
                     <div class="col" style=" padding: 5px 20px;">
+
                         <div class="row">
-                            <label>конец</label>
+                            <button class="btn btn-outline-primary me-2" id="button-save" type="submit">сохранть</button>
                         </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
                         <div class="row">
-                            <button class="btn btn-primary btn-sm" id="button-show-all1" type="submit">Показать</button>
+                            <button class="btn btn-outline-primary me-2" id="button-show-all" type="submit">найти</button>
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="col">
                 <div class="row">
@@ -382,7 +415,7 @@ PromoPriceList
                                     <label>конец</label>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-primary btn-sm" id="button-show-all4" type="submit">Показать
+                                    <button class="btn btn-outline-primary me-2" id="button-show-all4" type="submit">Показать
                                     </button>
                                 </div>
                             </div>
@@ -391,7 +424,7 @@ PromoPriceList
                                     <label>конец</label>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-primary btn-sm" id="button-show-all5" type="submit">Показать
+                                    <button class="btn btn-outline-primary me-2" id="button-show-all5" type="submit">Показать
                                     </button>
                                 </div>
                             </div>
@@ -402,120 +435,54 @@ PromoPriceList
 
             </div>
         </div>
-        <div class="row" style=" padding: 5px 20px;">
 
-            <div class="col" style=" padding: 5px 20px;">
-                <div class="row">
-                    <label>модель</label>
-                </div>
-                <div class="row">
-                    <select id="dropDownListPhone1">
-                        <option value="null">select option</option>
-                        <option th:each="option : ${optionsPhone}" th:value="${option}"
-                                th:text="${option}"></option>
-                    </select>
-                </div>
-            </div>
-            <div class="col" style=" padding: 5px 20px;">
-                <div class="dropDownListModelGB4" th:fragment="dropDownListModelGB4">
-                    <div class="row">
-                        <label>модель_гб</label>
-                    </div>
-                    <div class="row">
-                        <select id="dropDownListModelGB1">
-                            <option value="null">select option</option>
-                            <option th:each="option : ${optionsBrend1}" th:value="${option}"
-                                    th:text="${option}"></option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col" style=" padding: 5px 20px;">
-                <div class="dropDownListModelGB5" th:fragment="dropDownListModelGB5">
-                    <div class="row">
-                        <label>модель_гб</label>
-                    </div>
-                    <div class="row">
-                        <select id="dropDownListModelGB11">
-                            <option value="null">select option</option>
-                            <option th:each="option : ${optionsBrend1}" th:value="${option}"
-                                    th:text="${option}"></option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col" style=" padding: 5px 20px;">
-                <div class="row">
-                    <label>начало</label>
-                </div>
-                <div class="row">
-                    <input type="date" name="price" id="startDate" placeholder="Введите имя">
-                </div>
-            </div>
-            <div class="col" style=" padding: 5px 20px;">
-                <div class="row">
-                    <label>конец</label>
-                </div>
-                <div class="row">
-                    <input type="date" name="price" id="endDate" placeholder="Введите имя">
-                </div>
-            </div>
-            <div class="col" style=" padding: 5px 20px;">
-                <div class="row">
-                    <label>конец</label>
-                </div>
-                <div class="row">
-                    <button class="btn btn-primary btn-sm" id="button-show-all" type="submit">Показать</button>
-                </div>
-            </div>
-        </div>
         <div class="col" style=" padding: 5px 20px;">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>brend</th>
-                    <th>models</th>
-                    <th>price</th>
-                    <th>price_promo</th>
-                    <th>start_promo</th>
-                    <th>end_promo</th>
-                    <th>marwel</th>
-                    <th>tfn</th>
-                    <th>vvp</th>
-                    <th>merlion</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="table_tablePromo" id="table_tablePromo">
+                <table class="table table-hover" id="tables_tablePromo">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>brend</th>
+                        <th>models</th>
+                        <th>price</th>
+                        <th>price_promo</th>
+                        <th>start_promo</th>
+                        <th>end_promo</th>
+                        <th>marwel</th>
+                        <th>tfn</th>
+                        <th>vvp</th>
+                        <th>merlion</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-                <tr th:each="promo : ${all_promo}">
-
-                    <td th:text="${promo.brend}"></td>
-                    <td th:text="${promo.models}"></td>
-                    <td th:text="${promo.price}"></td>
-                    <td th:text="${promo.price_promo}"></td>
-                    <td th:text="${#dates.format (promo.startPromo, 'dd-MM-yyy')}"></td>
-                    <td th:text="${#dates.format (promo.endPromo, 'dd-MM-yyy')}"></td>
-                    <td th:text="${promo.marwel}"></td>
-                    <td th:text="${promo.tfn}"></td>
-                    <td th:text="${promo.vvp}"></td>
-                    <td th:text="${promo.merlion}"></td>
-
-                    <td><a th:href="@{/update/{id}(id = ${promo.id})}" class="btn"> <span th:text="update"></span>
-                    </a></td>
-                    <form id="form" action="/delet" method="post">
-                        <input type="hidden" id="ID" name="ID" th:value="${promo.id}">
+                    <tr th:each="promo : ${all_promo}">
+                        <td type="hidden" th:text="${promo.id}"></td>
+                        <td th:text="${promo.brend}"></td>
+                        <td th:text="${promo.models}"></td>
+                        <td th:text="${promo.price}"></td>
+                        <td th:text="${promo.price_promo}"></td>
+                        <td th:text="${#dates.format (promo.startPromo, 'dd-MM-yyy')}"></td>
+                        <td th:text="${#dates.format (promo.endPromo, 'dd-MM-yyy')}"></td>
+                        <td th:text="${promo.marwel}"></td>
+                        <td th:text="${promo.tfn}"></td>
+                        <td th:text="${promo.vvp}"></td>
+                        <td th:text="${promo.merlion}"></td>
 
                         <td>
-                            <button type="submit">delet</button>
+                            <button type="submit">update</button>
+                        </td>
+                        <td>
+                            <button type="submit"  class="btn btn-outline-primary me-2 DEL">delet</button>
                         </td>
 
-                    </form>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
+            </div>
 
         </div>
     </div>

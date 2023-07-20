@@ -247,7 +247,7 @@ function ceateTableNoT2Bonus(data) {
     row_1.appendChild(heading_8);
     row_1.appendChild(heading_9);
     let tbody = document.createElement('tbody');
-    tbody.classList.add("labels2");
+    tbody.classList.add("labels");
     var sum = 0;
     for (var i = 0; i < data.length; i++) {
         table.id = 'tables_TableNoT2Bonus';

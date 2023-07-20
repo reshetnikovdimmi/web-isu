@@ -1,8 +1,10 @@
 package com.myisu_1.isu.controllers;
 
 import com.google.gson.Gson;
+import com.myisu_1.isu.dto.Bonuses;
 import com.myisu_1.isu.models.price_promo;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
+import com.myisu_1.isu.repo.PriceRepositoriy;
 import com.myisu_1.isu.repo.PromoRepositoriy;
 import com.myisu_1.isu.service.PromoPriceListServise;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class PromoPriceList {
     private PromoPriceListServise promoPriceListServise;
     @Autowired
     private PhoneRepositoriy phoneRepositoriy;
+    @Autowired
+    private PriceRepositoriy priceRepositoriy;
     @GetMapping("/promoPriceList")
     public String promoPriceList(Model model) {
         model.addAttribute("optionsPhone",phoneRepositoriy.getPhoneList());
@@ -45,6 +49,21 @@ public class PromoPriceList {
     public String loadBrend(@PathVariable("brend") String brend) {
         Gson gson = new Gson();
         return gson.toJson(phoneRepositoriy.getModelBrendList(brend));
+    }
+    @ResponseBody
+    @RequestMapping(value = "price/{brend}", method = RequestMethod.GET)
+    public Integer price(@PathVariable("brend") String brend) {
+        return priceRepositoriy.getPriceModelGB(brend.replaceAll("_","/"));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "savePromo", method = RequestMethod.POST)
+
+    private List<price_promo> savePromo(@RequestBody Bonuses bonuses, Model model) {
+
+        return promoRepositoriy.findAll(Sort.by(Sort.Direction.DESC, "startPromo"));
+
+
     }
 
     Date currentDate(){
