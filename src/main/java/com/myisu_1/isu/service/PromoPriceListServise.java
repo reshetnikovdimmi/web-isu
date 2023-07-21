@@ -67,12 +67,12 @@ public class PromoPriceListServise {
     }
 
     private void loadTodayYesterday(Date date1, Date date0){
-        if(today==null){
+
             today = promoRepositoriy.startPromo(date0);
-        }
-        if (yesterday==null){
+
+
             yesterday = promoRepositoriy.endPromo(date1);
-        }
+
 
     }
 

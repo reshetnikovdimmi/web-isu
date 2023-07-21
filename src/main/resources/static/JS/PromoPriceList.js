@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    let today = new Date().toISOString().slice(0, 10);
+    $('#showDate').val(today)
     $('#dropDownListPhone').on('change', function() {
         $.get('/dropDownListBrendPromo/' + $(this).val(), {}, function(data) {
             var data = JSON.parse(data);
@@ -25,22 +27,99 @@ $(document).ready(function() {
             $("#price").val(data);
         });
     });
+
+
+    $('#button-exsel').on('click', function() {
+    $.get('/exselPromo/' + $('#showDate').val(), {}, function(data) {
+
+
+
+console.log(data)
+                })
+
+    });
+
+    $('#button-show-promo').on('click', function() {
+        if ($('#showDate').val() == '') {
+            modals("showDate");
+        } else {
+            $.get('/showPromo/' + $('#showDate').val(), {}, function(data) {
+                $(".showPromo").html(data);
+            });
+        }
+    });
+    $('#button-search').on('click', function() {
+        let price_promo = {
+            id: null,
+            brend: null,
+            models: null,
+            price: null,
+            price_promo: null,
+            startPromo: null,
+            endPromo: null,
+            marwel: null,
+            tfn: null,
+            vvp: null,
+            merlion: null,
+        };
+        if ($('#dropDownListModelGB').val() != 'select option') {
+            price_promo.brend = $('#dropDownListModelGB').val();
+        }
+        if ($('#dropDownListModels').val() != 'select option') {
+            price_promo.models = $('#dropDownListModels').val();
+        }
+        if ($('#startDate').val() != '') {
+            price_promo.startPromo = $('#startDate').val();
+        }
+        if ($('#endDate').val() != '') {
+            price_promo.startPromo = $('#endDate').val();
+        }
+        var json = JSON.stringify(price_promo);
+        $.ajax({
+            type: "POST",
+            url: "searchPromo",
+            data: json,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(msg) {
+                ceateTableAllBonus(msg)
+            }
+        });
+    });
     $('#button-save').on('click', function() {
-          let price_promo= {
-                   id: null,
-                   brend: null,
-                   models: null,
-                   price: null,
-                   price_promo: null,
-                   startPromo: null,
-                   endPromo: null,
-                   marwel: null,
-                   tfn: null,
-                   vvp: null,
-                   merlion: null,
-               };
+        let price_promo = {
+            id: $('#IDupdate').val(),
+            brend: $('#dropDownListModelGB').val(),
+            models: $('#dropDownListModels').val(),
+            price: $('#price').val(),
+            price_promo: $('#pricePromo').val(),
+            startPromo: $('#startDate').val(),
+            endPromo: $('#endDate').val(),
+            marwel: $('#marwel').val(),
+            tfn: $('#tfn').val(),
+            vvp: $('#vvp').val(),
+            merlion: $('#merlion').val(),
+        };
         if ($('#dropDownListModelGB').val() == 'select option') {
-            modals("l");
+            modals("модель");
+        } else if ($('#dropDownListModels').val() == 'select option') {
+            modals("модель гб");
+        } else if ($('#price').val() == '') {
+            modals("price");
+        } else if ($('#pricePromo').val() == '') {
+            modals("pricePromo");
+        } else if ($('#startDate').val() == '') {
+            modals("startDate");
+        } else if ($('#endDate').val() == '') {
+            modals("endDate");
+        } else if ($('#marwel').val() == '') {
+            modals("marwel");
+        } else if ($('#tfn').val() == '') {
+            modals("tfn");
+        } else if ($('#vvp').val() == '') {
+            modals("vvp");
+        } else if ($('#merlion').val() == '') {
+            modals("merlion");
         } else {
             var json = JSON.stringify(price_promo);
             $.ajax({
@@ -56,7 +135,23 @@ $(document).ready(function() {
         }
     });
     delet()
+    update()
+    clear()
 });
+
+function clear() {
+    $('#IDupdate').val(0)
+    $('#dropDownListModelGB').html('<option value="' + 'select option' + '">' + 'select option' + '</option>');
+    $('#dropDownListModels').html('<option value="' + 'select option' + '">' + 'select option' + '</option>');
+    $('#price').val('');
+    $('#pricePromo').val('');
+    $('#startDate').val('');
+    $('#endDate').val('');
+    $('#marwel').val('');
+    $('#tfn').val('');
+    $('#vvp').val('');
+    $('#merlion').val('');
+}
 
 function ceateTableAllBonus(data) {
     var elem = document.querySelector('#table_tablePromo');
@@ -178,13 +273,40 @@ function ceateTableAllBonus(data) {
     table.appendChild(thead);
     elem.appendChild(table);
     delet()
+    update()
+    clear()
+    $.get('/showPromo/' + $('#showDate').val(), {}, function(data) {
+        $(".showPromo").html(data);
+    });
 }
 
 function delet() {
     $(document).find('.DEL').on('click', function() {
         var models = $(this).parents('tr:first').find('td:eq(0)').text(),
             data;
-        alert(models)
+        $.get('/deletePromo/' + models, {}, function(data) {
+            ceateTableAllBonus(data);
+        });
+    });
+}
+
+function update() {
+    $(document).find('.UPDATE').on('click', function() {
+        var models = $(this).parents('tr:first').find('td:eq(0)').text(),
+            data;
+        $.get('/updatePromo/' + models, {}, function(data) {
+            $('#IDupdate').val(data.id)
+            $('#dropDownListModelGB').html('<option value="' + data.brend + '">' + data.brend + '</option>');
+            $('#dropDownListModels').html('<option value="' + data.models + '">' + data.models + '</option>');
+            $('#price').val(data.price);
+            $('#pricePromo').val(data.price_promo);
+            $('#startDate').val(data.startPromo);
+            $('#endDate').val(data.endPromo);
+            $('#marwel').val(data.marwel);
+            $('#tfn').val(data.tfn);
+            $('#vvp').val(data.vvp);
+            $('#merlion').val(data.merlion);
+        });
     });
 }
 

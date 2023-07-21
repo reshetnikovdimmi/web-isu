@@ -99,7 +99,7 @@ PromoPriceList
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h9 class="modal-title">Моделей нет в классификаторе МАРВЕЛ или не соответствует название в промо календаре МАРВЕЛ</h9>
+                        <h9 class="modal-title">не заполнено поле</h9>
                         <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Закрыть"></button>
                     </div>
@@ -142,7 +142,7 @@ PromoPriceList
                     <div class="col" style=" padding: 5px 20px;">
 
                         <div class="row">
-                            <label>модель_гб</label>
+                            <label>модель</label>
                         </div>
                         <div class="row">
                             <select id="dropDownListModelGB">
@@ -176,7 +176,7 @@ PromoPriceList
                             <label>начало</label>
                         </div>
                         <div class="row">
-                            <input type="date" name="price" id="startDate1" placeholder="Введите имя">
+                            <input type="date" name="startDate" id="startDate" placeholder="Введите имя">
                         </div>
                     </div>
                     <div class="col" style=" padding: 5px 20px;">
@@ -184,7 +184,7 @@ PromoPriceList
                             <label>конец</label>
                         </div>
                         <div class="row">
-                            <input type="date" name="price" id="endDate1" placeholder="Введите имя">
+                            <input type="date" name="endDate" id="endDate" placeholder="Введите имя">
                         </div>
                     </div>
                 </div>
@@ -202,17 +202,33 @@ PromoPriceList
                             <label>цена промо</label>
                         </div>
                         <div class="row">
-                            <input name="price" id="endDate3" placeholder="Введите имя">
+                            <input name="price" id="pricePromo" placeholder="Введите имя">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col" style=" padding: 5px 20px;">
                         <div class="row">
-                            <label>начало</label>
+                            <label>marwel</label>
                         </div>
                         <div class="row">
-                            <input name="price" id="startDate4" placeholder="Введите имя">
+                            <input name="marwel" id="marwel" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>tfn</label>
+                        </div>
+                        <div class="row">
+                            <input name="tfn" id="tfn" placeholder="Введите имя">
+                        </div>
+                    </div>
+                    <div class="col" style=" padding: 5px 20px;">
+                        <div class="row">
+                            <label>vvp</label>
+                        </div>
+                        <div class="row">
+                            <input name="vvp" id="vvp" placeholder="Введите имя">
                         </div>
                     </div>
                     <div class="col" style=" padding: 5px 20px;">
@@ -220,23 +236,7 @@ PromoPriceList
                             <label>конец</label>
                         </div>
                         <div class="row">
-                            <input name="price" id="endDate4" placeholder="Введите имя">
-                        </div>
-                    </div>
-                    <div class="col" style=" padding: 5px 20px;">
-                        <div class="row">
-                            <label>начало</label>
-                        </div>
-                        <div class="row">
-                            <input name="price" id="startDate5" placeholder="Введите имя">
-                        </div>
-                    </div>
-                    <div class="col" style=" padding: 5px 20px;">
-                        <div class="row">
-                            <label>конец</label>
-                        </div>
-                        <div class="row">
-                            <input name="price" id="endDate5" placeholder="Введите имя">
+                            <input name="merlion" id="merlion" placeholder="Введите имя">
                         </div>
                     </div>
                 </div>
@@ -244,159 +244,164 @@ PromoPriceList
                     <div class="col" style=" padding: 5px 20px;">
 
                         <div class="row">
-                            <button class="btn btn-outline-primary me-2" id="button-save" type="submit">сохранть</button>
+                            <button class="btn btn-outline-primary me-2" id="button-save" type="submit">сохранть
+                            </button>
                         </div>
                     </div>
                     <div class="col" style=" padding: 5px 20px;">
                         <div class="row">
-                            <button class="btn btn-outline-primary me-2" id="button-show-all" type="submit">найти</button>
+                            <button class="btn btn-outline-primary me-2" id="button-search" type="submit">найти</button>
                         </div>
                     </div>
                 </div>
 
             </div>
             <div class="col">
-                <div class="row">
-                    <div class="col-4" style=" padding: 5px 20px;">
-                        <div class="row">
-                            <label>Текущее PROMO</label>
-                        </div>
-                        <div class="row-4">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
+                <div class="showPromo" th:fragment="showPromo">
+                    <div class="row">
 
-                                    <th>models</th>
-                                    <th>price</th>
-                                    <th>price_promo</th>
-                                    <th>start_promo</th>
-                                    <th>end_promo</th>
+                        <div class="col-4" style=" padding: 5px 20px;">
+                            <div class="row">
+                                <label>Текущее PROMO</label>
+                            </div>
+                            <div class="row-4">
 
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr th:each="current : ${current_promo}">
-
-                                    <td th:text="${current.models}"></td>
-                                    <td th:text="${current.price}"></td>
-                                    <td th:text="${current.price_promo}"></td>
-                                    <td th:text="${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
-                                    <td th:text="${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
+                                        <th>models</th>
+                                        <th>price</th>
+                                        <th>price_promo</th>
+                                        <th>start_promo</th>
+                                        <th>end_promo</th>
 
 
-                                </tbody>
-                            </table>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr th:each="current : ${current_promo}">
+
+                                        <td th:text="${current.models}"></td>
+                                        <td th:text="${current.price}"></td>
+                                        <td th:text="${current.price_promo}"></td>
+                                        <td th:text="${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
+                                        <td th:text="${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
 
 
-                        </div>
-
-                    </div>
-                    <div class="col" style=" padding: 5px 20px;">
-                        <div class="row">
-                            <label>Начало PROMO</label>
-                        </div>
-                        <div class="row">
-
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-
-                                    <th>models</th>
-                                    <th>price</th>
-                                    <th>price_promo</th>
-                                    <th>end_promo</th>
+                                    </tbody>
+                                </table>
 
 
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr th:each="start : ${startpromo}">
-
-                                    <td th:text="${start.models}"></td>
-                                    <td th:text="${start.price}"></td>
-                                    <td th:text="${start.price_promo}"></td>
-                                    <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
-
-
-                                </tbody>
-                            </table>
-
+                            </div>
 
                         </div>
+                        <div class="col" style=" padding: 5px 20px;">
+                            <div class="row">
+                                <label>Начало PROMO</label>
+                            </div>
+                            <div class="row">
 
-                    </div>
-                    <div class="col" style=" padding: 5px 20px;">
-                        <div class="row">
-                            <label>Конец PROMO</label>
-                        </div>
-                        <div class="row">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
 
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-
-                                    <th>models</th>
-                                    <th>price</th>
-                                    <th>price_promo</th>
-                                    <th>end_promo</th>
+                                        <th>models</th>
+                                        <th>price</th>
+                                        <th>price_promo</th>
+                                        <th>end_promo</th>
 
 
-                                </tr>
-                                </thead>
-                                <tbody>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
-                                <tr th:each="start : ${endpromo}">
+                                    <tr th:each="start : ${startpromo}">
 
-                                    <td th:text="${start.models}"></td>
-                                    <td th:text="${start.price}"></td>
-                                    <td th:text="${start.price_promo}"></td>
-                                    <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
-
-
-                                </tbody>
-                            </table>
+                                        <td th:text="${start.models}"></td>
+                                        <td th:text="${start.price}"></td>
+                                        <td th:text="${start.price_promo}"></td>
+                                        <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
 
 
-                        </div>
-
-                    </div>
-                    <div class="col" style=" padding: 5px 20px;">
-                        <div class="row">
-                            <label>Продление PROMO</label>
-                        </div>
-                        <div class="row">
-
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-
-                                    <th>models</th>
-                                    <th>price</th>
-                                    <th>price_promo</th>
-                                    <th>end_promo</th>
+                                    </tbody>
+                                </table>
 
 
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                <tr th:each="start : ${promoExtension}">
-
-                                    <td th:text="${start.models}"></td>
-                                    <td th:text="${start.price}"></td>
-                                    <td th:text="${start.price_promo}"></td>
-                                    <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
-
-
-                                </tbody>
-                            </table>
-
+                            </div>
 
                         </div>
+                        <div class="col" style=" padding: 5px 20px;">
+                            <div class="row">
+                                <label>Конец PROMO</label>
+                            </div>
+                            <div class="row">
 
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+
+                                        <th>models</th>
+                                        <th>price</th>
+                                        <th>price_promo</th>
+                                        <th>end_promo</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr th:each="start : ${endpromo}">
+
+                                        <td th:text="${start.models}"></td>
+                                        <td th:text="${start.price}"></td>
+                                        <td th:text="${start.price_promo}"></td>
+                                        <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+                        </div>
+                        <div class="col" style=" padding: 5px 20px;">
+                            <div class="row">
+                                <label>Продление PROMO</label>
+                            </div>
+                            <div class="row">
+
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+
+                                        <th>models</th>
+                                        <th>price</th>
+                                        <th>price_promo</th>
+                                        <th>end_promo</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr th:each="start : ${promoExtension}">
+
+                                        <td th:text="${start.models}"></td>
+                                        <td th:text="${start.price}"></td>
+                                        <td th:text="${start.price_promo}"></td>
+                                        <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+
+                        </div>
                     </div>
                 </div>
                 <div class="row" style=" padding: 5px 20px;">
@@ -407,7 +412,7 @@ PromoPriceList
                                     <label>конец</label>
                                 </div>
                                 <div class="row">
-                                    <input type="date" name="price" id="endDate7" placeholder="Введите имя">
+                                    <input type="date" name="price" id="showDate" placeholder="Введите имя">
                                 </div>
                             </div>
                             <div class="col" style=" padding: 5px 20px;">
@@ -415,7 +420,8 @@ PromoPriceList
                                     <label>конец</label>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-outline-primary me-2" id="button-show-all4" type="submit">Показать
+                                    <button class="btn btn-outline-primary me-2" id="button-show-promo" type="submit">
+                                        Показать
                                     </button>
                                 </div>
                             </div>
@@ -424,8 +430,8 @@ PromoPriceList
                                     <label>конец</label>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-outline-primary me-2" id="button-show-all5" type="submit">Показать
-                                    </button>
+                                    <button class="btn btn-outline-primary me-2" id="button-exsel" type="submit">EXSEL</button>
+
                                 </div>
                             </div>
                         </div>
@@ -472,10 +478,10 @@ PromoPriceList
                         <td th:text="${promo.merlion}"></td>
 
                         <td>
-                            <button type="submit">update</button>
+                            <button type="submit" class="btn btn-outline-primary me-2 UPDATE">UPDATE</button>
                         </td>
                         <td>
-                            <button type="submit"  class="btn btn-outline-primary me-2 DEL">delet</button>
+                            <button type="submit" class="btn btn-outline-primary me-2 DEL">DEL</button>
                         </td>
 
 

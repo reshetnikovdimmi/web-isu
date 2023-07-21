@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 function ceateTableSearchBonus(data) {
 var l = data[data.length-1].noClassifier;
-   console.log(l.length)
+
 if(l.length>0){
 modals(l);
 }
