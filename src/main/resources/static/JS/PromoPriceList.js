@@ -29,15 +29,7 @@ $(document).ready(function() {
     });
 
 
-    $('#button-exsel').on('click', function() {
-    $.get('/exselPromo/' + $('#showDate').val(), {}, function(data) {
 
-
-
-console.log(data)
-                })
-
-    });
 
     $('#button-show-promo').on('click', function() {
         if ($('#showDate').val() == '') {
@@ -72,7 +64,7 @@ console.log(data)
             price_promo.startPromo = $('#startDate').val();
         }
         if ($('#endDate').val() != '') {
-            price_promo.startPromo = $('#endDate').val();
+            price_promo.endPromo = $('#endDate').val();
         }
         var json = JSON.stringify(price_promo);
         $.ajax({

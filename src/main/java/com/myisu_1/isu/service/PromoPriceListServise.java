@@ -16,21 +16,26 @@ public class PromoPriceListServise {
     private PromoRepositoriy promoRepositoriy;
     private List<price_promo> today;
     private List<price_promo> yesterday;
-
+    List<price_promo> startPromo;
+    List<price_promo> endPromo;
+    List<price_promo> promoExtension;
 
     public Object startPromo(Date date) {
-        loadTodayYesterday(new java.sql.Date(addDays(date, -1).getTime()),new java.sql.Date(addDays(date, 0).getTime()));
-        return todayStartEndPromo(today,yesterday);
+        loadTodayYesterday(new java.sql.Date(addDays(date, 0).getTime()),new java.sql.Date(addDays(date, -1).getTime()));
+        startPromo = (List<price_promo>) todayStartEndPromo(today,yesterday);
+        return startPromo;
     }
 
     public Object endPromo(Date date) {
-        loadTodayYesterday(new java.sql.Date(addDays(date, -1).getTime()),new java.sql.Date(addDays(date, 0).getTime()));
-        return todayStartEndPromo(yesterday,today);
+        loadTodayYesterday(new java.sql.Date(addDays(date, 0).getTime()),new java.sql.Date(addDays(date, -1).getTime()));
+        endPromo = (List<price_promo>) todayStartEndPromo(yesterday,today);
+        return endPromo;
     }
 
     public Object promoExtension(Date date) {
-        loadTodayYesterday(new java.sql.Date(addDays(date, -1).getTime()),new java.sql.Date(addDays(date, 0).getTime()));
-        return extensionTodayPromo(yesterday,today);
+        loadTodayYesterday(new java.sql.Date(addDays(date, 0).getTime()),new java.sql.Date(addDays(date, -1).getTime()));
+        promoExtension = (List<price_promo>) extensionTodayPromo(today,yesterday);
+        return promoExtension;
     }
 
     public java.util.Date addDays(Date date, int days) {
@@ -43,7 +48,7 @@ public class PromoPriceListServise {
     private Object todayStartEndPromo(List<price_promo> today, List<price_promo> yesterday) {
         List<price_promo> todays = new ArrayList<>();
         for (price_promo t:today){
-            if (yesterday.stream()
+              if (yesterday.stream()
                     .filter(y -> t.getModels().equals(y.getModels()))
                     .findAny()
                     .orElse(null)==null){
@@ -63,17 +68,26 @@ public class PromoPriceListServise {
                 todays.add(t);
             }
         }
+
         return todays;
     }
 
-    private void loadTodayYesterday(Date date1, Date date0){
+    private void loadTodayYesterday(Date date0, Date date1){
 
             today = promoRepositoriy.startPromo(date0);
-
-
             yesterday = promoRepositoriy.endPromo(date1);
-
-
     }
 
+
+    public List<price_promo> getPromoExtension() {
+        return promoExtension;
+    }
+
+    public List<price_promo> getEndPromo() {
+        return endPromo;
+    }
+
+    public List<price_promo> getStartPromo() {
+        return startPromo;
+    }
 }

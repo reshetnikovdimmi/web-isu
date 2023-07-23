@@ -322,7 +322,7 @@ PromoPriceList
                                         <td th:text="${start.models}"></td>
                                         <td th:text="${start.price}"></td>
                                         <td th:text="${start.price_promo}"></td>
-                                        <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+                                        <td th:text="${#dates.format (start.endPromo, 'dd-MM-yyy')}"></td>
 
 
                                     </tbody>
@@ -344,7 +344,6 @@ PromoPriceList
 
                                         <th>models</th>
                                         <th>price</th>
-                                        <th>price_promo</th>
                                         <th>end_promo</th>
 
 
@@ -356,8 +355,7 @@ PromoPriceList
 
                                         <td th:text="${start.models}"></td>
                                         <td th:text="${start.price}"></td>
-                                        <td th:text="${start.price_promo}"></td>
-                                        <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+                                        <td th:text="${#dates.format (start.endPromo, 'dd-MM-yyy')}"></td>
 
 
                                     </tbody>
@@ -392,7 +390,7 @@ PromoPriceList
                                         <td th:text="${start.models}"></td>
                                         <td th:text="${start.price}"></td>
                                         <td th:text="${start.price_promo}"></td>
-                                        <td th:text="${#dates.format (start.startPromo, 'dd-MM-yyy')}"></td>
+                                        <td th:text="${#dates.format (start.endPromo, 'dd-MM-yyy')}"></td>
 
 
                                     </tbody>
@@ -430,8 +428,8 @@ PromoPriceList
                                     <label>конец</label>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-outline-primary me-2" id="button-exsel" type="submit">EXSEL</button>
 
+                                    <a href="/exselPromo" class="btn btn-outline-primary me-2">EXSEL</a>
                                 </div>
                             </div>
                         </div>

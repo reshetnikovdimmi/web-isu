@@ -118,25 +118,27 @@ public class PromoPriceList {
     @ResponseBody
     @RequestMapping(value = "searchPromo", method = RequestMethod.POST)
     private List<price_promo> searchPromo(@RequestBody price_promo pricePromo, Model model) {
+
              return promoRepositoriy.searchPromo(pricePromo.getBrend(), pricePromo.getModels(), sqlDate(pricePromo.getStartPromo()), sqlDate(pricePromo.getEndPromo()));
     }
+
     @RequestMapping(value = "/showPromo/{dates}", method = RequestMethod.GET)
 
     private String showPromo(@PathVariable("dates") String dates, Model model) throws ParseException {
 
-        model.addAttribute("endpromo", promoPriceListServise.endPromo(new java.sql.Date(currentDate().getTime())));
+        model.addAttribute("endpromo", promoPriceListServise.endPromo(new java.sql.Date(stringDate(dates).getTime())));
         model.addAttribute("startpromo", promoPriceListServise.startPromo(new java.sql.Date(stringDate(dates).getTime())));
         model.addAttribute("promoExtension", promoPriceListServise.promoExtension(new java.sql.Date(stringDate(dates).getTime())));
         model.addAttribute("current_promo", promoRepositoriy.currentPromo(new java.sql.Date(currentDate().getTime())));
         return "promoPriceList::showPromo";
     }
-    @GetMapping("/exselPromo/{dates}")
-    public void downloadExselFile(HttpServletResponse response,@PathVariable("dates") String dates) throws IOException, ParseException {
-System.out.println(dates);
+    @GetMapping("/exselPromo")
+    public void downloadExselFile(HttpServletResponse response) throws IOException, ParseException {
+
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
 
-        ByteArrayInputStream inputStream = ExselFileExportePromo.exportPrisePromoFile(promoPriceListServise.endPromo(new java.sql.Date(stringDate(dates).getTime())),promoPriceListServise.promoExtension(new java.sql.Date(stringDate(dates).getTime())),promoPriceListServise.promoExtension(new java.sql.Date(stringDate(dates).getTime())));
+        ByteArrayInputStream inputStream = ExselFileExportePromo.exportPrisePromoFile(promoPriceListServise.getEndPromo(),promoPriceListServise.getStartPromo(),promoPriceListServise.getPromoExtension(),phoneRepositoriy.findAll());
 
         IOUtils.copy(inputStream, response.getOutputStream());
 
