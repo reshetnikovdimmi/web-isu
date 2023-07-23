@@ -118,7 +118,8 @@ public class PromoPriceList {
     @ResponseBody
     @RequestMapping(value = "searchPromo", method = RequestMethod.POST)
     private List<price_promo> searchPromo(@RequestBody price_promo pricePromo, Model model) {
-System.out.println(sqlDate(pricePromo.getEndPromo()));
+System.out.println(pricePromo.getEndPromo());
+        System.out.println(sqlDate(pricePromo.getEndPromo()));
              return promoRepositoriy.searchPromo(pricePromo.getBrend(), pricePromo.getModels(), sqlDate(pricePromo.getStartPromo()), sqlDate(pricePromo.getEndPromo()));
     }
 
