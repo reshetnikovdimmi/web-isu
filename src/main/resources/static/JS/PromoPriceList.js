@@ -65,7 +65,7 @@ $(document).ready(function() {
         }
         if ($('#endDate').val() != '') {
             price_promo.endPromo = $('#endDate').val();
-            alert($('#endDate').val())
+
         }
 
         var json = JSON.stringify(price_promo);
