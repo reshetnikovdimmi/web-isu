@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
 @Data
 @Entity
 public class ClothingMatchingTable implements Serializable {
@@ -15,18 +16,16 @@ public class ClothingMatchingTable implements Serializable {
     private String nameClothes;
     private String phoneClothes;
 
-     @OneToMany(targetEntity = ClothesForPhonesRemanis.class, cascade = CascadeType.REFRESH)
-
-    @JoinColumn(name = "namesClothes",referencedColumnName = "phoneClothes")
-    
-     private List<ClothesForPhonesRemanis> clothersPhone;
+    @OneToMany(targetEntity = ClothesForPhonesRemanis.class, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "namesClothes", referencedColumnName = "phoneClothes", insertable = false, updatable = false)
+    private List<ClothesForPhonesRemanis> clothersPhone;
 
     @OneToMany(targetEntity = ClothesForPhonesSale6.class, cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "nameClothes",referencedColumnName = "phoneClothes")
+    @JoinColumn(name = "nameClothes", referencedColumnName = "phoneClothes", insertable = false, updatable = false)
     private List<ClothesForPhonesSale6> clothersSale6;
 
     @OneToMany(targetEntity = ClothesForPhonesSale1.class, cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "nameClothes",referencedColumnName = "phoneClothes")
+    @JoinColumn(name = "nameClothes", referencedColumnName = "phoneClothes", insertable = false, updatable = false)
     private List<ClothesForPhonesSale1> clothersSale1;
 
     public ClothingMatchingTable(String viewClothes, String nameClothes, String phoneClothes) {

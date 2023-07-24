@@ -30,18 +30,17 @@ public class Phone_Smart implements Serializable {
 
 
     @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.REFRESH)
-
     @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model", insertable = false, updatable = false)
 
     private List<RemanisSim> remanisSims;
 
-    @OneToMany(targetEntity = SaleSim_1m.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model")
+    @OneToMany(targetEntity = SaleSim_1m.class, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model", insertable = false, updatable = false)
 
     private List<SaleSim_1m> saleSim_1m;
 
     @OneToMany(targetEntity = SaleSim_6m.class, cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model")
+    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model", insertable = false, updatable = false)
 
     private List<SaleSim_6m> saleSim_6m;
 
