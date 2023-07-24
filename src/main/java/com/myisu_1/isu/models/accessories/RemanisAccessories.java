@@ -20,7 +20,7 @@ public class RemanisAccessories implements Serializable {
     public String nameAccessories;
     public int remainsAccessories;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "nameAccessories",
             referencedColumnName = "name",

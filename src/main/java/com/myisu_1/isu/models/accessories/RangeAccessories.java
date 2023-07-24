@@ -16,7 +16,7 @@ public class RangeAccessories implements Serializable {
     private String accessoriesName;
     private String accessoriesCategory;
     boolean tele2;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "accessoriesName",
             referencedColumnName = "name",

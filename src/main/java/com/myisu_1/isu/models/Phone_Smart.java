@@ -29,7 +29,7 @@ public class Phone_Smart implements Serializable {
     private String Phone;
 
 
-    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.REFRESH)
 
     @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model", insertable = false, updatable = false)
 
@@ -40,7 +40,7 @@ public class Phone_Smart implements Serializable {
 
     private List<SaleSim_1m> saleSim_1m;
 
-    @OneToMany(targetEntity = SaleSim_6m.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = SaleSim_6m.class, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model")
 
     private List<SaleSim_6m> saleSim_6m;

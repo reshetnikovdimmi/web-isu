@@ -18,7 +18,7 @@ public class ButtonsPhone implements Serializable {
     private String brend;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "model",
             referencedColumnName = "name",

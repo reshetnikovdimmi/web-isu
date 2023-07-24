@@ -15,17 +15,17 @@ public class ClothingMatchingTable implements Serializable {
     private String nameClothes;
     private String phoneClothes;
 
-     @OneToMany(targetEntity = ClothesForPhonesRemanis.class, cascade = CascadeType.ALL)
+     @OneToMany(targetEntity = ClothesForPhonesRemanis.class, cascade = CascadeType.REFRESH)
 
     @JoinColumn(name = "namesClothes",referencedColumnName = "phoneClothes")
     
      private List<ClothesForPhonesRemanis> clothersPhone;
 
-    @OneToMany(targetEntity = ClothesForPhonesSale6.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ClothesForPhonesSale6.class, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "nameClothes",referencedColumnName = "phoneClothes")
     private List<ClothesForPhonesSale6> clothersSale6;
 
-    @OneToMany(targetEntity = ClothesForPhonesSale1.class, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = ClothesForPhonesSale1.class, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "nameClothes",referencedColumnName = "phoneClothes")
     private List<ClothesForPhonesSale1> clothersSale1;
 

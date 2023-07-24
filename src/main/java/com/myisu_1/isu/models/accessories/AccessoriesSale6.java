@@ -18,7 +18,7 @@ public class AccessoriesSale6 {
     private String nameShop;
     private String nameAccessories;
     private int saleAccessories;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "nameAccessories",
             referencedColumnName = "name",
