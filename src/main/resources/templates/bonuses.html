@@ -191,6 +191,74 @@
 
 
                 </div>
+                <div class="row">
+
+                    <div class="col">
+                        <label>поставщик</label>
+                        <select id="dropDownListProviderAmount">
+                            <option value="null">select option</option>
+                            <option th:each="option : ${optionsProvider}" th:value="${option}"
+                                    th:text="${option}"></option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label>модель</label>
+                        <select id="dropDownListPhoneAmount">
+                            <option value="null">select option</option>
+                            <option th:each="option : ${optionsPhone}" th:value="${option}"
+                                    th:text="${option}"></option>
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <label>начало</label>
+                        <input type="date" name="price" id="startDateAmount" placeholder="Введите имя">
+                    </div>
+                    <div class="col">
+                        <label>конец</label>
+                        <input type="date" name="price" id="endDateAmount" placeholder="Введите имя">
+                    </div>
+                    <div class="col">
+                        <label>сумма</label>
+                        <input name="price" id="amount" placeholder="Введите имя">
+                    </div>
+                    <div class="col">
+                        <label></label>
+                        <button class="btn btn-primary btn-sm" id="button-Amount" type="submit">Показать</button>
+                    </div>
+                    <div class="col">
+                        <label></label>
+                        <button class="btn btn-primary btn-sm" id="save-Amount" type="submit">сохранить</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="showAmount" th:fragment="showAmount">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+
+                                <th>models</th>
+                                <th>price</th>
+                                <th>price_promo</th>
+                                <th>start_promo</th>
+                                <th>end_promo</th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="current : ${Amount}">
+
+                                <td th:text="${current.phone}"></td>
+                                <td th:text="${current.startDate}"></td>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

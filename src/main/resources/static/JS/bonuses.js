@@ -21,6 +21,43 @@ $(document).ready(function() {
             $(".dropDownListModelGB").html(data);
         });
     });
+    $('#save-Amount').on('click', function() {
+    let bonuses = {
+                shop: null,
+                models: null,
+                provider: null,
+                phone: null,
+                startDate: null,
+                endDate: null,
+            };
+
+        if ($('#dropDownListModelGB').val() != 'null') {
+                bonuses.models = $('#dropDownListModelGB').val();
+            }
+            if ($('#dropDownListShop').val() != 'null') {
+                bonuses.shop = $('#dropDownListShop').val();
+            }
+            if ($('#dropDownListProvider').val() != 'null') {
+                bonuses.provider = $('#dropDownListProvider').val();
+            }
+            if ($('#dropDownListPhone').val() != 'null') {
+                bonuses.phone = $('#dropDownListPhone').val();
+            }
+            if ($('#startDate').val() != '') {
+                bonuses.startDate = $('#startDate').val();
+            }
+            if ($('#endDate').val() != '') {
+                bonuses.endDate = $('#endDate').val();
+            }
+$('#button-show-promo').on('click', function() {
+        if ($('#showDate').val() == '') {
+            modals("showDate");
+        } else {
+         sendRequest('POST', '/saveAmount', bonuses).then(data => console.log(data)).catch(err => console.log(err))
+        }
+    });
+
+        });
     $('#button-all').on('click', function() {
         let bonuses = {
             shop: null,
@@ -221,6 +258,7 @@ function ceateTableNoT2Bonus(data) {
     table.classList.add("table-borderless");
     table.classList.add("tables_TableNoT2Bonus");
     let thead = document.createElement('thead');
+    thead.classList.add("table");
     let row_1 = document.createElement('tr');
     let heading_2 = document.createElement('th');
     heading_2.innerHTML = "Модель";
@@ -247,7 +285,7 @@ function ceateTableNoT2Bonus(data) {
     row_1.appendChild(heading_8);
     row_1.appendChild(heading_9);
     let tbody = document.createElement('tbody');
-    tbody.classList.add("labels");
+    tbody.classList.add("labels2");
     var sum = 0;
     for (var i = 0; i < data.length; i++) {
         table.id = 'tables_TableNoT2Bonus';

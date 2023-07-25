@@ -2,6 +2,7 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.dto.Bonuses;
 import com.myisu_1.isu.models.*;
+import com.myisu_1.isu.models.bonuses.BonusesPaid;
 import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.BonusesServise;
 import org.apache.poi.ss.formula.functions.T;
@@ -44,6 +45,8 @@ public class bonusesController {
     private PostRepositoriy authorizationTt;
     @Autowired
     private BonusesServise bonusesServise;
+    @Autowired
+    private BonusesPaidRepository bonusesPaidRepository;
 
 
 
@@ -81,10 +84,13 @@ public class bonusesController {
     }
     @PostMapping("/loadBonusesNoT2")
     private ResponseEntity<List<Bonuses>> loadBonusesNoT2(@RequestBody Bonuses bonuses, Model model) {
-
         return new ResponseEntity<>(bonusesServise.bonusesNoT2(bonuses), HttpStatus.OK);
+    }
 
+    @PostMapping(value = "/saveAmount")
+    private ResponseEntity<List<BonusesPaid>> showPromo(@RequestBody Bonuses bonuses) {
 
+          return new ResponseEntity<>(bonusesPaidRepository.findAll(), HttpStatus.OK);
     }
 
 

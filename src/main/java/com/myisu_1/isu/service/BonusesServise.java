@@ -37,7 +37,12 @@ public class BonusesServise {
 
         cbp.modelGb = promoRepositoriy.getPrormoAll(bonuses.getModels());
         try {
-            cbp.salesPhone = salesRepositoriy.getSaleAll(cbp.dateString(bonuses.getStartDate()), cbp.dateString(bonuses.getEndDate()), bonuses.getShop());
+            if (bonuses.getPhone()!=null){
+                cbp.salesPhone = salesRepositoriy.getSaleAllPhone(cbp.dateString(bonuses.getStartDate()), cbp.dateString(bonuses.getEndDate()), bonuses.getShop(),bonuses.getPhone());
+            }else {
+                cbp.salesPhone = salesRepositoriy.getSaleAll(cbp.dateString(bonuses.getStartDate()), cbp.dateString(bonuses.getEndDate()), bonuses.getShop(),bonuses.getPhone());
+            }
+
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -57,7 +62,7 @@ public class BonusesServise {
 
 
         try {
-            lba.salesPhone = salesRepositoriy.getSaleAll(lba.dateString(bonuses.getStartDate()), lba.dateString(bonuses.getEndDate()), null);
+            lba.salesPhone = salesRepositoriy.getSaleAll(lba.dateString(bonuses.getStartDate()), lba.dateString(bonuses.getEndDate()), null, bonuses.getPhone());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
