@@ -2,10 +2,9 @@ package com.myisu_1.isu.controllers;
 
 
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
-import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
-import com.myisu_1.isu.service.ClothesForPhonesServise;
+import com.myisu_1.isu.service.ClothingMatchingServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,13 +19,13 @@ import java.util.List;
 @Controller
 public class ClothingMatchingController {
     @Autowired
-    private ClothesForPhonesServise loadingDBServise;
+    private ClothingMatchingServise loadingDBServise;
     @Autowired
     private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
     @Autowired
     private PhoneRepositoriy phone_smart;
     @Autowired
-    private ClothesForPhonesServise clothesForPhonesServise;
+    private ClothingMatchingServise clothingMatchingServise;
 
     @GetMapping("/ClothingMatching")
     public String home(Model model) {

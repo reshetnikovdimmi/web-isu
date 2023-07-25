@@ -1,6 +1,5 @@
 package com.myisu_1.isu.service;
 
-import com.myisu_1.isu.exporte.ExselFileExporteClotingPhone;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatching;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class ClothesForPhonesServise {
+public class ClothingMatchingServise {
     @Autowired
     public PostRepositoriy authorization_tt;
     @Autowired

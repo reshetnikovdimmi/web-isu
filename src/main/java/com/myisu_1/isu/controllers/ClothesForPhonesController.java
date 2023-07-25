@@ -1,15 +1,10 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.exporte.ExselFileExporteClotingPhone;
-import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
-import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
-import com.myisu_1.isu.models.Phone.DistributionPhone;
-import com.myisu_1.isu.service.ClothesForPhonesServise;
+import com.myisu_1.isu.service.ClothingMatchingServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,21 +17,21 @@ import java.util.List;
 @Controller
 public class ClothesForPhonesController {
     @Autowired
-    private ClothesForPhonesServise clothesForPhonesServise;
+    private ClothingMatchingServise clothingMatchingServise;
     @GetMapping("/ClothesForPhones")
     public String home(Model model) {
-        clothesForPhonesServise.Loading();
+        clothingMatchingServise.Loading();
 
-        model.addAttribute("BrendRemanisGlass", clothesForPhonesServise.remainderSaleClothing("Glass"));
-        model.addAttribute("BrendRemanisCase", clothesForPhonesServise.remainderSaleClothing("Case"));
-        model.addAttribute("BrendRemanisCoverBook", clothesForPhonesServise.remainderSaleClothing("CoverBook"));
+        model.addAttribute("BrendRemanisGlass", clothingMatchingServise.remainderSaleClothing("Glass"));
+        model.addAttribute("BrendRemanisCase", clothingMatchingServise.remainderSaleClothing("Case"));
+        model.addAttribute("BrendRemanisCoverBook", clothingMatchingServise.remainderSaleClothing("CoverBook"));
         return "ClothesForPhones";
     }
     @RequestMapping(value="/tableGlasShop/{brend}", method=RequestMethod.GET)
 
     private String tableGlasShop(@PathVariable("brend")  String brend, Model model) {
 
-        model.addAttribute("GlassShop",clothesForPhonesServise.tableShopRemanis(brend,"Glass"));
+        model.addAttribute("GlassShop", clothingMatchingServise.tableShopRemanis(brend,"Glass"));
 
         return "ClothesForPhones::GlassShop";
     }
@@ -45,27 +40,27 @@ public class ClothesForPhonesController {
     @ResponseBody
     @RequestMapping(value = "tableGlasShops/{Shop}/{brend}/{View}", method = RequestMethod.GET)
     public List<List<Glass>> update(@PathVariable("Shop") String shop, @PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
-       return clothesForPhonesServise.tableShopBrend(shop,brend,view);
+       return clothingMatchingServise.tableShopBrend(shop,brend,view);
 
     }
     @ResponseBody
     @RequestMapping(value = "orderЕable/{brend}/{View}", method = RequestMethod.GET)
     public List<Glass> orderЕable(@PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
-        return clothesForPhonesServise.tableOrderЕable(brend,view);
+        return clothingMatchingServise.tableOrderЕable(brend,view);
 
     }
     @ResponseBody
     @RequestMapping(value = "warehouseRemnants/{Shop}/{brend}/{View}", method = RequestMethod.GET)
     public List<Glass> warehouseRemnants(@PathVariable("Shop") String shop,@PathVariable("brend") String brend, @PathVariable("View") String view, Model model) {
 
-        return clothesForPhonesServise.warehouseRemnants(shop,brend,view);
+        return clothingMatchingServise.warehouseRemnants(shop,brend,view);
 
     }
     @ResponseBody
     @RequestMapping(value = "movingWarehouse/{models}/{brend}/{kol}/{View}/{shop}", method = RequestMethod.GET)
     public List<Glass> movingWarehouse(@PathVariable("models") String models,@PathVariable("brend") String brend,@PathVariable("kol") String kol, @PathVariable("View") String view,@PathVariable("shop") String shop, Model model) {
 
-        return clothesForPhonesServise.movingWarehouse(models,brend.replaceAll("_","/"),kol,view,shop);
+        return clothingMatchingServise.movingWarehouse(models,brend.replaceAll("_","/"),kol,view,shop);
 
     }
 
@@ -74,7 +69,7 @@ public class ClothesForPhonesController {
     @RequestMapping(value="/tableCaseShop/{brend}", method=RequestMethod.GET)
 
     private String tableCaseShop(@PathVariable("brend")  String brend, Model model) {
-        model.addAttribute("CaseShop",clothesForPhonesServise.tableShopRemanis(brend,"Case"));
+        model.addAttribute("CaseShop", clothingMatchingServise.tableShopRemanis(brend,"Case"));
 
         return "ClothesForPhones::CaseShop";
     }
@@ -84,7 +79,7 @@ public class ClothesForPhonesController {
     @RequestMapping(value="/tableCoverBookShop/{brend}", method=RequestMethod.GET)
 
     private String tableCoverBookShop(@PathVariable("brend")  String brend, Model model) {
-        model.addAttribute("CoverBookShop",clothesForPhonesServise.tableShopRemanis(brend,"CoverBook"));
+        model.addAttribute("CoverBookShop", clothingMatchingServise.tableShopRemanis(brend,"CoverBook"));
         return "ClothesForPhones::CoverBookShop";
     }
 
@@ -95,7 +90,7 @@ public class ClothesForPhonesController {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition","attachment; filename=DistributionClotingPhone.xlsx");
 
-        ByteArrayInputStream inputStream = ExselFileExporteClotingPhone.exportClotingPhone(clothesForPhonesServise.exselFileExporteClotingPhone());
+        ByteArrayInputStream inputStream = ExselFileExporteClotingPhone.exportClotingPhone(clothingMatchingServise.exselFileExporteClotingPhone());
 
         IOUtils.copy(inputStream, response.getOutputStream());
 
