@@ -84,7 +84,7 @@
                         <label>показать</label>
                         </div>
                         <div class="row">
-                        <button class="btn btn-primary btn-sm" id="button-all" type="submit">Показать</button>
+                        <button class="btn btn-outline-primary me-2" id="button-all" type="submit">Показать</button>
                         </div>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                     </div>
                     <div class="col">
                         <label></label>
-                        <button class="btn btn-primary btn-sm" id="button-show-all" type="submit">Показать</button>
+                        <button class="btn btn-outline-primary me-2" id="button-show-all" type="submit">Показать</button>
                     </div>
                 </div>
                 <div class="row" style=" padding: 12px 40px;">
@@ -194,9 +194,13 @@
                 <div class="row">
 
                     <div class="col">
+                        <div class="col">
+                            <input type="hidden" name="IDupdate" id="IDupdate" value="0">
+
+                        </div>
                         <label>поставщик</label>
                         <select id="dropDownListProviderAmount">
-                            <option value="null">select option</option>
+                            <option value="select option">select option</option>
                             <option th:each="option : ${optionsProvider}" th:value="${option}"
                                     th:text="${option}"></option>
                         </select>
@@ -204,7 +208,7 @@
                     <div class="col">
                         <label>модель</label>
                         <select id="dropDownListPhoneAmount">
-                            <option value="null">select option</option>
+                            <option value="select option">select option</option>
                             <option th:each="option : ${optionsPhone}" th:value="${option}"
                                     th:text="${option}"></option>
                         </select>
@@ -224,25 +228,28 @@
                     </div>
                     <div class="col">
                         <label></label>
-                        <button class="btn btn-primary btn-sm" id="button-Amount" type="submit">Показать</button>
+                        <button class="btn btn-outline-primary me-2" id="search-Amount" type="submit">Показать</button>
                     </div>
                     <div class="col">
                         <label></label>
-                        <button class="btn btn-primary btn-sm" id="save-Amount" type="submit">сохранить</button>
+                        <button class="btn btn-outline-primary me-2" id="save-Amount" type="submit">сохранить</button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="showAmount" th:fragment="showAmount">
-                        <table class="table table-hover">
+                    <div class="table_tableAmount" id="table_tableAmount">
+                        <div class="searchAmount" th:fragment="searchAmount">
+                        <table class="table table-hover" id="tables_tableAmount">
                             <thead>
                             <tr>
 
-                                <th>models</th>
-                                <th>price</th>
-                                <th>price_promo</th>
-                                <th>start_promo</th>
-                                <th>end_promo</th>
-
+                                <th>id</th>
+                                <th>поставщик</th>
+                                <th>модель</th>
+                                <th>старт</th>
+                                <th>конец</th>
+                                <th>сумма</th>
+                                <th></th>
+                                <th></th>
 
                             </tr>
                             </thead>
@@ -250,14 +257,56 @@
 
                             <tr th:each="current : ${Amount}">
 
-                                <td th:text="${current.phone}"></td>
-                                <td th:text="${current.startDate}"></td>
-
+                                <td th:text="${current.id}"></td>
+                                <td th:text="${current.suppliers}"></td>
+                                <td th:text="${current.model}"></td>
+                                <td th:text="${current.startPromo}"></td>
+                                <td th:text="${current.endPromo}"></td>
+                                <td th:text="${current.amount}"></td>
+                                <td>
+                                    <button type="submit" class="btn btn-outline-primary me-2 UPDATE">UPDATE</button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-outline-primary me-2 DEL">DEL</button>
+                                </td>
 
 
                             </tbody>
                         </table>
+                        </div>
                     </div>
+                </div>
+                <div class="row" id="sumAmount" style=" padding: 12px 40px;">
+
+
+                </div>
+                <div class="row">
+                    <p class="lead">
+                        <!-- Модальное окно -->
+                    <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h9 class="modal-title">не заполнено поле</h9>
+                                    <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Закрыть"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                    <button type="button" class="btn btn-primary">Понял</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </p>
                 </div>
             </div>
         </div>

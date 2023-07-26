@@ -6,9 +6,10 @@ import javax.persistence.*;
 import java.util.Date;
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 @Getter
 @Setter
+@ToString
 @Entity
 public class BonusesPaid {
     @Id
@@ -20,4 +21,22 @@ public class BonusesPaid {
     @Temporal(TemporalType.DATE)
     public Date endPromo;
     public Integer amount;
+    public String suppliers;
+
+    public BonusesPaid(String model, Date startPromo, Date endPromo, Integer amount, String suppliers) {
+        this.model = model;
+        this.startPromo = startPromo;
+        this.endPromo = endPromo;
+        this.amount = amount;
+        this.suppliers = suppliers;
+    }
+
+    public BonusesPaid(int id, String model, Date startPromo, Date endPromo, Integer amount, String suppliers) {
+        this.id = id;
+        this.model = model;
+        this.startPromo = startPromo;
+        this.endPromo = endPromo;
+        this.amount = amount;
+        this.suppliers = suppliers;
+    }
 }

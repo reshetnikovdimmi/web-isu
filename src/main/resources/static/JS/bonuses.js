@@ -21,43 +21,6 @@ $(document).ready(function() {
             $(".dropDownListModelGB").html(data);
         });
     });
-    $('#save-Amount').on('click', function() {
-    let bonuses = {
-                shop: null,
-                models: null,
-                provider: null,
-                phone: null,
-                startDate: null,
-                endDate: null,
-            };
-
-        if ($('#dropDownListModelGB').val() != 'null') {
-                bonuses.models = $('#dropDownListModelGB').val();
-            }
-            if ($('#dropDownListShop').val() != 'null') {
-                bonuses.shop = $('#dropDownListShop').val();
-            }
-            if ($('#dropDownListProvider').val() != 'null') {
-                bonuses.provider = $('#dropDownListProvider').val();
-            }
-            if ($('#dropDownListPhone').val() != 'null') {
-                bonuses.phone = $('#dropDownListPhone').val();
-            }
-            if ($('#startDate').val() != '') {
-                bonuses.startDate = $('#startDate').val();
-            }
-            if ($('#endDate').val() != '') {
-                bonuses.endDate = $('#endDate').val();
-            }
-$('#button-show-promo').on('click', function() {
-        if ($('#showDate').val() == '') {
-            modals("showDate");
-        } else {
-         sendRequest('POST', '/saveAmount', bonuses).then(data => console.log(data)).catch(err => console.log(err))
-        }
-    });
-
-        });
     $('#button-all').on('click', function() {
         let bonuses = {
             shop: null,
@@ -75,6 +38,67 @@ $('#button-show-promo').on('click', function() {
         }
         sendRequest('POST', '/loadBonusesAll', bonuses).then(data => ceateTableAllBonus(data)).catch(err => console.log(err))
         sendRequest('POST', '/loadBonusesNoT2', bonuses).then(data => ceateTableNoT2Bonus(data)).catch(err => console.log(err))
+    });
+     $('#search-Amount').on('click', function() {
+      let bonusesPaid = {
+                             id: null,
+                             model: null,
+                             startPromo: null,
+                             endPromo: null,
+                             amount: null,
+                             suppliers: null,
+                         };
+
+             if ($('#dropDownListProviderAmount').val() != 'select option') {
+                bonusesPaid.suppliers = $('#dropDownListProviderAmount').val();
+             }
+              if ($('#dropDownListPhoneAmount').val() != 'select option') {
+                bonusesPaid.model = $('#dropDownListPhoneAmount').val();
+              }
+              if ($('#startDateAmount').val() != '') {
+                bonusesPaid.startPromo = $('#startDateAmount').val();
+              }
+              if ($('#endDateAmount').val() != '') {
+                bonusesPaid.endPromo = $('#endDateAmount').val();
+              }
+
+            var json = JSON.stringify(bonusesPaid);
+            $.ajax({
+                type: "POST",
+                url: "searchAmount",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data) {
+                console.log(data)
+                ceateTableAmount(data)
+
+                }
+            });
+            clear()
+        });
+    $('#save-Amount').on('click', function() {
+        let bonusesPaid = {
+            id: $('#IDupdate').val(),
+            model: $('#dropDownListPhoneAmount').val(),
+            startPromo: $('#startDateAmount').val(),
+            endPromo: $('#endDateAmount').val(),
+            amount: $('#amount').val(),
+            suppliers: $('#dropDownListProviderAmount').val(),
+        };
+        if ($('#dropDownListProviderAmount').val() == 'null') {
+            modals("не заполнено поле поставщик")
+        } else if ($('#dropDownListPhoneAmount').val() == 'null') {
+            modals("не заполнено поле модель")
+        } else if ($('#startDateAmount').val() == '') {
+            modals("не заполнено поле старт")
+        } else if ($('#endDateAmount').val() == '') {
+            modals("не заполнено поле конец")
+        } else if ($('#amount').val() == '') {
+            modals("не заполнено поле сумма")
+        } else {
+            sendRequest('POST', '/saveAmount', bonusesPaid).then(data => ceateTableAmount(data)).catch(err => console.log(err))
+        }
     });
     $('#button-show-all').on('click', function() {
         let bonuses = {
@@ -105,6 +129,8 @@ $('#button-show-promo').on('click', function() {
         }
         sendRequest('POST', '/buttonShowAll', bonuses).then(data => ceateTableSearchBonus(data)).catch(err => console.log(err))
     });
+    delet()
+    update()
 });
 
 function sendRequest(method, url, bonuses = null) {
@@ -128,7 +154,7 @@ function sendRequest(method, url, bonuses = null) {
 }
 
 function ceateTableAllBonus(data) {
-    console.log(data)
+
     var elem = document.querySelector('#table_TableAllBonus');
     var elem1 = document.querySelector('#tables_TableAllBonus');
     elem1.parentNode.removeChild(elem1);
@@ -258,7 +284,6 @@ function ceateTableNoT2Bonus(data) {
     table.classList.add("table-borderless");
     table.classList.add("tables_TableNoT2Bonus");
     let thead = document.createElement('thead');
-    thead.classList.add("table");
     let row_1 = document.createElement('tr');
     let heading_2 = document.createElement('th');
     heading_2.innerHTML = "Модель";
@@ -285,7 +310,7 @@ function ceateTableNoT2Bonus(data) {
     row_1.appendChild(heading_8);
     row_1.appendChild(heading_9);
     let tbody = document.createElement('tbody');
-    tbody.classList.add("labels2");
+    tbody.classList.add("labels");
     var sum = 0;
     for (var i = 0; i < data.length; i++) {
         table.id = 'tables_TableNoT2Bonus';
@@ -321,13 +346,152 @@ function ceateTableNoT2Bonus(data) {
         }
         tbody.appendChild(tr);
     }
-    // $("#sum").html("ИТОГО БОНУСОВ"+"  "+ sum +"  "+"РУБ");
+
     table.appendChild(tbody);
     thead.appendChild(row_1);
     table.appendChild(thead);
     elem.appendChild(table);
 }
 
+function ceateTableAmount(data) {
+
+    var elem = document.querySelector('#table_tableAmount');
+    var elem1 = document.querySelector('#tables_tableAmount');
+    elem1.parentNode.removeChild(elem1);
+    var table = document.createElement(`table`);
+    table.id = 'tables_tableAmount';
+    table.classList.add("table");
+    table.classList.add("table-hover");
+    table.classList.add("tables_tablePromo");
+    let thead = document.createElement('thead');
+    let row_1 = document.createElement('tr');
+    let heading_1 = document.createElement('th');
+    heading_1.innerHTML = "id";
+    let heading_2 = document.createElement('th');
+    heading_2.innerHTML = "поставщик";
+    let heading_3 = document.createElement('th');
+    heading_3.innerHTML = "модель";
+    let heading_4 = document.createElement('th');
+    heading_4.innerHTML = "старт";
+    let heading_5 = document.createElement('th');
+    heading_5.innerHTML = "конец";
+    let heading_6 = document.createElement('th');
+    heading_6.innerHTML = "сумма"
+    let heading_12 = document.createElement('th');
+    heading_12.innerHTML = " "
+    let heading_13 = document.createElement('th');
+    heading_13.innerHTML = " "
+    row_1.appendChild(heading_1);
+    row_1.appendChild(heading_2);
+    row_1.appendChild(heading_3);
+    row_1.appendChild(heading_4);
+    row_1.appendChild(heading_5);
+    row_1.appendChild(heading_6);;
+    row_1.appendChild(heading_12);
+    row_1.appendChild(heading_13);
+    let tbody = document.createElement('tbody');
+    tbody.classList.add("labels");
+    var sum = 0;
+    for (var i = 0; i < data.length; i++) {
+        table.id = 'tables_tableAmount';
+        var tr = document.createElement('tr');
+        for (var j = 0; j < 8; j++) {
+            var td = document.createElement('td');
+            if (j == 0) {
+                td.innerHTML = data[i].id;
+            }
+            if (j == 1) {
+                td.innerHTML = data[i].suppliers;
+            }
+            if (j == 2) {
+                td.innerHTML = data[i].model;
+            }
+            if (j == 3) {
+                td.innerHTML = data[i].startPromo;
+            }
+            if (j == 4) {
+                td.innerHTML = data[i].endPromo;
+            }
+            if (j == 5) {
+            sum = sum + data[i].amount;
+                td.innerHTML = data[i].amount;
+            }
+            if (j == 6) {
+                var button = document.createElement('button')
+                button.type = 'button';
+                td.appendChild(button);
+                button.classList.add("btn");
+                button.classList.add("btn-outline-primary");
+                button.classList.add("UPDATE");
+                button.id = 'button';
+                button.innerHTML = "UPDATE";
+            }
+            if (j == 7) {
+                var button = document.createElement('button')
+                button.type = 'button';
+                td.appendChild(button);
+                button.classList.add("btn");
+                button.classList.add("btn-outline-primary");
+                button.classList.add("DEL");
+                button.id = 'button';
+                button.innerHTML = "DEL";;
+            }
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    thead.appendChild(row_1);
+    table.appendChild(thead);
+    elem.appendChild(table);
+     $("#sumAmount").html("ИТОГО БОНУСОВ"+"  "+ sum +"  "+"РУБ");
+    delet()
+    update()
+    clear()
+}
+
+function delet() {
+    $(document).find('.DEL').on('click', function() {
+        var models = $(this).parents('tr:first').find('td:eq(0)').text(),
+            data;
+        $.get('/deleteAmount/' + models, {}, function(data) {
+            ceateTableAmount(data);
+        });
+    });
+}
+
+function update() {
+    $(document).find('.UPDATE').on('click', function() {
+        var models = $(this).parents('tr:first').find('td:eq(0)').text(),
+            data;
+        $.get('/updateAmount/' + models, {}, function(data) {
+            $('#IDupdate').val(data.id)
+            $('#startDateAmount').val(data.startPromo);
+            $('#endDateAmount').val(data.endPromo);
+            $('#amount').val(data.amount);
+        });
+    });
+}
+
+function clear() {
+    $('#IDupdate').val(0)
+    $('#startDateAmount').val('');
+    $('#endDateAmount').val('');
+    $('#amount').val('');
+}
+
 function getFirstDayOfMonth(year, month) {
     return new Date(year, month, 1);
+}
+
+function modals(message) {
+    $('#myModal').modal("show");
+    document.querySelector('.modal-body').textContent = message;
+    $('.btn-close').on('click', function() {
+        $('#myModal').modal('hide');
+    });
+    $('.btn-secondary').on('click', function() {
+        $('#myModal').modal('hide');
+    });
+    $('.btn-primary').attr('disabled', true);
 }
