@@ -86,9 +86,9 @@ $(document).ready(function() {
             amount: $('#amount').val(),
             suppliers: $('#dropDownListProviderAmount').val(),
         };
-        if ($('#dropDownListProviderAmount').val() == 'null') {
+        if ($('#dropDownListProviderAmount').val() == 'select option') {
             modals("не заполнено поле поставщик")
-        } else if ($('#dropDownListPhoneAmount').val() == 'null') {
+        } else if ($('#dropDownListPhoneAmount').val() == 'select option') {
             modals("не заполнено поле модель")
         } else if ($('#startDateAmount').val() == '') {
             modals("не заполнено поле старт")
@@ -253,13 +253,14 @@ function ceateTableSearchBonus(data) {
                 td.innerHTML = data[i].provider;
             }
             if (j == 4) {
-                td.innerHTML = data[i].startDate;
+
+                td.innerHTML = dateFormat(data[i].startDate);
             }
             if (j == 5) {
-                td.innerHTML = data[i].endDate;
+                td.innerHTML = dateFormat(data[i].endDate);
             }
             if (j == 6) {
-                td.innerHTML = data[i].dataSale;
+                td.innerHTML = dateFormat(data[i].dataSale);
             }
             if (j == 7) {
                 td.innerHTML = data[i].shop;
@@ -274,7 +275,10 @@ function ceateTableSearchBonus(data) {
     table.appendChild(thead);
     elem.appendChild(table);
 }
-
+function dateFormat(data) {
+var mydate = new Date(data);
+    return  new Intl.DateTimeFormat().format(mydate);
+}
 function ceateTableNoT2Bonus(data) {
     var elem = document.querySelector('#table_TableNoT2Bonus');
     var elem1 = document.querySelector('#tables_TableNoT2Bonus');
@@ -331,13 +335,13 @@ function ceateTableNoT2Bonus(data) {
                 td.innerHTML = data[i].provider;
             }
             if (j == 4) {
-                td.innerHTML = data[i].startDate;
+                td.innerHTML = dateFormat(data[i].startDate);
             }
             if (j == 5) {
-                td.innerHTML = data[i].endDate;
+                td.innerHTML = dateFormat(data[i].endDate);
             }
             if (j == 6) {
-                td.innerHTML = data[i].dataSale;
+                td.innerHTML = dateFormat(data[i].dataSale);
             }
             if (j == 7) {
                 td.innerHTML = data[i].shop;
