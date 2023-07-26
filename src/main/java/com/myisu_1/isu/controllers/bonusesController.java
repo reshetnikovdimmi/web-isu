@@ -59,7 +59,7 @@ public class bonusesController {
         model.addAttribute("optionsShop",authorizationTt.getShopList());
         model.addAttribute("optionsPhone",phoneRepositoriy.getPhoneList());
         model.addAttribute("optionsProvider",suppliersRepositoriy.getProviderList());
-        model.addAttribute("Amount",bonusesPaidRepository.findAll());
+        model.addAttribute("Amount",bonusesPaidRepository.findAll(Sort.by(Sort.Direction.DESC, "startPromo")));
         return "bonuses";
     }
     @RequestMapping(value = "/dropDownListModelGB/{phone}", method = RequestMethod.GET)
@@ -90,7 +90,7 @@ public class bonusesController {
         }else {
             bonusesPaidRepository.save(new BonusesPaid(bonuses.model,sqlDate(bonuses.getStartPromo()),sqlDate(bonuses.getEndPromo()),bonuses.getAmount(),bonuses.suppliers));
         }
-          return new ResponseEntity<>(bonusesPaidRepository.findAll(), HttpStatus.OK);
+          return new ResponseEntity<>(bonusesPaidRepository.findAll(Sort.by(Sort.Direction.DESC, "startPromo")), HttpStatus.OK);
     }
 
     @ResponseBody
