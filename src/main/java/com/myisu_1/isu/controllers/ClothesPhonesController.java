@@ -1,5 +1,6 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.service.ClothesPhonesServise;
 import com.myisu_1.isu.service.ClothingMatchingServise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,13 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ClothesPhonesController {
     @Autowired
     private ClothingMatchingServise clothingMatchingServise;
+    @Autowired
+    private ClothesPhonesServise clothesPhonesServise;
     @GetMapping("/ClothesPhones")
     public String home(Model model) {
-        clothingMatchingServise.Loading();
-
-        model.addAttribute("BrendRemanisGlass", clothingMatchingServise.remainderSaleClothing("Glass"));
-        model.addAttribute("BrendRemanisCase", clothingMatchingServise.remainderSaleClothing("Case"));
-        model.addAttribute("BrendRemanisCoverBook", clothingMatchingServise.remainderSaleClothing("CoverBook"));
+        model.addAttribute("RemainsGroupCash", clothesPhonesServise.remainsGroupCash());
+        model.addAttribute("OrderRecommendations", clothesPhonesServise.orderRecommendations());
         return "ClothesPhones";
     }
 }

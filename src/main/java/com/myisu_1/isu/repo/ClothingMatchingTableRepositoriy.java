@@ -1,6 +1,7 @@
 package com.myisu_1.isu.repo;
 
 
+import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -40,5 +41,7 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT DISTINCT nameClothes FROM ClothingMatchingTable WHERE phoneClothes IN :clothing")
     List<String> getBrendList(List<String> clothing);
-
+    @Query("SELECT  new com.myisu_1.isu.dto.RemainsGroupCash(c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p WHERE p.nameShop = ?1 GROUP BY c.nameClothes")
+    List<RemainsGroupCash> getRemainsCash(String s);
 }

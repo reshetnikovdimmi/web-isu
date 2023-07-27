@@ -8,12 +8,13 @@ $(document).ready(function() {
         endDate: null,
     };
     const date = new Date();
+
     const firstDay = getFirstDayOfMonth(date.getFullYear(), date.getMonth(), );
     var day = ("0" + firstDay.getDate()).slice(-2);
     var month = ("0" + (firstDay.getMonth() + 1)).slice(-2);
     var today = firstDay.getFullYear() + "-" + (month) + "-" + (day);
     $("#start").val(today);
-    bonuses.startDate = firstDay;
+    bonuses.startDate = today;
     sendRequest('POST', '/loadBonusesAll', bonuses).then(data => ceateTableAllBonus(data)).catch(err => console.log(err))
     sendRequest('POST', '/loadBonusesNoT2', bonuses).then(data => ceateTableNoT2Bonus(data)).catch(err => console.log(err))
     $('#dropDownListPhone').on('change', function() {

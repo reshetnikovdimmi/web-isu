@@ -62,6 +62,7 @@ public class BonusesServise {
 
 
         try {
+            System.out.println(lba.dateString(bonuses.getStartDate()));
             lba.salesPhone = salesRepositoriy.getSaleAll(lba.dateString(bonuses.getStartDate()), lba.dateString(bonuses.getEndDate()), null, bonuses.getPhone());
         } catch (ParseException e) {
             throw new RuntimeException(e);
