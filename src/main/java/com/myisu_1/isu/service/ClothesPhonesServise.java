@@ -3,6 +3,7 @@ package com.myisu_1.isu.service;
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
+import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,40 +25,54 @@ public class ClothesPhonesServise {
     private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
     @Autowired
     private PostRepositoriy cash;
+    @Autowired
+    private PhoneRepositoriy phoneRepositoriy;
 
-    RemainsGroupCash remainsGroupCashClothes;
+
     OrderRecommendations orderRecommendationsClothes;
-
+    List<RemainsGroupCash> remainsGroupCashClothesList;
     public Object remainsGroupCash() {
 
-        remainsGroupCashClothes = new RemainsGroupCash();
-        List<RemainsGroupCash> remainsGroupCashClothesList = new ArrayList<>();
+
+        List<String> phone = phoneRepositoriy.getBrendDisting();
+        remainsGroupCashClothesList = new ArrayList<>();
         List<String> listCash = cash.getWarehouseList();
         List<RemainsGroupCash> remainsGroupCash1ClothesList = clothingMatchingTableRepositoriy.getRemainsCash(listCash.get(0));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esdge", "Glass", 5L, 6L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esыаdge", "Case", 7L, 8L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esфафыпdge", "CoverBook", 51L, 69L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esdge", "Glass", 5L, 6L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esыаdge", "Case", 7L, 8L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esфафыпdge", "CoverBook", 51L, 69L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esdge", "Glass", 5L, 6L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esыаdge", "Case", 7L, 8L));
-        remainsGroupCashClothesList.add(new RemainsGroupCash("esфафыпdge", "CoverBook", 51L, 69L));
-        return remainsGroupCash1ClothesList;
+        List<RemainsGroupCash> remainsGroupCash2ClothesList = clothingMatchingTableRepositoriy.getRemainsCash(listCash.get(1));
+        for (String p:phone){
+            RemainsGroupCash remainsGroupCashClothes = new RemainsGroupCash();
+            remainsGroupCashClothes.setGroup(p);
+            for (RemainsGroupCash cash1:remainsGroupCash1ClothesList){
+                if (p.equals(cash1.getGroup())){
+                    remainsGroupCashClothes.setCash1(cash1.getCash1());
+                    remainsGroupCashClothes.setView(cash1.getView());
+                }
+            }
+            for (RemainsGroupCash cash2:remainsGroupCash2ClothesList){
+                if (p.equals(cash2.getGroup())){
+                    remainsGroupCashClothes.setCash1(cash2.getCash1());
+                    remainsGroupCashClothes.setView(cash2.getView());
+                }
+            }
+            remainsGroupCashClothesList.add(remainsGroupCashClothes);
+        }
+
+        return remainsGroupCashClothesList;
     }
 
     public Object orderRecommendations() {
         orderRecommendationsClothes = new OrderRecommendations();
         List<OrderRecommendations> orderRecommendationsClothesList = new ArrayList<>();
-        orderRecommendationsClothesList.add(new OrderRecommendations("esdge", "Glass", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esыаdge", "Case", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esфафыпdge", "CoverBook", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esdge", "Glass", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esыаdge", "Case", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esфафыпdge", "CoverBook", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esdge", "Glass", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esыаdge", "Case", 5, 6, 5, 4, 5));
-        orderRecommendationsClothesList.add(new OrderRecommendations("esфафыпdge", "CoverBook", 5, 6, 5, 4, 5));
+        List<String> phone = phoneRepositoriy.getBrendDisting();
+        for (String p:phone) {
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Glass", 5, 6, 5, 4, 5));
+
+
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Case", 75, 67, 53, 74, 57));
+
+
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "CoverBook", 85, 66, 25, 47, 35));
+        }
         return orderRecommendationsClothesList;
     }
 }
