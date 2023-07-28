@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -64,15 +66,26 @@ public class ClothesPhonesServise {
         orderRecommendationsClothes = new OrderRecommendations();
         List<OrderRecommendations> orderRecommendationsClothesList = new ArrayList<>();
         List<String> phone = phoneRepositoriy.getBrendDisting();
+        List<String> shop = cash.getShopList();
+        Map<String,OrderRecommendations> remainsPhone = new HashMap<>();
+        Map<String,Map<String,OrderRecommendations>> remainsShop = new HashMap<>();
+        for (String s:shop) {
+            for (String p:phone) {
+                remainsPhone.put(p,indicatorsSaleRenains(s,p));
+            }
+            remainsShop.put(s,remainsPhone);
+        }
+
+
         for (String p:phone) {
-            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Glass", 5, 6, 5, 4, 5));
-
-
-            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Case", 75, 67, 53, 74, 57));
-
-
-            orderRecommendationsClothesList.add(new OrderRecommendations(p, "CoverBook", 85, 66, 25, 47, 35));
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Glass", 5,59, 6, 5, 4, 5));
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Case", 75, 67,5, 53, 74, 57));
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "CoverBook", 85, 66, 25, 7,47, 35));
         }
         return orderRecommendationsClothesList;
+    }
+
+    private OrderRecommendations indicatorsSaleRenains(String s, String p) {
+        return new OrderRecommendations("gewgwe", "Glass", 5,59, 6, 5, 4, 5);
     }
 }

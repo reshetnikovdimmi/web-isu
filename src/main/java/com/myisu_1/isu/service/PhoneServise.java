@@ -60,7 +60,7 @@ public class PhoneServise {
             indicator.put("remanis", phoneRepositoriy.getPhoneRemanisSum(matrix));
             indicator.put("sale1", phoneRepositoriy.getPhoneSale1Sum(matrix));
             indicator.put("sale6", phoneRepositoriy.getPhoneSale6Sum(matrix));
-            indicator.put("remanisSach", phoneRepositoriy.getPhoneRemanSachAll(matrix, authorization_ttList.get(0).getName(), authorization_ttList.get(2).getName()));
+            indicator.put("remanisSach", phoneRepositoriy.getPhoneRemanSachAll(matrix, authorization_ttList.get(0).getName(), authorization_ttList.get(1).getName()));
             distributionModel.put(matrix, indicator);
         }
         return distributionModel;
@@ -94,8 +94,8 @@ public class PhoneServise {
                     } else {
                         indicator.put("remanisCash", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(0).getName()));
                     }
-                    if (remanisSaleShop.containsKey(authorization_ttList.get(2).getName())) {
-                        indicator.put("remanisCash2", remanisSaleShop.get(authorization_ttList.get(2).getName()).get(matrix).get(models).get("remanisCash2"));
+                    if (remanisSaleShop.containsKey(authorization_ttList.get(1).getName())) {
+                        indicator.put("remanisCash2", remanisSaleShop.get(authorization_ttList.get(1).getName()).get(matrix).get(models).get("remanisCash2"));
                     } else {
                         indicator.put("remanisCash2", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(2).getName()));
                     }
@@ -115,10 +115,10 @@ public class PhoneServise {
                 } else {
                     indicator.put("totalRemanisCash", phoneRepositoriy.getPhoneRemanMatrix(matrix, authorization_ttList.get(0).getName()));
                 }
-                if (remanisSaleShop.containsKey(authorization_ttList.get(2).getName())) {
-                    indicator.put("totalRemanisCash2", remanisSaleShop.get(authorization_ttList.get(2).getName()).get(matrix).get("total").get("totalRemanisCash2"));
+                if (remanisSaleShop.containsKey(authorization_ttList.get(1).getName())) {
+                    indicator.put("totalRemanisCash2", remanisSaleShop.get(authorization_ttList.get(1).getName()).get(matrix).get("total").get("totalRemanisCash2"));
                 } else {
-                    indicator.put("totalRemanisCash2", phoneRepositoriy.getPhoneRemanMatrix(matrix, authorization_ttList.get(2).getName()));
+                    indicator.put("totalRemanisCash2", phoneRepositoriy.getPhoneRemanMatrix(matrix, authorization_ttList.get(1).getName()));
                 }
 
                 indicator.put("orderCash", 0);
@@ -148,7 +148,7 @@ public class PhoneServise {
             Integer rem2;
 
             rem = remanisSaleShop(authorization_ttList.get(0).getName()).get(matrixT2).get(model).get("remanis");
-            rem2 = remanisSaleShop(authorization_ttList.get(2).getName()).get(matrixT2).get(model).get("remanis");
+            rem2 = remanisSaleShop(authorization_ttList.get(1).getName()).get(matrixT2).get(model).get("remanis");
 
             if (rem != null && rem > 0 || rem2 != null && rem2 > 0) {
                 remanis.put("Cash", rem);
@@ -288,7 +288,7 @@ public class PhoneServise {
         }
 
         if (authorization_tt.getShopMatrixT2().contains(shop) && remanisCash2 > 0) {
-            remanisSaleShop.get(authorization_ttList.get(2).getName()).get(brend).get(models).replace("remanis", remanisCash2 - Integer.valueOf(quantity));
+            remanisSaleShop.get(authorization_ttList.get(1).getName()).get(brend).get(models).replace("remanis", remanisCash2 - Integer.valueOf(quantity));
             for (Map.Entry entry : remanisSaleShop.entrySet()) {
 
                 remanisSaleShop.get(entry.getKey()).get(brend).get(models).replace("remanisCash2", remanisCash2 - Integer.valueOf(quantity));
