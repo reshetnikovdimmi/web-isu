@@ -31,7 +31,7 @@ public class ClothesPhonesServise {
     private PhoneRepositoriy phoneRepositoriy;
 
 
-    OrderRecommendations orderRecommendationsClothes;
+
     List<RemainsGroupCash> remainsGroupCashClothesList;
     public Object remainsGroupCash() {
 
@@ -63,29 +63,52 @@ public class ClothesPhonesServise {
     }
 
     public Object orderRecommendations() {
-        orderRecommendationsClothes = new OrderRecommendations();
+
         List<OrderRecommendations> orderRecommendationsClothesList = new ArrayList<>();
         List<String> phone = phoneRepositoriy.getBrendDisting();
         List<String> shop = cash.getShopList();
-        Map<String,OrderRecommendations> remainsPhone = new HashMap<>();
-        Map<String,Map<String,OrderRecommendations>> remainsShop = new HashMap<>();
+
         for (String s:shop) {
-            for (String p:phone) {
-                remainsPhone.put(p,indicatorsSaleRenains(s,p));
-            }
-            remainsShop.put(s,remainsPhone);
+             System.out.println(s+"--"+indicatorsSaleRenains(s,phone));
         }
 
-
         for (String p:phone) {
-            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Glass", 5,59, 6, 5, 4, 5));
-            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Case", 75, 67,5, 53, 74, 57));
-            orderRecommendationsClothesList.add(new OrderRecommendations(p, "CoverBook", 85, 66, 25, 7,47, 35));
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Glass", 5,59, 6, 5,64, 4, 5));
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "Case", 75, 67,5, 53,65465, 74, 57));
+            orderRecommendationsClothesList.add(new OrderRecommendations(p, "CoverBook", 85, 66, 66,25, 7,47, 35));
         }
         return orderRecommendationsClothesList;
     }
 
-    private OrderRecommendations indicatorsSaleRenains(String s, String p) {
-        return new OrderRecommendations("gewgwe", "Glass", 5,59, 6, 5, 4, 5);
+    private List<OrderRecommendations> indicatorsSaleRenains(String s, List<String> p) {
+        Map<String,List<OrderRecommendations> > view = new HashMap<>();
+        Map<String,Map<String,List<OrderRecommendations>>> remainsPhone = new HashMap<>();
+        Map<String,Map<String,Map<String,List<OrderRecommendations>>>> remainsShop = new HashMap<>();
+
+        List<OrderRecommendations> indicatorsRemains = clothingMatchingTableRepositoriy.getRemainsShopPhone(s,p);
+        List<OrderRecommendations> indicatorsSale1 = clothingMatchingTableRepositoriy.getSale1ShopPhone(s,p);
+        List<OrderRecommendations> indicatorsSale6 = clothingMatchingTableRepositoriy.getSale6ShopPhone(s,p);
+        List<OrderRecommendations> remainsPhones = clothingMatchingTableRepositoriy.getSale6ShopPhone(s,p);
+
+        for (String phone:p) {
+            for (OrderRecommendations orderRecommendations:indicatorsRemains) {
+                if (orderRecommendations.getView().equals("Glass")&&orderRecommendations.getGroup().equals(phone)){
+
+                }
+            }
+            for (OrderRecommendations orderRecommendations:indicatorsSale1) {
+                if (orderRecommendations.getView().equals("Glass")&&orderRecommendations.getGroup().equals(phone)){
+
+                }
+            }
+            for (OrderRecommendations orderRecommendations:indicatorsSale6) {
+                if (orderRecommendations.getView().equals("Glass")&&orderRecommendations.getGroup().equals(phone)){
+
+                }
+            }
+        }
+
+
+        return indicatorsSale6;
     }
 }

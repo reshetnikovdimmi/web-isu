@@ -1,6 +1,7 @@
 package com.myisu_1.isu.repo;
 
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
@@ -44,4 +45,13 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT  new com.myisu_1.isu.dto.RemainsGroupCash(c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersPhone p WHERE p.nameShop = ?1 GROUP BY c.nameClothes")
     List<RemainsGroupCash> getRemainsCash(String s);
+    @Query("SELECT  new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p WHERE p.nameShop = ?1 AND c.nameClothes IN ?2")
+    List<OrderRecommendations> getRemainsShopPhone(String s, List<String> p);
+    @Query("SELECT  new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale1 p WHERE p.nameShop = ?1 AND c.nameClothes IN ?2")
+    List<OrderRecommendations> getSale1ShopPhone(String s, List<String> p);
+    @Query("SELECT  new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale6 p WHERE p.nameShop = ?1 AND c.nameClothes IN ?2")
+       List<OrderRecommendations> getSale6ShopPhone(String s, List<String> p);
 }
