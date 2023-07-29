@@ -8,6 +8,7 @@ import lombok.*;
 @Setter
 @Getter
 public class OrderRecommendations {
+    String shop;
     String group;
     String nomenclature;
     String view;
@@ -43,5 +44,23 @@ public class OrderRecommendations {
         this.nomenclature = nomenclature;
         this.view = view;
         this.remainsShop = remainsShop;
+    }
+    public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsShop, Integer sale1, Integer sale6) {
+        this.shop = shop;
+        this.group = group;
+        this.nomenclature = nomenclature;
+        this.view = view;
+        this.remainsShop = remainsShop;
+        this.sale1 = sale1;
+        this.sale6 = sale6;
+    }
+    public OrderRecommendations( String group, String nomenclature, String view, Integer remainsShop, Integer sale1, Integer sale6) {
+
+        this.group = group;
+        this.nomenclature = nomenclature;
+        this.view = view;
+        this.remainsShop = remainsShop;
+        this.sale1 = sale1;
+        this.sale6 = sale6;
     }
 }

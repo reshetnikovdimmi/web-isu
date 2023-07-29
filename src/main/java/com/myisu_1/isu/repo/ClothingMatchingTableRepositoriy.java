@@ -45,13 +45,15 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT  new com.myisu_1.isu.dto.RemainsGroupCash(c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersPhone p WHERE p.nameShop = ?1 GROUP BY c.nameClothes")
     List<RemainsGroupCash> getRemainsCash(String s);
-    @Query("SELECT  new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p WHERE p.nameShop = ?1 AND c.nameClothes IN ?2")
-    List<OrderRecommendations> getRemainsShopPhone(String s, List<String> p);
-    @Query("SELECT  new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale1 p WHERE p.nameShop = ?1 AND c.nameClothes IN ?2")
-    List<OrderRecommendations> getSale1ShopPhone(String s, List<String> p);
-    @Query("SELECT  new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale6 p WHERE p.nameShop = ?1 AND c.nameClothes IN ?2")
-       List<OrderRecommendations> getSale6ShopPhone(String s, List<String> p);
+
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 ")
+    List<OrderRecommendations> getRemainsShopPhone(String s, String p,String a);
+
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale1 p WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 ")
+    List<OrderRecommendations> getSale1ShopPhone(String s, String p, String glass);
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale6 p WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 ")
+    List<OrderRecommendations> getSale6ShopPhone(String s, String p, String glass);
 }
