@@ -39,20 +39,21 @@ public class OrderRecommendations {
         this.remainsShop = remainsShop;
     }
 
-    public OrderRecommendations(String group, String nomenclature, String view, Integer remainsShop) {
+    public OrderRecommendations( String group, String nomenclature, String view, Integer remainsShop) {
+
         this.group = group;
         this.nomenclature = nomenclature;
         this.view = view;
         this.remainsShop = remainsShop;
     }
-    public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsShop, Integer sale1, Integer sale6) {
+    public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsShop, Integer sale1) {
         this.shop = shop;
         this.group = group;
         this.nomenclature = nomenclature;
         this.view = view;
         this.remainsShop = remainsShop;
         this.sale1 = sale1;
-        this.sale6 = sale6;
+
     }
     public OrderRecommendations( String group, String nomenclature, String view, Integer remainsShop, Integer sale1, Integer sale6) {
 

@@ -74,7 +74,7 @@ public class ClothesPhonesServise {
           indicatorsSaleRenains(s, phone);
           // System.out.println(remainsShop.get(s).get("Glass"));
         }
-
+       // indicatorsSaleRenains("1-Основной склад", phone);
         for (String p : phone) {
             orderRecommendationsClothesList.add(new OrderRecommendations(p, "Glass", 5, 59, 6, 5, 64, 4, 5));
             orderRecommendationsClothesList.add(new OrderRecommendations(p, "Case", 75, 67, 5, 53, 65465, 74, 57));
@@ -90,44 +90,51 @@ public class ClothesPhonesServise {
     private Map<String, Map<String, Map<String, List<OrderRecommendations>>>> indicatorsSaleRenains(String s, List<String> p) {
         Map<String, Map<String, List<OrderRecommendations>>> view = new HashMap<>();
         List<OrderRecommendations> indicatorsRemainsGlass = clothingMatchingTableRepositoriy.getRemainsShopPhone(s, p, "Glass");
+
         List<OrderRecommendations> indicatorsSale1Glass = clothingMatchingTableRepositoriy.getSale1ShopPhone(s, p, "Glass");
         List<OrderRecommendations> indicatorsSale6Glass = clothingMatchingTableRepositoriy.getSale6ShopPhone(s, p, "Glass");
-        view.put("Glass", remainsPhone(p,indicatorsRemainsGlass,indicatorsSale1Glass,indicatorsSale6Glass,"Glass"));
+        view.put("Glass", remainsPhone(p,indicatorsRemainsGlass,indicatorsSale1Glass,indicatorsSale6Glass,"Glass",s));
         List<OrderRecommendations> indicatorsRemainsCase = clothingMatchingTableRepositoriy.getRemainsShopPhone(s, p, "Case");
         List<OrderRecommendations> indicatorsSale1Case = clothingMatchingTableRepositoriy.getSale1ShopPhone(s, p, "Case");
         List<OrderRecommendations> indicatorsSale6Case = clothingMatchingTableRepositoriy.getSale6ShopPhone(s, p, "Case");
-        view.put("Case", remainsPhone(p,indicatorsRemainsCase,indicatorsSale1Case,indicatorsSale6Case,"Case"));
+        view.put("Case", remainsPhone(p,indicatorsRemainsCase,indicatorsSale1Case,indicatorsSale6Case,"Case",s));
         List<OrderRecommendations> indicatorsRemainsCoverBook = clothingMatchingTableRepositoriy.getRemainsShopPhone(s, p, "CoverBook");
         List<OrderRecommendations> indicatorsSale1CoverBook = clothingMatchingTableRepositoriy.getSale1ShopPhone(s, p, "CoverBook");
         List<OrderRecommendations> indicatorsSale6CoverBook = clothingMatchingTableRepositoriy.getSale6ShopPhone(s, p, "CoverBook");
-        view.put("CoverBook", remainsPhone(p,indicatorsRemainsCoverBook,indicatorsSale1CoverBook,indicatorsSale6CoverBook,"CoverBook"));
+        view.put("CoverBook", remainsPhone(p,indicatorsRemainsCoverBook,indicatorsSale1CoverBook,indicatorsSale6CoverBook,"CoverBook",s));
         remainsShop.put(s, view);
         return remainsShop;
     }
 
-    private Map<String, List<OrderRecommendations>> remainsPhone(List<String> p, List<OrderRecommendations> indicatorsRemains, List<OrderRecommendations> indicatorsSale1, List<OrderRecommendations> indicatorsSale6, String c) {
+    private Map<String, List<OrderRecommendations>> remainsPhone(List<String> p, List<OrderRecommendations> indicatorsRemains, List<OrderRecommendations> indicatorsSale1, List<OrderRecommendations> indicatorsSale6, String c,String s) {
         Map<String, List<OrderRecommendations>> remainsPhone = new HashMap<>();
+
         for (String phone : p) {
             List<String> phoneClothes = clothingMatchingTableRepositoriy.getClothingList(phone,c);
             List<OrderRecommendations> a = new ArrayList<>();
             OrderRecommendations orderRecommendations = new OrderRecommendations();
             for (String clothes : phoneClothes) {
+
                 for (OrderRecommendations remains : indicatorsRemains) {
                     if(clothes.equals(remains.getNomenclature())){
+                       System.out.println(phone +"--"+ clothes+"--"+remains.getRemainsShop());
+                        orderRecommendations.setGroup(phone);
                         orderRecommendations.setNomenclature(clothes);
                         orderRecommendations.setRemainsShop(remains.getRemainsShop());
                     }
                 }
-                for (OrderRecommendations sale1 : indicatorsSale1) {
+               for (OrderRecommendations sale1 : indicatorsSale1) {
                     if(clothes.equals(sale1.getNomenclature())){
+                        orderRecommendations.setGroup(phone);
                         orderRecommendations.setNomenclature(clothes);
-                        orderRecommendations.setSale1(sale1.getRemainsShop());
+                        orderRecommendations.setSale1(sale1.getSale1());
                     }
                 }
                 for (OrderRecommendations sale6 : indicatorsSale6) {
                     if(clothes.equals(sale6.getNomenclature())){
+                        orderRecommendations.setGroup(phone);
                         orderRecommendations.setNomenclature(clothes);
-                        orderRecommendations.setSale6(sale6.getRemainsShop());
+                        orderRecommendations.setSale6(sale6.getSale6());
                     }
                 }
                 a.add(orderRecommendations);
@@ -138,8 +145,9 @@ public class ClothesPhonesServise {
 
 
             remainsPhone.put(phone, a);
+            Integer sum = clothingMatchingTableRepositoriy.getRemainsShopPhoneP(s, phone, "Glass");
 
-
+         //  System.out.println(sum);
             remainsPhone.put("total"+c, a);
         }
 
