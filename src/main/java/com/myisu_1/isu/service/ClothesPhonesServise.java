@@ -71,10 +71,10 @@ public class ClothesPhonesServise {
         for (String s : shop) {
 
          // System.out.println(s + "--" + indicatorsSaleRenains(s, phone));
-        //  indicatorsSaleRenains(s, phone);
+        indicatorsSaleRenains(s, phone);
           // System.out.println(remainsShop.get(s).get("Glass"));
         }
-      indicatorsSaleRenains("1-Основной склад", phone);
+    //  indicatorsSaleRenains("1-Основной склад", phone);
         for (String p : phone) {
             orderRecommendationsClothesList.add(new OrderRecommendations(p, "Glass", 5, 59, 6, 5, 64, 4, 5));
             orderRecommendationsClothesList.add(new OrderRecommendations(p, "Case", 75, 67, 5, 53, 65465, 74, 57));
