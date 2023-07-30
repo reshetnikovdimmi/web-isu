@@ -134,8 +134,8 @@
                                                     type="submit"></button>
                                         </td>
 
+                                        <td th:text="${current.cash}"></td>
                                         <td th:text="${current.cash1}"></td>
-                                        <td th:text="${current.cash2}"></td>
                                         </span>
                                     </tr>
 
@@ -161,16 +161,21 @@
                                         </tr>
                                         </thead>
                                         <tbody class="tbody">
-                                        <tr th:each="current:${GlassShop}">
-
+                                        <tr th:each="current:${RemainsGroupShop}">
+                                            <span th:if="${current.view == 'Glass'}">
                                             <td>
-                                                <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                <button class="btn btn-primary btn-sm btn-block"
+                                                        th:text="${current.shop}"
                                                         type="submit"></button>
                                             </td>
-                                            <td class="remanis" th:text="${current.remanis}"></td>
-                                            <td th:text="${current.remanisCloters}"></td>
+                                            <td th:text="${current.remainsShop}"></td>
+                                            <td th:text="${current.remainsPhone}"></td>
+                                            <td th:text="${current.sale1}"></td>
+                                            <td th:text="${current.sale6}"></td>
+                                            <td th:text="${current.order}"></td>
 
 
+                                            </span>
                                         </tr>
 
 
@@ -251,7 +256,8 @@
                                 <thead>
                                 <tr>
                                     <th>МОДЕЛЬ</th>
-                                    <th>ОСТАТОК</th>
+                                    <th>ОСТАТОК ТЕЛ </th>
+                                    <th>ОСТАТОК ТТ </th>
                                     <th>ПРОД 1М</th>
                                     <th>ПРОД 6/3М</th>
                                     <th>ПОТРЕБНОСТЬ</th>
@@ -263,8 +269,7 @@
                                 <tr th:each="current : ${OrderRecommendations}">
                                         <span th:if="${current.view == 'Glass'}">
                                         <td th:text="${current.group}"></td>
-                                        <td th:text="${current.remainsCash1}"></td>
-                                        <td th:text="${current.remainsCash2}"></td>
+                                        <td th:text="${current.remainsPhone}"></td>
                                         <td th:text="${current.remainsShop}"></td>
                                         <td th:text="${current.sale1}"></td>
                                         <td th:text="${current.sale6}"></td>
@@ -284,7 +289,6 @@
                         </div>
 
                     </div>
-
 
 
                 </div>
@@ -316,8 +320,8 @@
                                                     type="submit"></button>
                                         </td>
 
+                                        <td th:text="${current.cash}"></td>
                                         <td th:text="${current.cash1}"></td>
-                                        <td th:text="${current.cash2}"></td>
                                         </span>
                                     </tr>
 
@@ -346,7 +350,8 @@
                                         <tr th:each="current:${CaseShop}">
 
                                             <td>
-                                                <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                <button class="btn btn-primary btn-sm btn-block"
+                                                        th:text="${current.Brend}"
                                                         type="submit"></button>
                                             </td>
                                             <td class="remanis" th:text="${current.remanis}"></td>
@@ -494,8 +499,8 @@
                                                     type="submit"></button>
                                         </td>
 
+                                        <td th:text="${current.cash}"></td>
                                         <td th:text="${current.cash1}"></td>
-                                        <td th:text="${current.cash2}"></td>
                                         </span>
                                     </tr>
 
@@ -524,7 +529,8 @@
                                         <tr th:each="current:${CoverBookShop}">
 
                                             <td>
-                                                <button class="btn btn-primary btn-sm btn-block" th:text="${current.Brend}"
+                                                <button class="btn btn-primary btn-sm btn-block"
+                                                        th:text="${current.Brend}"
                                                         type="submit"></button>
                                             </td>
                                             <td class="remanis" th:text="${current.remanis}"></td>

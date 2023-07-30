@@ -1,6 +1,7 @@
 package com.myisu_1.isu.repo;
 
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.models.Phone_Smart;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -107,5 +108,12 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     List<Phone_Smart> getSaleModelList(List<String> model);
     @Query("SELECT DISTINCT Model  FROM Phone_Smart WHERE Phone = ?1 AND Phone != ' '")
     List<String> getModelListPhone(String p);
+
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
+            "JOIN c.remanisSims p   GROUP BY c.Brend, p.shop")
+    List<OrderRecommendations> getRemainsPhoneTotal();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
+            "JOIN c.remanisSims p   GROUP BY c.Brend")
+    List<OrderRecommendations> getRemainsPhoneAll();
 }
 

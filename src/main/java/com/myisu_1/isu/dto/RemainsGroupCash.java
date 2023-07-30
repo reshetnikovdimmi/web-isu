@@ -8,22 +8,24 @@ import lombok.*;
 @Setter
 @Getter
 public class RemainsGroupCash {
+    String shop;
     String group;
     String view;
+    Long cash;
     Long cash1;
-    Long cash2;
 
-
-    public RemainsGroupCash(String group, String view, Long cash1) {
+    public RemainsGroupCash(String shop, String group, String view, Long cash) {
+        this.shop = shop;
         this.group = group;
         this.view = view;
-        this.cash1 = cash1;
+        this.cash = cash;
     }
 
-    public RemainsGroupCash(String group, String view, Long cash1, Long cash2) {
+    public RemainsGroupCash(String shop, String group, String view, Long cash, Long cash1) {
+        this.shop = shop;
         this.group = group;
         this.view = view;
+        this.cash = cash;
         this.cash1 = cash1;
-        this.cash2 = cash2;
     }
 }

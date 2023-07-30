@@ -15,6 +15,7 @@ public class ClothesPhonesController {
     @GetMapping("/ClothesPhones")
     public String home(Model model) {
         model.addAttribute("RemainsGroupCash", clothesPhonesServise.remainsGroupCash());
+        model.addAttribute("RemainsGroupShop", clothesPhonesServise.remainsGroupShop());
         model.addAttribute("OrderRecommendations", clothesPhonesServise.orderRecommendations());
         return "ClothesPhones";
     }

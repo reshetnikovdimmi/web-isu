@@ -42,30 +42,30 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT DISTINCT nameClothes FROM ClothingMatchingTable WHERE phoneClothes IN :clothing")
     List<String> getBrendList(List<String> clothing);
-    @Query("SELECT  new com.myisu_1.isu.dto.RemainsGroupCash(c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p WHERE p.nameShop = ?1 GROUP BY c.nameClothes")
-    List<RemainsGroupCash> getRemainsCash(String s);
+    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.RemainsGroupCash(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p WHERE p.nameShop IN ?1 AND c.nameClothes IN ?2 GROUP BY c.nameClothes, c.viewClothes" )
+    List<RemainsGroupCash> getRemainsCash(List<String> s, List<String> phone);
 
-    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p  WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes IN ?2 GROUP BY c.phoneClothes ")
-    List<OrderRecommendations> getRemainsShopPhone(String s, List<String> p,String a);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p   GROUP BY c.nameClothes, p.nameShop,c.viewClothes ")
+    List<OrderRecommendations> getRemainsShopPhoneTotal();
 
-   @Query("SELECT DISTINCT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale1 p WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes IN ?2 GROUP BY c.phoneClothes")
-    List<OrderRecommendations> getSale1ShopPhone(String s, List<String> p, String glass);
-    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale6 p WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes IN ?2 GROUP BY c.phoneClothes")
-    List<OrderRecommendations> getSale6ShopPhone(String s, List<String> p, String glass);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale1 p   GROUP BY c.nameClothes, p.nameShop,c.viewClothes ")
+    List<OrderRecommendations> getSale1ShopPhoneTotal();
 
-    @Query("SELECT DISTINCT SUM( p.remanisClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p  WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 GROUP BY c.nameClothes ")
-    Integer getRemainsShopPhoneTotal(String s, String phone, String glass);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale6 p   GROUP BY c.nameClothes, p.nameShop,c.viewClothes ")
+    List<OrderRecommendations> getSale6ShopPhoneTotal();
 
-    @Query("SELECT DISTINCT SUM( p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale1 p  WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 GROUP BY c.nameClothes ")
-    Integer getSale1ShopPhoneTotal(String s, String phone, String c);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p   GROUP BY c.nameClothes, c.viewClothes ORDER BY p.remanisClothes ASC")
+    List<OrderRecommendations> getRemainsShopPhoneAll();
 
-    @Query("SELECT DISTINCT SUM( p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale6 p  WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 GROUP BY c.nameClothes ")
-    Integer getSale6ShopPhoneTotal(String s, String phone, String c);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations( c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale1 p   GROUP BY c.nameClothes, c.viewClothes ")
+    List<OrderRecommendations> getSale1ShopPhoneAll();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations( c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale6 p   GROUP BY c.nameClothes, c.viewClothes ")
+    List<OrderRecommendations> getSale6ShopPhoneAll();
 }
