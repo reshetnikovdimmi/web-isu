@@ -59,5 +59,13 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT DISTINCT SUM( p.remanisClothes) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersPhone p  WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 GROUP BY c.nameClothes ")
-    Integer getRemainsShopPhoneP(String s, String phone, String glass);
+    Integer getRemainsShopPhoneTotal(String s, String phone, String glass);
+
+    @Query("SELECT DISTINCT SUM( p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale1 p  WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 GROUP BY c.nameClothes ")
+    Integer getSale1ShopPhoneTotal(String s, String phone, String c);
+
+    @Query("SELECT DISTINCT SUM( p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale6 p  WHERE c.viewClothes = ?3 AND p.nameShop =?1 AND c.nameClothes = ?2 GROUP BY c.nameClothes ")
+    Integer getSale6ShopPhoneTotal(String s, String phone, String c);
 }
