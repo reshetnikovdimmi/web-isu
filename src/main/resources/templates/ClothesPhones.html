@@ -213,16 +213,27 @@
                         </div>
                     </div>
                     <div class="col">
-
                         <div class="row">
-
-                            <div class="RemanSimCash" th:fragment="RemanSimCash">
-                                <div class="table" id="table_warehouseRemnants">
-                                    <table class="table-responsive table-hover" id="tables_warehouseRemnants">
+                            <div class="remainsCashGlass" th:fragment="remainsCashGlass">
+                                <div class="table_CashGlass">
+                                    <table class="table-borderless">
                                         <thead>
+                                        <tr>
+                                            <th>МОДЕЛЬ</th>
+                                            <th>cash</th>
+                                            <th>cash1</th>
 
+                                        </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="tbody">
+                                        <tr th:each="current : ${RemainsCashGlass}">
+                                        <span th:if="${current.view == 'Glass'}">
+                                        <td th:text="${current.nomenclature}"></td>
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
+                                        </span>
+                                        </tr>
+
 
                                         </tbody>
                                     </table>
@@ -231,23 +242,7 @@
 
                             </div>
                         </div>
-                        <div class="row"><span class="fs-4"></span></div>
-                        <div class="row">
-                            <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
 
-                                <div class="table" id="table_phoneRemanisShop">
-                                    <table class="table-responsive table-hover" id="tables_phoneRemanisShop">
-                                        <thead>
-
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
