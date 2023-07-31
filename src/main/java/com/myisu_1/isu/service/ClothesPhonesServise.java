@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -79,8 +80,11 @@ public class ClothesPhonesServise {
                 a.add(new OrderRecommendations(p, v, 5, 59, serchRemainsAll(p, v, orderRecommendationsClothesList), serchRemainsAll(p, orderRecommendationsClothesList7), serchRemainsAll(p, v, orderRecommendationsClothesList1), serchRemainsAll(p, v, orderRecommendationsClothesList6), 5));
             }
         }
-
-        return a;
+        List<OrderRecommendations>  sortedEmployeeList = a.stream()
+                .sorted(Comparator.comparing(OrderRecommendations::getRemainsShop,
+                        Comparator.nullsLast(Comparator.naturalOrder())))
+                .collect(Collectors.toList());
+        return sortedEmployeeList;
     }
 
     private Integer serchRemainsAll(String p, List<OrderRecommendations> orderRecommendationsClothesList7) {
