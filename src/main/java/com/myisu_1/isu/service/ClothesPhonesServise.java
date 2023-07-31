@@ -158,8 +158,18 @@ public class ClothesPhonesServise {
     }
 
     public Object remainsCashGlass(String models) {
+        List<String> listCash = cash.getWarehouseList();
+        List<OrderRecommendations> orderRecommendationsClothesList = clothingMatchingTableRepositoriy.getRemainsNomenclatureSohp(listCash,models);
+        List<OrderRecommendations> remainsCash = new ArrayList<>();
+        for (OrderRecommendations o:orderRecommendationsClothesList){
+            System.out.println(o.getGroup());
+            if (o.getGroup().equals("")){
 
-        return null;
+            }
+
+        }
+
+        return orderRecommendationsClothesList;
     }
 }
 
