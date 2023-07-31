@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -33,7 +32,7 @@ public class ClothesPhonesServise {
     Map<String, Map<String, Map<String, List<OrderRecommendations>>>> remainsShop = new HashMap<>();
 
     List<RemainsGroupCash> remainsGroupCashClothesList;
-
+    List<OrderRecommendations> d;
     public Object remainsGroupCash() {
 
         List<String> phone = phoneRepositoriy.getBrendDisting();
@@ -101,8 +100,10 @@ public class ClothesPhonesServise {
         return null;
     }
 
-    public Object remainsGroupShop() {
+    public Object remainsGroupShop(String models) {
+
         long start = System.currentTimeMillis();
+            if(d==null){
         List<String> phone = phoneRepositoriy.getBrendDisting();
         List<String> shop = cash.getShopList();
 
@@ -110,7 +111,8 @@ public class ClothesPhonesServise {
         List<OrderRecommendations> orderRecommendationsClothesList1 = clothingMatchingTableRepositoriy.getSale1ShopPhoneTotal();
         List<OrderRecommendations> orderRecommendationsClothesList6 = clothingMatchingTableRepositoriy.getSale6ShopPhoneTotal();
         List<OrderRecommendations> orderRecommendationsClothesList7 = phoneRepositoriy.getRemainsPhoneTotal();
-        List<OrderRecommendations> d = new ArrayList<>();
+
+        d = new ArrayList<>();
         List<String> view = new ArrayList<>();
         view.add("Glass");
         view.add("Case");
@@ -122,10 +124,10 @@ public class ClothesPhonesServise {
                 }
             }
         }
-
+    }
         List<OrderRecommendations> c = new ArrayList<>();
             for (OrderRecommendations o:d){
-                if("Xiaomi Redmi_9A".equals(o.getGroup())){
+                if(models.equals(o.getGroup())){
                     c.add(o);
                 }
             }
@@ -139,7 +141,7 @@ public class ClothesPhonesServise {
 
     private Integer serchRemains(String s, String p, List<OrderRecommendations> orderRecommendationsClothesList7) {
         for (OrderRecommendations o:orderRecommendationsClothesList7){
-            if(s.equals(o.getShop()) && p.equals(o.getGroup())){
+            if(p.equals(o.getView()) && s.equals(o.getGroup())){
                 return Math.toIntExact(o.getRemainsShopL());
             }
         }
@@ -155,8 +157,8 @@ public class ClothesPhonesServise {
         return null;
     }
 
+    public Object remainsCashGlass(String models) {
 
-    public Object remainsGroupShopOne() {
         return null;
     }
 }

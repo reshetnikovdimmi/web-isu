@@ -97,7 +97,7 @@ public class PhoneServise {
                     if (remanisSaleShop.containsKey(authorization_ttList.get(1).getName())) {
                         indicator.put("remanisCash2", remanisSaleShop.get(authorization_ttList.get(1).getName()).get(matrix).get(models).get("remanisCash2"));
                     } else {
-                        indicator.put("remanisCash2", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(2).getName()));
+                        indicator.put("remanisCash2", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(1).getName()));
                     }
 
                     indicator.put("order", 0);
