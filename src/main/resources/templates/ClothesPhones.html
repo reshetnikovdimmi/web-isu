@@ -200,22 +200,26 @@
                         </div>
                     </div>
                     <div class="col-md-6 themed-grid-col">
+
                         <div class="remainsGroupShopGlassAll" th:fragment="remainsGroupShopGlassAll">
+                            <table class="table-borderless table-hover" >
+                            <thead>
+                            <tr>
+                                <th>ТТ</th>
+                                <th>ОСТАТОК</th>
+                                <th>ПРОД 1М</th>
+                                <th>ПРОД 6/3М</th>
+                                <th>ПОТРЕБНОСТЬ</th>
 
-                            <div class="tables" >
-                                <table class="table-borderless" >
-                                    <thead>
-                                    <tr>
-                                        <th>ТТ</th>
-                                        <th>ОСТАТОК</th>
-                                        <th>ПРОД 1М</th>
-                                        <th>ПРОД 6/3М</th>
-                                        <th>ПОТРЕБНОСТЬ</th>
+                            </tr>
+                            </thead>
+                            </table>
+                            <div class="fixed_header">
 
-                                    </tr>
-                                    </thead>
+                                <table class="table-borderless table-hover" >
 
-                                    <tbody class="labels" th:each="current:${remainsGroupShopAll}">
+
+                                    <tbody class="labels" th:each="current:${remainsGroupShopAll}" >
 
                                     <tr >
                                     <span th:if="${current.view == 'Glass'}">
