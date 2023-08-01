@@ -202,58 +202,48 @@
                     <div class="col-md-6 themed-grid-col">
                         <div class="remainsGroupShopGlassAll" th:fragment="remainsGroupShopGlassAll">
 
+                            <div class="tables" >
+                                <table class="table-borderless" >
+                                    <thead>
+                                    <tr>
+                                        <th>ТТ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+                                        <th>ПОТРЕБНОСТЬ</th>
 
-                            <table class="table-borderless">
-                                <thead>
-                                <tr>
-                                    <th>ТТ</th>
-                                    <th>ОСТАТОК</th>
-                                    <th>ПРОД 1М</th>
-                                    <th>ПРОД 6/3М</th>
-                                    <th>ПОТРЕБНОСТЬ</th>
+                                    </tr>
+                                    </thead>
 
-                                </tr>
-                                </thead>
-                                <tbody class="tbody">
-                                <tr th:each="current:${remainsGroupShopAll}">
+                                    <tbody class="labels" th:each="current:${remainsGroupShopAll}">
 
-                                   <span th:if="${current.view == 'Glass'}">
-                                            <td>
-                                                <button class="btn btn-primary btn-sm btn-block"
-                                                        th:text="${current.shop}"
-                                                        type="submit"></button>
-                                            </td>
-                                            <td th:text="${current.remainsShop}"></td>
-                                            <td th:text="${current.remainsPhone}"></td>
-                                            <td th:text="${current.sale1}"></td>
-                                            <td th:text="${current.sale6}"></td>
+                                    <tr >
+                                    <span th:if="${current.view == 'Glass'}">
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block minMatrix"
+                                                    th:text="${current.shop}"
+                                                    type="submit"></button>
+                                        </td>
+                                        <td th:text="${current.remainsShop}"></td>
+                                        <td th:text="${current.remainsPhone}"></td>
+                                        <td th:text="${current.sale1}"></td>
+                                        <td th:text="${current.view}"></td>
+                                        <td th:text="${current.sale6}"></td>
+                                       </span>
+                                    </tr>
 
+                                    <tr th:each="currents:${current.all}" class="hide_minMatrix">
+                                        <td th:text="${currents.shop}"></td>
+                                        <td th:text="${currents.remainsShop}"></td>
+                                        <td th:text="${currents.remainsPhone}"></td>
+                                        <td th:text="${currents.sale1}"></td>
+                                        <td th:text="${currents.sale6}"></td>
 
-                                         <table class="table-borderless">
-                                                        <tbody class="tbody">
-                                                        <tr th:each="currents:${current.all}">
-                                                           <td th:text="${currents.remainsShop}"></td>
-                                                           <td th:text="${currents.remainsPhone}"></td>
-                                                           <td th:text="${currents.sale1}"></td>
-                                                           <td th:text="${currents.sale6}"></td>
+                                    </tr>
 
-                                                        </tr>
-
-                                                        </tbody>
-
-                                                    </table>
-
-</span>
-
-
-
-
-
-                                </tr>
-
-
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="col">

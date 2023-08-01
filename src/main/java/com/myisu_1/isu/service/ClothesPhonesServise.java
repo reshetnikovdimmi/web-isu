@@ -199,28 +199,15 @@ public class ClothesPhonesServise {
 
     public Object remainsGroupShopAll(String models, String shop) {
         List<OrderRecommendations> order = new ArrayList<>();
-        List<OrderRecommendations> all= new ArrayList<>();
+      for (int i = 0;i<200;i++){
 
-        all.add(new OrderRecommendations("esgeew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgzvcew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgaew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgdsvew","wfqwf","Glass",454,54,564,4,1));
-        order.add(new OrderRecommendations("total","wfqwf","Glass","Glass",454,54,564L,4,1,all));
-        all.add(new OrderRecommendations("esgeew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgzvcew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgaew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgdsvew","wfqwf","Glass",454,54,564,4,1));
-        order.add(new OrderRecommendations("total","wfqwf","Glass","Glass",454,54,564L,4,2,all));
-        all.add(new OrderRecommendations("esgeew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgzvcew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgaew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgdsvew","wfqwf","Glass",454,54,564,4,1));
-        order.add(new OrderRecommendations("total","wfqwf","Glass","Glass",454,54,564L,4,3,all));
-        all.add(new OrderRecommendations("esgeew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgzvcew","wfqwf","Glass",454,54,564,4,1));
-        all.add(new OrderRecommendations("esgaew","wfqwf","Glass",454,54,564,4,1));
+        List<OrderRecommendations> all= new ArrayList<>();
+        all.add(new OrderRecommendations("esgeew","wfqwf","Glass",45634,54,564,4,1));
+        all.add(new OrderRecommendations("esgzvcew","wfqwf","Glass",454,5364,564,4863,1));
+        all.add(new OrderRecommendations("esgssgaew","wfqwf","Glass",45524,54,564,4,1683));
         all.add(new OrderRecommendations("esgdsvew","wfqwf","Glass",454,54,564,4,1));
         order.add(new OrderRecommendations("total","wfqwf","Glass","Glass",454,54,564L,4,4,all));
+    }
         return order;
     }
 }

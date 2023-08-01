@@ -31,6 +31,14 @@ function tableRemainsGroupShopGlassAll(models) {
         var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
         $.get('/remainsGroupShopGlassAll/' + models + '/' + shop, {}, function(data) {
             $(".remainsGroupShopGlassAll").html(data);
+             var d;
+                $(document).find('.minMatrix').on('click', function() {
+                    if (d != undefined) {
+                        d.parents().nextAll('.hide_minMatrix').toggle();
+                    }
+                    d = $(this);
+                    d.parents().nextAll('.hide_minMatrix').toggle();
+                });
         });
     });
 }
