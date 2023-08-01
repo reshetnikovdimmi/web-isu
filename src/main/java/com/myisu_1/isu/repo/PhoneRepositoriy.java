@@ -115,5 +115,9 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
             "JOIN c.remanisSims p   GROUP BY c.Brend")
     List<OrderRecommendations> getRemainsPhoneAll();
+    @Modifying
+    @Transactional
+    @Query("update Phone_Smart u set u.Brend = ?1 where u.Brend = ?2")
+    void updateBrendPhoneSmart(String brend, String brend1);
 }
 

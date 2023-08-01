@@ -148,21 +148,21 @@
 
 
                             <div class="remainsGroupShopGlass" th:fragment="remainsGroupShopGlass">
-                                <div class="table_NameSimShop">
 
-                                    <table class="table-borderless">
-                                        <thead>
-                                        <tr>
-                                            <th>ТТ</th>
-                                            <th>ОСТАТОК</th>
-                                            <th>ПРОД 1М</th>
-                                            <th>ПРОД 6/3М</th>
-                                            <th>ПОТРЕБНОСТЬ</th>
 
-                                        </tr>
-                                        </thead>
-                                        <tbody class="tbody">
-                                        <tr th:each="current:${RemainsGroupShop}">
+                                <table class="table-borderless">
+                                    <thead>
+                                    <tr>
+                                        <th>ТТ</th>
+                                        <th>ОСТАТОК</th>
+                                        <th>ПРОД 1М</th>
+                                        <th>ПРОД 6/3М</th>
+                                        <th>ПОТРЕБНОСТЬ</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr th:each="current:${RemainsGroupShop}">
                                             <span th:if="${current.view == 'Glass'}">
                                             <td>
                                                 <button class="btn btn-primary btn-sm btn-block"
@@ -177,12 +177,11 @@
 
 
                                             </span>
-                                        </tr>
+                                    </tr>
 
 
-                                        </tbody>
-                                    </table>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
 
 
@@ -201,12 +200,57 @@
                         </div>
                     </div>
                     <div class="col-md-6 themed-grid-col">
-                        <div class="table" id="table_clotherRemanisShop">
-                            <table class="table-responsive table-hover" id="tables_clotherRemanisShop">
-                                <thead>
+                        <div class="remainsGroupShopGlassAll" th:fragment="remainsGroupShopGlassAll">
 
+
+                            <table class="table-borderless">
+                                <thead>
+                                <tr>
+                                    <th>ТТ</th>
+                                    <th>ОСТАТОК</th>
+                                    <th>ПРОД 1М</th>
+                                    <th>ПРОД 6/3М</th>
+                                    <th>ПОТРЕБНОСТЬ</th>
+
+                                </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody">
+                                <tr th:each="current:${remainsGroupShopAll}">
+
+                                   <span th:if="${current.view == 'Glass'}">
+                                            <td>
+                                                <button class="btn btn-primary btn-sm btn-block"
+                                                        th:text="${current.shop}"
+                                                        type="submit"></button>
+                                            </td>
+                                            <td th:text="${current.remainsShop}"></td>
+                                            <td th:text="${current.remainsPhone}"></td>
+                                            <td th:text="${current.sale1}"></td>
+                                            <td th:text="${current.sale6}"></td>
+
+
+                                         <table class="table-borderless">
+                                                        <tbody class="tbody">
+                                                        <tr th:each="currents:${current.all}">
+                                                           <td th:text="${currents.remainsShop}"></td>
+                                                           <td th:text="${currents.remainsPhone}"></td>
+                                                           <td th:text="${currents.sale1}"></td>
+                                                           <td th:text="${currents.sale6}"></td>
+
+                                                        </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+
+</span>
+
+
+
+
+
+                                </tr>
+
 
                                 </tbody>
                             </table>
@@ -226,7 +270,7 @@
                                         </tr>
                                         </thead>
                                         <tbody class="tbody">
-                                        <tr th:each="current : ${RemainsCashGlass}">
+                                        <tr th:each="current : ${RemainsCash}">
                                         <span th:if="${current.view == 'Glass'}">
                                         <td th:text="${current.nomenclature}"></td>
                                         <td th:text="${current.remainsCash1}"></td>
@@ -397,13 +441,26 @@
 
                         <div class="row">
 
-                            <div class="RemanSimCash" th:fragment="RemanSimCash">
-                                <div class="table" id="table_warehouseRemnantsCase">
-                                    <table class="table-responsive table-hover" id="tables_warehouseRemnantsCase">
+                            <div class="remainsCashCase" th:fragment="remainsCashCase">
+                                <div class="table_CashGlass">
+                                    <table class="table-borderless">
                                         <thead>
+                                        <tr>
+                                            <th>МОДЕЛЬ</th>
+                                            <th>cash</th>
+                                            <th>cash1</th>
 
+                                        </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="tbody">
+                                        <tr th:each="current : ${RemainsCash}">
+                                        <span th:if="${current.view == 'Case'}">
+                                        <td th:text="${current.nomenclature}"></td>
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
+                                        </span>
+                                        </tr>
+
 
                                         </tbody>
                                     </table>
@@ -581,13 +638,26 @@
 
                         <div class="row">
 
-                            <div class="RemanSimCash" th:fragment="RemanSimCash">
-                                <div class="table" id="table_warehouseRemnantsCoverBook">
-                                    <table class="table-responsive table-hover" id="tables_warehouseRemnantsCoverBook">
+                            <div class="remainsCashCoverBook" th:fragment="remainsCashCoverBook">
+                                <div class="table_CashGlass">
+                                    <table class="table-borderless">
                                         <thead>
+                                        <tr>
+                                            <th>МОДЕЛЬ</th>
+                                            <th>cash</th>
+                                            <th>cash1</th>
 
+                                        </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="tbody">
+                                        <tr th:each="current : ${RemainsCash}">
+                                        <span th:if="${current.view == 'CoverBook'}">
+                                        <td th:text="${current.nomenclature}"></td>
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
+                                        </span>
+                                        </tr>
+
 
                                         </tbody>
                                     </table>

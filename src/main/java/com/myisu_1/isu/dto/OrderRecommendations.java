@@ -2,6 +2,8 @@ package com.myisu_1.isu.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +22,23 @@ public class OrderRecommendations {
     Integer sale1;
     Integer sale6;
     Integer order;
+    List<OrderRecommendations> all;
+
+    public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsCash1, Integer remainsCash2, Long remainsShopL, Integer remainsPhone, Integer sale1, List<OrderRecommendations> all) {
+        this.shop = shop;
+        this.group = group;
+        this.nomenclature = nomenclature;
+        this.view = view;
+        this.remainsCash1 = remainsCash1;
+        this.remainsCash2 = remainsCash2;
+        this.remainsShop = remainsShop;
+        this.remainsShopL = remainsShopL;
+        this.remainsPhone = remainsPhone;
+        this.sale1 = sale1;
+        this.sale6 = sale6;
+        this.order = order;
+        this.all = all;
+    }
 
     public OrderRecommendations(String shop, String group, String view, Long remainsShopL) {
         this.shop = shop;

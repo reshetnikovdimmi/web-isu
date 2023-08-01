@@ -1,11 +1,9 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.exporte.ExselFileExporteMatrixPhone;
+import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.Phone_Smart;
-import com.myisu_1.isu.repo.MarvelClassifierRepositoriy;
-import com.myisu_1.isu.repo.PhoneRepositoriy;
-import com.myisu_1.isu.repo.PromoRepositoriy;
-import com.myisu_1.isu.repo.SalesRepositoriy;
+import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.MatrixPhoneServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +30,8 @@ public class MatrixPhoneController {
     private SalesRepositoriy salesRepositoriy;
     @Autowired
     private MarvelClassifierRepositoriy marvelClassifierRepositoriy;
+    @Autowired
+    private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
     @GetMapping("/MatrixPhone")
     public String MatrixPhone(Model model) {
         model.addAttribute("Phone", phoneRepositoriy.findAll());
@@ -55,6 +55,7 @@ public class MatrixPhoneController {
         if (IDupdateMatrixPhone != 0) {
             String modelGb = phoneRepositoriy.findById(IDupdateMatrixPhone).get().getModel_GB();
             String models = phoneRepositoriy.findById(IDupdateMatrixPhone).get().getModel();
+            String brend = phoneRepositoriy.findById(IDupdateMatrixPhone).get().getBrend();
             if(!Model_GB.equals(modelGb)){
                 promoRepositoriy.updateModelsPricePromo(Model_GB, modelGb);
 
@@ -63,14 +64,17 @@ public class MatrixPhoneController {
                 salesRepositoriy.updatModelSale(Model, models);
                 marvelClassifierRepositoriy.updatRainbowNomenclature(Model, models);
             }
+            if(!Brend.equals(brend)){
+                promoRepositoriy.updateBrendPricePromo(Brend, brend);
+                clothingMatchingTableRepositoriy.updateBrend(Brend, brend);
+            }
             phoneRepositoriy.save((new Phone_Smart(IDupdateMatrixPhone, Matrix_T2, Brend, Model, Model_GB, Phone)));
             phoneRepositoriy.updateModelsGbPhoneSmart(Model_GB, modelGb);
-
+            phoneRepositoriy.updateBrendPhoneSmart(Brend, brend);
 
         } else {
             phoneRepositoriy.save((new Phone_Smart(Matrix_T2, Brend, Model, Model_GB, Phone)));
         }
-
         model.addAttribute("Phone", phoneRepositoriy.findAll());
         return "MatrixPhone";
     }
@@ -85,22 +89,15 @@ public class MatrixPhoneController {
 
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition","attachment; filename=MatrixAO.xlsx");
-
         ByteArrayInputStream inputStream = ExselFileExporteMatrixPhone.exportPrisePromoFile(matrixPhoneServise.loadMatrixPhone());
-
         IOUtils.copy(inputStream, response.getOutputStream());
 
 
     }
     @PostMapping("/matrixPhoneImport")
     public String matrixT2Import(@RequestParam("matrixPhoneImport") MultipartFile matrixPhoneImport, Model model) throws IOException, ParseException {
-
-
-
         model.addAttribute("time", matrixPhoneServise.exselLoadMatrixPhone(matrixPhoneImport));
         model.addAttribute("Phone", phoneRepositoriy.findAll());
-
-
         return "MatrixPhone";
     }
 }

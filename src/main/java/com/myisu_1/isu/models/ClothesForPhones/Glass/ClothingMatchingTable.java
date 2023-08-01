@@ -84,4 +84,6 @@ public class ClothingMatchingTable implements Serializable {
     public void setClothersPhone(List<ClothesForPhonesRemanis> clothersPhone) {
         this.clothersPhone = clothersPhone;
     }
+
+
 }

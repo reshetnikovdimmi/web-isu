@@ -6,7 +6,9 @@ import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -74,4 +76,8 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT phoneClothes FROM ClothingMatchingTable WHERE nameClothes = ?1")
     List<String> getRemainsNomenclatureModels(String models);
+    @Modifying
+    @Transactional
+    @Query("update ClothingMatchingTable u set u.nameClothes = ?1 where u.nameClothes = ?2")
+    void updateBrend(String brend, String brend1);
 }

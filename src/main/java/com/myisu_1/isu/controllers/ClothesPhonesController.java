@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.text.ParseException;
-
 @Controller
 public class ClothesPhonesController {
     @Autowired
@@ -53,8 +51,32 @@ public class ClothesPhonesController {
 
     private String remainsCashGlass(@PathVariable("models") String models, Model model) {
 
-        model.addAttribute("RemainsCashGlass", clothesPhonesServise.remainsCashGlass(models));
+        model.addAttribute("RemainsCash", clothesPhonesServise.remainsCash(models));
 
         return "ClothesPhones::remainsCashGlass";
+    }
+    @RequestMapping(value = "/remainsCashCase/{models}", method = RequestMethod.GET)
+
+    private String remainsCashCase(@PathVariable("models") String models, Model model) {
+
+        model.addAttribute("RemainsCash", clothesPhonesServise.remainsCash(models));
+
+        return "ClothesPhones::remainsCashCase";
+    }
+    @RequestMapping(value = "/remainsCashCoverBook/{models}", method = RequestMethod.GET)
+
+    private String remainsCashCoverBook(@PathVariable("models") String models, Model model) {
+
+        model.addAttribute("RemainsCash", clothesPhonesServise.remainsCash(models));
+
+        return "ClothesPhones::remainsCashCoverBook";
+    }
+    @RequestMapping(value = "/remainsGroupShopGlassAll/{models}/{shop}", method = RequestMethod.GET)
+
+    private String remainsGroupShopGlassAll(@PathVariable("models") String models,@PathVariable("models") String shop, Model model) {
+
+        model.addAttribute("remainsGroupShopAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
+
+        return "ClothesPhones::remainsGroupShopGlassAll";
     }
 }

@@ -6,6 +6,7 @@ $(document).ready(function() {
         var models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
         $.get('/remainsGroupShop/' + models, {}, function(data) {
             $(".remainsGroupShopGlass").html(data);
+            tableRemainsGroupShopGlassAll(models)
         });
         tableCashGlass(models)
     });
@@ -14,19 +15,40 @@ $(document).ready(function() {
         $.get('/remainsGroupShopCase/' + models, {}, function(data) {
             $(".remainsGroupShopCase").html(data);
         });
+        tableCashCase(models)
     });
     $(document).find('.table_CoverBook .btn').on('click', function() {
         var models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
         $.get('/remainsGroupShopCoverBook/' + models, {}, function(data) {
             $(".remainsGroupShopCoverBook").html(data);
         });
-
+        tableCashCoverBook(models)
     });
 });
-function tableCashGlass(models) {
-$.get('/remainsCashGlass/' + models, {}, function(data) {
 
-
-            $(".remainsCashGlass").html(data);
+function tableRemainsGroupShopGlassAll(models) {
+    $(document).find('.remainsGroupShopGlass .btn').on('click', function() {
+        var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        $.get('/remainsGroupShopGlassAll/' + models + '/' + shop, {}, function(data) {
+            $(".remainsGroupShopGlassAll").html(data);
         });
+    });
+}
+
+function tableCashGlass(models) {
+    $.get('/remainsCashGlass/' + models, {}, function(data) {
+        $(".remainsCashGlass").html(data);
+    });
+}
+
+function tableCashCase(models) {
+    $.get('/remainsCashCase/' + models, {}, function(data) {
+        $(".remainsCashCase").html(data);
+    });
+}
+
+function tableCashCoverBook(models) {
+    $.get('/remainsCashCoverBook/' + models, {}, function(data) {
+        $(".remainsCashCoverBook").html(data);
+    });
 }
