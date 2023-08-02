@@ -73,7 +73,7 @@ public class ClothesPhonesController {
     }
     @RequestMapping(value = "/remainsGroupShopGlassAll/{models}/{shop}", method = RequestMethod.GET)
 
-    private String remainsGroupShopGlassAll(@PathVariable("models") String models,@PathVariable("models") String shop, Model model) {
+    private String remainsGroupShopGlassAll(@PathVariable("models") String models,@PathVariable("shop") String shop, Model model) {
 
         model.addAttribute("remainsGroupShopAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
 

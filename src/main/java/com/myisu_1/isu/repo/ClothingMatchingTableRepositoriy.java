@@ -76,8 +76,15 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT phoneClothes FROM ClothingMatchingTable WHERE nameClothes = ?1")
     List<String> getRemainsNomenclatureModels(String models);
+
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes, c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p WHERE p.nameShop = ?1 AND c.nameClothes =?2 AND c.viewClothes= ?3 ")
+    List<OrderRecommendations> getRemainsNomenclatureSohpAll(String shop, String models, String view);
+
     @Modifying
     @Transactional
     @Query("update ClothingMatchingTable u set u.nameClothes = ?1 where u.nameClothes = ?2")
     void updateBrend(String brend, String brend1);
+
+
 }

@@ -225,7 +225,7 @@
                                     <span th:if="${current.view == 'Glass'}">
                                         <td>
                                             <button class="btn btn-primary btn-sm btn-block minMatrix"
-                                                    th:text="${current.shop}"
+                                                    th:text="${current.group}"
                                                     type="submit"></button>
                                         </td>
                                         <td th:text="${current.remainsShop}"></td>
@@ -237,10 +237,11 @@
                                     </tr>
 
                                     <tr th:each="currents:${current.all}" class="hide_minMatrix">
-                                        <td th:text="${currents.shop}"></td>
+                                        <td th:text="${currents.nomenclature}"></td>
                                         <td th:text="${currents.remainsShop}"></td>
                                         <td th:text="${currents.remainsPhone}"></td>
                                         <td th:text="${currents.sale1}"></td>
+                                        <td th:text="${current.view}"></td>
                                         <td th:text="${currents.sale6}"></td>
 
                                     </tr>

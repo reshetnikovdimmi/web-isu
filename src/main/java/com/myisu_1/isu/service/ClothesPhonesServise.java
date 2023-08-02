@@ -32,8 +32,11 @@ public class ClothesPhonesServise {
 
     Map<String, Map<String, Map<String, List<OrderRecommendations>>>> remainsShop = new HashMap<>();
 
+    List<OrderRecommendations> remainsCash;
+
     List<RemainsGroupCash> remainsGroupCashClothesList;
     List<OrderRecommendations> d;
+    List<OrderRecommendations> c;
 
     public Object remainsGroupCash() {
 
@@ -80,7 +83,7 @@ public class ClothesPhonesServise {
                 a.add(new OrderRecommendations(p, v, 5, 59, serchRemainsAll(p, v, orderRecommendationsClothesList), serchRemainsAll(p, orderRecommendationsClothesList7), serchRemainsAll(p, v, orderRecommendationsClothesList1), serchRemainsAll(p, v, orderRecommendationsClothesList6), 5));
             }
         }
-        List<OrderRecommendations>  sortedEmployeeList = a.stream()
+        List<OrderRecommendations> sortedEmployeeList = a.stream()
                 .sorted(Comparator.comparing(OrderRecommendations::getRemainsShop,
                         Comparator.nullsLast(Comparator.naturalOrder())))
                 .collect(Collectors.toList());
@@ -130,7 +133,7 @@ public class ClothesPhonesServise {
                 }
             }
         }
-        List<OrderRecommendations> c = new ArrayList<>();
+        c = new ArrayList<>();
         for (OrderRecommendations o : d) {
             if (models.equals(o.getGroup())) {
                 c.add(o);
@@ -166,7 +169,7 @@ public class ClothesPhonesServise {
         List<String> listCash = cash.getWarehouseList();
         List<OrderRecommendations> orderRecommendationsClothesList = clothingMatchingTableRepositoriy.getRemainsNomenclatureSohp(listCash, models);
         List<String> nomenclature = clothingMatchingTableRepositoriy.getRemainsNomenclatureModels(models);
-        List<OrderRecommendations> remainsCash = new ArrayList<>();
+        remainsCash = new ArrayList<>();
         List<String> view = new ArrayList<>();
         view.add("Glass");
         view.add("Case");
@@ -175,15 +178,19 @@ public class ClothesPhonesServise {
 
             for (String v : view) {
                 for (OrderRecommendations o : orderRecommendationsClothesList) {
-                    if (o.getNomenclature().equals(n)&&v.equals(o.getView())) {
+                    if (o.getNomenclature().equals(n) && v.equals(o.getView())) {
                         OrderRecommendations remainsGroupCash = new OrderRecommendations();
 
-                        if (listCash.get(0).equals(o.getGroup())){
+                        if (listCash.get(0).equals(o.getGroup())) {
+                            remainsGroupCash.setShop(o.getGroup());
+                            remainsGroupCash.setGroup(o.getShop());
                             remainsGroupCash.setNomenclature(o.getNomenclature());
                             remainsGroupCash.setRemainsCash1(o.getRemainsShop());
                             remainsGroupCash.setView(o.getView());
                         }
-                        if (listCash.get(1).equals(o.getGroup())){
+                        if (listCash.get(1).equals(o.getGroup())) {
+                            remainsGroupCash.setShop(o.getShop());
+                            remainsGroupCash.setGroup(o.getGroup());
                             remainsGroupCash.setNomenclature(o.getNomenclature());
                             remainsGroupCash.setRemainsCash2(o.getRemainsShop());
                             remainsGroupCash.setView(o.getView());
@@ -199,16 +206,27 @@ public class ClothesPhonesServise {
 
     public Object remainsGroupShopAll(String models, String shop) {
         List<OrderRecommendations> order = new ArrayList<>();
-      for (int i = 0;i<200;i++){
 
-        List<OrderRecommendations> all= new ArrayList<>();
-        all.add(new OrderRecommendations("esgeew","wfqwf","Glass",45634,54,564,4,1));
-        all.add(new OrderRecommendations("esgzvcew","wfqwf","Glass",454,5364,564,4863,1));
-        all.add(new OrderRecommendations("esgssgaew","wfqwf","Glass",45524,54,564,4,1683));
-        all.add(new OrderRecommendations("esgdsvew","wfqwf","Glass",454,54,564,4,1));
-        order.add(new OrderRecommendations("total","wfqwf","Glass","Glass",454,54,564L,4,4,all));
-    }
+
+
+        for (OrderRecommendations or : d) {
+
+            if (or.getShop().equals(shop)) {
+
+                order.add(new OrderRecommendations("total", or.getGroup(), "Glass", or.getView(), 454, 54, or.getRemainsShopL(), or.getRemainsPhone(), or.getSale1(), remaisAll(or.getGroup(),shop,or.getView())));
+            }
+        }
+
+
+
+
         return order;
+    }
+
+    private List<OrderRecommendations> remaisAll(String models, String shop, String view) {
+        List<OrderRecommendations> all;
+        all = clothingMatchingTableRepositoriy.getRemainsNomenclatureSohpAll(shop, models,view);
+        return all;
     }
 }
 
