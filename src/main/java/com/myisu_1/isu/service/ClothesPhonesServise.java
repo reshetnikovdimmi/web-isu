@@ -166,10 +166,11 @@ public class ClothesPhonesServise {
     }
 
     public Object remainsCash(String models) {
+        remainsCash = new ArrayList<>();
         List<String> listCash = cash.getWarehouseList();
         List<OrderRecommendations> orderRecommendationsClothesList = clothingMatchingTableRepositoriy.getRemainsNomenclatureSohp(listCash, models);
         List<String> nomenclature = clothingMatchingTableRepositoriy.getRemainsNomenclatureModels(models);
-        remainsCash = new ArrayList<>();
+
         List<String> view = new ArrayList<>();
         view.add("Glass");
         view.add("Case");
@@ -211,8 +212,8 @@ public class ClothesPhonesServise {
         for (OrderRecommendations or : d) {
 
             if (or.getShop().equals(shop)) {
+                order.add(new OrderRecommendations(null,or.getGroup(),null,or.getView(),null,null,or.getRemainsShop(),null ,or.getRemainsPhone(), null,null,null,remaisAll(or.getGroup(), shop, or.getView())));
 
-                order.add(new OrderRecommendations("total", or.getGroup(), "Glass", or.getView(), 454, 54, or.getRemainsShopL(), or.getRemainsPhone(), or.getSale1(), remaisAll(or.getGroup(), shop, or.getView())));
             }
         }
 
