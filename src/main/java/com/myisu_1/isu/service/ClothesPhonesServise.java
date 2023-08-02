@@ -208,25 +208,43 @@ public class ClothesPhonesServise {
         List<OrderRecommendations> order = new ArrayList<>();
 
 
-
         for (OrderRecommendations or : d) {
 
             if (or.getShop().equals(shop)) {
 
-                order.add(new OrderRecommendations("total", or.getGroup(), "Glass", or.getView(), 454, 54, or.getRemainsShopL(), or.getRemainsPhone(), or.getSale1(), remaisAll(or.getGroup(),shop,or.getView())));
+                order.add(new OrderRecommendations("total", or.getGroup(), "Glass", or.getView(), 454, 54, or.getRemainsShopL(), or.getRemainsPhone(), or.getSale1(), remaisAll(or.getGroup(), shop, or.getView())));
             }
         }
-
-
 
 
         return order;
     }
 
     private List<OrderRecommendations> remaisAll(String models, String shop, String view) {
-        List<OrderRecommendations> all;
-        all = clothingMatchingTableRepositoriy.getRemainsNomenclatureSohpAll(shop, models,view);
-        return all;
+        List<OrderRecommendations> rem = new ArrayList<>();
+        List<String> nomenklatureGroup = clothingMatchingTableRepositoriy.getNomenklatureGroup(models, view);
+
+        List<OrderRecommendations> remainsAll = clothingMatchingTableRepositoriy.getRemainsNomenclatureSohpAll(shop, models, view);
+        List<OrderRecommendations> sale1All = clothingMatchingTableRepositoriy.getSale1NomenclatureSohpAll(shop, models, view);
+        List<OrderRecommendations> sale6All = clothingMatchingTableRepositoriy.getSale6NomenclatureSohpAll(shop, models, view);
+        for (String n : nomenklatureGroup) {
+
+            rem.add(new OrderRecommendations(null,null,n,null,null,null,serchRemainAll(n,remainsAll),null ,null , serchRemainAll(n,sale1All),serchRemainAll(n,sale6All),null,null));
+        }
+
+        return rem;
+    }
+
+    private Integer serchRemainAll(String n, List<OrderRecommendations> remainsAll) {
+        Integer sum = null;
+        for (OrderRecommendations o:remainsAll){
+
+            if (n.equals(o.getNomenclature())){
+
+                sum = o.getRemainsShop();
+            }
+        }
+        return sum;
     }
 }
 

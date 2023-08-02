@@ -40,6 +40,8 @@ public class OrderRecommendations {
         this.all = all;
     }
 
+
+
     public OrderRecommendations(String shop, String group, String view, Long remainsShopL) {
         this.shop = shop;
         this.group = group;

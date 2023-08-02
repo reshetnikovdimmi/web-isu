@@ -119,11 +119,6 @@
                                     <tr>
                                         <th>МОДЕЛЬ</th>
                                         <th>ОСТАТОК</th>
-                                        <th>ПРОД 1М</th>
-                                        <th>ПРОД 6/3М</th>
-                                        <th>ПОТРЕБНОСТЬ</th>
-
-
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
@@ -205,8 +200,9 @@
                             <table class="table-borderless table-hover" >
                             <thead>
                             <tr>
-                                <th>ТТ</th>
+                                <th>------ТТ-----</th>
                                 <th>ОСТАТОК</th>
+                                <th>ОСТАТОК ТЕЛ</th>
                                 <th>ПРОД 1М</th>
                                 <th>ПРОД 6/3М</th>
                                 <th>ПОТРЕБНОСТЬ</th>
@@ -221,18 +217,18 @@
 
                                     <tbody class="labels" th:each="current:${remainsGroupShopAll}" >
 
-                                    <tr >
+                                    <tr style="border:2px solid rgb(240, 240, 240);">
                                     <span th:if="${current.view == 'Glass'}">
                                         <td>
                                             <button class="btn btn-primary btn-sm btn-block minMatrix"
                                                     th:text="${current.group}"
                                                     type="submit"></button>
                                         </td>
-                                        <td th:text="${current.remainsShop}"></td>
+                                        <td th:text="${current.remainsShopL}"></td>
                                         <td th:text="${current.remainsPhone}"></td>
                                         <td th:text="${current.sale1}"></td>
-                                        <td th:text="${current.view}"></td>
                                         <td th:text="${current.sale6}"></td>
+                                        <td th:text="${current.order}"></td>
                                        </span>
                                     </tr>
 
@@ -241,9 +237,8 @@
                                         <td th:text="${currents.remainsShop}"></td>
                                         <td th:text="${currents.remainsPhone}"></td>
                                         <td th:text="${currents.sale1}"></td>
-                                        <td th:text="${current.view}"></td>
                                         <td th:text="${currents.sale6}"></td>
-
+                                        <td > <input name="" id=" " ></td>
                                     </tr>
 
                                     </tbody>
