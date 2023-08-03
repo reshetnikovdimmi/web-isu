@@ -70,9 +70,9 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations( c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersSale6 p   GROUP BY c.nameClothes, c.viewClothes ")
     List<OrderRecommendations> getSale6ShopPhoneAll();
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, p.namesClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p WHERE p.nameShop IN ?1 AND c.nameClothes =?2")
-    List<OrderRecommendations> getRemainsNomenclatureSohp(List<String> listCash, String models);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.namesClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p WHERE p.nameShop IN ?1")
+    List<OrderRecommendations> getRemainsNomenclatureSohp(List<String> listCash);
 
     @Query("SELECT phoneClothes FROM ClothingMatchingTable WHERE nameClothes = ?1")
     List<String> getRemainsNomenclatureModels(String models);

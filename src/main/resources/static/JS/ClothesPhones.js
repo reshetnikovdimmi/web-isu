@@ -39,9 +39,22 @@ function tableRemainsGroupShopGlassAll(models) {
                     d = $(this);
                     d.parents().nextAll('.hide_minMatrix').toggle();
                 });
+
+             changeOrder(shop);
         });
     });
 }
+function changeOrder(shop) {
+$(document).find('.change').on('change', function() {
+var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
+
+      $.get('/updatingAllTables/' + shop + '/' + nomenclature + '/' + this.value, {}, function(data) {
+
+console.log(data)
+              });
+    });
+}
+
 
 function tableCashGlass(models) {
     $.get('/remainsCashGlass/' + models, {}, function(data) {

@@ -150,6 +150,7 @@
                                     <tr>
                                         <th>ТТ</th>
                                         <th>ОСТАТОК</th>
+                                        <th>ОСТАТОК ТЕЛ</th>
                                         <th>ПРОД 1М</th>
                                         <th>ПРОД 6/3М</th>
                                         <th>ПОТРЕБНОСТЬ</th>
@@ -205,6 +206,7 @@
                                 <th>ОСТАТОК ТЕЛ</th>
                                 <th>ПРОД 1М</th>
                                 <th>ПРОД 6/3М</th>
+                                <th>ОСТ На СК</th>
                                 <th>ПОТРЕБНОСТЬ</th>
 
                             </tr>
@@ -228,6 +230,7 @@
                                         <td th:text="${current.remainsPhone}"></td>
                                         <td th:text="${current.sale1}"></td>
                                         <td th:text="${current.sale6}"></td>
+                                        <td th:text="${current.remainsCash1}"></td>
                                         <td th:text="${current.order}"></td>
                                        </span>
                                     </tr>
@@ -238,7 +241,8 @@
                                         <td th:text="${currents.remainsPhone}"></td>
                                         <td th:text="${currents.sale1}"></td>
                                         <td th:text="${currents.sale6}"></td>
-                                        <td > <input name="" id=" " ></td>
+                                        <td th:text="${currents.remainsCash1}"></td>
+                                        <td > <input name="" id=" " class="change" ></td>
                                     </tr>
 
                                     </tbody>
