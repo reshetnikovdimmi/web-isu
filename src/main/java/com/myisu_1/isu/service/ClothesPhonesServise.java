@@ -144,7 +144,7 @@ public class ClothesPhonesServise {
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-
+        System.out.println(df.format(new Date(timeWorkCode)));
         return c;
     }
 
