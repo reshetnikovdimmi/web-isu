@@ -110,10 +110,10 @@ public class BonusesServise {
             mB.articleNumber = marwelPromoRepositoriy.getListModelPromoCode(marvelPromo.getPromoCode(), mB.dateString(marvelPromo.getStartPromo()), mB.dateString(marvelPromo.getEndPromo()));
 
             for (String s : mB.articleNumber) {
-                if (!marvelClassifierRepositoriy.getArticleNumber(s)) {
+                if (!marvelClassifierRepositoriy.getArticleNumber(s.replaceAll(" ",""))) {
                     a.add(s);
                 }
-                b.addAll(marvelClassifierRepositoriy.getArticleNumberList(s));
+                b.addAll(marvelClassifierRepositoriy.getArticleNumberList(s.replaceAll(" ","")));
             }
             mB.salesPhone = salesRepositoriy.getSaleXiaomi(mB.dateString(marvelPromo.getStartPromo()), mB.dateString(marvelPromo.getEndPromo()), b);
         } catch (ParseException e) {
@@ -124,7 +124,7 @@ public class BonusesServise {
         mB.imeiSuppliers = suppliersRepositoriy.getListSuppliers(mB.imeiSale, "МАРВЕЛ КТ ООО");
         mB.listPhone = phoneRepositoriy.getSaleModelList(mB.model);
         Bonuses noClassifier = new Bonuses(a);
-        System.out.println(noClassifier);
+
         List<Bonuses> bonus = mB.bonusesCalculation();
         bonus.add(noClassifier);
         return bonus;

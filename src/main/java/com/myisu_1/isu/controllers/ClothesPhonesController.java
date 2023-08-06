@@ -1,14 +1,16 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.service.ClothesPhonesServise;
 import com.myisu_1.isu.service.ClothingMatchingServise;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class ClothesPhonesController {
@@ -18,8 +20,9 @@ public class ClothesPhonesController {
     private ClothesPhonesServise clothesPhonesServise;
     @GetMapping("/ClothesPhones")
     public String home(Model model) {
-        model.addAttribute("RemainsGroupCash", clothesPhonesServise.remainsGroupCash());
 
+
+        model.addAttribute("RemainsGroupCash", clothesPhonesServise.remainsGroupCash());
         model.addAttribute("OrderRecommendations", clothesPhonesServise.orderRecommendations());
         return "ClothesPhones";
     }
@@ -78,5 +81,13 @@ public class ClothesPhonesController {
         model.addAttribute("remainsGroupShopAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
 
         return "ClothesPhones::remainsGroupShopGlassAll";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/updatingAllTables/{shop}/{nomenkl}/{kol}", method = RequestMethod.GET)
+    private List<OrderRecommendations> updatingAllTables(@PathVariable("shop") String shop, @PathVariable("nomenkl") String nomenkl, @PathVariable("kol") Integer kol) {
+
+        System.out.println(shop+"--"+nomenkl+"--"+kol);
+
+        return clothesPhonesServise.updatingAllTables(shop,nomenkl,kol);
     }
 }

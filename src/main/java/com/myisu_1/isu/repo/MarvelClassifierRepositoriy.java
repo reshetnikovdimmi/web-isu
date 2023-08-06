@@ -18,10 +18,10 @@ public interface MarvelClassifierRepositoriy extends JpaRepository<MarvelClassif
     @Query("update MarvelClassifier u set u.RainbowNomenclature = ?1 where u.RainbowNomenclature = ?2 ")
     void updatRainbowNomenclature(String model, String models);
 
-    @Query("SELECT CASE WHEN COUNT(ManufacturersArticle) > 0 THEN true ELSE false END FROM MarvelClassifier where ManufacturersArticle LIKE %?1% ")
+    @Query("SELECT CASE WHEN COUNT(ManufacturersArticle) > 0 THEN true ELSE false END FROM MarvelClassifier where REPLACE(ManufacturersArticle,' ','') LIKE %?1% ")
     boolean getArticleNumber(String s);
 
-    @Query("SELECT RainbowNomenclature FROM MarvelClassifier where ManufacturersArticle LIKE %?1% ")
+    @Query("SELECT RainbowNomenclature FROM MarvelClassifier where REPLACE(ManufacturersArticle,' ','') LIKE %?1% ")
     List<String> getArticleNumberList(String s);
 
 
