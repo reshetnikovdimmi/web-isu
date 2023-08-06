@@ -1,10 +1,8 @@
 package com.myisu_1.isu.service;
 
-import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothesForPhonesRemanis;
 import com.myisu_1.isu.models.accessories.AccessoriesSale1;
 import com.myisu_1.isu.models.accessories.AccessoriesSale6;
 import com.myisu_1.isu.models.accessories.RemanisAccessories;
-import com.myisu_1.isu.models.accessories.SettingAccessories;
 import com.myisu_1.isu.repo.AccessoriesSale1Repositoriy;
 import com.myisu_1.isu.repo.AccessoriesSale6Repositoriy;
 import com.myisu_1.isu.repo.RemanisAccessoriesRepositoriy;
@@ -18,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SettingAccessoriesServise {

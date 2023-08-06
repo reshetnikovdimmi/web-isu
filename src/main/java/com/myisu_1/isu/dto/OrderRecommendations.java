@@ -15,6 +15,7 @@ public class OrderRecommendations {
     String nomenclature;
     String view;
     Integer remainsCash1;
+
     Integer remainsCash2;
     Integer remainsShop;
     Long remainsShopL;
@@ -31,16 +32,48 @@ public class OrderRecommendations {
         this.view = view;
         this.remainsCash1 = remainsCash1;
         this.remainsCash2 = remainsCash2;
-        this.remainsShop = remainsShop;
+
         this.remainsShopL = remainsShopL;
+        this.remainsPhone = remainsPhone;
+        this.sale1 = sale1;
+
+        this.all = all;
+    }
+
+    public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsShop) {
+        this.shop = shop;
+        this.group = group;
+        this.nomenclature = nomenclature;
+        this.view = view;
+        this.remainsShop = remainsShop;
+    }
+
+    public OrderRecommendations(String group, String view, Integer remainsShop, Integer remainsPhone, Integer sale1, Integer sale6, List<OrderRecommendations> all) {
+        this.group = group;
+        this.view = view;
+        this.remainsShop = remainsShop;
+        this.remainsPhone = remainsPhone;
+        this.sale1 = sale1;
+        this.sale6 = sale6;
+        this.all = all;
+    }
+
+    public OrderRecommendations(String group, String view, Integer remainsShop, Integer remainsPhone, Integer sale1, Integer sale6, Integer order) {
+        this.group = group;
+        this.view = view;
+        this.remainsShop = remainsShop;
         this.remainsPhone = remainsPhone;
         this.sale1 = sale1;
         this.sale6 = sale6;
         this.order = order;
-        this.all = all;
     }
 
-
+    public OrderRecommendations(String group, Integer remainsPhone, Integer sale1, Integer sale6) {
+        this.group = group;
+        this.remainsPhone = remainsPhone;
+        this.sale1 = sale1;
+        this.sale6 = sale6;
+    }
 
     public OrderRecommendations(String shop, String group, String view, Long remainsShopL) {
         this.shop = shop;
@@ -115,4 +148,6 @@ public class OrderRecommendations {
         this.sale1 = sale1;
         this.sale6 = sale6;
     }
+
+
 }

@@ -2,8 +2,6 @@ package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.myisu_1.isu.models.Phone_Smart;
-import com.myisu_1.isu.models.Shop.Shop;
 import com.myisu_1.isu.models.authorization_tt;
 import lombok.Data;
 import lombok.NoArgsConstructor;

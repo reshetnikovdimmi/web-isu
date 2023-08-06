@@ -61,10 +61,10 @@ modals(l);
         for (var j = 0; j < 5; j++) {
             var td = document.createElement('td');
             if (j == 0) {
-                td.innerHTML = data[i].startDate;
+                td.innerHTML = dateFormat(data[i].startDate);
             }
             if (j == 1) {
-                td.innerHTML = data[i].endDate;
+                td.innerHTML = dateFormat(data[i].endDate);
             }
             if (j == 2) {
                 // sum = sum + data[i].compensation;
@@ -74,7 +74,7 @@ modals(l);
                 td.innerHTML = data[i].models;
             }
             if (j == 4) {
-                td.innerHTML = data[i].dataSale;
+                td.innerHTML = dateFormat(data[i].dataSale);
             }
             tr.appendChild(td);
         }
@@ -86,7 +86,10 @@ modals(l);
     table.appendChild(thead);
     elem.appendChild(table);
 }
-
+function dateFormat(data) {
+var mydate = new Date(data);
+    return  new Intl.DateTimeFormat().format(mydate);
+}
 function sendRequest(method, url, marvelPromo = null) {
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest()

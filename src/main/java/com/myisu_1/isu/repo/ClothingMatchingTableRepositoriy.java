@@ -2,7 +2,6 @@ package com.myisu_1.isu.repo;
 
 
 import com.myisu_1.isu.dto.OrderRecommendations;
-import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -44,9 +43,9 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT DISTINCT nameClothes FROM ClothingMatchingTable WHERE phoneClothes IN :clothing")
     List<String> getBrendList(List<String> clothing);
-    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.RemainsGroupCash(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
+    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersPhone p WHERE p.nameShop IN ?1 AND c.nameClothes IN ?2 GROUP BY c.nameClothes, c.viewClothes" )
-    List<RemainsGroupCash> getRemainsCash(List<String> s, List<String> phone);
+    List<OrderRecommendations> getRemainsCash(List<String> s, List<String> phone);
 
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersPhone p   GROUP BY c.nameClothes, p.nameShop,c.viewClothes ")
@@ -95,4 +94,8 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes, c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersSale6 p WHERE p.nameShop = ?1 AND c.nameClothes =?2 AND c.viewClothes= ?3 ")
      List<OrderRecommendations> getSale6NomenclatureSohpAll(String shop, String models, String view);
+
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes, c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p WHERE p.nameShop IN ?1")
+    List<OrderRecommendations> getRemainsNomenclatureCash(List<String> listCash);
 }

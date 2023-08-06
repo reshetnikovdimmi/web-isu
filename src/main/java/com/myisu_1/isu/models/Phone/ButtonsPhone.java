@@ -1,6 +1,5 @@
 package com.myisu_1.isu.models.Phone;
 
-import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothesForPhonesSale6;
 import com.myisu_1.isu.models.retail_price;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
