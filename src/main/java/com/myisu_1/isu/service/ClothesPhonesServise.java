@@ -295,5 +295,10 @@ public class ClothesPhonesServise {
         }
         return sum;
     }
+
+    public List<OrderRecommendations> updatingAllTables(String shop, String nomenkl, Integer kol) {
+System.out.println(shop+"--"+nomenkl+"--"+kol);
+        return null;
+    }
 }
 

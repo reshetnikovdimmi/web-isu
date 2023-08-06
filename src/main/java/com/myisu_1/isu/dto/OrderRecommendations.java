@@ -84,13 +84,7 @@ public class OrderRecommendations {
 
     }
 
-    public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsShop) {
-        this.shop = shop;
-        this.group = group;
-        this.nomenclature = nomenclature;
-        this.view = view;
-        this.remainsShop = remainsShop;
-    }
+
 
     public OrderRecommendations(String group, String view, Long remainsShopL) {
         this.group = group;
