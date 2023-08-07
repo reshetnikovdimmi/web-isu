@@ -111,7 +111,6 @@ public class MovementsPhoneServise extends PhoneServise {
 
         Collections.shuffle(listPhone);
 
-
         int i1 = requirement;
         int vv = 0;
         for (int i = 0; i < authorization_ttList.size(); i++) {

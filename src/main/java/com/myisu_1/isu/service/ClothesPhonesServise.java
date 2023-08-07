@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +34,7 @@ public class ClothesPhonesServise {
     List<OrderRecommendations> remainsGroupCashClothesList;
     List<OrderRecommendations> d;
     List<OrderRecommendations> c;
+    OrderRecommendations orderRecommendations = null;
 
     public Object remainsGroupCash() {
 
@@ -43,7 +43,7 @@ public class ClothesPhonesServise {
         List<String> listCash = cash.getWarehouseList();
         List<OrderRecommendations> remainsGroupCash1ClothesList = clothingMatchingTableRepositoriy.getRemainsCash(listCash, phone);
         List<OrderRecommendations> orderRecommendationsClothesList = clothingMatchingTableRepositoriy.getRemainsNomenclatureCash(listCash);
-        OrderRecommendations orderRecommendations = null;
+
 
         for (OrderRecommendations o : remainsGroupCash1ClothesList) {
             orderRecommendations = new OrderRecommendations();
@@ -138,8 +138,12 @@ public class ClothesPhonesServise {
     }
 
     public Object remainsGroupShop(String models) {
-
-
+        for (OrderRecommendations o : remainsGroupCashClothesList) {
+            if (o.getGroup().equals(models)&&o.getRemainsGroupShop()==null) {
+               System.out.println("null");
+            }
+        }
+        if (orderRecommendations.getRemainsGroupShop() == null) {
 
             List<String> phone = phoneRepositoriy.getBrendDisting();
             List<String> shop = cash.getShopList();
@@ -161,9 +165,10 @@ public class ClothesPhonesServise {
                     }
                 }
             }
-
+            orderRecommendations.setRemainsGroupShop(d);
+        }
         c = new ArrayList<>();
-        for (OrderRecommendations o : d) {
+        for (OrderRecommendations o : orderRecommendations.getRemainsGroupShop()) {
             if (models.equals(o.getGroup())) {
                 c.add(o);
             }
@@ -193,7 +198,6 @@ public class ClothesPhonesServise {
         List<OrderRecommendations> remCash = new ArrayList<>();
         for (OrderRecommendations o : remainsGroupCashClothesList) {
             if (o.getGroup().equals(models)) {
-
                 remCash.addAll(o.getAll());
             }
         }
@@ -202,23 +206,20 @@ public class ClothesPhonesServise {
 
     public Object remainsGroupShopAll(String models, String shop) {
         List<OrderRecommendations> order = new ArrayList<>();
-        for (OrderRecommendations or : d) {
-            if (or.getShop().equals(shop)) {
 
-                order.add(new OrderRecommendations(shop, or.getGroup(), null, or.getView(), serchRemainsCash1(or.getGroup(), or.getView(), remainsGroupCashClothesList), serchRemainsCash2(or.getGroup(), or.getView(), remainsGroupCashClothesList), or.getRemainsShop(), null, or.getRemainsPhone(), or.getSale1(), or.getSale6(), null, remaisAll(or.getGroup(), shop, or.getView())));
+        for (int i = 0; i < orderRecommendations.getRemainsGroupShop().size(); i++) {
+            if (orderRecommendations.getRemainsGroupShop().get(i).getShop().equals(shop)) {
+                orderRecommendations.getRemainsGroupShop().set(i, new OrderRecommendations(shop, orderRecommendations.getRemainsGroupShop().get(i).getGroup(), null, orderRecommendations.getRemainsGroupShop().get(i).getView(), serchRemainsCash1(d.get(i).getGroup(), orderRecommendations.getRemainsGroupShop().get(i).getView(), remainsGroupCashClothesList), serchRemainsCash2(d.get(i).getGroup(), orderRecommendations.getRemainsGroupShop().get(i).getView(), remainsGroupCashClothesList), orderRecommendations.getRemainsGroupShop().get(i).getRemainsShop(), null, d.get(i).getRemainsPhone(), orderRecommendations.getRemainsGroupShop().get(i).getSale1(), orderRecommendations.getRemainsGroupShop().get(i).getSale6(), null, remaisAll(orderRecommendations.getRemainsGroupShop().get(i).getGroup(), shop, orderRecommendations.getRemainsGroupShop().get(i).getView())));
+                order.add(orderRecommendations.getRemainsGroupShop().get(i));
             }
         }
-
-
         return order;
     }
 
     private Integer serchRemainsCash2(String group, String view, List<OrderRecommendations> remainsGroupCashClothesList) {
         Integer sum = null;
         for (OrderRecommendations o : remainsGroupCashClothesList) {
-
             if (group.equals(o.getGroup()) && view.equals(o.getView())) {
-
                 sum = o.getRemainsCash2();
             }
         }
@@ -228,9 +229,7 @@ public class ClothesPhonesServise {
     private Integer serchRemainsCash1(String group, String view, List<OrderRecommendations> remainsGroupCashClothesList) {
         Integer sum = null;
         for (OrderRecommendations o : remainsGroupCashClothesList) {
-
             if (group.equals(o.getGroup()) && view.equals(o.getView())) {
-
                 sum = o.getRemainsCash1();
             }
         }
@@ -244,24 +243,20 @@ public class ClothesPhonesServise {
         List<OrderRecommendations> sale1All = clothingMatchingTableRepositoriy.getSale1NomenclatureSohpAll(shop, models, view);
         List<OrderRecommendations> sale6All = clothingMatchingTableRepositoriy.getSale6NomenclatureSohpAll(shop, models, view);
         for (String n : nomenklatureGroup) {
-
-            rem.add(new OrderRecommendations(null, null, n, null, remainsCash1All(n,models), remainsCash2All(n,models), serchRemains(n, remainsAll), null, null, serchRemains(n, sale1All), serchRemains(n, sale6All), null, null));
+            rem.add(new OrderRecommendations(null, null, n, null, remainsCash1All(n, models), remainsCash2All(n, models), serchRemains(n, remainsAll), null, null, serchRemains(n, sale1All), serchRemains(n, sale6All), null, null));
         }
-
         return rem;
     }
 
     private Integer remainsCash1All(String n, String models) {
         Integer sum = null;
-
         for (OrderRecommendations o : remainsGroupCashClothesList) {
             if (o.getGroup().equals(models)) {
-                for (OrderRecommendations or:o.getAll()){
-                    if(or.getNomenclature().equals(n)){
+                for (OrderRecommendations or : o.getAll()) {
+                    if (or.getNomenclature().equals(n)) {
                         sum = or.getRemainsCash1();
                     }
                 }
-
             }
         }
 
@@ -272,12 +267,11 @@ public class ClothesPhonesServise {
         Integer sum = null;
         for (OrderRecommendations o : remainsGroupCashClothesList) {
             if (o.getGroup().equals(models)) {
-                for (OrderRecommendations or:o.getAll()){
-                    if(or.getNomenclature().equals(n)){
+                for (OrderRecommendations or : o.getAll()) {
+                    if (or.getNomenclature().equals(n)) {
                         sum = or.getRemainsCash2();
                     }
                 }
-
             }
         }
         return sum;
@@ -287,9 +281,7 @@ public class ClothesPhonesServise {
     private Integer serchRemains(String n, List<OrderRecommendations> remainsAll) {
         Integer sum = null;
         for (OrderRecommendations o : remainsAll) {
-
             if (n.equals(o.getNomenclature())) {
-
                 sum = o.getRemainsShop();
             }
         }
@@ -297,8 +289,8 @@ public class ClothesPhonesServise {
     }
 
     public List<OrderRecommendations> updatingAllTables(String shop, String nomenkl, Integer kol) {
-System.out.println(shop+"--"+nomenkl+"--"+kol);
-        return null;
+        System.out.println(shop + "--" + nomenkl + "--" + kol);
+        return remainsGroupCashClothesList;
     }
 }
 
