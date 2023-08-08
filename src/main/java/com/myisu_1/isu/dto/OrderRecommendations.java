@@ -100,11 +100,9 @@ public class OrderRecommendations {
 
     }
 
-
-
-    public OrderRecommendations(String group, String view, Long remainsShopL) {
+    public OrderRecommendations(String shop, String group, Long remainsShopL) {
+        this.shop = shop;
         this.group = group;
-        this.view = view;
         this.remainsShopL = remainsShopL;
     }
 

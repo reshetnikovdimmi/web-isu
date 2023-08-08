@@ -108,9 +108,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT DISTINCT Model  FROM Phone_Smart WHERE Phone = ?1 AND Phone != ' '")
     List<String> getModelListPhone(String p);
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
-            "JOIN c.remanisSims p   GROUP BY c.Brend, p.shop")
-    List<OrderRecommendations> getRemainsPhoneTotal();
+
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
             "JOIN c.remanisSims p   GROUP BY c.Brend")
     List<OrderRecommendations> getRemainsPhoneAll();
@@ -118,5 +116,8 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Transactional
     @Query("update Phone_Smart u set u.Brend = ?1 where u.Brend = ?2")
     void updateBrendPhoneSmart(String brend, String brend1);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
+            "JOIN c.remanisSims p   GROUP BY p.shop, c.Brend")
+    List<OrderRecommendations> getRemainsShopPhoneGroup();
 }
 

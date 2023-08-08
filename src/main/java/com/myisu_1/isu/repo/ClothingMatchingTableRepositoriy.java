@@ -43,21 +43,7 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT DISTINCT nameClothes FROM ClothingMatchingTable WHERE phoneClothes IN :clothing")
     List<String> getBrendList(List<String> clothing);
-    @Query("SELECT DISTINCT  new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p WHERE p.nameShop IN ?1 AND c.nameClothes IN ?2 GROUP BY c.nameClothes, c.viewClothes" )
-    List<OrderRecommendations> getRemainsCash(List<String> s, List<String> phone);
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p   GROUP BY c.nameClothes, p.nameShop,c.viewClothes ")
-    List<OrderRecommendations> getRemainsShopPhoneTotal();
-
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale1 p   GROUP BY c.nameClothes, p.nameShop,c.viewClothes ")
-    List<OrderRecommendations> getSale1ShopPhoneTotal();
-
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale6 p   GROUP BY c.nameClothes, p.nameShop,c.viewClothes ")
-    List<OrderRecommendations> getSale6ShopPhoneTotal();
 
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersPhone p   GROUP BY c.nameClothes, c.viewClothes ORDER BY p.remanisClothes ASC")
@@ -69,33 +55,30 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations( c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersSale6 p   GROUP BY c.nameClothes, c.viewClothes ")
     List<OrderRecommendations> getSale6ShopPhoneAll();
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.namesClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p WHERE p.nameShop IN ?1")
-    List<OrderRecommendations> getRemainsNomenclatureSohp(List<String> listCash);
 
-    @Query("SELECT phoneClothes FROM ClothingMatchingTable WHERE nameClothes = ?1")
-    List<String> getRemainsNomenclatureModels(String models);
-
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes, c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p WHERE p.nameShop = ?1 AND c.nameClothes =?2 AND c.viewClothes= ?3 ")
-    List<OrderRecommendations> getRemainsNomenclatureSohpAll(String shop, String models, String view);
 
     @Modifying
     @Transactional
     @Query("update ClothingMatchingTable u set u.nameClothes = ?1 where u.nameClothes = ?2")
     void updateBrend(String brend, String brend1);
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes, c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale1 p WHERE p.nameShop = ?1 AND c.nameClothes =?2 AND c.viewClothes= ?3 ")
-    List<OrderRecommendations> getSale1NomenclatureSohpAll(String shop, String models, String view);
-    @Query("SELECT phoneClothes FROM ClothingMatchingTable WHERE nameClothes =?1 AND viewClothes= ?2")
-    List<String> getNomenklatureGroup(String models, String view);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes,c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p   GROUP BY c.nameClothes, c.viewClothes,p.nameShop")
+    List<OrderRecommendations> getRemainsShopClothingGroup();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale1 p   GROUP BY c.nameClothes, c.viewClothes,p.nameShop")
+        List<OrderRecommendations> getSale1ShopClothingGroup();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes,c.viewClothes, SUM (p.saleClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale6 p   GROUP BY c.nameClothes, c.viewClothes,p.nameShop")
+    List<OrderRecommendations> getSale6ShopClothingGroup();
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.nameClothes, c.phoneClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersSale6 p WHERE p.nameShop = ?1 AND c.nameClothes =?2 AND c.viewClothes= ?3 ")
-     List<OrderRecommendations> getSale6NomenclatureSohpAll(String shop, String models, String view);
-
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop, c.nameClothes, c.phoneClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
-            "JOIN c.clothersPhone p WHERE p.nameShop IN ?1")
-    List<OrderRecommendations> getRemainsNomenclatureCash(List<String> listCash);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.namesClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p")
+    List<OrderRecommendations> getRemainsShopClothingGroupAll();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.nameClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale1 p")
+    List<OrderRecommendations> getSale1ShopClothingGroupAll();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.nameClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersSale6 p")
+    List<OrderRecommendations> getSale6ShopClothingGroupAll();
 }
