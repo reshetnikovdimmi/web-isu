@@ -37,6 +37,9 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT phoneClothes FROM ClothingMatchingTable WHERE nameClothes = ?1 AND viewClothes = ?2")
     List<String> getClothingList(String brend, String view);
 
+    @Query("SELECT phoneClothes FROM ClothingMatchingTable")
+    List<String> getClothingList();
+
     @Query("SELECT DISTINCT new com.myisu_1.isu.models.ClothesForPhones.Glass.Glass(c.phoneClothes, r.remanisClothes) FROM ClothingMatchingTable c " +
             "RIGHT JOIN c.clothersPhone r WHERE c.viewClothes = ?1 AND r.nameShop = ?2 ")
     List<Glass>  getClothingAll(String view, String shop);
@@ -81,4 +84,6 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.nameClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersSale6 p")
     List<OrderRecommendations> getSale6ShopClothingGroupAll();
+
+
 }
