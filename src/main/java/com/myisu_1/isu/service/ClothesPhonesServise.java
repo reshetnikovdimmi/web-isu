@@ -40,6 +40,8 @@ public class ClothesPhonesServise {
     List<OrderRecommendations> remainsGroupShop;
     OrderRecommendations orderRecommendations = null;
     List<OrderRecommendations> remainsShopClothingGroupAll;
+    List<OrderRecommendations> sale1ShopClothingGroupAll;
+    List<OrderRecommendations> sale6ShopClothingGroupAll;
 
     public Object remainsGroupCash() {
         groupSaleRemains = new ArrayList<>();
@@ -49,8 +51,8 @@ public class ClothesPhonesServise {
         List<OrderRecommendations> remainsShopPhoneGroup = phoneRepositoriy.getRemainsShopPhoneGroup();
 
         remainsShopClothingGroupAll = clothingMatchingTableRepositoriy.getRemainsShopClothingGroupAll();
-        List<OrderRecommendations> sale1ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale1ShopClothingGroupAll();
-        List<OrderRecommendations> sale6ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale6ShopClothingGroupAll();
+        sale1ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale1ShopClothingGroupAll();
+        sale6ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale6ShopClothingGroupAll();
         // List<OrderRecommendations> remainsShopPhoneGroupAll = phoneRepositoriy.getRemainsShopPhoneGroup();
         cash = shop.getWarehouseList();
         List<String> phone = phoneRepositoriy.getBrendDisting();
@@ -197,7 +199,7 @@ public class ClothesPhonesServise {
                     List<String> n = clothingMatchingTableRepositoriy.getClothingList(groupSaleRemains.get(i).getGroup(), groupSaleRemains.get(i).getView());
                     for (String nom : n) {
                         if (nom != null) {
-                            remShop.add(new OrderRecommendations(s, groupSaleRemains.get(i).getGroup(), nom, groupSaleRemains.get(i).getView(), remainsCash1N(groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView()), 22, 3, null, 11, 3, 4, 5, null));
+                            remShop.add(new OrderRecommendations(s, groupSaleRemains.get(i).getGroup(), nom, groupSaleRemains.get(i).getView(), remainsCashN(cash.get(0),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(cash.get(1),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), null, null, remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale1ShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale6ShopClothingGroupAll), null, null));
                         }
                     }
                     groupSaleRemains.set(i, new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),null, groupSaleRemains.get(i).getView(), groupSaleRemains.get(i).getRemainsCash1(), groupSaleRemains.get(i).getRemainsCash2(),  groupSaleRemains.get(i).getRemainsShop(), null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder(), remShop, null));
@@ -206,16 +208,20 @@ public class ClothesPhonesServise {
         }
     }
 
-    private Integer remainsCash1N(String group, String nom, String view) {
+
+
+
+    private Integer remainsCashN(String s,String group, String nom, String view,List<OrderRecommendations> sale) {
         Integer rem = null;
-        for (OrderRecommendations o : remainsShopClothingGroupAll) {
-            if (cash.get(0).equals(o.getShop()) && group.equals(o.getGroup()) && view.equals(o.getView())&&nom.equals(o.getNomenclature())) {
+        for (OrderRecommendations o : sale) {
+            if (s.equals(o.getShop()) && group.equals(o.getGroup()) && view.equals(o.getView())&&nom.equals(o.getNomenclature())) {
                 rem = Math.toIntExact(o.getRemainsShop());
             }
         }
         return rem;
 
     }
+
 
 
     public Object remainsGroupShopAll(String models, String shop) {

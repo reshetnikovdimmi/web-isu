@@ -33,12 +33,20 @@ function tableRemainsGroupShopGlassAll(models) {
             $(".remainsGroupShopGlassAll").html(data);
              var d;
                 $(document).find('.minMatrix').on('click', function() {
+                var models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
+                        $.get('/remainsGroupShop/' + models, {}, function(data) {
+                            $(".remainsGroupShopGlass").html(data);
+                            tableRemainsGroupShopGlassAll(models)
+                        });
+                        tableCashGlass(models)
                     if (d != undefined) {
                         d.parents().nextAll('.hide_minMatrix').toggle();
                     }
                     d = $(this);
                     d.parents().nextAll('.hide_minMatrix').toggle();
                 });
+
 
              changeOrder(shop);
         });
