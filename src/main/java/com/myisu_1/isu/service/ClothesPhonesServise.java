@@ -139,7 +139,7 @@ public class ClothesPhonesServise {
 
     private Integer serchRemainsAll(String p, List<OrderRecommendations> orderRecommendationsClothesList7) {
         for (OrderRecommendations o : orderRecommendationsClothesList7) {
-            if (p.equals(o.getShop())) {
+            if (p.equals(o.getGroup())) {
                 return Math.toIntExact(o.getRemainsShopL());
             }
         }
@@ -148,7 +148,7 @@ public class ClothesPhonesServise {
 
     private Integer serchRemainsAll(String p, String v, List<OrderRecommendations> orderRecommendationsClothesList) {
         for (OrderRecommendations o : orderRecommendationsClothesList) {
-            if (p.equals(o.getGroup()) && v.equals(o.getView())) {
+            if (p.equals(o.getShop()) && v.equals(o.getGroup())) {
                 return Math.toIntExact(o.getRemainsShopL());
             }
         }

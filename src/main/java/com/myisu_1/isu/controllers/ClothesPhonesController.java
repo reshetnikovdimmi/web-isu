@@ -24,7 +24,7 @@ public class ClothesPhonesController {
         model.addAttribute("OrderRecommendations", clothesPhonesServise.orderRecommendations());
         return "ClothesPhones";
     }
-    @RequestMapping(value = "/remainsGroupShop/{models}", method = RequestMethod.GET)
+    @RequestMapping(value = "/remainsGroupShopGlass/{models}", method = RequestMethod.GET)
 
     private String remainsGroupShop(@PathVariable("models") String models, Model model) {
 
@@ -80,12 +80,25 @@ public class ClothesPhonesController {
 
         return "ClothesPhones::remainsGroupShopGlassAll";
     }
+    @RequestMapping(value = "/remainsGroupShopCaseAll/{models}/{shop}", method = RequestMethod.GET)
+
+    private String remainsGroupShopCaseAll(@PathVariable("models") String models,@PathVariable("shop") String shop, Model model) {
+
+        model.addAttribute("remainsGroupShopCaseAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
+
+        return "ClothesPhones::remainsGroupShopCaseAll";
+    }
+    @RequestMapping(value = "/remainsGroupShopCoverBookAll/{models}/{shop}", method = RequestMethod.GET)
+
+    private String remainsGroupShopCoverBookAll(@PathVariable("models") String models,@PathVariable("shop") String shop, Model model) {
+
+        model.addAttribute("remainsGroupShopCoverBookAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
+
+        return "ClothesPhones::remainsGroupShopCoverBookAll";
+    }
     @ResponseBody
     @RequestMapping(value = "/updatingAllTables/{shop}/{nomenkl}/{kol}", method = RequestMethod.GET)
     private List<OrderRecommendations> updatingAllTables(@PathVariable("shop") String shop, @PathVariable("nomenkl") String nomenkl, @PathVariable("kol") Integer kol) {
-
-        System.out.println(shop+"--"+nomenkl+"--"+kol);
-
-        return clothesPhonesServise.updatingAllTables(shop,nomenkl,kol);
+        return clothesPhonesServise.updatingAllTables(shop,nomenkl.replaceAll("_","/"),kol);
     }
 }
