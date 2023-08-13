@@ -139,9 +139,9 @@ function changeOrderCoverBook(shop,models) {
                 var tds = document.querySelectorAll('.remainsGroupShopCoverBook td');
                 for (var i = 0; i < tds.length; i++) {
                        if (tds[i].lastElementChild != null && data.shop == tds[i].lastElementChild.innerHTML) {
-                       console.log(tds[i+1].innerHTML)
-                       var ost = parseInt(tds[i + 1].innerHTML) + parseInt(data.order)
-                       tds[i + 1].innerHTML = ost
+                       console.log(data.remainsShop)
+
+                       tds[i + 1].innerHTML = data.remainsShop
 
                         }
 
