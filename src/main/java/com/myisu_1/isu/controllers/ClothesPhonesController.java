@@ -97,8 +97,8 @@ public class ClothesPhonesController {
         return "ClothesPhones::remainsGroupShopCoverBookAll";
     }
     @ResponseBody
-    @RequestMapping(value = "/updatingAllTables/{shop}/{nomenkl}/{kol}", method = RequestMethod.GET)
-    private List<OrderRecommendations> updatingAllTables(@PathVariable("shop") String shop, @PathVariable("nomenkl") String nomenkl, @PathVariable("kol") Integer kol) {
-        return clothesPhonesServise.updatingAllTables(shop,nomenkl.replaceAll("_","/"),kol);
+    @RequestMapping(value = "/updatingAllTables/{shop}/{models}/{nomenkl}/{kol}", method = RequestMethod.GET)
+    private OrderRecommendations updatingAllTables(@PathVariable("shop") String shop,@PathVariable("models") String models, @PathVariable("nomenkl") String nomenkl, @PathVariable("kol") Integer kol) {
+        return clothesPhonesServise.updatingAllTables(shop,models,nomenkl.replaceAll("_","/"),kol);
     }
 }

@@ -64,7 +64,7 @@ public class ClothesPhonesServise {
         for (String s : shops) {
             for (String p : phone) {
                 for (String v : view) {
-                    groupSaleRemains.add(new OrderRecommendations(s, p, null, v,searchRemainsCash1( p, v, remainsShopClothingGroup),searchRemainsCash2( p, v, remainsShopClothingGroup),searchRemainsShopL(s, p, v, remainsShopClothingGroup),null,searchRemainsShopL(s, p, v, remainsShopPhoneGroup), searchRemainsShopL(s, p, v, sale1ShopClothingGroup), searchRemainsShopL(s, p, v, sale6ShopClothingGroup), 555, null));
+                    groupSaleRemains.add(new OrderRecommendations(s, p, null, v,searchRemainsCash1( p, v, remainsShopClothingGroup),searchRemainsCash2( p, v, remainsShopClothingGroup),searchRemainsShopL(s, p, v, remainsShopClothingGroup),null,searchRemainsShopL(s, p, v, remainsShopPhoneGroup), searchRemainsShopL(s, p, v, sale1ShopClothingGroup), searchRemainsShopL(s, p, v, sale6ShopClothingGroup), null, null));
 
                 }
             }
@@ -238,9 +238,24 @@ public class ClothesPhonesServise {
     }
 
 
-    public List<OrderRecommendations> updatingAllTables(String shop, String nomenkl, Integer kol) {
-        System.out.println(shop + "--" + nomenkl + "--" + kol);
-        return null;
+    public OrderRecommendations updatingAllTables(String shop, String models, String nomenkl, Integer kol) {
+        OrderRecommendations rem = null;
+        for (int i = 0; i < groupSaleRemains.size(); i++) {
+            if (shop.equals(groupSaleRemains.get(i).getShop()) && groupSaleRemains.get(i).getGroup().equals(models)&&groupSaleRemains.get(i).getAll()!=null){
+                List<OrderRecommendations> remShop = new ArrayList<>();
+                for (int j = 0;j<groupSaleRemains.get(i).getAll().size();j++){
+
+                    if(nomenkl.equals(groupSaleRemains.get(i).getAll().get(j).getNomenclature())){
+                        remShop.add(groupSaleRemains.get(i).getAll().get(j));
+
+                    }
+                    rem = new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),null, groupSaleRemains.get(i).getView(), groupSaleRemains.get(i).getRemainsCash1(), groupSaleRemains.get(i).getRemainsCash2(),  groupSaleRemains.get(i).getRemainsShop(), null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder()==null?kol:groupSaleRemains.get(i).getOrder()+kol, remShop, null);
+                   groupSaleRemains.set(i, rem);
+                }
+
+            }
+        }
+        return rem;
     }
 }
 

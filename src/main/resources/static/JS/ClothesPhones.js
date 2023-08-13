@@ -32,14 +32,16 @@ $(document).ready(function() {
 function tableRemainsGroupShopGlassAll(models) {
     $(document).find('.remainsGroupShopGlass .btn').on('click', function() {
         var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
         $.get('/remainsGroupShopGlassAll/' + models + '/' + shop, {}, function(data) {
             $(".remainsGroupShopGlassAll").html(data);
 
             $(document).find('.minMatrix').on('click', function() {
-                var models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
                 $.get('/remainsGroupShopGlass/' + models, {}, function(data) {
                     $(".remainsGroupShopGlass").html(data);
                     tableRemainsGroupShopGlassAll(models)
+
                 });
                 tableCashGlass(models)
                 if (a != undefined) {
@@ -47,9 +49,10 @@ function tableRemainsGroupShopGlassAll(models) {
                 }
                 a= $(this);
                a.parents().nextAll('.hide_minMatrix').toggle();
+
             });
             $("#TT_Glass").html(shop);
-            changeOrderGlass(shop);
+changeOrderGlass(shop,models);
         });
     });
 }
@@ -57,11 +60,12 @@ function tableRemainsGroupShopGlassAll(models) {
 function tableRemainsGroupShopCaseAll(models) {
     $(document).find('.remainsGroupShopCase .btn').on('click', function() {
         var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
         $.get('/remainsGroupShopCaseAll/' + models + '/' + shop, {}, function(data) {
             $(".remainsGroupShopCaseAll").html(data);
 
             $(document).find('.minMatrix').on('click', function() {
-                var models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
 
                 $.get('/remainsGroupShopCase/' + models, {}, function(data) {
                     $(".remainsGroupShopCase").html(data);
@@ -73,24 +77,28 @@ function tableRemainsGroupShopCaseAll(models) {
                 }
                 b = $(this);
                 b.parents().nextAll('.hide_minMatrix').toggle();
+
             });
             $("#TT_Case").html(shop);
-            changeOrderCase(shop);
+changeOrderCase(shop,models);
         });
     });
 }
 function tableRemainsGroupShopCoverBookAll(models) {
+
     $(document).find('.remainsGroupShopCoverBook .btn').on('click', function() {
         var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
         $.get('/remainsGroupShopCoverBookAll/' + models + '/' + shop, {}, function(data) {
             $(".remainsGroupShopCoverBookAll").html(data);
 
             $(document).find('.minMatrix').on('click', function() {
-                var models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                models = $(this).parents('tr:first').find('td:eq(0)').text().trim();
 
                 $.get('/remainsGroupShopCoverBook/' + models, {}, function(data) {
                     $(".remainsGroupShopCoverBook").html(data);
                     tableRemainsGroupShopCoverBookAll(models)
+
                 });
                 tableCashCoverBook(models)
                 if (c != undefined) {
@@ -98,34 +106,47 @@ function tableRemainsGroupShopCoverBookAll(models) {
                 }
                 c = $(this);
                 c.parents().nextAll('.hide_minMatrix').toggle();
+
             });
             $("#TT_CoverBook").html(shop);
-            changeOrderCoverBook(shop);
+
+changeOrderCoverBook(shop,models);
         });
     });
 }
 
-function changeOrderGlass(shop) {
+function changeOrderGlass(shop,models) {
     $(document).find('.changeGlass').on('change', function() {
         var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
-        $.get('/updatingAllTables/' + shop + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
+        $.get('/updatingAllTables/' + shop + '/'+ $("#Model_Glass").text() + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
             console.log(data)
         });
     });
 }
-function changeOrderCase(shop) {
+function changeOrderCase(shop,models) {
     $(document).find('.changeCase').on('change', function() {
         var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
-        $.get('/updatingAllTables/' + shop + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
+        $.get('/updatingAllTables/' + shop + '/'+$("#Model_Case").text() + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
             console.log(data)
         });
     });
 }
-function changeOrderCoverBook(shop) {
+function changeOrderCoverBook(shop,models) {
     $(document).find('.changeCoverBook').on('change', function() {
         var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
-        $.get('/updatingAllTables/' + shop + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
-            console.log(data)
+        $.get('/updatingAllTables/' + shop + '/'+ $("#Model_CoverBook").text() + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
+            console.log(data.shop)
+                var tds = document.querySelectorAll('.remainsGroupShopCoverBook td');
+                for (var i = 0; i < tds.length; i++) {
+                       if (tds[i].lastElementChild != null && data.shop == tds[i].lastElementChild.innerHTML) {
+                       console.log(tds[i+1].innerHTML)
+                       var ost = parseInt(tds[i + 1].innerHTML) + parseInt(data.order)
+                       tds[i + 1].innerHTML = ost
+
+                        }
+
+
+                }
         });
     });
 }
