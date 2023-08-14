@@ -135,18 +135,24 @@ function changeOrderCoverBook(shop,models) {
     $(document).find('.changeCoverBook').on('change', function() {
         var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
         $.get('/updatingAllTables/' + shop + '/'+ $("#Model_CoverBook").text() + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
-            console.log(data.shop)
+
                 var tds = document.querySelectorAll('.remainsGroupShopCoverBook td');
                 for (var i = 0; i < tds.length; i++) {
                        if (tds[i].lastElementChild != null && data.shop == tds[i].lastElementChild.innerHTML) {
-                       console.log(data.remainsShop)
-
-                       tds[i + 1].innerHTML = data.remainsShop
-
+                            tds[i + 1].innerHTML = data.remainsShop
                         }
-
-
                 }
+                var group = document.querySelectorAll('.remainsGroupShopCoverBookAll td');
+                                for (var i = 0; i < group.length; i++) {
+
+                                       if (group[i].lastElementChild != null && data.group == group[i].lastElementChild.innerHTML) {
+console.log(group[i].lastElementChild)
+                                          group[i + 5].innerHTML = data.order
+                                          group[i + 6].innerHTML = data.remainsCash1
+                                          group[i + 7].innerHTML = data.remainsCash2
+                                        }
+                                }
+
         });
     });
 }

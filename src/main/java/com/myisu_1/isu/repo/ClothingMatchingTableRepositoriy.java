@@ -85,5 +85,6 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
             "JOIN c.clothersSale6 p")
     List<OrderRecommendations> getSale6ShopClothingGroupAll();
 
-
+    @Query("SELECT DISTINCT viewClothes FROM ClothingMatchingTable WHERE phoneClothes = ?1")
+    String getView(String nomenkl);
 }
