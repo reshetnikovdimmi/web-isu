@@ -199,7 +199,7 @@ public class ClothesPhonesServise {
                     List<String> n = clothingMatchingTableRepositoriy.getClothingList(groupSaleRemains.get(i).getGroup(), groupSaleRemains.get(i).getView());
                     for (String nom : n) {
                         if (nom != null) {
-                            remShop.add(new OrderRecommendations(s, groupSaleRemains.get(i).getGroup(), nom, groupSaleRemains.get(i).getView(), remainsCashN(cash.get(0),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(cash.get(1),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), null, null, remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale1ShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale6ShopClothingGroupAll), null, null));
+                            remShop.add(new OrderRecommendations(s, groupSaleRemains.get(i).getGroup(), nom, groupSaleRemains.get(i).getView(), remainsCashN1(cash.get(0),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(cash.get(1),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), null, null, remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale1ShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale6ShopClothingGroupAll), null, null));
                         }
                     }
                     groupSaleRemains.set(i, new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),null, groupSaleRemains.get(i).getView(), groupSaleRemains.get(i).getRemainsCash1(), groupSaleRemains.get(i).getRemainsCash2(),  groupSaleRemains.get(i).getRemainsShop(), null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder(), remShop, null));
@@ -208,8 +208,18 @@ public class ClothesPhonesServise {
         }
     }
 
-
-
+    private Integer remainsCashN1(String s, String group, String nom, String view, List<OrderRecommendations> remainsShopClothingGroupAll) {
+        for (OrderRecommendations o:groupSaleRemains){
+            if(cash.get(0).equals(o.getShop())&&group.equals(o.getGroup())&&view.equals(o.getView())&&o.getAll()!=null){
+                for (OrderRecommendations a:o.getAll()){
+                    if (nom.equals(a.getNomenclature())){
+                        return a.getRemainsCash1();
+                    }
+                }
+            }
+        }
+        return remainsCashN(s,group,nom,view,remainsShopClothingGroupAll);
+    }
 
     private Integer remainsCashN(String s,String group, String nom, String view,List<OrderRecommendations> sale) {
         Integer rem = null;
@@ -266,7 +276,7 @@ public class ClothesPhonesServise {
                 if (groupSaleRemains.get(i).getAll()!=null){
                     for (int j =0;j<all.size();j++){
                         if (groupSaleRemains.get(i).getAll().get(j).getNomenclature().equals(nomenkl)){
-                            System.out.println(all.get(j).getShop());
+
                             all.set(j,new OrderRecommendations(all.get(j).getShop(), all.get(j).getGroup(), all.get(j).getNomenclature(), all.get(j).getView(), all.get(j).getRemainsCash1()-in, all.get(j).getRemainsCash2(), all.get(j).getRemainsShop(), null, null, all.get(j).getSale1(), all.get(j).getSale6(), all.get(j).getOrder(), null));
                         }
 
