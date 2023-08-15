@@ -238,31 +238,46 @@ public class ClothesPhonesServise {
 
     public OrderRecommendations updatingAllTables(String shop, String models, String nomenkl, Integer kol) {
         String view = clothingMatchingTableRepositoriy.getView(nomenkl);
-        regulationCashBalances(models,view,kol);
+        regulationCashBalances(models,nomenkl,view,kol);
+
         OrderRecommendations rem = null;
         for (int i = 0; i < groupSaleRemains.size(); i++) {
             if (shop.equals(groupSaleRemains.get(i).getShop()) && groupSaleRemains.get(i).getGroup().equals(models)&&groupSaleRemains.get(i).getAll()!=null){
                 List<OrderRecommendations> remShop = new ArrayList<>();
                 for (int j = 0;j<groupSaleRemains.get(i).getAll().size();j++){
-                    if(nomenkl.equals(groupSaleRemains.get(i).getAll().get(j).getNomenclature())){
-                        remShop.add(new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(), nomenkl, groupSaleRemains.get(i).getView(), groupSaleRemains.get(i).getRemainsCash1(), groupSaleRemains.get(i).getRemainsCash2(), groupSaleRemains.get(i).getRemainsShop(), null, null, groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder(), null));
-                    }else {
+
                         remShop.add(groupSaleRemains.get(i).getAll().get(j));
-                    }
-                    rem = new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),null, groupSaleRemains.get(i).getView(),groupSaleRemains.get(i).getRemainsCash1(), groupSaleRemains.get(i).getRemainsCash2()==null?kol:groupSaleRemains.get(i).getRemainsCash2()-kol,  groupSaleRemains.get(i).getRemainsShop()==null?kol:groupSaleRemains.get(i).getRemainsShop()+kol, null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder()==null?kol:groupSaleRemains.get(i).getOrder()+kol, remShop, null);
-                }
+
+               }
+                rem = new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),null, groupSaleRemains.get(i).getView(),groupSaleRemains.get(i).getRemainsCash1(), groupSaleRemains.get(i).getRemainsCash2(),  groupSaleRemains.get(i).getRemainsShop()==null?kol:groupSaleRemains.get(i).getRemainsShop()+kol, null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder()==null?kol:groupSaleRemains.get(i).getOrder()+kol, remShop, null);
+
                 groupSaleRemains.set(i, rem);
             }
         }
         return rem;
     }
 
-    private Integer regulationCashBalances(String group, String view, int in) {
+
+
+    private Integer regulationCashBalances(String group, String nomenkl, String view, int in) {
         for (int i =0;i<groupSaleRemains.size();i++){
             if(view!=null && group.equals(groupSaleRemains.get(i).getGroup())&&view.equals(groupSaleRemains.get(i).getView())){
-               groupSaleRemains.set(i,new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),groupSaleRemains.get(i).getNomenclature(), groupSaleRemains.get(i).getView(), groupSaleRemains.get(i).getRemainsCash1()==null?in:groupSaleRemains.get(i).getRemainsCash1()-in, groupSaleRemains.get(i).getRemainsCash2(),  groupSaleRemains.get(i).getRemainsShop(), null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder(), groupSaleRemains.get(i).getAll(), null));
+                List<OrderRecommendations> all = groupSaleRemains.get(i).getAll();
+                if (groupSaleRemains.get(i).getAll()!=null){
+                    for (int j =0;j<all.size();j++){
+                        if (groupSaleRemains.get(i).getAll().get(j).getNomenclature().equals(nomenkl)){
+                            System.out.println(all.get(j).getShop());
+                            all.set(j,new OrderRecommendations(all.get(j).getShop(), all.get(j).getGroup(), all.get(j).getNomenclature(), all.get(j).getView(), all.get(j).getRemainsCash1()-in, all.get(j).getRemainsCash2(), all.get(j).getRemainsShop(), null, null, all.get(j).getSale1(), all.get(j).getSale6(), all.get(j).getOrder(), null));
+                        }
+
+                    }
+                }
+
+
+                groupSaleRemains.set(i,new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),groupSaleRemains.get(i).getNomenclature(), groupSaleRemains.get(i).getView(), groupSaleRemains.get(i).getRemainsCash1()==null?in:groupSaleRemains.get(i).getRemainsCash1()-in, groupSaleRemains.get(i).getRemainsCash2(),  groupSaleRemains.get(i).getRemainsShop(), null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder(), all, null));
             }
         }
+
         return in;
     }
 }
