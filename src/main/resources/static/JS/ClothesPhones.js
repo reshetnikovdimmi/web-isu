@@ -105,7 +105,10 @@ function changeOrderGlass(shop, models) {
     $(document).find('.changeGlass').on('change', function() {
         var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
         $.get('/updatingAllTables/' + shop + '/' + $("#Model_Glass").text() + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
-            console.log(data)
+            var tds = document.querySelectorAll('.remainsGroupShopGlass td');
+            var group = document.querySelectorAll('.remainsGroupShopGlassAll td');
+            var remainsCash = document.querySelectorAll('.remainsCashGlass td');
+            updateTableAll(tds, group, remainsCash, data)
         });
     });
 }
@@ -114,7 +117,10 @@ function changeOrderCase(shop, models) {
     $(document).find('.changeCase').on('change', function() {
         var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
         $.get('/updatingAllTables/' + shop + '/' + $("#Model_Case").text() + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
-            console.log(data)
+            var tds = document.querySelectorAll('.remainsGroupShopCase td');
+            var group = document.querySelectorAll('.remainsGroupShopCaseAll td');
+            var remainsCash = document.querySelectorAll('.remainsCashCase td');
+            updateTableAll(tds, group, remainsCash, data)
         });
     });
 }
@@ -124,28 +130,41 @@ function changeOrderCoverBook(shop, models) {
         var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text();
         $.get('/updatingAllTables/' + shop + '/' + $("#Model_CoverBook").text() + '/' + nomenclature.replaceAll('/', '_') + '/' + this.value, {}, function(data) {
             var tds = document.querySelectorAll('.remainsGroupShopCoverBook td');
-            for (var i = 0; i < tds.length; i++) {
-                if (tds[i].lastElementChild != null && data.shop == tds[i].lastElementChild.innerHTML) {
-                    tds[i + 1].innerHTML = data.remainsShop
-                }
-            }
             var group = document.querySelectorAll('.remainsGroupShopCoverBookAll td');
-            for (var i = 0; i < group.length; i++) {
-                if (group[i].lastElementChild != null && data.group == group[i].lastElementChild.innerHTML) {
-                    group[i + 5].innerHTML = data.order
-                    group[i + 6].innerHTML = data.remainsCash1
-                    group[i + 7].innerHTML = data.remainsCash2
-                }
-           for (var j = 0; j < data.all.length; j++) {
-                if (data.all[j].nomenclature == group[i].innerHTML) {
-                        console.log(group[i].innerHTML)
-
-                    }
-                }
-            }
-
+            var remainsCash = document.querySelectorAll('.remainsCashCoverBook td');
+            updateTableAll(tds, group, remainsCash, data)
         });
     });
+}
+
+function updateTableAll(tds, group, remainsCash, data) {
+    for (var i = 0; i < data.length; i++) {
+        console.log(data[i].view)
+    }
+    for (var i = 0; i < tds.length; i++) {
+        if (tds[i].lastElementChild != null && data.shop == tds[i].lastElementChild.innerHTML) {
+            tds[i + 1].innerHTML = data.remainsShop
+        }
+    }
+    for (var i = 0; i < group.length; i++) {
+        if (group[i].lastElementChild != null && data.group == group[i].lastElementChild.innerHTML) {
+            group[i + 5].innerHTML = data.order
+            group[i + 6].innerHTML = data.remainsCash1
+            group[i + 7].innerHTML = data.remainsCash2
+        }
+        for (var j = 0; j < data.all.length; j++) {
+            if (data.all[j].nomenclature.trim().replaceAll(/\s+/g, "") == group[i].innerHTML.replaceAll(/&nbsp;/g, '').trim().replaceAll(/\s+/g, "")) {
+                group[i + 6].innerHTML = data.all[j].remainsCash1
+            }
+        }
+    }
+    for (var i = 0; i < remainsCash.length; i++) {
+        for (var j = 0; j < data.all.length; j++) {
+            if (data.all[j].nomenclature.trim().replaceAll(/\s+/g, "") == remainsCash[i].innerHTML.replaceAll(/&nbsp;/g, '').trim().replaceAll(/\s+/g, "")) {
+                remainsCash[i + 1].innerHTML = data.all[j].remainsCash1
+            }
+        }
+    }
 }
 
 function tableCashGlass(models) {
