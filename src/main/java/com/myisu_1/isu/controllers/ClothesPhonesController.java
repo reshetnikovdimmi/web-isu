@@ -1,13 +1,18 @@
 package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.exporte.ExselFileExporteClotingPhone;
 import com.myisu_1.isu.service.ClothesPhonesServise;
 import com.myisu_1.isu.service.ClothingMatchingServise;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -100,5 +105,17 @@ public class ClothesPhonesController {
     @RequestMapping(value = "/updatingAllTables/{shop}/{models}/{nomenkl}/{kol}", method = RequestMethod.GET)
     private OrderRecommendations updatingAllTables(@PathVariable("shop") String shop,@PathVariable("models") String models, @PathVariable("nomenkl") String nomenkl, @PathVariable("kol") Integer kol) {
         return clothesPhonesServise.updatingAllTables(shop,models,nomenkl.replaceAll("_","/"),kol);
+    }
+    @GetMapping("/ExselFileExporteClotingPhone")
+    public void exselFileExporteClotingPhone(HttpServletResponse response) throws IOException {
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment; filename=DistributionClotingPhone.xlsx");
+
+        ByteArrayInputStream inputStream = ExselFileExporteClotingPhone.exportClotingPhone(clothesPhonesServise.exselFileExporteClotingPhone());
+
+        IOUtils.copy(inputStream, response.getOutputStream());
+
+
     }
 }

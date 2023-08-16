@@ -84,16 +84,5 @@ public class ClothesForPhonesController {
     }
 
 
-    @GetMapping("/ExselFileExporteClotingPhone")
-    public void exselFileExporteClotingPhone(HttpServletResponse response) throws IOException {
 
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition","attachment; filename=DistributionClotingPhone.xlsx");
-
-        ByteArrayInputStream inputStream = ExselFileExporteClotingPhone.exportClotingPhone(clothingMatchingServise.exselFileExporteClotingPhone());
-
-        IOUtils.copy(inputStream, response.getOutputStream());
-
-
-    }
 }
