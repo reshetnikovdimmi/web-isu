@@ -22,29 +22,32 @@ public class ExselFileExporteClotingPhone {
 
             Row clotingPhoneRow = sheetDisrtClotingPhone.createRow(0);
             Set<String> keys = new HashSet<>();
-            List<String> arrShop = new ArrayList<>(keys);
+
             for (OrderRecommendations o:shopRemanis){
                 if(o.getAll()!=null){
+
                     for (OrderRecommendations a:o.getAll()){
                         keys.add(a.getShop());
                     }
                 }
 
             }
+            List<String> arrShop = new ArrayList<>(keys);
             arrShop.add(0, "MODEL");
-
+List<OrderRecommendations> oder = new ArrayList<>();
             ArrayList<String> arrModel = new ArrayList<String>();
-         /*   for (String shop : arrShop) {
+            for (OrderRecommendations o:shopRemanis){
+                if(o.getAll()!=null){
 
-                for (Glass phoneShops : shopRemanis.get(shop).get(0)) {
-
-                    if (phoneShops.getRemanisCloters() > 0) {
-                        arrModel.add(phoneShops.getBrend());
+                    for (OrderRecommendations a:o.getAll()){
+                        if (a.getOrder()!=null)
+                        arrModel.add(a.getNomenclature());
+                        oder.add(a);
                     }
-
                 }
+
             }
-            arrModel = (ArrayList) shopRemanis.stream().distinct().collect(Collectors.toList());*/
+            arrModel = (ArrayList) arrModel.stream().distinct().collect(Collectors.toList());
 
 
 
@@ -62,19 +65,20 @@ public class ExselFileExporteClotingPhone {
             for (int j = 0; j < arrModel.size(); j++) {
 
                 Row dataRow = sheetDisrtClotingPhone.createRow(j + 1);
+
                 dataRow.createCell(0).setCellValue(arrModel.get(j));
                 for (int i = 0; i < arrShop.size(); i++) {
-                  //  if (i > 0) {
-                  //      for (Glass phoneShops : shopRemanis.get(arrShop.get(i)).get(0)) {
+                   if (i > 0) {
+                      for (OrderRecommendations d : oder) {
+System.out.println(d);
+                       if (d.getOrder()!=null && d.getShop().equals(arrShop.get(i))&&d.getNomenclature().equals(arrModel.get(j))) {
 
-                    //        if (phoneShops.getRemanisCloters() > 0 && phoneShops.getBrend().equals(arrModel.get(j))) {
+                              dataRow.createCell(i).setCellValue(d.getOrder());
 
-                                dataRow.createCell(i).setCellValue(5);
+                      }
 
-                   //         }
-
-                   //     }
-                 //   }
+                  }
+                   }
 
 
                 }

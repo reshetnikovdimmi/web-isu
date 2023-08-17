@@ -245,7 +245,7 @@ public class ClothesPhonesServise {
 
     public OrderRecommendations updatingAllTables(String shop, String models, String nomenkl, Integer kol) {
         String view = clothingMatchingTableRepositoriy.getView(nomenkl);
-        regulationCashBalances(models,nomenkl,view,kol);
+        regulationCashBalances(models,nomenkl,view,kol,shop);
 
         OrderRecommendations rem = null;
         for (int i = 0; i < groupSaleRemains.size(); i++) {
@@ -259,20 +259,21 @@ public class ClothesPhonesServise {
                 groupSaleRemains.set(i, rem);
             }
         }
-        System.out.println(rem);
+
         return rem;
     }
 
 
 
-    private Integer regulationCashBalances(String group, String nomenkl, String view, int in) {
+    private Integer regulationCashBalances(String group, String nomenkl, String view, int in, String shop) {
         for (int i =0;i<groupSaleRemains.size();i++){
             if(view!=null && group.equals(groupSaleRemains.get(i).getGroup())&&view.equals(groupSaleRemains.get(i).getView())){
                 List<OrderRecommendations> all = groupSaleRemains.get(i).getAll();
                 if (groupSaleRemains.get(i).getAll()!=null){
                     for (int j =0;j<all.size();j++){
                         if (groupSaleRemains.get(i).getAll().get(j).getNomenclature().equals(nomenkl)){
-                            all.set(j,new OrderRecommendations(all.get(j).getShop(), all.get(j).getGroup(), all.get(j).getNomenclature(), all.get(j).getView(), all.get(j).getRemainsCash1()-in, all.get(j).getRemainsCash2(), all.get(j).getRemainsShop(), null, null, all.get(j).getSale1(), all.get(j).getSale6(), all.get(j).getOrder()==null?in:all.get(j).getOrder()+in, null));
+
+                            all.set(j,new OrderRecommendations(all.get(j).getShop(), all.get(j).getGroup(), all.get(j).getNomenclature(), all.get(j).getView(), all.get(j).getRemainsCash1()-in, all.get(j).getRemainsCash2(), all.get(j).getRemainsShop(), null, null, all.get(j).getSale1(), all.get(j).getSale6(), settingOrder(all.get(j),shop,in), null));
                         }
 
                     }
@@ -282,6 +283,22 @@ public class ClothesPhonesServise {
         }
 
         return in;
+    }
+
+    private Integer settingOrder(OrderRecommendations o, String shop, int in) {
+        Integer order = null;
+        if(o.getShop().equals(shop)){
+
+            if (o.getOrder()==null){
+                order = in;
+            }else {
+                order +=in;
+            }
+        }else {
+            order = o.getOrder();
+        }
+
+        return order;
     }
 
     public List<OrderRecommendations> exselFileExporteClotingPhone() {
