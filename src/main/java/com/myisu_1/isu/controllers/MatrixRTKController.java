@@ -25,27 +25,19 @@ public class MatrixRTKController {
         return "MatrixRTK";
     }
     @RequestMapping(value = "/RemanisCashRTK/{grop}", method = RequestMethod.GET)
-
     private String remanisSaleShopRTK(@PathVariable("grop") String grop, Model model) {
-
         model.addAttribute("RemanRTKCash", matrixRTKServise.remanisCashRTK(grop));
-
         return "MatrixRTK::RemanRTKCash";
 
     }
     @RequestMapping(value = "/RemanisSaleRTKShop/{grop}", method = RequestMethod.GET)
-
     private String remanisSaleRTKShop(@PathVariable("grop") String grop, Model model) {
-
         model.addAttribute("MatrixRTKShop", matrixRTKServise.getSaleRemanisShop(grop));
-
         return "MatrixRTK::MatrixRTKShop";
 
     }
     @GetMapping("/TableMatrixRTK")
-
     private String tableMatrixRTK( Model model) {
-
         model.addAttribute("TableMatrixRTK", matrixRTKServise.getTableMatrixRTK());
         model.addAttribute("distributionModel", simDistributionServise.distributionModel());
         return "MatrixRTK::TableMatrixRTK";
@@ -54,7 +46,6 @@ public class MatrixRTKController {
     @ResponseBody
     @RequestMapping(value = "TableDistributionRTK/{shop}", method = RequestMethod.GET)
     public Map<String,Map<String, Map<String, Integer>>> createTableDistributionRTK(@PathVariable("shop") String shop) {
-
         return matrixRTKServise.createTableDistributionRTK(shop);
 
     }

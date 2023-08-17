@@ -1,7 +1,6 @@
 package com.myisu_1.isu.controllers;
 
 import com.google.gson.Gson;
-import com.myisu_1.isu.exporte.ExselFileExporte;
 import com.myisu_1.isu.exporte.ExselFileExportePromo;
 import com.myisu_1.isu.models.price_promo;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
@@ -21,7 +20,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PromoPriceList {
@@ -78,7 +80,6 @@ public class PromoPriceList {
     @ResponseBody
     @RequestMapping(value = "updatePromo/{id}", method = RequestMethod.GET)
     public Optional<price_promo> updatePromo(@PathVariable("id") Integer id) {
-
         return promoRepositoriy.findById(id);
     }
 
@@ -118,8 +119,7 @@ public class PromoPriceList {
     @ResponseBody
     @RequestMapping(value = "searchPromo", method = RequestMethod.POST)
     private List<price_promo> searchPromo(@RequestBody price_promo pricePromo, Model model) {
-
-             return promoRepositoriy.searchPromo(pricePromo.getBrend(), pricePromo.getModels(), sqlDate(pricePromo.getStartPromo()), sqlDate(pricePromo.getEndPromo()));
+        return promoRepositoriy.searchPromo(pricePromo.getBrend(), pricePromo.getModels(), sqlDate(pricePromo.getStartPromo()), sqlDate(pricePromo.getEndPromo()));
     }
 
     @RequestMapping(value = "/showPromo/{dates}", method = RequestMethod.GET)
@@ -132,18 +132,17 @@ public class PromoPriceList {
         model.addAttribute("current_promo", promoRepositoriy.currentPromo(new java.sql.Date(currentDate().getTime())));
         return "promoPriceList::showPromo";
     }
+
     @GetMapping("/exselPromo")
     public void downloadExselFile(HttpServletResponse response) throws IOException, ParseException {
 
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition","attachment; filename=start.xlsx");
-
-        ByteArrayInputStream inputStream = ExselFileExportePromo.exportPrisePromoFile(promoPriceListServise.getEndPromo(),promoPriceListServise.getStartPromo(),promoPriceListServise.getPromoExtension(),phoneRepositoriy.findAll());
-
+        response.setHeader("Content-Disposition", "attachment; filename=start.xlsx");
+        ByteArrayInputStream inputStream = ExselFileExportePromo.exportPrisePromoFile(promoPriceListServise.getEndPromo(), promoPriceListServise.getStartPromo(), promoPriceListServise.getPromoExtension(), phoneRepositoriy.findAll());
         IOUtils.copy(inputStream, response.getOutputStream());
 
-
     }
+
     private java.sql.Date sqlDate(Date startPromo) {
         if (startPromo != null) {
             return new java.sql.Date(startPromo.getTime());
@@ -160,7 +159,8 @@ public class PromoPriceList {
         Date endDate = new Date(god - 1900, mes, den);
         return endDate;
     }
-    public   Date stringDate(String stringCellValue) throws ParseException {
+
+    public Date stringDate(String stringCellValue) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = df.parse(stringCellValue);
         return startDate;

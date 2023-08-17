@@ -29,14 +29,7 @@ public class ClothingMatchingServise {
     private ClothesForPhonesSale6Repositoriy clothesForPhonesSale6Repositoriy;
     Glass glass;
     ClothingMatching clothingMatching;
-  public Iterable<authorization_tt> Loading(){
-        glass = new Glass();
-        glass.authorization_ttList = (List<authorization_tt>) authorization_tt.findAll();
-        glass.phoneSmartList = phoneRepositoriy.findAll();
-        glass.brendDisting = phoneRepositoriy.getBrendDisting();
-        glass.clothingMatchingTableList = clothingMatchingTableRepositoriy.findAll();
-        return glass.print();
-    }
+
      public List<String> LoadingBrendDisting(){
          clothingMatching = new ClothingMatching();
 
@@ -76,51 +69,16 @@ public class ClothingMatchingServise {
         clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6));
     }
 
-    public List<Glass> remainderSaleClothing(String view) {
 
 
-        glass.loadRemainderSaleClothing(phoneRepositoriy.getBrendRemanis(),clothingMatchingTableRepositoriy.getRemanisClothes(view),clothingMatchingTableRepositoriy.getSal6Clothes(view),clothingMatchingTableRepositoriy.getSal1Clothes(view));
-
-      return glass.brendRemanisList;
-    }
-
-    public List<Glass> tableShopRemanis(String s, String view ) {
-
-        glass.authorization_ttList = (List<authorization_tt>) authorization_tt.findAll();
-
-        glass.loadTableShopRemanis(phoneRepositoriy.getBrendShopRemanis(s),clothingMatchingTableRepositoriy.tableShopRemanis(s,view));
-
-        return glass.brendRemanisList;
-    }
-
-    public List<List<Glass>> tableShopBrend(String shop, String brend, String view) {
 
 
-        return glass.loadPhoneRemanisShop(clothingMatchingTableRepositoriy.getBrendList(clothingMatchingTableRepositoriy.getClothingList(brend,view)),clothingMatchingTableRepositoriy.getBrendShop(brend,view,shop),phoneRepositoriy.getPhoneRemanisShop(shop),clothingMatchingTableRepositoriy.getClothingList(brend,view),shop);
-
-    }
-
-    public List<Glass> tableOrderЕable(String brend, String view) {
 
 
-      return glass.loadOrderTable(clothingMatchingTableRepositoriy.getBrendList(clothingMatchingTableRepositoriy.getClothingList(brend,view)),phoneRepositoriy.getBrendRemanis(),clothingMatchingTableRepositoriy.getRemanisClothes(view));
-    }
-
-    public List<Glass> warehouseRemnants(String shop,String brend, String view) {
 
 
-        return glass.loadWarehouseRemnants(clothingMatchingTableRepositoriy.getClothingAll(view,shop),clothingMatchingTableRepositoriy.getClothingList(brend,view));
 
-    }
 
-    public List<Glass> movingWarehouse(String models, String brend, String kol, String view, String shop) {
 
-      return glass.movingWarehouse(brend,kol,clothingMatchingTableRepositoriy.getClothingList(models,view),shop);
 
-    }
-
-    public HashMap<String, List<List<Glass>>> exselFileExporteClotingPhone() {
-
-        return glass.shopRemanis;
-    }
 }
