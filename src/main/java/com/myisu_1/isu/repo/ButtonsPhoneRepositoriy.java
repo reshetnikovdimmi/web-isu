@@ -18,10 +18,6 @@ public interface ButtonsPhoneRepositoriy extends JpaRepository<ButtonsPhone, Int
     List<Buttons> getButtonPhonePrice();
 
 
-    @Query("SELECT new com.myisu_1.isu.models.Phone.Buttons(p.id, p.model, p.brend, r.price) FROM ButtonsPhone p " +
-            "LEFT JOIN p.prices r ORDER BY p.id ASC")
-    Object getGraduationPhone();
-
     @Query("SELECT DISTINCT brend FROM ButtonsPhone")
     List<String> getModelsGraduation();
 
@@ -46,8 +42,7 @@ public interface ButtonsPhoneRepositoriy extends JpaRepository<ButtonsPhone, Int
     @Query("SELECT s FROM RemanisSim s WHERE s.nameSimAndModem IN :strings")
     List<RemanisSim> getShopRemanis(List<String> strings);
 
-    @Query("SELECT s FROM RemanisSim s WHERE s.nameSimAndModem IN :strings")
-    List<RemanisSim> getBrend (List<String> strings);
+
 
     @Query("SELECT remainsSimAndModem FROM RemanisSim WHERE shop = ?1 AND nameSimAndModem = ?2")
 

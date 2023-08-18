@@ -28,6 +28,5 @@ public interface RangeAccessoriesRepositoriy extends CrudRepository<RangeAccesso
     @Query("SELECT tele2 FROM RangeAccessories WHERE accessoriesName = ?1")
     boolean findByTele2(String lastname);
 
-    @Query("SELECT DISTINCT accessoriesCategory FROM RangeAccessories")
-    List<String> getAccessoriesCategoryDist();
+
 }

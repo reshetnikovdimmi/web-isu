@@ -46,6 +46,7 @@ function tableRemainsGroupShopGlassAll(models) {
                 }
                 a = $(this);
                 a.parents().nextAll('.hide_minMatrix').toggle();
+
             });
             $("#TT_Glass").html(shop);
             changeOrderGlass(shop, models);
@@ -63,6 +64,7 @@ function tableRemainsGroupShopCaseAll(models) {
                 $.get('/remainsGroupShopCase/' + models, {}, function(data) {
                     $(".remainsGroupShopCase").html(data);
                     tableRemainsGroupShopCaseAll(models)
+
                 });
                 tableCashCase(models)
                 if (b != undefined) {
