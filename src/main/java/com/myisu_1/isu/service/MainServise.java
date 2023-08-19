@@ -1,10 +1,19 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatching;
+import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
+import com.myisu_1.isu.models.Phone_Smart;
+import com.myisu_1.isu.models.SIM.RemanisSim;
+import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
 import com.myisu_1.isu.repo.CollectionScheduleRepository;
+import com.myisu_1.isu.repo.PhoneRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -13,7 +22,8 @@ import java.util.*;
 public class MainServise {
     @Autowired
     private CollectionScheduleRepository collectionScheduleRepository;
-
+    @Autowired
+    private PhoneRepositoriy phoneRepositoriy;
     List<String> result;
 
     public List<String> incassationTomorrow() {
@@ -24,8 +34,6 @@ public class MainServise {
 
             LocalDateTime date = LocalDateTime.now(ZoneId.of("+06:00"));
             DayOfWeek day = date.getDayOfWeek();
-            System.out.println(day.getValue());
-
                        switch (day.getValue()) {
                 case 1:
                     result = collectionScheduleRepository.incassationTuesday();

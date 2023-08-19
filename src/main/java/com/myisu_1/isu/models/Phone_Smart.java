@@ -46,7 +46,7 @@ public class Phone_Smart implements Serializable {
     private List<SaleSim_6m> saleSim_6m;
 
     @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "nameClothes",referencedColumnName = "Model", insertable = false, updatable = false)
+    @JoinColumn(name = "nameClothes",referencedColumnName = "Brend", insertable = false, updatable = false)
 
     private List<ClothingMatchingTable> сlothingMatching;
 
