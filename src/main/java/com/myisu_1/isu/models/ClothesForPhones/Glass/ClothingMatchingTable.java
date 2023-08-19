@@ -20,7 +20,7 @@ public class ClothingMatchingTable implements Serializable {
     @JoinColumn(name = "namesClothes", referencedColumnName = "phoneClothes", insertable = false, updatable = false)
     private List<ClothesForPhonesRemanis> clothersPhone;
 
-    @OneToMany(targetEntity = ClothesForPhonesSale6.class, cascade = CascadeType.REFRESH)
+    @OneToMany(targetEntity = ClothesForPhonesSale6.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
     @JoinColumn(name = "nameClothes", referencedColumnName = "phoneClothes", insertable = false, updatable = false)
     private List<ClothesForPhonesSale6> clothersSale6;
 

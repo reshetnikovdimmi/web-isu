@@ -50,7 +50,8 @@ public class ClothesPhonesServise {
         remainsShopClothingGroupAll = clothingMatchingTableRepositoriy.getRemainsShopClothingGroupAll();
         sale1ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale1ShopClothingGroupAll();
         sale6ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale6ShopClothingGroupAll();
-        // List<OrderRecommendations> remainsShopPhoneGroupAll = phoneRepositoriy.getRemainsShopPhoneGroup();
+
+
         cash = shop.getWarehouseList();
         List<String> phone = phoneRepositoriy.getBrendDisting();
         shops = shop.getShopList();

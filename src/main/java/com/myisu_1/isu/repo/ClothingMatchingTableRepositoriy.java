@@ -59,4 +59,6 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
 
     @Query("SELECT DISTINCT viewClothes FROM ClothingMatchingTable WHERE phoneClothes = ?1")
     String getView(String nomenkl);
+
+
 }

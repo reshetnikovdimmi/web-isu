@@ -3,6 +3,7 @@ package com.myisu_1.isu.models;
 
 
 
+import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.SIM.SaleSim_1m;
 import com.myisu_1.isu.models.SIM.SaleSim_6m;
@@ -43,6 +44,11 @@ public class Phone_Smart implements Serializable {
     @JoinColumn(name = "nameSimAndModem",referencedColumnName = "Model", insertable = false, updatable = false)
 
     private List<SaleSim_6m> saleSim_6m;
+
+    @OneToMany(targetEntity = ClothingMatchingTable.class, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "nameClothes",referencedColumnName = "Model", insertable = false, updatable = false)
+
+    private List<ClothingMatchingTable> сlothingMatching;
 
     public Phone_Smart(String model, String model_GB) {
         Model = model;
