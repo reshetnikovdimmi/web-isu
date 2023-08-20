@@ -9,13 +9,19 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -512,5 +518,33 @@ if(row.getCell(20).getStringCellValue().equals("Сотовые телефоны"
         date = formatter.parse(stringCellValue.replace("T", " "));
         return date ;
 
+    }
+    @PostMapping("/file-upload")
+    @ResponseBody
+    public ResponseEntity<String> fileUpload(MultipartFile file) {
+        long start = System.currentTimeMillis();
+        try {
+
+            // upload directory - change it to your own
+          //  String UPLOAD_DIR = "/opt/uploads";
+
+            // create a path from the file name
+          //  Path path = Paths.get(UPLOAD_DIR, file.getOriginalFilename());
+            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+
+            // save the file to `UPLOAD_DIR`
+            // make sure you have permission to write
+           // Files.write(path, file.getBytes());
+
+            //    System.out.println(df.format(new Date(timeWorkCode)));
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>("Invalid file format!!", HttpStatus.BAD_REQUEST);
+        }
+        long timeWorkCode = System.currentTimeMillis() - start;
+        DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+        return new ResponseEntity<>("File uploaded за" + " - " + df.format(new Date(timeWorkCode)), HttpStatus.OK);
     }
  }
