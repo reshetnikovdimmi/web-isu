@@ -291,7 +291,7 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
     }
     @PostMapping("/importsales")
     public String importsales(@RequestParam("importsales") MultipartFile importsales,Model model) throws IOException, ParseException {
-        int count = 0;
+
         List<Sales> all_listSales = (List<Sales>) salesRepositoriy.findAll();
         List<Sales> listSales = new ArrayList<>();
         XSSFWorkbook workbook = new XSSFWorkbook(importsales.getInputStream());
@@ -308,13 +308,9 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
             listSales1.setNomenclature(row.getCell(2).getStringCellValue());
             listSales1.setDateSales(dateString(row.getCell(3).getStringCellValue()));
             listSales.add(listSales1);
-
             for (int j = 0; j < all_listSales.size(); j++) {
-
                 if (all_listSales.get(j).getImeis().equals(listSales1.getImeis())) {
-                    count++;
                     salesRepositoriy.deleteById(all_listSales.get(j).getId());
-                   // System.out.println(count);
                 }
             }
         }
@@ -323,10 +319,9 @@ if(row.getCell(4).getStringCellValue().equals("Федерально")){
         long timeWorkCode = System.currentTimeMillis() - start;
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-       // System.out.println(df.format(new Date(timeWorkCode)));
 
         model.addAttribute("time", df.format(new Date(timeWorkCode)));
-    //    System.out.println(((List<Sales>) salesRepositoriy.findAll()).size());
+
         return "loading";
     }
     @PostMapping("/importcombo")
