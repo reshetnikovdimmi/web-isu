@@ -4,13 +4,12 @@ package com.myisu_1.isu.controllers;
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.models.Marwel.MarvelPromo;
 import com.myisu_1.isu.repo.*;
-import com.myisu_1.isu.service.BarcodeSparkServise;
+import com.myisu_1.isu.service.BarcodeServise;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,7 +62,7 @@ public class loadingController {
     @Autowired
     private PriceRepositoriy priceRepositoriy;
     @Autowired
-    private BarcodeSparkServise barcodeSparkServise;
+    private BarcodeServise barcodeServise;
 
 
     @GetMapping("/loading")
@@ -535,7 +531,23 @@ public class loadingController {
     public ResponseEntity<String> fileUpload(MultipartFile file) {
 
 
-      return   barcodeSparkServise.saveBarcodeSpark(file);
+      return   barcodeServise.saveBarcodeSpark(file);
+
+    }
+    @PostMapping("/file-upload-unf")
+    @ResponseBody
+    public ResponseEntity<String> fileUploadUnf(MultipartFile file) {
+
+
+        return   barcodeServise.saveBarcodeUnf(file);
+
+    }
+    @PostMapping("/file-upload-doc")
+    @ResponseBody
+    public ResponseEntity<String> fileUploadDoc(MultipartFile file) {
+
+
+        return   barcodeServise.loadDoc(file);
 
     }
 
