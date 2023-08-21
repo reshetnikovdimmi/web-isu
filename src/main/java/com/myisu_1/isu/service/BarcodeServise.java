@@ -31,6 +31,7 @@ public class BarcodeServise {
     private BarcodeUnfRepository barcodeUnfRepository;
     @Autowired
     private DocUnfRepository docUnfRepository;
+
     public ResponseEntity<String> saveBarcodeSpark(MultipartFile file) {
         long start = System.currentTimeMillis();
         barcodeSparkRepository.deleteAll();
@@ -54,7 +55,6 @@ public class BarcodeServise {
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         return new ResponseEntity<>("File uploaded за" + " - " + df.format(new Date(timeWorkCode)), HttpStatus.OK);
-
 
 
     }
@@ -96,9 +96,9 @@ public class BarcodeServise {
                 DocUnf docUnf = new DocUnf();
                 XSSFRow row = worksheet.getRow(i);
                 docUnf.setNomenclatures(row.getCell(0).getStringCellValue());
-                docUnf.setBarcode(String.valueOf(row.getCell(1).getCellType()==CellType.ERROR?null:row.getCell(1).getStringCellValue()));
-                docUnf.setQuantity(row.getCell(2).getCellType()==CellType.ERROR?null:row.getCell(2).getNumericCellValue());
-                docUnf.setPrice(row.getCell(3).getCellType()==CellType.ERROR?null:row.getCell(3).getNumericCellValue());
+                docUnf.setBarcode(String.valueOf(row.getCell(1).getCellType() == CellType.ERROR ? null : row.getCell(1).getStringCellValue()));
+                docUnf.setQuantity(row.getCell(2).getCellType() == CellType.ERROR ? null : row.getCell(2).getNumericCellValue());
+                docUnf.setPrice(row.getCell(3).getCellType() == CellType.ERROR ? null : row.getCell(3).getNumericCellValue());
                 docUnfList.add(docUnf);
             }
 
@@ -107,7 +107,11 @@ public class BarcodeServise {
             ex.printStackTrace();
             return new ResponseEntity<>("Invalid file format!!", HttpStatus.BAD_REQUEST);
         }
-System.out.println(docUnfRepository.findAll());
-        return new ResponseEntity<>("File uploaded " , HttpStatus.OK);
+        List<DocUnf> docUnfs = docUnfRepository.shkDocUnf();
+        for (DocUnf d : docUnfs) {
+            System.out.println(d);
+        }
+
+        return new ResponseEntity<>("File uploaded ", HttpStatus.OK);
     }
 }

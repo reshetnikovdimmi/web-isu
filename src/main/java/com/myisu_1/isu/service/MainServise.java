@@ -30,8 +30,6 @@ public class MainServise {
         if (result==null) {
             new ArrayList<>();
 
-
-
             LocalDateTime date = LocalDateTime.now(ZoneId.of("+06:00"));
             DayOfWeek day = date.getDayOfWeek();
                        switch (day.getValue()) {
