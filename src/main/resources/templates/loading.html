@@ -117,7 +117,8 @@
                          aria-labelledby="v-pills-home-tab">
                         <div class="row mb-3">
                             <div class="col-6">
-                                <form th:action="@{/import}" method="post" enctype="multipart/form-data">
+
+                                <form th:action="@{/import}" class="card p-2" method="post" enctype="multipart/form-data">
                                     <label for="file-upload-input" id="status-messages-MARWEL">Select file to upload Промо MARWEL</label>
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="file-upload-input-MARWEL" name="file">
@@ -128,34 +129,39 @@
 
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6 col-sm-4 themed-grid-col">
-                                <form th:action="@{/importsuppliers}" method="post" enctype="multipart/form-data">
-                                    <input type="file" th:name="importsuppliers"/>
-                                    <input th:type="submit" value="Import"/>
+                            <div class="col-6">
+                                <form th:action="@{/importsuppliers}" class="card p-2" method="post" enctype="multipart/form-data">
+                                    <label for="file-upload-input" id="status-messages-MARWEL">Select file to upload Поставщики</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" th:name="importsuppliers"/>
+                                        <button  th:type="submit" class="btn btn-secondary" value="Import"/>Применить</button>
+                                    </div>
                                 </form>
                             </div>
-                            <div class="col-6 col-sm-4 themed-grid-col">Поставщики</div>
-                            <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6 col-sm-4 themed-grid-col">
-                                <form th:action="@{/importsales}" method="post" enctype="multipart/form-data" >
-                                    <input type="file" th:name="importsales"/>
-                                    <input th:type="submit" value="Import"/>
+                            <div class="col-6">
+                                <form th:action="@{/importsales}" class="card p-2" method="post" enctype="multipart/form-data" >
+                                    <label for="file-upload-input" id="status-messages-MARWEL">Select file to upload Продажи</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" th:name="importsales"/>
+                                        <button th:type="submit" class="btn btn-secondary" value="Import"/>Применить</button>
+                                    </div>
                                 </form>
                             </div>
-                            <div class="col-6 col-sm-4 themed-grid-col">Продажи</div>
-                            <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
+
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6 col-sm-4 themed-grid-col">
-                                <form th:action="@{/importcombo}" method="post" enctype="multipart/form-data">
-                                    <input type="file" th:name="importcombo"/>
-                                    <input th:type="submit" value="Import"/>
+                            <div class="col-6">
+                                <form th:action="@{/importcombo}" class="card p-2" method="post" enctype="multipart/form-data">
+                                    <label for="file-upload-input" id="status-messages-MARWEL">Select file to upload COMBO</label>
+                                    <div class="input-group">
+                                       <input type="file" class="form-control" th:name="importcombo"/>
+                                        <button th:type="submit" class="btn btn-secondary" value="Import"/>Применить</button>
+                                    </div>
                                 </form>
                             </div>
-                            <div class="col-6 col-sm-4 themed-grid-col">COMBO</div>
-                            <div class="col-6 col-sm-4 themed-grid-col">STATUS</div>
+
                         </div>
                         <div class="row mb-3">
                             <div class="col-6 col-sm-4 themed-grid-col">
