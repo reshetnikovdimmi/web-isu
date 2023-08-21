@@ -19,12 +19,12 @@ public class DocUnf implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     public String barcode;
-    public String nomenclature;
+    public String nomenclatures;
     public Double quantity;
     public Double price;
 
-    @OneToMany(targetEntity = BarcodeUnf.class, cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "nomenclature", referencedColumnName = "nomenclature", insertable = false, updatable = false)
+    @ManyToMany(targetEntity = BarcodeUnf.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @JoinColumn(name = "nomenclatures", referencedColumnName = "nomenclature", insertable = false, updatable = false)
     private List<BarcodeUnf> barcodeUnfs;
 
 }

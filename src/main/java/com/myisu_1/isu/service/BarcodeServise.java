@@ -95,7 +95,7 @@ public class BarcodeServise {
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 DocUnf docUnf = new DocUnf();
                 XSSFRow row = worksheet.getRow(i);
-                docUnf.setNomenclature(row.getCell(0).getStringCellValue());
+                docUnf.setNomenclatures(row.getCell(0).getStringCellValue());
                 docUnf.setBarcode(String.valueOf(row.getCell(1).getCellType()==CellType.ERROR?null:row.getCell(1).getStringCellValue()));
                 docUnf.setQuantity(row.getCell(2).getCellType()==CellType.ERROR?null:row.getCell(2).getNumericCellValue());
                 docUnf.setPrice(row.getCell(3).getCellType()==CellType.ERROR?null:row.getCell(3).getNumericCellValue());
