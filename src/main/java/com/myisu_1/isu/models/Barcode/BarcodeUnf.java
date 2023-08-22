@@ -17,11 +17,9 @@ public class BarcodeUnf implements Serializable {
     private int id;
     private String barcode;
     private String nomenclature;
-    @OneToOne(targetEntity = BarcodeSpark.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
-    @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "barcode", referencedColumnName = "barcode", insertable = false, updatable = false, foreignKey = @javax.persistence
-            .ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private BarcodeSpark barcodeSparks;
+    @OneToMany(targetEntity = BarcodeSpark.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @JoinColumn(name = "barcode", referencedColumnName = "barcode", insertable = false, updatable = false)
+    private List<BarcodeSpark> barcodeSparks;
     public BarcodeUnf() {
     }
 
