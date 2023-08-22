@@ -114,6 +114,9 @@ public class BarcodeServise {
         }
         barcode.addAll(docUnfRepository.shkDocUnfs());
         docUnfs = docUnfRepository.shkDocUnf(barcode);
+        for (DocUnf o:docUnfs){
+            System.out.println(o);
+        }
         return new ResponseEntity<>("Загружено строк"+"  "+ docUnfs.size()+"  "+ "из" + "  "+ docUnfList.size(), HttpStatus.OK);
     }
     public List<DocUnf> getDocUnf() {

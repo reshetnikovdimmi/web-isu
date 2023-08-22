@@ -16,7 +16,6 @@ public class ExselFileExporteDocUnf {
         try (Workbook workbook = new XSSFWorkbook()) {
 
             Sheet sheetStartPromo = workbook.createSheet("Doc");
-
             Row startPromoRow = sheetStartPromo.createRow(0);
 
             CellStyle headlerCellStyle = workbook.createCellStyle();
@@ -45,7 +44,7 @@ public class ExselFileExporteDocUnf {
                 dataRowEnd.createCell(0).setCellValue(docUnf.get(i).getNomenclatures());
                 dataRowEnd.createCell(1).setCellValue(docUnf.get(i).getBarcode());
                 dataRowEnd.createCell(2).setCellValue(docUnf.get(i).getQuantity());
-                dataRowEnd.createCell(3).setCellValue(docUnf.get(i).getPrice());
+                dataRowEnd.createCell(3).setCellValue(docUnf.get(i).getPrice()==null?0:docUnf.get(i).getPrice());
 
             }
 
@@ -53,8 +52,6 @@ public class ExselFileExporteDocUnf {
             sheetStartPromo.autoSizeColumn(1);
             sheetStartPromo.autoSizeColumn(2);
             sheetStartPromo.autoSizeColumn(3);
-            sheetStartPromo.autoSizeColumn(4);
-
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
