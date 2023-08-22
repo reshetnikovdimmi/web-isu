@@ -6,6 +6,9 @@ import com.myisu_1.isu.models.Barcode.DocUnf;
 import com.myisu_1.isu.repo.BarcodeSparkRepository;
 import com.myisu_1.isu.repo.BarcodeUnfRepository;
 import com.myisu_1.isu.repo.DocUnfRepository;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -96,11 +99,11 @@ public class BarcodeServise {
         List<String> barcode = new ArrayList<>();
         try {
             docUnfList = new ArrayList<>();
-            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
-            XSSFSheet worksheet = workbook.getSheetAt(0);
+            HSSFWorkbook workbook = new HSSFWorkbook(file.getInputStream());
+            HSSFSheet worksheet = workbook.getSheetAt(0);
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 DocUnf docUnf = new DocUnf();
-                XSSFRow row = worksheet.getRow(i);
+                HSSFRow row = worksheet.getRow(i);
                 docUnf.setNomenclatures(row.getCell(0).getStringCellValue());
                 br= String.valueOf(row.getCell(1).getCellType() == CellType.ERROR ? null : row.getCell(1).getStringCellValue());
                 if (br!="")barcode.add(br);
