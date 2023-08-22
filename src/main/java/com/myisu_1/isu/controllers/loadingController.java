@@ -7,6 +7,9 @@ import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.models.Marwel.MarvelPromo;
 import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.BarcodeServise;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -80,13 +83,13 @@ public class loadingController {
     public String mapReapExcelDatatoDB(@RequestParam("file") MultipartFile reapExcelDataFile, Model model) throws IOException, ParseException {
         long start = System.currentTimeMillis();
         List<MarvelPromo> tempStudentList = new ArrayList<MarvelPromo>();
-        XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
-        XSSFSheet worksheet = workbook.getSheetAt(0);
+        HSSFWorkbook workbook = new HSSFWorkbook(reapExcelDataFile.getInputStream());
+        HSSFSheet worksheet = workbook.getSheetAt(0);
         marwelPromoRepositoriy.deleteAll();
         for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
             MarvelPromo tempStudent = new MarvelPromo();
 
-            XSSFRow row = worksheet.getRow(i);
+            HSSFRow row = worksheet.getRow(i);
             if (row.getCell(4).getStringCellValue().equals("Федерально")) {
                 // tempStudent.setId((int) row.getCell(0).getNumericCellValue());
                 tempStudent.setPromoCode(row.getCell(0).getStringCellValue());
