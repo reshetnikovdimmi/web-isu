@@ -94,7 +94,6 @@ public class BarcodeServise {
         List<String> barcode = new ArrayList<>();
         try {
             docUnfList = new ArrayList<>();
-
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
             XSSFSheet worksheet = workbook.getSheetAt(0);
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
@@ -102,7 +101,7 @@ public class BarcodeServise {
                 XSSFRow row = worksheet.getRow(i);
                 docUnf.setNomenclatures(row.getCell(0).getStringCellValue());
                 br= String.valueOf(row.getCell(1).getCellType() == CellType.ERROR ? null : row.getCell(1).getStringCellValue());
-                if (br!="")barcode.add(br);
+                if (br!=null)barcode.add(br);
                 docUnf.setBarcode(br);
                 docUnf.setQuantity(row.getCell(2).getCellType() == CellType.ERROR ? null : row.getCell(2).getNumericCellValue());
                 docUnf.setPrice(row.getCell(3).getCellType() == CellType.ERROR ? null : row.getCell(3).getNumericCellValue());
@@ -113,14 +112,10 @@ public class BarcodeServise {
             ex.printStackTrace();
             return new ResponseEntity<>("Invalid file format!!", HttpStatus.BAD_REQUEST);
         }
-
         barcode.addAll(docUnfRepository.shkDocUnfs());
-
         docUnfs = docUnfRepository.shkDocUnf(barcode);
-
         return new ResponseEntity<>("Загружено строк"+"  "+ docUnfs.size()+"  "+ "из" + "  "+ docUnfList.size(), HttpStatus.OK);
     }
-
     public List<DocUnf> getDocUnf() {
         return docUnfs;
     }

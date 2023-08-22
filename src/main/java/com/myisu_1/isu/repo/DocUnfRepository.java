@@ -14,6 +14,6 @@ public interface DocUnfRepository extends JpaRepository<DocUnf,Integer> {
     List<DocUnf> shkDocUnf(List<String> barcode);
 
     @Query("SELECT p.barcode FROM DocUnf c " +
-            "JOIN c.barcodeUnfs p JOIN p.barcodeSparks x WHERE c.barcode = ''")
+            "JOIN c.barcodeUnfs p JOIN p.barcodeSparks x WHERE c.barcode = 'null'")
     List<String> shkDocUnfs();
 }
