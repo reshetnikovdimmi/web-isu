@@ -31,7 +31,7 @@ public class BarcodeServise {
     private BarcodeUnfRepository barcodeUnfRepository;
     @Autowired
     private DocUnfRepository docUnfRepository;
-
+    List<DocUnf> docUnfs;
     public ResponseEntity<String> saveBarcodeSpark(MultipartFile file) {
         long start = System.currentTimeMillis();
         barcodeSparkRepository.deleteAll();
@@ -88,30 +88,36 @@ public class BarcodeServise {
 
     public ResponseEntity<String> loadDoc(MultipartFile file) {
         docUnfRepository.deleteAll();
+        List<DocUnf> docUnfList;
+        String br = null;
+        List<String> barcode = new ArrayList<>();
         try {
-            List<DocUnf> docUnfList = new ArrayList<>();
+            docUnfList = new ArrayList<>();
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
             XSSFSheet worksheet = workbook.getSheetAt(0);
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 DocUnf docUnf = new DocUnf();
                 XSSFRow row = worksheet.getRow(i);
                 docUnf.setNomenclatures(row.getCell(0).getStringCellValue());
-                docUnf.setBarcode(String.valueOf(row.getCell(1).getCellType() == CellType.ERROR ? null : row.getCell(1).getStringCellValue()));
+                br= String.valueOf(row.getCell(1).getCellType() == CellType.ERROR ? null : row.getCell(1).getStringCellValue());
+                if (br!="")barcode.add(br);
+                docUnf.setBarcode(br);
                 docUnf.setQuantity(row.getCell(2).getCellType() == CellType.ERROR ? null : row.getCell(2).getNumericCellValue());
                 docUnf.setPrice(row.getCell(3).getCellType() == CellType.ERROR ? null : row.getCell(3).getNumericCellValue());
                 docUnfList.add(docUnf);
             }
-
             docUnfRepository.saveAll(docUnfList);
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>("Invalid file format!!", HttpStatus.BAD_REQUEST);
         }
-        List<DocUnf> docUnfs = docUnfRepository.shkDocUnf();
-        for (DocUnf d : docUnfs) {
-            System.out.println(d);
-        }
+        barcode.addAll(docUnfRepository.shkDocUnfs());
+        docUnfs = docUnfRepository.shkDocUnf(barcode);
 
-        return new ResponseEntity<>("File uploaded ", HttpStatus.OK);
+        return new ResponseEntity<>("Загружено строк"+"  "+ docUnfs.size()+"  "+ "из" + "  "+ docUnfList.size(), HttpStatus.OK);
+    }
+
+    public List<DocUnf> getDocUnf() {
+        return docUnfs;
     }
 }

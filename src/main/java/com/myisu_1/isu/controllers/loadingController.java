@@ -1,11 +1,14 @@
 package com.myisu_1.isu.controllers;
 
 
+import com.myisu_1.isu.exporte.ExselFileExporteDocUnf;
+import com.myisu_1.isu.exporte.ExselFileExportePromo;
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.models.Marwel.MarvelPromo;
 import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.BarcodeServise;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -548,6 +553,15 @@ public class loadingController {
 
 
         return   barcodeServise.loadDoc(file);
+
+    }
+    @GetMapping("/exselDocUnf")
+    public void downloadExselFile(HttpServletResponse response) throws IOException, ParseException {
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=doc.xlsx");
+        ByteArrayInputStream inputStream = ExselFileExporteDocUnf.exportDocUnfFile(barcodeServise.getDocUnf());
+        IOUtils.copy(inputStream, response.getOutputStream());
 
     }
 
