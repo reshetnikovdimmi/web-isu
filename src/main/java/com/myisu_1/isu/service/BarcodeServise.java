@@ -1,12 +1,15 @@
 package com.myisu_1.isu.service;
 
+
+
+
+
 import com.myisu_1.isu.models.Barcode.BarcodeSpark;
 import com.myisu_1.isu.models.Barcode.BarcodeUnf;
 import com.myisu_1.isu.models.Barcode.DocUnf;
 import com.myisu_1.isu.repo.BarcodeSparkRepository;
 import com.myisu_1.isu.repo.BarcodeUnfRepository;
 import com.myisu_1.isu.repo.DocUnfRepository;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -17,15 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.InputStream;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toCollection;
 
 @Service
 public class BarcodeServise {
@@ -38,6 +36,7 @@ public class BarcodeServise {
     List<DocUnf> docUnfs;
     public ResponseEntity<String> saveBarcodeSpark(MultipartFile file) {
         long start = System.currentTimeMillis();
+
         barcodeSparkRepository.deleteAll();
         try {
             List<BarcodeSpark> barcodeSparkList = new ArrayList<>();
@@ -63,18 +62,23 @@ public class BarcodeServise {
 
     public ResponseEntity<String> saveBarcodeUnf(MultipartFile file) {
         long start = System.currentTimeMillis();
+
         barcodeUnfRepository.deleteAll();
         try {
             List<BarcodeUnf> barcodeUnfList = new ArrayList<>();
+
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
             XSSFSheet worksheet = workbook.getSheetAt(0);
+            System.out.println(workbook.getSheetName(0));
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 BarcodeUnf barcodeUnf = new BarcodeUnf();
                 XSSFRow row = worksheet.getRow(i);
+
                 barcodeUnf.setBarcode(row.getCell(0).getStringCellValue());
                 barcodeUnf.setNomenclature(row.getCell(1).getStringCellValue());
                 barcodeUnfList.add(barcodeUnf);
             }
+            System.out.println(barcodeUnfList.size());
             barcodeUnfRepository.saveAll(barcodeUnfList);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -84,7 +88,6 @@ public class BarcodeServise {
         DateFormat df = new SimpleDateFormat("HH 'hours', mm 'mins,' ss 'seconds'");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         return new ResponseEntity<>("File uploaded за" + " - " + df.format(new Date(timeWorkCode)), HttpStatus.OK);
-
 
     }
 

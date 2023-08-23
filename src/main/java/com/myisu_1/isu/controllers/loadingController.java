@@ -546,7 +546,7 @@ public class loadingController {
     @ResponseBody
     public ResponseEntity<String> fileUploadUnf(MultipartFile file) {
 
-
+System.out.println(file.getName());
         return   barcodeServise.saveBarcodeUnf(file);
 
     }
