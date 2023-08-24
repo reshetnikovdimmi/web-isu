@@ -73,7 +73,7 @@ public class BarcodeServise {
 
             XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
             XSSFSheet worksheet = workbook.getSheetAt(0);
-            System.out.println(workbook.getSheetName(0));
+
             for (int i = 1; i < worksheet.getPhysicalNumberOfRows(); i++) {
                 BarcodeUnf barcodeUnf = new BarcodeUnf();
                 XSSFRow row = worksheet.getRow(i);
@@ -82,7 +82,7 @@ public class BarcodeServise {
                 barcodeUnf.setNomenclature(row.getCell(1).getStringCellValue());
                 barcodeUnfList.add(barcodeUnf);
             }
-            System.out.println(barcodeUnfList.size());
+
             barcodeUnfRepository.saveAll(barcodeUnfList);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -123,11 +123,15 @@ public class BarcodeServise {
         barcode.addAll(docUnfRepository.shkDocUnfs());
 
         docUnfs = docUnfRepository.shkDocUnf(barcode);
+
+
   Collection<DocUnf> distinctEmps = docUnfs.stream()
                 .collect(Collectors.toMap(DocUnf::getBarcode, Function.identity(),
                         (e1, e2) -> e1.getBarcode() != e2.getBarcode() ? e1 : e2))
                 .values();
         docUnfs = distinctEmps.stream().collect(toCollection(ArrayList::new));
+
+
         return new ResponseEntity<>("Загружено строк"+"  "+ docUnfs.size()+"  "+ "из" + "  "+ docUnfList.size(), HttpStatus.OK);
     }
     public List<DocUnf> getDocUnf() {
