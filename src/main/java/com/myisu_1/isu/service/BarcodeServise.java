@@ -24,6 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toCollection;
 
 @Service
 public class BarcodeServise {
@@ -119,7 +123,11 @@ public class BarcodeServise {
         barcode.addAll(docUnfRepository.shkDocUnfs());
 
         docUnfs = docUnfRepository.shkDocUnf(barcode);
-
+  Collection<DocUnf> distinctEmps = docUnfs.stream()
+                .collect(Collectors.toMap(DocUnf::getBarcode, Function.identity(),
+                        (e1, e2) -> e1.getBarcode() != e2.getBarcode() ? e1 : e2))
+                .values();
+        docUnfs = distinctEmps.stream().collect(toCollection(ArrayList::new));
         return new ResponseEntity<>("Загружено строк"+"  "+ docUnfs.size()+"  "+ "из" + "  "+ docUnfList.size(), HttpStatus.OK);
     }
     public List<DocUnf> getDocUnf() {
