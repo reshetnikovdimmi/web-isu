@@ -74,7 +74,7 @@ public class loadingController {
 
     @GetMapping("/loading")
     public String home(Model model) {
-
+        barcodeServise.getDocUnf();
         return "loading";
     }
 
@@ -546,7 +546,7 @@ public class loadingController {
     @ResponseBody
     public ResponseEntity<String> fileUploadUnf(MultipartFile file) {
 
-System.out.println(file.getName());
+
         return   barcodeServise.saveBarcodeUnf(file);
 
     }
