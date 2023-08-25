@@ -1,6 +1,7 @@
 package com.myisu_1.isu.service;
 
 
+import com.myisu_1.isu.dto.DocUnfTable;
 import com.myisu_1.isu.models.Barcode.BarcodeSpark;
 import com.myisu_1.isu.models.Barcode.BarcodeUnf;
 import com.myisu_1.isu.models.Barcode.DocUnf;
@@ -12,6 +13,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -94,7 +96,7 @@ public class BarcodeServise {
 
     }
 
-    public ResponseEntity<String> loadDoc(MultipartFile file) {
+    public HttpEntity<? extends Object> loadDoc(MultipartFile file) {
         docUnfRepository.deleteAll();
 
         List<DocUnf> docUnfList;
@@ -135,9 +137,9 @@ public class BarcodeServise {
                         (e1, e2) -> e1.getBarcode() != e2.getBarcode() ? e1 : e2))
                 .values();
         docUnfs = distinctEmps.stream().collect(toCollection(ArrayList::new));
+DocUnfTable docUnfTables = new DocUnfTable("Загружено строк" + "  " + docUnfsNew.size() + "  " + "из" + "  " + docUnfList.size()+ "  " + "из книги " + "  " +file.getOriginalFilename(),docUnfs);
 
-
-        return new ResponseEntity<>("Загружено строк" + "  " + docUnfsNew.size() + "  " + "из" + "  " + docUnfList.size()+ "  " + "из книги " + "  " +file.getOriginalFilename(), HttpStatus.OK);
+        return new ResponseEntity<DocUnfTable>(docUnfTables, HttpStatus.OK);
     }
 
     public List<DocUnf> getDocUnf() {

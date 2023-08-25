@@ -555,7 +555,7 @@ System.out.println(file.getName());
     public ResponseEntity<String> fileUploadDoc(MultipartFile file) {
 
 
-        return   barcodeServise.loadDoc(file);
+        return (ResponseEntity<String>) barcodeServise.loadDoc(file);
 
     }
     @GetMapping("/exselDocUnf")
