@@ -1,9 +1,6 @@
 package com.myisu_1.isu.service;
 
 
-
-
-
 import com.myisu_1.isu.models.Barcode.BarcodeSpark;
 import com.myisu_1.isu.models.Barcode.BarcodeUnf;
 import com.myisu_1.isu.models.Barcode.DocUnf;
@@ -17,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,7 +35,8 @@ public class BarcodeServise {
     private BarcodeUnfRepository barcodeUnfRepository;
     @Autowired
     private DocUnfRepository docUnfRepository;
-    List<DocUnf> docUnfs;
+    List<DocUnf> docUnfs = new ArrayList<>();
+
     public ResponseEntity<String> saveBarcodeSpark(MultipartFile file) {
         long start = System.currentTimeMillis();
 
@@ -97,6 +96,7 @@ public class BarcodeServise {
 
     public ResponseEntity<String> loadDoc(MultipartFile file) {
         docUnfRepository.deleteAll();
+
         List<DocUnf> docUnfList;
         String br = null;
         List<String> barcode = new ArrayList<>();
@@ -108,33 +108,41 @@ public class BarcodeServise {
                 DocUnf docUnf = new DocUnf();
                 XSSFRow row = worksheet.getRow(i);
                 docUnf.setNomenclatures(row.getCell(0).getStringCellValue());
-                br= String.valueOf(row.getCell(1).getCellType() == CellType.ERROR ? null : row.getCell(1).getStringCellValue());
-                if (br!=null)barcode.add(br);
+                br = String.valueOf(row.getCell(1).getCellType() == CellType.ERROR ? null : row.getCell(1).getStringCellValue());
+                if (br != null) barcode.add(br);
                 docUnf.setBarcode(br);
                 docUnf.setQuantity(row.getCell(2).getCellType() == CellType.ERROR ? null : row.getCell(2).getNumericCellValue());
                 docUnf.setPrice(row.getCell(3).getCellType() == CellType.ERROR ? null : row.getCell(3).getNumericCellValue());
                 docUnfList.add(docUnf);
             }
             docUnfRepository.saveAll(docUnfList);
+        } catch (ObjectOptimisticLockingFailureException ex) {
+            return new ResponseEntity<>("подожди", HttpStatus.BAD_REQUEST);
+
+
         } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>("Invalid file format!!", HttpStatus.BAD_REQUEST);
+
         }
         barcode.addAll(docUnfRepository.shkDocUnfs());
+        List<DocUnf> docUnfsNew = docUnfRepository.shkDocUnf(barcode);
+        docUnfs.addAll(docUnfsNew);
 
-        docUnfs = docUnfRepository.shkDocUnf(barcode);
 
-
-  Collection<DocUnf> distinctEmps = docUnfs.stream()
+        Collection<DocUnf> distinctEmps = docUnfs.stream()
                 .collect(Collectors.toMap(DocUnf::getBarcode, Function.identity(),
                         (e1, e2) -> e1.getBarcode() != e2.getBarcode() ? e1 : e2))
                 .values();
         docUnfs = distinctEmps.stream().collect(toCollection(ArrayList::new));
 
 
-        return new ResponseEntity<>("Загружено строк"+"  "+ docUnfs.size()+"  "+ "из" + "  "+ docUnfList.size(), HttpStatus.OK);
+        return new ResponseEntity<>("Загружено строк" + "  " + docUnfsNew.size() + "  " + "из" + "  " + docUnfList.size()+ "  " + "из книги " + "  " +file.getOriginalFilename(), HttpStatus.OK);
     }
+
     public List<DocUnf> getDocUnf() {
-        return docUnfs;
+        List<DocUnf> docUnfsNew = docUnfs;
+        docUnfs = new ArrayList<>();
+        return docUnfsNew;
     }
 }

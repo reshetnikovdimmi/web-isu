@@ -60,13 +60,19 @@ $(document).ready(function() {
                         cache: false,
                         success: function (res) {
                             console.log(res);
-                            $('#status-doc').text(res);
+                           // $('#status-doc').text(res);
+                            $('#status-doc').append('<div class="third">'+res+'</div>');
                         },
                         error: function (err) {
                             $('#status-doc').text(err.responseText);
                             console.error(err);
                         }
                     });
+                });
+
+$("#del").on("click", function (e) {
+                 alert("ok")
+                 $('.third').remove();
                 });
 
    });

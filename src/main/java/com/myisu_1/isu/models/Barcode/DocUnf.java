@@ -18,7 +18,7 @@ public class DocUnf implements Serializable {
     private Double quantity;
     private Double price;
 
-    @OneToMany(targetEntity = BarcodeUnf.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = BarcodeUnf.class, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "nomenclature", referencedColumnName = "nomenclatures", insertable = false, updatable = false)
     private List<BarcodeUnf> barcodeUnfs;
 
