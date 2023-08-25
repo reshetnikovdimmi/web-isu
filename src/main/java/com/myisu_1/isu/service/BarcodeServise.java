@@ -137,7 +137,7 @@ public class BarcodeServise {
                         (e1, e2) -> e1.getBarcode() != e2.getBarcode() ? e1 : e2))
                 .values();
         docUnfs = distinctEmps.stream().collect(toCollection(ArrayList::new));
-        DocUnfTable docUnfTables = new DocUnfTable("Загружено строк" + "  " + docUnfsNew.size() + "  " + "из" + "  " + docUnfList.size() + "  " + "из книги " + "  " + file.getOriginalFilename(), docUnfs);
+        DocUnfTable docUnfTables = new DocUnfTable("Загружено строк" + "  " + docUnfList.size() + "  " + "из" + "  " + docUnfList.size() + "  " + "из книги " + "  " + file.getOriginalFilename(), docUnfs);
 
         return new ResponseEntity<DocUnfTable>(docUnfTables, HttpStatus.OK);
     }
