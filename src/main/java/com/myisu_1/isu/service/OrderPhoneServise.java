@@ -6,7 +6,7 @@ import com.myisu_1.isu.models.Phone.MatrixT2;
 import com.myisu_1.isu.models.Phone.OrderPhone;
 import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.Sales;
-import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.repo.MatrixSparkRepository;
 import com.myisu_1.isu.repo.MatrixT2Repository;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
@@ -44,7 +44,7 @@ public class OrderPhoneServise extends MovementsPhoneServise {
 
 
 
-    private int orderInMatrixT2(List<MatrixT2> matrixT2List, com.myisu_1.isu.models.authorization_tt authorization_tt, DistributionPhone distributionPhone, String s) {
+    private int orderInMatrixT2(List<MatrixT2> matrixT2List, Authorization_tt authorization_tt, DistributionPhone distributionPhone, String s) {
         int quantity = 0;
         for (int i =0;i<matrixT2List.size();i++){
             if(!authorization_tt.getClusterT2().isEmpty()&& matrixT2List.get(i).getDistributionModel().equals(s) && matrixT2List.get(i).getCluster().equals(String.valueOf(authorization_tt.getClusterT2().charAt(0))) && distributionPhone.getRemanisPhone()<Integer.parseInt(matrixT2List.get(i).getQuantity())){

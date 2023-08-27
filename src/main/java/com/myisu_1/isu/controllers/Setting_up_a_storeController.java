@@ -1,7 +1,6 @@
 package com.myisu_1.isu.controllers;
 
-import com.myisu_1.isu.models.SIM.SimAndRtkTable;
-import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import com.myisu_1.isu.repo.SalesRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class Setting_up_a_storeController {
 
     @ResponseBody
     @RequestMapping(value = "update_shop/{id}", method = RequestMethod.GET)
-    public Optional<authorization_tt> update(@PathVariable("id") int id) {
+    public Optional<Authorization_tt> update(@PathVariable("id") int id) {
         return shop.findById(id);
     }
 
@@ -53,10 +52,10 @@ public class Setting_up_a_storeController {
 
             }
 
-            shop.save((new authorization_tt(IDupdateSHOP, LOGIN, PASWORD, NAMERAINBOW, CLUSTERT2, CLUSTERRTK, SIMT2, CLUSTERMTS, SIMBEE, SIMMF, NAMESPARK, NAMERARUS)));
+            shop.save((new Authorization_tt(IDupdateSHOP, LOGIN, PASWORD, NAMERAINBOW, CLUSTERT2, CLUSTERRTK, SIMT2, CLUSTERMTS, SIMBEE, SIMMF, NAMESPARK, NAMERARUS)));
 
         } else {
-            shop.save((new authorization_tt(LOGIN, PASWORD, NAMERAINBOW, CLUSTERT2, CLUSTERRTK, SIMT2, CLUSTERMTS, SIMBEE, SIMMF, NAMESPARK, NAMERARUS)));
+            shop.save((new Authorization_tt(LOGIN, PASWORD, NAMERAINBOW, CLUSTERT2, CLUSTERRTK, SIMT2, CLUSTERMTS, SIMBEE, SIMMF, NAMESPARK, NAMERARUS)));
         }
 
         model.addAttribute("shop", shop.findAll());

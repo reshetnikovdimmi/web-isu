@@ -1,7 +1,7 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.accessories.SettingAccessories;
-import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class AccessoriesServise {
     private PostRepositoriy authorization_ttRepositoriy;
     Map<String, Map<String, String>> accessoriesGrup;
     String grups;
-    List<authorization_tt> authorization_ttList;
+    List<Authorization_tt> authorization_ttList;
     Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem;
     Map<String, Map<String, Map<String, String>>> shopRemanisSeless;
 
@@ -86,14 +86,14 @@ public class AccessoriesServise {
         grups = grup;
         long start = System.currentTimeMillis();
         Map<String, Map<String, String>> accessoriesCategoryAll = new TreeMap<>();
-        authorization_ttList = (List<authorization_tt>) authorization_ttRepositoriy.findAll();
+        authorization_ttList = (List<Authorization_tt>) authorization_ttRepositoriy.findAll();
         Map<String, String> indicators;
 
         List<String> nomeklature = rangeAccessoriesRepositoriy.getButtonPhonePrice(accessoriesGrup.get(grup.trim()).get("ГРУППА"), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМИН")), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМАКС")));
 
         Integer minRemanis = settingAccessoriesRepositoriy.getMinRemanis(accessoriesGrup.get(grup.trim()).get("ГРУППА"), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМИН")), Integer.parseInt(accessoriesGrup.get(grup.trim()).get("ЦЕНМАКС")));
 
-        for (authorization_tt authorization : authorization_ttList) {
+        for (Authorization_tt authorization : authorization_ttList) {
             indicators = new TreeMap<>();
             String remanis = remanisAccessoriesRepositoriy.getRemainsAccessoriesShop(authorization.getName(), nomeklature);
             String sale1 = accessoriesSale1Repositoriy.getAccessoriesSale1Shop(authorization.getName(), nomeklature);

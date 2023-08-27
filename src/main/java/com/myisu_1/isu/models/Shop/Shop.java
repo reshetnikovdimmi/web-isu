@@ -1,15 +1,14 @@
 package com.myisu_1.isu.models.Shop;
 
-import com.myisu_1.isu.models.Phone_Smart;
-import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.Authorization_tt;
 
 import java.util.List;
 import java.util.Map;
 
 public abstract class Shop {
-    String nameShop;
-    public List<authorization_tt> authorization_ttList;
-    public List<Phone_Smart> phoneSmartList;
+
+    public List<Authorization_tt> authorization_ttList;
+
     public List<String> brendDisting;
     public Map<String,List<String>> graduationButton;
     public List<String> modelsGraduation;
@@ -20,23 +19,6 @@ public abstract class Shop {
 
 
 
-
-
-    public List<authorization_tt> getAuthorization_ttList() {
-        return authorization_ttList;
-    }
-
-    public void setAuthorization_ttList(List<authorization_tt> authorization_ttList) {
-        this.authorization_ttList = authorization_ttList;
-    }
-
-    public String getNameShop() {
-        return nameShop;
-    }
-
-    public void setNameShop(String nameShop) {
-        this.nameShop = nameShop;
-    }
 
 
 

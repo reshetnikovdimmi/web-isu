@@ -1,9 +1,8 @@
 package com.myisu_1.isu.service;
 
-import com.myisu_1.isu.models.Phone.MatrixT2;
 import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.SIM.SimAndRtkTable;
-import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.repo.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,7 +15,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class SimDistributionServise {
@@ -35,14 +33,14 @@ public class SimDistributionServise {
     @Autowired
     private MatrixRTKRepository matrixRTKRepository;
     Map<String,Map<String,Map<String,String>>> shopSimRTK;
-    List<authorization_tt> authorization;
+    List<Authorization_tt> authorization;
     Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
     public Map<String,Map<String,String>> needSim() {
         remanSaleSimShop = new TreeMap<>();
         Map<String,Map<String,String>> shopSimRTKName = new TreeMap<>();
         Map<String,String> shopSimRTKPlan;
 
-        authorization = (List<authorization_tt>) authorization_ttRepositoriy.findAll();
+        authorization = (List<Authorization_tt>) authorization_ttRepositoriy.findAll();
             for (SimAndRtkTable simAndRtkTable : rtkTableRepositoriy.findAll()) {
                 shopSimRTKPlan = new TreeMap<>();
                 shopSimRTKPlan.put("view",simAndRtkTable.getView());
@@ -127,7 +125,7 @@ public class SimDistributionServise {
         Map<String,Map<String,String>> ddd = new TreeMap<>();
 
 
-        for (authorization_tt shop : authorization)    {
+        for (Authorization_tt shop : authorization)    {
             Map<String,String> dddd = new TreeMap<>();
             if (shop.getSimT2().equals(view)){
 

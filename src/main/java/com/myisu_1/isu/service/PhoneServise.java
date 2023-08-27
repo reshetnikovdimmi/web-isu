@@ -1,11 +1,11 @@
 package com.myisu_1.isu.service;
 
 
+import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.Sales;
-import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class PhoneServise {
     private MatrixSparkRepository matrixSparkRepository;
 
     List<Sales> sales;
-    public List<authorization_tt> authorization_ttList;
+    public List<Authorization_tt> authorization_ttList;
     List<Phone_Smart> phoneSmartList;
     List<RemanisSim> remanisSimList;
     Map<String, Map<String, Map<String, Map<String, Integer>>>> remanisSaleShop;
@@ -47,7 +47,7 @@ public class PhoneServise {
 
 
     public Map<String, Map<String, Integer>> distributionModel() {
-        authorization_ttList = (List<com.myisu_1.isu.models.authorization_tt>) authorization_tt.findAll();
+        authorization_ttList = (List<Authorization_tt>) authorization_tt.findAll();
         matrix_T2 = phoneRepositoriy.getMatrixT2Disting();
         remanisSaleShop = new TreeMap<>();
         shopMatrix = new TreeMap<>();
@@ -355,7 +355,7 @@ public class PhoneServise {
     public Object updateRemanisSaleMatrixT2Shop(String model) {
         Map<String, Map<String, Integer>> shop = new TreeMap<>();
 
-        for (authorization_tt shops: authorization_ttList){
+        for (Authorization_tt shops: authorization_ttList){
             Map<String, Integer> indicators = new TreeMap<>();
             indicators.put("remanis",phoneRepositoriy.getPhoneRemanMatrix(model, shops.getName()));
             indicators.put("sale1", phoneRepositoriy.getPhoneSale1Matrix(model, shops.getName()));
@@ -371,7 +371,7 @@ public class PhoneServise {
 
         List<String> modelGb = phoneRepositoriy.getPhonaModelGb(model);
         System.out.println(modelGb);
-        for (authorization_tt shops: authorization_ttList){
+        for (Authorization_tt shops: authorization_ttList){
             Map<String, Integer> indicators = new TreeMap<>();
             indicators.put("remanis",phoneRepositoriy.getRemanisModelGbShop(modelGb, shops.getName()));
             indicators.put("sale1", phoneRepositoriy.getSale1DistrModelGb(modelGb, shops.getName()));

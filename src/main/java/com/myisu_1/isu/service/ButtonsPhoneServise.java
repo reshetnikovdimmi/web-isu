@@ -1,10 +1,10 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Phone.Buttons;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.SIM.SaleSim_1m;
 import com.myisu_1.isu.models.SIM.SaleSim_6m;
-import com.myisu_1.isu.models.authorization_tt;
 import com.myisu_1.isu.repo.ButtonsPhoneRepositoriy;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +126,7 @@ public class ButtonsPhoneServise {
 
         Map<String, Map<String, String>> shopRemanisSele = new TreeMap<>();
 
-        for (authorization_tt authorizationList : button.authorization_ttList) {
+        for (Authorization_tt authorizationList : button.authorization_ttList) {
             shopRemanisSele.put(authorizationList.getName(), shopRemanisSele(button.graduationButton.get(brendPhone), authorizationList.getName(), brendPhone));
 
         }
@@ -213,9 +213,9 @@ if(modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())){
 
     public Map<String, Map<String, String>> tabletableRequirement() {
         Map<String, Map<String, String>> shopRemanisSele = new TreeMap<>();
-        button.authorization_ttList = (List<authorization_tt>) authorizationRep.findAll();
+        button.authorization_ttList = (List<Authorization_tt>) authorizationRep.findAll();
 
-        for (authorization_tt authorizationList : button.authorization_ttList) {
+        for (Authorization_tt authorizationList : button.authorization_ttList) {
             shopRemanisSele.put(authorizationList.getName(), remanisRequirement(authorizationList.getName()));
         }
 

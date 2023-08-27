@@ -3,9 +3,8 @@ package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.models.Phone.From_whereTo_where;
-import com.myisu_1.isu.models.Phone.TableMatrixT2;
 import com.myisu_1.isu.models.SIM.RemanisSim;
-import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.Authorization_tt;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -226,7 +225,7 @@ public class MovementsPhoneServise extends PhoneServise {
 
     public boolean checkingForT2(String name) {
         boolean t2 = false;
-        authorization_tt james = authorization_ttList
+        Authorization_tt james = authorization_ttList
                 .stream()
                 .filter(customer -> name.equals(customer.getName()) && !customer.getClusterT2().isEmpty())
                 .findAny()

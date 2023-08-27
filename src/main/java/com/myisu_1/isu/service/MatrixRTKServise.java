@@ -1,6 +1,6 @@
 package com.myisu_1.isu.service;
 
-import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,11 @@ public class MatrixRTKServise {
     private PostRepositoriy authorization_ttRepositoriy;
 
     Map<String,Map<String,Map<String,Map<String,Integer>>>> shopRTK;
-    List<authorization_tt> authorization;
+    List<Authorization_tt> authorization;
     List<String> matrixRTKAll;
     List<String> shopRTKList;
     public Object getSaleRemanisAll() {
-        authorization  = (List<authorization_tt>) authorization_ttRepositoriy.findAll();
+        authorization  = (List<Authorization_tt>) authorization_ttRepositoriy.findAll();
         Map<String,Map<String,Integer>> distributionModel = new TreeMap<>();
         Map<String,Integer> saleRemanis;
         matrixRTKAll = rtkTableRepositoriy.getMatrixRTKAll();

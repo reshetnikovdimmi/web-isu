@@ -2,7 +2,7 @@ package com.myisu_1.isu.models.ClothesForPhones.Glass;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.myisu_1.isu.models.authorization_tt;
+import com.myisu_1.isu.models.Authorization_tt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -50,7 +50,7 @@ public class Glass extends ClothingMatching {
 
     public List<List<String>> brendDistingList;
 
-    public Iterable<authorization_tt> print(){
+    public Iterable<Authorization_tt> print(){
 
         return authorization_ttList;
     }

@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class authorization_tt {
+public class Authorization_tt {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -22,7 +22,7 @@ public class authorization_tt {
     private String shopIskra;
     private String shopRarus;
 
-    public authorization_tt(int id, String login, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra, String shopRarus) {
+    public Authorization_tt(int id, String login, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra, String shopRarus) {
         this.id = id;
         this.login = login;
         this.name = name;
@@ -36,7 +36,7 @@ public class authorization_tt {
         this.shopRarus = shopRarus;
     }
 
-    public authorization_tt(String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra, String shopRarus) {
+    public Authorization_tt(String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra, String shopRarus) {
         this.login = login;
         this.pasword = pasword;
         this.name = name;
@@ -50,10 +50,10 @@ public class authorization_tt {
         this.shopRarus = shopRarus;
     }
 
-    public authorization_tt() {
+    public Authorization_tt() {
     }
 
-    public authorization_tt(int id, String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra, String shopRarus) {
+    public Authorization_tt(int id, String login, String pasword, String name, String clusterT2, String clusterRtk, String simT2, String simMts, String simBee, String simMf, String shopIskra, String shopRarus) {
         this.id = id;
         this.login = login;
         this.pasword = pasword;

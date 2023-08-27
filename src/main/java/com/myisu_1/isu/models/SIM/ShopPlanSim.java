@@ -20,6 +20,11 @@ public class ShopPlanSim {
         this.plan = plan;
     }
 
+    public ShopPlanSim(String shop, String nameSimModem) {
+        this.shop = shop;
+        this.nameSimModem = nameSimModem;
+    }
+
     public ShopPlanSim(String shop, String nameSimModem, int plan) {
         this.shop = shop;
         this.nameSimModem = nameSimModem;

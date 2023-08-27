@@ -150,7 +150,7 @@ public class loadingController {
                 listOFgoods1.setDiscountUE((int) row.getCell(15).getNumericCellValue());
             } else if (row.getCell(15).getCellType() == CellType.STRING) {
                 String g = row.getCell(15).getStringCellValue().trim().replaceAll(" ", "");
-                System.out.println(g + "--" + g.length());
+
 
                 try {
                     listOFgoods1.setDiscountUE((int) Double.parseDouble(row.getCell(15).getStringCellValue().replace("\\s+", "")));

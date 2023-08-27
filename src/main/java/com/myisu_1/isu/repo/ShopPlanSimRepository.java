@@ -1,8 +1,6 @@
 package com.myisu_1.isu.repo;
 
 import com.myisu_1.isu.models.SIM.ShopPlanSim;
-import com.myisu_1.isu.models.Sales;
-import com.myisu_1.isu.models.authorization_tt;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -23,4 +21,7 @@ public interface ShopPlanSimRepository extends CrudRepository<ShopPlanSim, Integ
 
     @Query("SELECT SUM(plan)  FROM ShopPlanSim WHERE shop IN ?1 AND nameSimModem = ?2")
     Integer getPlanShopSim(List<String> authorization, String nameRainbow);
+
+    @Query("SELECT nameSimModem  FROM ShopPlanSim WHERE shop = ?1")
+    List<String> simShopPlanRem(String shop);
 }
