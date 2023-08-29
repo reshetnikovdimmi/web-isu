@@ -1,10 +1,7 @@
 package com.myisu_1.isu.service;
 
-import com.myisu_1.isu.dto.SimPlan;
 import com.myisu_1.isu.models.Authorization_tt;
-import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.SIM.ShopPlanSim;
-import com.myisu_1.isu.models.SIM.SimAndRtkTable;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import com.myisu_1.isu.repo.ShopPlanSimRepository;
 import com.myisu_1.isu.repo.SimAndRtkTableRepositoriy;
@@ -25,22 +22,27 @@ public class SimPlanOrderServise {
 
     public Object simPlanOrder(String shop) {
         Authorization_tt shops = authorization.findByName(shop);
-
+        List<String> simPlanNull;
         List<String> sim = new ArrayList<>();
         sim.add(shops.getSimT2());
         sim.add(shops.getSimMts());
         sim.add(shops.getSimMf());
         List<String> simShopPlanRem = shopPlanSimRepository.simShopPlanRem(shop);
 
-        List<String> simPlanNull = simAndRtkTableRepositoriy.getNull(sim, simShopPlanRem);
+        if (!simShopPlanRem.isEmpty()) {
+            simPlanNull = simAndRtkTableRepositoriy.getNull(sim, simShopPlanRem);
+        }else {
+            simPlanNull = simAndRtkTableRepositoriy.getNull(sim);
+        }
+
 
         List<ShopPlanSim> shopPlanSims = new ArrayList<>();
-        for (String s:simPlanNull){
-            shopPlanSims.add(new ShopPlanSim(shop,s));
+        for (String s : simPlanNull) {
+            shopPlanSims.add(new ShopPlanSim(shop, s));
         }
-        if(simPlanNull.size()!=0) shopPlanSimRepository.saveAll(shopPlanSims);
+        if (simPlanNull.size() != 0) shopPlanSimRepository.saveAll(shopPlanSims);
 
 
-        return simAndRtkTableRepositoriy.simPlanOrder(shop,sim);
+        return simAndRtkTableRepositoriy.simPlanOrder(shop, sim);
     }
 }
