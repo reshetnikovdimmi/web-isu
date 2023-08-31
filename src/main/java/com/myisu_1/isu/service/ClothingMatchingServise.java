@@ -45,8 +45,8 @@ public class ClothingMatchingServise {
       return clothingMatching.clothingMatchingTableList;
     }
     public List<ClothingMatchingTable> slotongMatchingTable() {
-        clothingMatching.clothingMatchingTableList = clothingMatchingTableRepositoriy.findAll();
-        return clothingMatching.clothingMatchingTableList;
+
+        return clothingMatchingTableRepositoriy.findAll();
     }
 
     public void LoadingClothingMatching(MultipartFile clothingMatchingRemanis) throws IOException {
@@ -57,14 +57,15 @@ public class ClothingMatchingServise {
     public void LoadingClothingMatchingSale1(MultipartFile clothingMatchingSale1) throws IOException {
         clothingMatching = new ClothingMatching();
         clothesForPhonesSale1Repositoriy.deleteAll();
-        clothesForPhonesSale1Repositoriy.saveAll(glass.creatClothingMatchingSale1(clothingMatchingSale1));
+
+        clothesForPhonesSale1Repositoriy.saveAll(clothingMatching.creatClothingMatchingSale1(clothingMatchingSale1));
     }
 
     public void LoadingClothingMatchingSale6(MultipartFile clothingMatchingSale6) throws IOException {
 
         clothesForPhonesSale6Repositoriy.deleteAll();
 
-        clothesForPhonesSale6Repositoriy.saveAll(glass.creatClothingMatchingSale6(clothingMatchingSale6));
+        clothesForPhonesSale6Repositoriy.saveAll(clothingMatching.creatClothingMatchingSale6(clothingMatchingSale6));
     }
 
 

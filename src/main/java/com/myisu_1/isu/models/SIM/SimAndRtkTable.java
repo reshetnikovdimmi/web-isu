@@ -24,22 +24,22 @@ public class SimAndRtkTable implements Serializable {
 
     @OneToMany(targetEntity = ShopPlanSim.class, cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "nameSimModem", referencedColumnName = "nameRainbow")
-    @Fetch(value = FetchMode.SUBSELECT)
+
     private List<ShopPlanSim> shopPlanSims;
 
-    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     @JoinColumn(name = "nameSimAndModem", referencedColumnName = "nameRainbow", insertable = false, updatable = false)
-    @Fetch(value = FetchMode.SUBSELECT)
+
     private List<RemanisSim> remanisSims;
 
-    @OneToMany(targetEntity = SaleSim_6m.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = SaleSim_6m.class, cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     @JoinColumn(name = "nameSimAndModem", referencedColumnName = "nameRainbow", insertable = false, updatable = false)
-    @Fetch(value = FetchMode.SUBSELECT)
+
     private List<SaleSim_6m> saleSim6ms;
 
-    @OneToMany(targetEntity = SaleSim_1m.class, cascade = CascadeType.REFRESH,fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = SaleSim_1m.class, cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     @JoinColumn(name = "nameSimAndModem", referencedColumnName = "nameRainbow", insertable = false, updatable = false)
-    @Fetch(value = FetchMode.SUBSELECT)
+
     private List<SaleSim_1m> saleSim1ms;
 
     public SimAndRtkTable(int id, String view, String nameSpark, String nameRarus, String nameRainbow, String distributionModel, String toOrder, List<ShopPlanSim> shopPlanSims, List<RemanisSim> remanisSims, List<SaleSim_6m> saleSim6ms, List<SaleSim_1m> saleSim1ms) {

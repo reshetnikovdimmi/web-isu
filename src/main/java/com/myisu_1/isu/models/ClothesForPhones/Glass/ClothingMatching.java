@@ -46,12 +46,16 @@ public class ClothingMatching extends Shop {
     public List<ClothesForPhonesSale1> creatClothingMatchingSale1(MultipartFile clothingMatching) throws IOException {
         List<ClothesForPhonesSale1> сlothesForPhonesRemanis = new ArrayList<ClothesForPhonesSale1>();
         XSSFWorkbook workbook = new XSSFWorkbook(clothingMatching.getInputStream());
+        System.out.println(workbook.getSheetName(0));
         XSSFSheet worksheet = workbook.getSheetAt(0);
         for (int i = 2; i < worksheet.getPhysicalNumberOfRows() - 1; i++) {
             ClothesForPhonesSale1 clothes = new ClothesForPhonesSale1();
             XSSFRow row = worksheet.getRow(i);
+
             clothes.setNameShop(row.getCell(0).getStringCellValue());
+
             clothes.setNameClothes(row.getCell(1).getStringCellValue());
+
             clothes.setSaleClothes((int) row.getCell(2).getNumericCellValue());
             сlothesForPhonesRemanis.add(clothes);
         }

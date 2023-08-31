@@ -70,7 +70,7 @@ public class ClothingMatchingController {
     @PostMapping("/uploadClothingMatchingSale1")
     public String mapReapExcelDatatoDB1(@RequestParam("ClothingMatchingSale1") MultipartFile ClothingMatchingSale1, Model model) throws IOException, ParseException {
         model.addAttribute("ClothingMatching", loadingDBServise.LoadingBrendDisting());
-        System.out.println(ClothingMatchingSale1.getName());
+
         loadingDBServise.LoadingClothingMatchingSale1(ClothingMatchingSale1);
         return "ClothingMatching";
     }

@@ -33,7 +33,7 @@ public interface SimAndRtkTableRepositoriy extends JpaRepository<SimAndRtkTable,
     List<SimPlan> simPlanOrder(String shop, List<String> sim);
 
     @Query("SELECT DISTINCT nameRainbow FROM SimAndRtkTable " +
-            " WHERE nameRainbow NOT IN ?2 AND view IN ?1")
+            " WHERE nameRainbow  NOT IN ?2 AND view IN ?1")
     List<String> getNull(List<String> sim, List<String> shop);
 
     @Query("SELECT DISTINCT nameRainbow FROM SimAndRtkTable " +
