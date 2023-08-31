@@ -1,12 +1,13 @@
 package com.myisu_1.isu.repo;
 
 import com.myisu_1.isu.models.SIM.RemanisSim;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface RemanisSimRepository extends CrudRepository<RemanisSim, Integer> {
+public interface RemanisSimRepository extends JpaRepository<RemanisSim, Integer> {
     @Query("SELECT SUM(remainsSimAndModem)  FROM RemanisSim WHERE nameSimAndModem = ?1")
 
     Integer getSumRemanisSim(String nameAccessories);
