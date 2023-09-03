@@ -92,17 +92,19 @@
                         <div class="col-md-6 themed-grid-col">
                             <div class="row mb-3">
                                 <div class="col">
-                                    <form th:action="@{/importRemainingPhonesMarwel}" method="post"
-                                          enctype="multipart/form-data">
-                                        <input type="file" th:name="importRemainingPhonesMarwel"/>
-                                        <input th:type="submit" value="Import"/>
+
+                                    <form th:action="@{/importRemainingPhonesMarwel}" class="card p-2" method="post" enctype="multipart/form-data">
+                                        <label for="file-upload-input" id="status-messages-MARWEL">Остатки для загрузки на портал</label>
+                                        <div class="input-group">
+                                            <input type="file" class="form-control" th:name="importsuppliers"/>
+                                            <button  th:type="submit" class="btn btn-secondary" value="Import"/>Применить</button>
+                                        </div>
                                     </form>
+
+
                                 </div>
 
-                                <div class="col">
 
-                                    Остатки для загрузки на портал
-                                </div>
 
                             </div>
                         </div>
@@ -111,11 +113,11 @@
                             <div class="row mb-3">
 
                                 <div class="col-6 col-md-4 themed-grid-col">
-                                    <input type="date" name="start"id="start"></div>
+                                    <input type="date" class="form-control" name="start"id="start"></div>
                                 <div class="col-6 col-md-4 themed-grid-col">
-                                    <input type="date" name="stop"id="stop"></div>
+                                    <input type="date" class="form-control" name="stop"id="stop"></div>
                                 <div class="col-6 col-md-4 themed-grid-col">
-                                    <button class="btn btn-primary btn-sm" type="submit">Показать</button>
+                                    <button class="btn  btn-outline-primary" type="submit">Показать</button>
                                 </div>
 
                             </div>
@@ -124,9 +126,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
-                            <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
-                            <table class="table table-dark table-hover">
+                        <div class="col-6">
+                            <h8 class="mt-4">ОТЧЕТЫ MARWEL</h8>
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
@@ -152,9 +154,9 @@
                             </table>
 
                         </div>
-                        <div class="col">
-                            <h5 class="mt-4">НОВЫЕ ТЕЛЕФОНЫ</h5>
-                            <table class="table table-dark table-hover">
+                        <div class="col-3">
+                            <h8 class="mt-4">НОВЫЕ ТЕЛЕФОНЫ</h8>
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
@@ -173,9 +175,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="col">
-                            <h5 class="mt-4">НЕТ В КЛАСИФИКАТОРЕ MARWEL</h5>
-                            <table class="table table-dark table-hover">
+                        <div class="col-3">
+                            <h8 class="mt-4">НЕТ В КЛАСИФИКАТОРЕ MARWEL</h8>
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
@@ -210,14 +212,14 @@
                         <div class="col-6 col-md-4 themed-grid-col">
                             <div class="col-6 col-md-4 themed-grid-col">
                                 <form action="" method="post">
-                                    <button class="btn btn-primary btn-sm" type="submit">EXSEL</button>
+                                    <button class="btn  btn-outline-primary" type="submit">EXSEL</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-6 themed-grid-col">
-                            <table class="table table-dark table-hover">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
@@ -243,7 +245,7 @@
                             </table>
                         </div>
                         <div class="col-6 themed-grid-col">
-                            <table class="table table-dark table-hover">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
@@ -270,11 +272,11 @@
                     <div class="row mb-3">
                         <div class="col-6 col-md-4 themed-grid-col">
                             <h6>POCO</h6>
-                            <table class="table table-dark table-hover">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
-                                    <th>Артикул производителя</th>
+                                    <th>Артикул</th>
                                     <th>Продажи</th>
                                     <th>Остатки</th>
 
@@ -292,11 +294,11 @@
                         </div>
                         <div class="col-6 col-md-4 themed-grid-col">
                             <h6>XIAOMI</h6>
-                            <table class="table table-dark table-hover">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
-                                    <th>Артикул производителя</th>
+                                    <th>Артикул</th>
                                     <th>Продажи</th>
                                     <th>Остатки</th>
 
@@ -315,11 +317,11 @@
                         </div>
                         <div class="col-6 col-md-4 themed-grid-col">
                             <h6>В ДОЛЯХ</h6>
-                            <table class="table table-dark table-hover">
+                            <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
 
-                                    <th>Артикул производителя</th>
+                                    <th>Артикул</th>
                                     <th>IMEI</th>
                                     <th>IMEI</th>
                                     <th>IMEI</th>
@@ -344,18 +346,21 @@
                 <div id="menu3" class="container tab-pane fade"><br>
                     <h3>Классификатор Marwel</h3>
                     <p class="lead">
-
-
-                    <div class="row mb-3 text-center"> Загрузка продажи 6 мес</div>
-                    <div class="row mb-3 text-center">
                         <div class="col-6 col-md-4 themed-grid-col">
-                            <form th:action="@{/sales_6}" method="post" enctype="multipart/form-data">
-                                <input type="file" th:name="sales_6"/>
-                                <input th:type="submit" value="Import"/>
+
+
+                            <form th:action="@{/sales_6}" class="card p-2" method="post" enctype="multipart/form-data">
+                                <label for="file-upload-input" id="status">загрузка классификатора MARWEL</label>
+                                <div class="input-group">
+                                    <input type="file" class="form-control" th:name="importsuppliers"/>
+                                    <button  th:type="submit" class="btn btn-secondary" value="Import"/>Применить</button>
+                                </div>
                             </form>
+
+
                         </div>
 
-                    </div>
+
 
 
 
@@ -369,28 +374,28 @@
                             <div class="col">
 
                                 <div class="row">
-                                    <label>LOGIN</label>
+                                    <label>Номенклатура Радуги</label>
                                 </div>
                                 <div class="row">
-                                    <input type="hidden" name="IDupdateMarClasif" id="IDupdateMarClasif" value="0">
-                                    <input type="text" name="RainbowNomenclature" id="RainbowNomenclature" placeholder="Введите имя">
+                                    <input class="form-control" type="hidden" name="IDupdateMarClasif" id="IDupdateMarClasif" value="0">
+                                    <input  class="form-control" type="text" name="RainbowNomenclature" id="RainbowNomenclature" placeholder="Введите имя">
 
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="row">
-                                    <label>PASWORD</label>
+                                    <label>Артикул МАРВЕЛ</label>
                                 </div>
                                 <div class="row">
-                                    <input type="text" name="ManufacturersArticle" id="ManufacturersArticle" placeholder="Введите имя">
+                                    <input class="form-control" type="text" name="ManufacturersArticle" id="ManufacturersArticle" placeholder="Введите имя">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="row">
-                                    <label>NAME SPARK</label>
+                                    <label>Наменование МАРВЕЛ</label>
                                 </div>
                                 <div class="row">
-                                    <input type="text" name="Name" id="Name" placeholder="Введите имя">
+                                    <input type="text" class="form-control" name="Name" id="Name" placeholder="Введите имя">
                                 </div>
                             </div>
 
@@ -399,7 +404,7 @@
                                     <label>сохранить</label>
                                 </div>
                                 <div class="row">
-                                    <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
+                                    <button class="btn  btn-outline-primary" type="submit">Сохранить</button>
                                 </div>
                             </div>
 
@@ -408,14 +413,15 @@
                     </p>
                     <p class="lead">
                     <h6>SIM TELE2</h6>
+                    <div class="MarwClassif" th:fragment="MarwClassif">
                     <div class="table">
                         <table class="table-responsive table-hover">
-                            <thead class="table-dark table-hover">
+                            <thead class="table table-striped table-hover">
                             <tr>
                                 <th>№ п/п</th>
-                                <th>Логин</th>
-                                <th>Пароль</th>
-                                <th>Искра</th>
+                                <th>Номенклатура Радуги</th>
+                                <th>Артикул МАРВЕЛ</th>
+                                <th>Наменование МАРВЕЛ</th>
 
                                 <th>___________</th>
                                 <th>___________</th>
@@ -430,12 +436,12 @@
                                 <td th:text="${current.Name}"></td>
 
 
-                                <td> <a th:href="@{/update_MarClasif/{id}(id = ${current.id})}" class="btn btn-outline-primary me-2"> <span  th:text="update"></span>
+                                <td> <a th:href="@{/update_MarClasif/{id}(id = ${current.id})}" class="btn  btn-outline-primary"> <span  th:text="update"></span>
                                 </a></td>
                                 <form id="form" action="/delet_MarClasif" method="post">
                                     <input type="hidden" id="IDMarClasif" name="IDMarClasif" th:value="${current.id}">
 
-                                    <td> <button type="submit">delet</button></td>
+                                    <td> <button type="submit" class="btn  btn-outline-primary DEL">delet</button></td>
 
                                 </form>
 
@@ -445,7 +451,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    </div>
 
                     </p>
                 </div>
@@ -482,7 +488,7 @@
                         <div class="col-6 col-md-4 themed-grid-col">
                             <h5 class="mt-4">ОТЧЕТЫ MARWEL</h5>
 
-                            <table class="table table-hover" id="promoCode" name="promoCode">
+                            <table class="table table-striped table-hover" id="promoCode" name="promoCode">
                                 <thead>
                                 <tr>
 
@@ -504,7 +510,7 @@
                                         <td th:text="${current.EndPromo}"></td>
                                         <td th:text="${current.Status}"></td>
                                         <td>
-                                            <button type="submit" class="btn btn-outline-primary me-2">Показать</button>
+                                            <button type="submit" class="btn  btn-outline-primary">Показать</button>
                                         </td>
 
 
@@ -516,7 +522,7 @@
                             <h5 class="mt-4">ОТЧЕТЫ ПО ПРОМО ДЛЯ ЗАГРУЗКИ</h5>
                             <div class="table" id="table_TableSearchBonus">
                                 <table class="table-responsive table-hover" id="tables_TableSearchBonus">
-                                    <thead class="table-dark table-hover">
+                                    <thead class="table table-striped table-hover">
 
                                     </thead>
                                     <tbody>

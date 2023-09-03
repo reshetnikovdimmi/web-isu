@@ -20,8 +20,18 @@ $(document).ready(function() {
         marvelPromo.endPromo = $(this).parents('tr:first').find('td:eq(2)').text();
         sendRequest('POST', '/promoCodeDistinct', marvelPromo).then(data => ceateTableSearchBonus(data)).catch(err => console.log(err))
     });
+    delet()
 });
+function delet() {
+    $(document).find('.DEL').on('click', function() {
+        var models = $(this).parents('tr:first').find('td:eq(0)').text(),
+            data;
 
+        $.get('/delet_MarClasif/' + models, {}, function(data) {
+$(".MarwClassif").html(data);
+        });
+    });
+}
 function ceateTableSearchBonus(data) {
 var l = data[data.length-1].noClassifier;
 

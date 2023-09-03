@@ -49,9 +49,7 @@
     <div class="container-xxl themed-container text-center">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap"/>
-                </svg>
+
                 <span class="fs-4">Dynamic SIM</span>
             </a>
 
@@ -91,7 +89,7 @@
         <div class="tab-content">
             <div id="home1" class="container tab-pane active"><br>
                 <div class="row mb-3 text-center">
-                <h3>ЗАКАЗ SIM</h3>
+                    <h3>ЗАКАЗ SIM</h3>
                 </div>
                 <div class="row mb-3 text-center">
                     <div class="col-6 col-sm-3 themed-grid-col">
@@ -99,11 +97,11 @@
                             МОНОБРЕНД TELE 2
                         </div>
                         <div class="row mb-3 text-center">
-                            <div class="table" id = "table_t2_Zak">
-                                <table class="table-borderless"  id = "table_t3_Zak">
-                                    <thead >
+                            <div class="table" id="table_t2_Zak">
+                                <table class="table-borderless" id="table_t3_Zak">
+                                    <thead>
                                     <tr style="font-size:.7em">
-                                        <th >Name SIM</th>
+                                        <th>Name SIM</th>
                                         <th>Остаток на складе</th>
                                         <th>Остаток на спо сети</th>
                                         <th>средние продажи</th>
@@ -112,14 +110,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="current : ${zakazSimT2m}">
-                                        <span th:if="${current.view == 't2'}">
-                                        <td th:text = "${current.nameSim}"></td>
-                                        <td th:text = "${current.remanisSkladSIM}"></td>
-                                        <td th:text = "${current.remanisSIM}"></td>
-                                        <td th:text = "${current.averageSalesSIM}"></td>
-                                        <td th:text = "${current.recommendedToOrder}"></td>
-                                        </span>
+                                    <tr th:each="current : ${zakazSimT2m}" th:if="${current.view == 't2'}">
+
+                                        <td th:text="${current.nameRainbow}"></td>
+                                        <td th:text="${current.nameToOrder}"></td>
+                                        <td th:text="${current.order}"></td>
+
+
                                     </tr>
 
                                     </tbody>
@@ -127,7 +124,7 @@
                             </div>
                         </div>
                         <div class="row mb-3 text-center">
-                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                            <a href="/exsel" class="btn btn-primary btn-sm btn-block">ОФОРМИТЬ ЗАКАЗ</a>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3 themed-grid-col">
@@ -135,11 +132,11 @@
                             МУЛЬТИБРЕНД TELE 2
                         </div>
                         <div class="row mb-3 text-center">
-                            <div class="table" id = "table_t2m_Zak">
-                                <table class="table-borderless"  id = "table_t3m_Zak">
-                                    <thead >
+                            <div class="table" id="table_t2m_Zak">
+                                <table class="table-borderless" id="table_t3m_Zak">
+                                    <thead>
                                     <tr style="font-size:.7em">
-                                        <th >Name SIM</th>
+                                        <th>Name SIM</th>
                                         <th>Остаток на складе</th>
                                         <th>Остаток на спо сети</th>
                                         <th>средние продажи</th>
@@ -150,11 +147,9 @@
                                     <tbody>
                                     <tr th:each="current : ${zakazSimT2m}">
                                         <span th:if="${current.view == 't2m'}">
-                                        <td th:text = "${current.nameSim}"></td>
-                                        <td th:text = "${current.remanisSkladSIM}"></td>
-                                        <td th:text = "${current.remanisSIM}"></td>
-                                        <td th:text = "${current.averageSalesSIM}"></td>
-                                        <td th:text = "${current.recommendedToOrder}"></td>
+                                      <td th:text="${current.nameRainbow}"></td>
+                                        <td th:text="${current.nameToOrder}"></td>
+                                        <td th:text="${current.order}"></td>
                                         </span>
                                     </tr>
 
@@ -164,7 +159,7 @@
                             </div>
                         </div>
                         <div class="row mb-3 text-center">
-                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                            <a href="/exsel" class="btn btn-primary btn-sm btn-block">ОФОРМИТЬ ЗАКАЗ</a>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3 themed-grid-col">
@@ -172,11 +167,11 @@
                             MTS
                         </div>
                         <div class="row mb-3 text-center">
-                            <div class="table" id = "table_mts_Zak">
-                                <table class="table-borderless"  id = "table_mts1_Zak">
-                                    <thead >
+                            <div class="table" id="table_mts_Zak">
+                                <table class="table-borderless" id="table_mts1_Zak">
+                                    <thead>
                                     <tr style="font-size:.7em">
-                                        <th >Name SIM</th>
+                                        <th>Name SIM</th>
                                         <th>Остаток на складе</th>
                                         <th>Остаток на спо сети</th>
                                         <th>средние продажи</th>
@@ -187,11 +182,9 @@
                                     <tbody>
                                     <tr th:each="current : ${zakazSimT2m}">
                                         <span th:if="${current.view == 'mts'}">
-                                        <td th:text = "${current.nameSim}"></td>
-                                        <td th:text = "${current.remanisSkladSIM}"></td>
-                                        <td th:text = "${current.remanisSIM}"></td>
-                                        <td th:text = "${current.averageSalesSIM}"></td>
-                                        <td th:text = "${current.recommendedToOrder}"></td>
+                                     <td th:text="${current.nameRainbow}"></td>
+                                        <td th:text="${current.nameToOrder}"></td>
+                                        <td th:text="${current.order}"></td>
                                         </span>
                                     </tr>
 
@@ -200,7 +193,7 @@
                             </div>
                         </div>
                         <div class="row mb-3 text-center">
-                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                            <a href="/exsel" class="btn btn-primary btn-sm btn-block">ОФОРМИТЬ ЗАКАЗ</a>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3 themed-grid-col">
@@ -208,11 +201,11 @@
                             MEGAFON
                         </div>
                         <div class="row mb-3 text-center">
-                            <div class="table" id = "table_mf_Zak">
-                                <table class="table-borderless"  id = "table_mf1_Zak">
-                                    <thead >
+                            <div class="table" id="table_mf_Zak">
+                                <table class="table-borderless" id="table_mf1_Zak">
+                                    <thead>
                                     <tr style="font-size:.7em">
-                                        <th >Name SIM</th>
+                                        <th>Name SIM</th>
                                         <th>Остаток на складе</th>
                                         <th>Остаток на спо сети</th>
                                         <th>средние продажи</th>
@@ -223,11 +216,9 @@
                                     <tbody>
                                     <tr th:each="current : ${zakazSimT2m}">
                                         <span th:if="${current.view == 'mf'}">
-                                        <td th:text = "${current.nameSim}"></td>
-                                        <td th:text = "${current.remanisSkladSIM}"></td>
-                                        <td th:text = "${current.remanisSIM}"></td>
-                                        <td th:text = "${current.averageSalesSIM}"></td>
-                                        <td th:text = "${current.recommendedToOrder}"></td>
+                                     <td th:text="${current.nameRainbow}"></td>
+                                        <td th:text="${current.nameToOrder}"></td>
+                                        <td th:text="${current.order}"></td>
                                         </span>
                                     </tr>
 
@@ -236,42 +227,72 @@
                             </div>
                         </div>
                         <div class="row mb-3 text-center">
-                            <a href="/exsel" class="btn">ОФОРМИТЬ ЗАКАЗ</a>
+                            <a href="/exsel" class="btn btn-primary btn-sm btn-block">ОФОРМИТЬ ЗАКАЗ</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="menu1" class="container tab-pane fade"><br>
+
                 <div class="row">
-                    <h3>МОНОБРЕНД</h3>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
-                        <div class="table_t2" >
-                        <table class="table-borderless-sm">
-                            <thead >
-                            <tr>
-                                <th name="Shop" id="Shop">МАГАЗИН</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="current : ${shop}" th:if="${current.simT2 == 't2'}">
+                    <div class="col-3">
+                        <div class="row">
+                            <h5>МОНОБРЕНД</h5>
+                        </div>
+                        <div class="row">
+                            <div class="table_t2">
+                                <table class="table-borderless-sm">
+                                    <thead>
+                                    <tr>
+                                        <th name="Shop" id="Shop">МАГАЗИН</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="current : ${shop}" th:if="${current.simT2 == 't2'}">
 
-                                <td th:text="${current.name}"class="btn btn-primary btn-sm btn-block">
+                                        <td th:text="${current.name}" class="btn btn-primary btn-sm btn-block">
 
-                                </td>
+                                        </td>
 
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
+                    <div class="col-3">
+                        <div class="row">
+                            <h5>МУЛЬТИБРЕНД</h5>
+                        </div>
+                        <div class="row">
+                            <div class="table_t2m">
+                                <table class="table-borderless-sm">
+                                    <thead>
+                                    <tr>
+                                        <th name="Shop_1" id="Shop_1">МАГАЗИН</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="current : ${shop}" th:if="${current.simT2 == 't2m'}">
+
+                                        <td th:text="${current.name}" class="btn btn-primary btn-sm btn-block">
+
+                                        </td>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6">
                         <div class="row">
                             <div class="SimT2" th:fragment="SimT2">
-                                <div class="table table-hover"  id = "table_t2">
-                                    <table class= "table table-hover"  id = "table_t3">
+                                <div class="table table-hover" id="table_t2">
+                                    <table class="table table-hover" id="table_t3">
                                         <thead>
                                         <tr>
+                                            <th>id</th>
                                             <th>Name SIM</th>
                                             <th>Sale_6/6</th>
                                             <th>Sale</th>
@@ -296,70 +317,13 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <h3>МУЛЬТИБРЕНД</h3>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
-                        <div class="table_t2m" >
-                        <table class="table-borderless-sm">
-                            <thead>
-                            <tr>
-                                <th name="Shop_1" id="Shop_1">МАГАЗИН</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="current : ${shop}">
-                                <span th:if="${current.simT2 == 't2m'}">
-                                <td><a th:href="@{/updateShops/{Shop}/t2m(Shop = ${current.name})}"
-                                       class="btn btn-primary btn-sm btn-block"> <span th:text="${current.name}"></span>
-                                </a>
-                                </td>
-                                </span>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
-                        <div class="row">
-                            <div class="" th:fragment="">
-                                <div class="table" id = "table_t2m">
-                                    <table class="table-borderless-1"  id = "table_t3m">
-                                        <thead>
-                                        <tr>
-                                            <th>Name SIM</th>
-                                            <th>Sale_6/6</th>
-                                            <th>Sale</th>
-                                            <th>Remanis</th>
-                                            <th>Plan</th>
-                                            <th>% Plan</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="current : ${current_promo}">
-
-                                            <td th:text="${current.models}"></td>
-                                            <td th:text="${current.price}"></td>
-                                            <td th:text="${current.price_promo}"></td>
-                                            <td th:text="${#dates.format (current.StartPromo, 'dd-MM-yyy')}"></td>
-                                            <td th:text="${#dates.format (current.EndPromo, 'dd-MM-yyy')}"></td>
-
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="col-3 col-md-2 themed-grid-col">
+                                <h12 name="Shop" id="Shop"></h12>
                             </div>
-
-
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 ></h12></div>
                         </div>
                     </div>
                 </div>
+
 
             </div>
             <div id="menu2" class="container tab-pane fade"><br>
@@ -368,30 +332,29 @@
                     <h5>SIM MTS</h5>
                 </div>
                 <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
+                    <div class="col-3">
                         <div class="table_mts">
                             <table class="table-borderless-sm">
-                                <thead >
+                                <thead>
                                 <tr>
                                     <th name="Shopmts" id="Shopmts">МАГАЗИН</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="current : ${shop}">
-                                <span th:if="${current.simMts == 'mts'}">
-                                <td><a th:href="@{/updateShops/{Shop}/mts(Shop = ${current.name})}"
-                                       class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
+                                <tr th:each="current : ${shop}" th:if="${current.simMts == 'mts'}">
+
+                                <td class="btn btn-primary btn-sm btn-block" th:text="${current.name}">
                                 </td>
-                                </span>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
+                    <div class="col-6">
                         <div class="row">
                             <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm"  id = "table_mts2">
-                                    <table class= "table-borderless-1"  id = "table_mts3">
+                                <div class="table table-hover" id="table_mts2">
+                                    <table class="table table-hover" id="table_mts3">
                                         <thead>
                                         <tr>
                                             <th>Name SIM</th>
@@ -403,173 +366,55 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                                        <tr th:each="current : ${SimT2}">
+                                            <td th:text="${current.id}"></td>
+                                            <td th:text="${current.nameSim}"></td>
+                                            <td th:text="${current.sale6}"></td>
+                                            <td th:text="${current.sale1}"></td>
+                                            <td th:text="${current.remains}"></td>
+                                            <td th:text="${current.recommendation}"></td>
+                                            <td th:text="${current.plan}"></td>
                                         </tr>
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <h5>МОДЕМ MTS</h5>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
-
-                    </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm"  id = "table_mts2">
-                                    <table class= "table-borderless-1"  id = "table_mts3">
-                                        <thead>
-                                        <tr>
-                                            <th>Name SIM</th>
-                                            <th>Sale_6/6</th>
-                                            <th>Sale</th>
-                                            <th>Remanis</th>
-                                            <th>Plan</th>
-                                            <th>% Plan</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="col-3 col-md-2 themed-grid-col">
+                                <h12 name="Shop" id="Shop"></h12>
                             </div>
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <h5>РОУТЕР MTS</h5>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
 
-                    </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm"  id = "table_mts2">
-                                    <table class= "table-borderless-1"  id = "table_mts3">
-                                        <thead>
-                                        <tr>
-                                            <th>Name SIM</th>
-                                            <th>Sale_6/6</th>
-                                            <th>Sale</th>
-                                            <th>Remanis</th>
-                                            <th>Plan</th>
-                                            <th>% Plan</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <h5>СТВ MTS</h5>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
-
-                    </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
-                        <div class="row">
-                            <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm"  id = "table_mts2">
-                                    <table class= "table-borderless-1"  id = "table_mts3">
-                                        <thead>
-                                        <tr>
-                                            <th>Name SIM</th>
-                                            <th>Sale_6/6</th>
-                                            <th>Sale</th>
-                                            <th>Remanis</th>
-                                            <th>Plan</th>
-                                            <th>% Plan</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div id="menu3" class="container tab-pane fade"><br>
                 <div class="row">
                     <h3>SIM MegaFon</h3>
                 </div>
                 <div class="row">
-                    <div class="col-3 col-sm-2 themed-grid-col">
+                    <div class="col-3">
                         <div class="table_mf">
                             <table class="table-borderless-sm">
-                                <thead >
+                                <thead>
                                 <tr>
                                     <th name="Shopmf" id="Shopmf">МАГАЗИН</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="current : ${shop}">
-                                <span th:if="${current.simMf == 'mf'}">
-                                <td><a th:href="@{/updateShops/{Shop}/mf(Shop = ${current.name})}"
-                                       class="btn btn-primary btn-sm btn-block"><span th:text="${current.name}"></span></a>
+                                <tr th:each="current : ${shop}" th:if="${current.simMf == 'mf'}">
+                                <td th:text="${current.name}" class="btn btn-primary btn-sm btn-block">
                                 </td>
-                                </span>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-8 themed-grid-col">
+                    <div class="col-6">
                         <div class="row">
-                            <div class="col-md-10 themed-grid-col">
-                                <div class="table table-borderless-sm"  id = "table_mf2">
-                                    <table class= "table-borderless-1"  id = "table_mf3">
+
+                                <div class="table table-hover" id="table_mf2">
+                                    <table class="table table-hover" id="table_mf3">
                                         <thead>
                                         <tr>
                                             <th>Name SIM</th>
@@ -581,20 +426,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                                        <tr th:each="current : ${SimT2}">
+                                            <td th:text="${current.id}"></td>
+                                            <td th:text="${current.nameSim}"></td>
+                                            <td th:text="${current.sale6}"></td>
+                                            <td th:text="${current.sale1}"></td>
+                                            <td th:text="${current.remains}"></td>
+                                            <td th:text="${current.recommendation}"></td>
+                                            <td th:text="${current.plan}"></td>
                                         </tr>
 
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                            <div class="col-3 col-md-2 themed-grid-col"><h12 name="Shop" id="Shop"></h12></div>
+
+
                         </div>
                     </div>
                 </div>
@@ -605,29 +451,29 @@
                 </div>
                 <div class="row">
 
-                        <div class="col-6 col-md-3 themed-grid-col">
-                            <div class="row mb-3 text-center"> Загрузка матрицы РТК с EXEL</div>
-                            <div class="row mb-3 text-center">
+                    <div class="col-5">
 
-                                <form th:action="@{/loadExelRTK}" method="post" enctype="multipart/form-data">
-                                    <input type="file" th:name="loadExelRTK"/>
-                                    <input th:type="submit" value="Import"/>
-                                </form>
-
-
+                        <form th:action="@{/loadExelRTK}" class="card p-2" method="post" enctype="multipart/form-data">
+                            <label for="file-upload-input" id="status-messages">Загрузка матрицы РТК с EXEL</label>
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="file-upload-input-MARWEL" name="file">
+                                <button type="submit" class="btn btn-secondary">Применить</button>
                             </div>
-                        </div>
+                        </form>
+
+
+                    </div>
 
                 </div>
                 <div class="row">
-                    <table class="table-borderless-sm">
-                        <thead >
+                    <table class="table table-hover">
+                        <thead>
                         <tr>
-                            <th >кластер/мод распр</th>
-<span th:each="entry  : ${distributionModel}">
+                            <th>кластер/мод распр</th>
+                            <span th:each="entry  : ${distributionModel}">
 
-                            <th ><span th:text="${entry}"></span></th>
-</span>
+                            <th><span th:text="${entry}"></span></th>
+                            </span>
 
                         </tr>
 
@@ -635,29 +481,25 @@
                         <tbody>
                         <tr th:each="entry, stats  : ${matrixRTK}"
                             th:with="user=${entry.value}">
-                            <td>
-                                <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
-                                        type="submit"></button>
+                            <td th:text="${entry.key}">
+
                             </td>
 
                             <span th:each="word : ${entry.value}">
-<span th:each="entry1  : ${distributionModel}">
-    <span  th:if="${word.key == entry1 }">
-                                                       <td   th:text="${word.value}"></td>
+                            <span th:each="entry1  : ${distributionModel}">
+                            <span th:if="${word.key == entry1 }">
+                            <td th:text="${word.value}"></td>
 
-</span>
-</span>
-
-                                              </span>
-
-
+                            </span>
+                            </span>
+                            </span>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
     </div>
 
 </main>

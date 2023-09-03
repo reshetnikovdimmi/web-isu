@@ -23,4 +23,6 @@ public interface SaleSimModemRepository_1m extends CrudRepository<SaleSim_1m, In
 
     @Query("SELECT remainsSimModem  FROM SaleSim_1m WHERE nameSimAndModem IN ?1")
     Integer getSale1RTK(List<String> nameRainbow);
+
+    List<SaleSim_1m> findByShop(String shop);
 }

@@ -81,11 +81,13 @@ public class MarwelController {
         return "Marwel";
     }
 
-    @PostMapping("/delet_MarClasif")
-    public String delet_MarClasif(@RequestParam int IDMarClasif, Model model) {
-        marvelClassifierRepositoriy.deleteById(IDMarClasif);
+
+    @RequestMapping(value="/delet_MarClasif/{id}", method=RequestMethod.GET)
+    public String delet_MarClasif(@PathVariable int id, Model model) {
+        System.out.println(id);
+        marvelClassifierRepositoriy.deleteById(id);
         model.addAttribute("MarwClassif", marvelClassifierRepositoriy.findAll());
-        return "Marwel";
+        return "Marwel::MarwClassif";
     }
 
     @RequestMapping(value = "/promoCodeDistinct", method = RequestMethod.POST)

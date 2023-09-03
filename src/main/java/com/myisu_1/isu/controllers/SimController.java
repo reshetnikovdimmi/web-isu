@@ -1,7 +1,6 @@
 package com.myisu_1.isu.controllers;
 
 
-import com.myisu_1.isu.models.SIM.*;
 import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.SimDistributionServise;
 import com.myisu_1.isu.service.SimPlanOrderServise;
@@ -43,7 +42,7 @@ public class SimController {
 
     @GetMapping("/SIM")
     public String sim(Model model) {
-
+        model.addAttribute("zakazSimT2m", simPlanOrderServise.orderSim());
         model.addAttribute("shop", authorization_shop.findAll());
         model.addAttribute("distributionModel", simDistributionServise.distributionModel());
         model.addAttribute("matrixRTK", simDistributionServise.getMatrixRTK());
@@ -62,17 +61,10 @@ public class SimController {
 
 
     @ResponseBody
-    @RequestMapping(value = "AddSimPlan/{plan}/{shops}/{nameSim}", method = RequestMethod.GET)
-    public String AddSimPlan(@PathVariable("plan") Integer plan, @PathVariable("shops") String shops, @PathVariable("nameSim") String nameSim) {
-
-        if (shopPlanSimRepository.existsByShopAndNameSimModem(shops, nameSim)) {
-            shopPlanSimRepository.updatePlanSim(plan, shops, nameSim.replaceAll("_","/"));
-        } else {
-            shopPlanSimRepository.save(new ShopPlanSim(shops, nameSim.replaceAll("_","/"), plan));
-        }
-
-
-        return "SIM";
+    @RequestMapping(value = "AddSimPlan/{id}/{plan}", method = RequestMethod.GET)
+    public String AddSimPlan(@PathVariable("id") Integer id, @PathVariable("plan") Integer plan) {
+        shopPlanSimRepository.updatePlanSim(id, plan);
+          return "SIM";
 
     }
     @PostMapping("/loadExelRTK")

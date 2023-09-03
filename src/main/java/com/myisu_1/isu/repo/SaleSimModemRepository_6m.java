@@ -1,5 +1,6 @@
 package com.myisu_1.isu.repo;
 
+import com.myisu_1.isu.models.SIM.SaleSim_1m;
 import com.myisu_1.isu.models.SIM.SaleSim_6m;
 import com.myisu_1.isu.models.Sales;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +25,6 @@ public interface SaleSimModemRepository_6m extends CrudRepository<SaleSim_6m, In
 
     @Query("SELECT SUM(remainsSimModem)  FROM SaleSim_6m WHERE nameSimAndModem IN ?1")
     Integer getSale6RTK(List<String> nameRainbow);
+
+    List<SaleSim_6m> findByShop(String shop);
 }

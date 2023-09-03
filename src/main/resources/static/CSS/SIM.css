@@ -1,100 +1,15 @@
 
-
-       select {
-              width: 80%; /* Ширина списка в пикселах */
-             font-size: 13px;
-                     	padding: 6px 0 4px 10px;
-                     	border: 1px solid #cecece;
-                     	background: #F6F6f6;
-                     	border-radius: 8px;
-             }
-          input {
+input {
               width:80%;
 
               	font-size: 13px;
-              	padding: 6px 0 4px 10px;
+              	padding: 1px 0 1px 1px;
               	border: 1px solid #cecece;
               	background: #F6F6f6;
               	border-radius: 8px;
               }
-          label {
-              font-size: 9px;
-          }
-      .btn, button {
-      	display: inline-block;
-      	box-sizing: border-box;
 
-            display: block;
-            width: 80%;
 
-      	padding: 0 1px;
-      	margin: 0 1px 1px 0;
-      	outline: none;
-      	border: none;
-      	border-radius: 4px;
-      	height: 20px;
-      	line-height: 20px;
-      	font-size: 9px;
-      	font-weight: normal;
-      	text-decoration: none;
-      	vertical-align: top;
-      	color: #55677d;
-      	background-color: #dfe6ed;
-      	cursor: pointer;
-      	user-select: none;
-      	appearance: none;
-      	touch-action: manipulation;
-      	overflow: hidden;
-      }
-      .btn:focus-visible {
-      	box-shadow: 0 0 0 3px lightskyblue;
-      }
-      .btn:hover {
-      	opacity: 0.88;
-      }
-      .btn:active {
-      	line-height: 32px;
-      }
-      .btn:disabled {
-      	pointer-events: none;
-      	opacity: 0.65;
-      }
-
-      .btn-2 {
-      	display: inline-block;
-      	box-sizing: border-box;
-      	padding: 0 1px;
-      	margin: 0 1px 1px 0;
-      	outline: none;
-      	border: none;
-      	border-radius: 4px;
-      	height: 20px;
-      	line-height: 20px;
-      	font-size: 9px;
-      	font-weight: normal;
-      	text-decoration: none;
-      	vertical-align: top;
-      	color: #fff;
-      	background-color: #5181b8;
-      	cursor: pointer;
-      	user-select: none;
-      	appearance: none;
-      	touch-action: manipulation;
-      	overflow: hidden;
-      }
-      .btn-2:focus-visible {
-      	box-shadow: 0 0 0 3px lightskyblue;
-      }
-      .btn-2:hover {
-      	opacity: 0.88;
-      }
-      .btn-2:active {
-      	line-height: 32px;
-      }
-      .btn-2:disabled {
-      	pointer-events: none;
-      	opacity: 0.65;
-      }
       table {
           width: 100%; /* 140px * 5 column + 16px scrollbar width */
 
@@ -102,22 +17,11 @@
           overflow: hidden;
 
       }
-  .labels {
 
-          overflow-y: auto;
-          overflow-x: hidden;
-          font-size: 9px;
-      }
-      .labels2 {
-                height: 300px;
-                overflow-y: auto;
-                overflow-x: hidden;
-                font-size: 9px;
-            }
       tbody, thead tr { display: block; }
 
       tbody {
-          height: 150px;
+          height: 230px;
           overflow-y: auto;
           overflow-x: hidden;
           font-size: 9px;
@@ -129,11 +33,7 @@
 
       }
 
-      thead th:last-child {
-          width: 180px;
-           overflow: hidden;
-/* 140px + 16px scrollbar width */
-      }
+
       /* Стили для скролла */
       ::-webkit-scrollbar {
       	width: 6px;
@@ -144,87 +44,4 @@
       ::-webkit-scrollbar-thumb {
       	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
       }
-      .table {
-      	width: 100%;
-      	border: none;
-      	margin-bottom: 20px;
-      }
-      .table-borderless-1 thead th {
-      	font-weight: bold;
-      	text-align: left;
-      	border: none;
-      	padding: 10px 15px;
-      	background: #d8d8d8;
-      	font-size: 14px;
-      }
-      .table-borderless-1 thead tr th:first-child {
-      	border-radius: 8px 0 0 8px;
-      }
-      .table-borderless-1 thead tr th:last-child {
-      	border-radius: 0 8px 8px 0;
-      }
-      .table-borderless-1 tbody td {
-      	text-align: left;
-      	border: none;
-      	padding: 10px 15px;
-      	font-size: 14px;
-      	vertical-align: top;
-      }
-      .table-borderless-1 tbody tr:nth-child(even){
-      	background: #f3f3f3;
-      }
-      .table-borderless-1 tbody tr td:first-child {
-      	border-radius: 8px 0 0 8px;
-      }
-      .table-borderless-1 tbody tr td:last-child {
-      	border-radius: 0 8px 8px 0;
-      }
-.lds-dual-ring.hidden {
-display: none;
-}
-.lds-dual-ring {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
-}
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 5% auto;
-  border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #c0c0c0 transparent #c0c0c0 transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,1);
-    z-index: 999;
-    opacity: 1;
-    transition: all 0.5s;
-}
-.labels tr td {
-
-	height: 10px;
-	color: #55677d;
-}
-.hide_minMatrix{
-display: none;
-
-}

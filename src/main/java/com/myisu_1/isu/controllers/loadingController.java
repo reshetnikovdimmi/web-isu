@@ -2,12 +2,12 @@ package com.myisu_1.isu.controllers;
 
 
 import com.myisu_1.isu.exporte.ExselFileExporteDocUnf;
-import com.myisu_1.isu.exporte.ExselFileExportePromo;
+
 import com.myisu_1.isu.models.*;
 import com.myisu_1.isu.models.Marwel.MarvelPromo;
 import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.BarcodeServise;
-import org.apache.poi.openxml4j.opc.OPCPackage;
+
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -25,11 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
-import java.io.File;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import java.time.Instant;
 
 import java.util.*;
 
@@ -74,6 +76,7 @@ public class loadingController {
 
     @GetMapping("/loading")
     public String home(Model model) {
+        model.addAttribute("time", Instant.now());
         barcodeServise.getDocUnf();
         return "loading";
     }
