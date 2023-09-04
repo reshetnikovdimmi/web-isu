@@ -77,12 +77,17 @@ public class MatrixPhoneController {
         model.addAttribute("Phone", phoneRepositoriy.findAll());
         return "MatrixPhone";
     }
-    @PostMapping("/delet_MatrixPhone")
-    public String delet(@RequestParam int IDMatrixPhone, Model model) {
-        phoneRepositoriy.deleteById(IDMatrixPhone);
+
+    @RequestMapping(value="/delet_MatrixPhone/{id}", method=RequestMethod.GET)
+    public String delet(@PathVariable int id, Model model) {
+        phoneRepositoriy.deleteById(id);
         model.addAttribute("Phone", phoneRepositoriy.findAll());
-        return "MatrixPhone";
+        return "MatrixPhone::MatrixPhones";
     }
+
+
+
+
     @GetMapping("/exselExportMatrixPhone")
     public void downloadExselFile(HttpServletResponse response) throws IOException {
 
@@ -94,7 +99,8 @@ public class MatrixPhoneController {
 
     }
     @PostMapping("/matrixPhoneImport")
-    public String matrixT2Import(@RequestParam("matrixPhoneImport") MultipartFile matrixPhoneImport, Model model) throws IOException, ParseException {
+    public String matrixT2Import(@RequestParam("file") MultipartFile matrixPhoneImport, Model model) throws IOException, ParseException {
+
         model.addAttribute("time", matrixPhoneServise.exselLoadMatrixPhone(matrixPhoneImport));
         model.addAttribute("Phone", phoneRepositoriy.findAll());
         return "MatrixPhone";

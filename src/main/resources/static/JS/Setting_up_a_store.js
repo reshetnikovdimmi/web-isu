@@ -27,4 +27,13 @@ $(document).ready(function(){
 
      });
 
+      $(document).find('.DEL').on('click', function() {
+             var models = $(this).parents('tr:first').find('td:eq(0)').text(),
+                 data;
+
+             $.get('/delet_shop/' + models, {}, function(data) {
+     $(".Store").html(data);
+             });
+         });
+
   });

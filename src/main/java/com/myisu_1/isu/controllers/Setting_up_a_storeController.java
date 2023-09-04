@@ -61,10 +61,13 @@ public class Setting_up_a_storeController {
         model.addAttribute("shop", shop.findAll());
         return "Setting_up_a_store";
     }
-    @PostMapping("/delet_shop")
-    public String delet(@RequestParam int IDshop, Model model) {
-        shop.deleteById(IDshop);
+
+    @RequestMapping(value="/delet_shop/{id}", method=RequestMethod.GET)
+    public String delet(@PathVariable int id, Model model) {
+        shop.deleteById(id);
         model.addAttribute("shop", shop.findAll());
-        return "Setting_up_a_store";
+        return "Setting_up_a_store::Store";
     }
+
+
 }

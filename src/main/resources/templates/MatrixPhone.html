@@ -72,22 +72,26 @@
             <p class="lead">
 
 
-            <div class="row mb-3 text-center"> Загрузка матрицы с EXSEL </div>
             <div class="row mb-3 text-center">
                 <div class="col">
-                    <form th:action="@{/matrixPhoneImport}" method="post" enctype="multipart/form-data">
-                        <input type="file" th:name="matrixPhoneImport"/>
-                        <input th:type="submit" value="Import"/>
+
+                    <form th:action="@{/matrixPhoneImport}" class="card p-2" method="post"
+                          enctype="multipart/form-data">
+                        <label id="status-messages-MARWEL">Select file to upload MatrixAO</label>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="file-upload-input-MARWEL" name="file">
+                            <button type="submit" class="btn btn-secondary">Применить</button>
+                        </div>
                     </form>
+
                 </div>
                 <div class="col">
 
-                    <a href="/exselExportMatrixPhone" class="btn">EXSEL</a>
+                    <a href="/exselExportMatrixPhone" class="btn btn-outline-primary me-2">EXSEL</a>
 
                 </div>
 
             </div>
-
 
 
             </p>
@@ -98,53 +102,42 @@
 
                     <div class="col">
 
-                        <div class="row">
-                            <label>LOGIN</label>
-                        </div>
+
                         <div class="row">
                             <input type="hidden" name="IDupdateMatrixPhone" id="IDupdateMatrixPhone" value="0">
-                            <input type="text" name="Matrix_T2" id="Matrix_T2" placeholder="Введите имя">
+                            <input class="form-control" type="text" name="Matrix_T2" id="Matrix_T2"
+                                   placeholder="Matrix_T2">
 
                         </div>
                     </div>
                     <div class="col">
+
                         <div class="row">
-                            <label>PASWORD</label>
-                        </div>
-                        <div class="row">
-                            <input type="text" name="Brend" id="Brend" placeholder="Введите имя">
+                            <input class="form-control" type="text" name="Brend" id="Brend" placeholder="Brend">
                         </div>
                     </div>
                     <div class="col">
+
                         <div class="row">
-                            <label>NAME SPARK</label>
-                        </div>
-                        <div class="row">
-                            <input type="text" name="Model" id="Model" placeholder="Введите имя">
+                            <input class="form-control" type="text" name="Model" id="Model" placeholder="Model">
                         </div>
                     </div>
                     <div class="col">
+
                         <div class="row">
-                            <label>NAME RARUS</label>
-                        </div>
-                        <div class="row">
-                            <input type="text" name="Model_GB" id="Model_GB"
-                                   placeholder="Введите имя">
+                            <input class="form-control" type="text" name="Model_GB" id="Model_GB"
+                                   placeholder="Model_GB">
                         </div>
                     </div>
                     <div class="col">
+
                         <div class="row">
-                            <label>NAMERAINBOW</label>
-                        </div>
-                        <div class="row">
-                            <input type="text" name="Phone" id="Phone" placeholder="Введите имя">
+                            <input class="form-control" type="text" name="Phone" id="Phone" placeholder="Phone">
                         </div>
                     </div>
 
                     <div class="col">
-                        <div class="row">
-                            <label>сохранить</label>
-                        </div>
+
                         <div class="row">
                             <button class="btn btn-outline-primary me-2" type="submit">Сохранить</button>
                         </div>
@@ -154,50 +147,52 @@
             </form>
             </p>
             <p class="lead">
-            <h6>SIM TELE2</h6>
+
             <div class="table">
-                <table class="table-responsive table-hover">
-                    <thead class="table-dark table-hover">
-                    <tr>
-                        <th>№ п/п</th>
-                        <th>Логин</th>
-                        <th>Пароль</th>
-                        <th>Искра</th>
-                        <th>Рарус</th>
-                        <th>Радуга</th>
-                        <th>___________</th>
-                        <th>___________</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="current : ${Phone}">
+                <div class="MatrixPhones" th:fragment="MatrixPhones">
+                    <table class="table table-striped table-hover">
+                        <thead class="table table-striped table-hover">
+                        <tr>
+                            <th>№ п/п</th>
+                            <th>Matrix_T2</th>
+                            <th>Brend</th>
+                            <th>Model</th>
+                            <th>Model_GB</th>
+                            <th>Phone</th>
+                            <th>_______</th>
+                            <th>_______</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="current : ${Phone}">
 
-                        <td th:text="${current.id}"></td>
-                        <td th:text="${current.Matrix_T2}"></td>
-                        <td th:text="${current.Brend}"></td>
-                        <td th:text="${current.Model}"></td>
-                        <td th:text="${current.Model_GB}"></td>
-                        <td th:text="${current.Phone}"></td>
+                            <td th:text="${current.id}"></td>
+                            <td th:text="${current.Matrix_T2}"></td>
+                            <td th:text="${current.Brend}"></td>
+                            <td th:text="${current.Model}"></td>
+                            <td th:text="${current.Model_GB}"></td>
+                            <td th:text="${current.Phone}"></td>
 
-                        <td><a th:href="@{/update_MatrixPhone/{id}(id = ${current.id})}" class="btn btn-outline-primary me-2">
-                            <span th:text="update"></span>
-                        </a></td>
-                        <form id="form" action="/delet_MatrixPhone" method="post">
-                            <input type="hidden" id="IDMatrixPhone" name="IDMatrixPhone" th:value="${current.id}">
+                            <td><a th:href="@{/update_MatrixPhone/{id}(id = ${current.id})}"
+                                   class="btn btn-outline-primary me-2">
+                                <span th:text="update"></span>
+                            </a></td>
 
-                            <td>
-                                <button type="submit">delet</button>
-                            </td>
+                                <input type="hidden" id="IDMatrixPhone" name="IDMatrixPhone" th:value="${current.id}">
 
-                        </form>
-
-                    </tr>
+                                <td>
+                                    <button class="btn btn-outline-primary DEL" type="submit">delet</button>
+                                </td>
 
 
-                    </tbody>
-                </table>
+
+                        </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
 
             </p>
             <p class="lead">
