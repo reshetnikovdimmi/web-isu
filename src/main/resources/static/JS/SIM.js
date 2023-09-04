@@ -102,96 +102,39 @@ $(document).ready(function() {
         }
     });
     $('.table_mts .btn').on('click', function(event) {
-        event.preventDefault();
-        var href = $(this).attr("href");
-        $.get(href, function(SIM, status) {
-            var sim = SIM;
-            console.log(sim);
-            var shop = SIM[1].shop;
-            document.querySelector('#Shopmts').innerHTML = shop;
-            var elem = document.querySelector('#table_mts2');
-            var elem1 = document.querySelector('#table_mts3');
-            elem1.parentNode.removeChild(elem1);
-            createTableMTS(elem, 6, sim.length, sim);
-        });
+       var shop = $(this).parents('tr:first').find('td:eq(0)').text();
 
-        function createTableMTS(parent, cols, rows, shops) {
-            var table = document.createElement(`table`);
-            table.id = 'table_mts3';
-            table.classList.add("table-borderless-1");
-            let thead = document.createElement('thead');
-            let row_1 = document.createElement('tr');
-            let heading_1 = document.createElement('th');
-            heading_1.innerHTML = "Name SIM";
-            let heading_2 = document.createElement('th');
-            heading_2.innerHTML = "Sale_6/6";
-            let heading_3 = document.createElement('th');
-            heading_3.innerHTML = "Sale";
-            let heading_4 = document.createElement('th');
-            heading_4.innerHTML = "Remanis";
-            let heading_6 = document.createElement('th');
-            heading_6.innerHTML = "Plan";
-            let heading_7 = document.createElement('th');
-            heading_7.innerHTML = "% Plan";
-            row_1.appendChild(heading_1);
-            row_1.appendChild(heading_2);
-            row_1.appendChild(heading_3);
-            row_1.appendChild(heading_4);
-            row_1.appendChild(heading_6);
-            row_1.appendChild(heading_7);
-            thead.appendChild(row_1);
-            table.appendChild(thead);
-            let tbody = document.createElement('tbody');
-            for (var i = 0; i < rows; i++) {
-                var tr = document.createElement('tr');
-                for (var j = 0; j < cols; j++) {
-                    var td = document.createElement('td');
-                    if (j == 0) {
-                        td.innerHTML = shops[i].nameSim;
-                    } else if (j == 1) {
-                        td.innerHTML = shops[i].sale_6;
-                    } else if (j == 2) {
-                        td.innerHTML = shops[i].sale;
-                    } else if (j == 3) {
-                        td.innerHTML = shops[i].remanis;
-                    } else if (j == 4) {
-                        td.innerHTML = shops[i].plan;
-                    } else {
-                        td.innerHTML = shops[i].planVypol;
-                    }
-                    tr.appendChild(td);
-                }
-                tbody.appendChild(tr);
-            }
-            table.appendChild(tbody);
-            parent.appendChild(table);
-            var tds = document.querySelectorAll('table.table-borderless-1 td');
-            for (var i = 4; i < tds.length; i += 6) {
-                tds[i].addEventListener('click', function func() {
-                    var input = document.createElement('input');
-                    input.value = this.innerHTML;
-                    this.innerHTML = '';
-                    this.appendChild(input);
-                    var td = this;
-                    input.addEventListener('blur', function() {
-                        td.innerHTML = this.value;
-                        tab = this.value;
-                        td.addEventListener('click', func);
-                    });
-                    input.addEventListener('change', function() {
-                        $('#table_mts3 td').on('click', function() {
-                            const body = {
-                                id: $(this).parent().index(),
-                                shop: tab
-                            }
-                            $('#table_mts3 td').off('click');
-                            sendRequest('POST', requestURL, body).then(data => console.log(data)).catch(err => console.log(err))
-                        });
-                    });
-                    this.removeEventListener('click', func)
-                });
-            }
-        }
+               $.get('/updateShopsMts/' + shop, {}, function(data) {
+
+                           $(".Mts").html(data);
+                                   var tds = document.querySelectorAll('#table_mts2 td');
+                                       for (var i = 6; i < tds.length; i += 7) {
+                                           tds[i].addEventListener('click', function func() {
+                                               var input = document.createElement('input');
+                                               input.value = this.innerHTML;
+                                               this.innerHTML = '';
+                                               this.appendChild(input);
+                                               var td = this;
+                                               input.addEventListener('blur', function() {
+                                                   td.innerHTML = this.value;
+                                                   tab = this.value;
+                                                   td.addEventListener('click', func);
+                                               });
+                                               input.addEventListener('change', function() {
+                                                   $('#table_mts3 td').on('click', function() {
+
+                                                       $('#table_mts3 td').off('click');
+
+                                                       $.get('/AddSimPlan/' + $(this).parents('tr:first').find('td:eq(0)').text() + '/' + $(this).parents('tr:first').find('td:eq(6)').text()  , {}, function(data) {});
+
+                                                   });
+                                               });
+                                               this.removeEventListener('click', func)
+                                           });
+                                       }
+
+                       });
+
     });
 
 

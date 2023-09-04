@@ -11,6 +11,7 @@ import lombok.*;
 public class SimPlan {
     private int id;
     private String nameSim;
+    private String view;
     private Integer sale6;
     private Integer sale1;
     private Integer remains;

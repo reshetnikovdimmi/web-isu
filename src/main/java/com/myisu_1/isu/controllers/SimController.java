@@ -59,10 +59,19 @@ public class SimController {
         return "SIM::SimT2";
     }
 
+    @RequestMapping(value = "updateShopsMts/{Shop}", method = RequestMethod.GET)
+    public String updateMts(@PathVariable("Shop") String shop,Model model ) {
+
+        model.addAttribute("SimT2", simPlanOrderServise.simPlanOrder(shop));
+
+        return "SIM::Mts";
+    }
+
 
     @ResponseBody
     @RequestMapping(value = "AddSimPlan/{id}/{plan}", method = RequestMethod.GET)
     public String AddSimPlan(@PathVariable("id") Integer id, @PathVariable("plan") Integer plan) {
+        System.out.println(id);
         shopPlanSimRepository.updatePlanSim(id, plan);
           return "SIM";
 

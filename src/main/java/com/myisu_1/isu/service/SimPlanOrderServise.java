@@ -59,13 +59,16 @@ public class SimPlanOrderServise {
         List<RemanisSim> reman = remanisSim.findByShop(shop);
         List<SaleSim_1m> sal1 = saleSimModemRepository_1m.findByShop(shop);
         List<SaleSim_6m> sal6 = saleSimModemRepository_6m.findByShop(shop);
+        List<SimAndRtkTable> rtk = simAndRtkTableRepositoriy.findAll();
 
         for (ShopPlanSim s : shopPlanSimList) {
             RemanisSim rem = reman.stream().filter(r -> r.getNameSimAndModem().equals(s.getNameSimModem())).findAny().orElse(null);
             SaleSim_1m sale1 = sal1.stream().filter(r -> r.getNameSimAndModem().equals(s.getNameSimModem())).findAny().orElse(null);
             SaleSim_6m sale6 = sal6.stream().filter(r -> r.getNameSimAndModem().equals(s.getNameSimModem())).findAny().orElse(null);
-            simPlanList.add(mappingUtils.mapShopPlanSim(rem, sale1, sale6, s));
+            SimAndRtkTable rtks = rtk.stream().filter(r -> r.getNameRainbow().equals(s.getNameSimModem())).findAny().orElse(null);
+            simPlanList.add(mappingUtils.mapShopPlanSim(rem, sale1, sale6, s,rtks));
         }
+        System.out.println(simPlanList);
         return simPlanList;
     }
 

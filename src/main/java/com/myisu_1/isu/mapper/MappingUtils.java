@@ -1,10 +1,7 @@
 package com.myisu_1.isu.mapper;
 
 import com.myisu_1.isu.dto.SimPlan;
-import com.myisu_1.isu.models.SIM.RemanisSim;
-import com.myisu_1.isu.models.SIM.SaleSim_1m;
-import com.myisu_1.isu.models.SIM.SaleSim_6m;
-import com.myisu_1.isu.models.SIM.ShopPlanSim;
+import com.myisu_1.isu.models.SIM.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +23,7 @@ public class MappingUtils {
         return dto;
     }
 
-    public SimPlan mapShopPlanSim(RemanisSim rem, SaleSim_1m sale1, SaleSim_6m sale6, ShopPlanSim s) {
+    public SimPlan mapShopPlanSim(RemanisSim rem, SaleSim_1m sale1, SaleSim_6m sale6, ShopPlanSim s, SimAndRtkTable rtks) {
         SimPlan dto = new SimPlan();
         dto.setId(s.getId());
         dto.setNameSim(s.getNameSimModem());
@@ -34,6 +31,7 @@ public class MappingUtils {
         dto.setSale1(sale1==null?null:sale1.getRemainsSimModem());
         dto.setSale6(sale6==null?null:sale6.getRemainsSimModem()/6);
         dto.setPlan(s==null?null:s.getPlan());
+        dto.setView(rtks==null?null:rtks.getView());
         return dto;
 
     }
