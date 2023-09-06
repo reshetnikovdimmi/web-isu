@@ -1,8 +1,10 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.SIM.SimAndRtkTable;
 import com.myisu_1.isu.models.Authorization_tt;
+import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -17,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class SimDistributionServise {
+public class SimDistributionServise extends AnalysisDistribution {
     @Autowired
     private SimAndRtkTableRepositoriy rtkTableRepositoriy;
     @Autowired
@@ -32,65 +34,16 @@ public class SimDistributionServise {
     private ShopPlanSimRepository shopPlanSimRepository;
     @Autowired
     private MatrixRTKRepository matrixRTKRepository;
-    Map<String,Map<String,Map<String,String>>> shopSimRTK;
+    @Autowired
+    private SimAndRtkTableRepositoriy simAndRtkTableRepositoriy;
+
     List<Authorization_tt> authorization;
     Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
-    public Map<String,Map<String,String>> needSim() {
-        remanSaleSimShop = new TreeMap<>();
-        Map<String,Map<String,String>> shopSimRTKName = new TreeMap<>();
-        Map<String,String> shopSimRTKPlan;
+    public List<OrderRecommendations> remainsCashGroup() {
+        remains = simAndRtkTableRepositoriy.remainsSim();
+        remains.forEach(r->System.out.println(r));
 
-        authorization = (List<Authorization_tt>) authorization_ttRepositoriy.findAll();
-            for (SimAndRtkTable simAndRtkTable : rtkTableRepositoriy.findAll()) {
-                shopSimRTKPlan = new TreeMap<>();
-                shopSimRTKPlan.put("view",simAndRtkTable.getView());
-
-                Integer sale6 = saleSimModemRepository6m.getSale6Sim(simAndRtkTable.getNameRainbow());
-                Integer sale1 = saleSimModemRepository1m.getSale1Sim(simAndRtkTable.getNameRainbow());
-                Integer remanis = remanisSimRepository.getSumRemanisSim(simAndRtkTable.getNameRainbow());
-                Integer remanisCash = remanisSimRepository.getRemanisSimShop(simAndRtkTable.getNameRainbow(),authorization.get(0).getName());
-
-
-                if (sale6!=null){
-                    shopSimRTKPlan.put("sale6",String.valueOf(sale6/6));
-                }else{
-                    shopSimRTKPlan.put("sale6", null);
-                }
-                if (sale1!=null){
-                    shopSimRTKPlan.put("sale1",String.valueOf(sale1));
-                }else{
-                    shopSimRTKPlan.put("sale1", null);
-                }
-                if (remanis!=null){
-                    shopSimRTKPlan.put("remanis", String.valueOf(remanis));
-                }else{
-                    shopSimRTKPlan.put("remanis", null);
-                }
-
-
-                if (remanisCash!=null){
-                    shopSimRTKPlan.put("remanisCash", String.valueOf(remanisCash));
-
-                }else{
-                    shopSimRTKPlan.put("remanisCash", null);
-                }
-                if (remanisCash==null){
-                    remanisCash=0;
-                }
-
-                Integer plan = plan(simAndRtkTable.getNameRainbow());
-                plan = plan+plan/3-remanisCash;
-
-                while ((plan % 50) != 0) {
-                    plan++;
-                }
-                shopSimRTKPlan.put("plan", String.valueOf(plan));
-
-
-                shopSimRTKName.put(simAndRtkTable.getNameRainbow(),shopSimRTKPlan);
-            }
-
-        return shopSimRTKName;
+        return null;
     }
 
     private Integer plan(String nameRainbow) {

@@ -1,4 +1,5 @@
 package com.myisu_1.isu.repo;
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.dto.SimOrderDto;
 import com.myisu_1.isu.dto.SimPlan;
 import com.myisu_1.isu.models.SIM.ShopPlanSim;
@@ -37,7 +38,7 @@ public interface SimAndRtkTableRepositoriy extends JpaRepository<SimAndRtkTable,
             " WHERE view IN ?1")
     List<String> getNull(List<String> sim);
 
-    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.SimOrderDto(c.nameRainbow, c.toOrder, c.view, r.remainsSimAndModem) FROM SimAndRtkTable c " +
-            "JOIN  c.remanisSims r ")
-    List<SimOrderDto> simPlanOrder();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(r.shop, c.distributionModel, c.view, SUM( r.remainsSimAndModem)) FROM SimAndRtkTable c " +
+            "LEFT JOIN  c.remanisSims r GROUP BY r.shop, c.distributionModel, c.view ORDER BY r.remainsSimAndModem DESC")
+    List<OrderRecommendations> remainsSim();
 }
