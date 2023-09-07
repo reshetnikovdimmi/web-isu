@@ -2,7 +2,6 @@ package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.RTK.MatrixRTK;
-import com.myisu_1.isu.models.SIM.SimAndRtkTable;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.*;
@@ -39,11 +38,10 @@ public class SimDistributionServise extends AnalysisDistribution {
 
     List<Authorization_tt> authorization;
     Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
-    public List<OrderRecommendations> remainsCashGroup() {
+    public List<OrderRecommendations> remainsCash() {
         remains = simAndRtkTableRepositoriy.remainsSim();
-        remains.forEach(r->System.out.println(r));
-
-        return null;
+        remainsCash = authorization_ttRepositoriy.getWarehouseList();
+        return remainsCashGroup(simAndRtkTableRepositoriy.getGroupView());
     }
 
     private Integer plan(String nameRainbow) {
@@ -261,7 +259,6 @@ public class SimDistributionServise extends AnalysisDistribution {
     }
 
     public Object distributionModel() {
-
         return matrixRTKRepository.getDistributionModelDistinct();
     }
 }

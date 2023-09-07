@@ -88,6 +88,12 @@ public class SimAndRtkTable implements Serializable {
         this.shopPlanSims = shopPlanSims;
     }
 
+    public SimAndRtkTable(String distributionModel , String view)  {
+        this.distributionModel = distributionModel;
+        this.view = view;
+
+    }
+
     public SimAndRtkTable(String view, String nameSpark, String nameRarus, String nameRainbow, String distributionModel, String toOrder) {
         this.view = view;
         this.nameSpark = nameSpark;

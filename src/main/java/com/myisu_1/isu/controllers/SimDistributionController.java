@@ -37,7 +37,7 @@ public class SimDistributionController {
     @GetMapping("/SimDistributionsNew")
     public String SimDistributionNew (Model model) {
 
-        model.addAttribute("Accessories", simDistributionServise.remainsCashGroup());
+        model.addAttribute("Accessories", simDistributionServise.remainsCash());
 
         return "SimDistributionsNew";
 

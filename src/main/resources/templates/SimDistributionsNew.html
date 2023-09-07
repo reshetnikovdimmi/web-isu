@@ -92,35 +92,27 @@
                                 <table class="table-borderless">
                                     <thead>
                                     <tr>
-                                        <th>МОДЕЛЬ</th>
-                                        <th>ОСТАТОК</th>
-                                        <th>ПРОД 1М</th>
-                                        <th>ПРОД 6/3М</th>
-                                        <th>ПОТРЕБНОСТЬ</th>
+                                        <th>ГРУППА</th>
+                                        <th>ОСТАТОК К1</th>
+                                        <th>ОСТАТОК К2</th>
+
 
 
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="entry, stats  : ${Accessories}" th:with="user=${entry.value}">
-                                        <span th:each="word : ${entry.value}">
 
-                                              <span th:if="${word.value == 't2'}">
-                                              <td>
-                                                  <button class="btn btn-primary btn-sm btn-block"
-                                                          th:text="${entry.key}"
-                                                          type="submit"></button>
-                                              </td>
+                                    <tr th:each="current : ${Accessories}" th:if="${current.view == 't2'}">
 
-                                        <span th:each="word : ${entry.value}">
-                                            <span th:if="${word.value != 't2'}">
-                                          <td th:text="${word.value}"></td>
-                                            </span>
-                                        </span>
-                                          </span>
-                                        </span>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
+                                                    type="submit"></button>
+                                        </td>
+
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
+
                                     </tr>
-
 
                                     </tbody>
                                 </table>
@@ -299,23 +291,16 @@
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="entry, stats  : ${Accessories}" th:with="user=${entry.value}">
-                                        <span th:each="word : ${entry.value}">
+                                    <tr th:each="current : ${Accessories}" th:if="${current.view == 't2m'}">
 
-                                              <span th:if="${word.value == 't2m'}">
-                                              <td>
-                                                  <button class="btn btn-primary btn-sm btn-block"
-                                                          th:text="${entry.key}"
-                                                          type="submit"></button>
-                                              </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
+                                                    type="submit"></button>
+                                        </td>
 
-                                        <span th:each="word : ${entry.value}">
-                                            <span th:if="${word.value != 't2m'}">
-                                          <td th:text="${word.value}"></td>
-                                            </span>
-                                        </span>
-                                          </span>
-                                        </span>
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
+
                                     </tr>
 
 
@@ -499,23 +484,16 @@
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="entry, stats  : ${Accessories}" th:with="user=${entry.value}">
-                                        <span th:each="word : ${entry.value}">
+                                    <tr th:each="current : ${Accessories}" th:if="${current.view == 'mts'}">
 
-                                              <span th:if="${word.value == 'mts'}">
-                                              <td>
-                                                  <button class="btn btn-primary btn-sm btn-block"
-                                                          th:text="${entry.key}"
-                                                          type="submit"></button>
-                                              </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
+                                                    type="submit"></button>
+                                        </td>
 
-                                        <span th:each="word : ${entry.value}">
-                                            <span th:if="${word.value != 'mts'}">
-                                          <td th:text="${word.value}"></td>
-                                            </span>
-                                        </span>
-                                          </span>
-                                        </span>
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
+
                                     </tr>
 
 
