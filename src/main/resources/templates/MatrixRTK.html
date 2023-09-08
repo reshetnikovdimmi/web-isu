@@ -70,29 +70,29 @@
                     <div class="col">
                         <div class="row">
                             <div class="table_RTK">
+
                                 <table class="table-borderless">
                                     <thead>
                                     <tr>
-                                        <th>МОДЕЛЬ</th>
-                                        <th>ОСТАТОК</th>
-                                        <th>ПРОД 1М</th>
-                                        <th>ПРОД 6/3М</th>
-                                        <th>ПОТРЕБНОСТЬ</th>
+                                        <th>ГРУППА</th>
+                                        <th>ОСТАТОК К1</th>
+                                        <th>ОСТАТОК К2</th>
+
+
 
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="entry, stats  : ${MatrixRTK}" th:with="user=${entry.value}">
+
+                                    <tr th:each="current : ${MatrixRTK}" th:if="${current.view == 'RTK'}">
 
                                         <td>
-                                            <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}" type="submit"></button>
+                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
+                                                    type="submit"></button>
                                         </td>
 
-                                        <span th:each="word : ${entry.value}">
-
-                                          <td th:text="${word.value }"></td>
-
-                                        </span>
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
 
                                     </tr>
 

@@ -1,6 +1,7 @@
 package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.models.Authorization_tt;
+import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Service
-public class MatrixRTKServise {
+public class MatrixRTKServise extends AnalysisDistribution {
     @Autowired
     private MatrixRTKRepository matrixRTKRepository;
     @Autowired
@@ -29,23 +30,9 @@ public class MatrixRTKServise {
     List<String> matrixRTKAll;
     List<String> shopRTKList;
     public Object getSaleRemanisAll() {
-        authorization  = (List<Authorization_tt>) authorization_ttRepositoriy.findAll();
-        Map<String,Map<String,Integer>> distributionModel = new TreeMap<>();
-        Map<String,Integer> saleRemanis;
-        matrixRTKAll = rtkTableRepositoriy.getMatrixRTKAll();
-        shopRTK = new TreeMap<>();
-        shopRTKList = authorization_ttRepositoriy.getShopRTK();
-        List<String> sach  = authorization_ttRepositoriy.getWarehouseList();
-
-        for (String matrixRTK : matrixRTKAll){
-            saleRemanis = new TreeMap<>();
-            saleRemanis.put("remanisCash",remanisSimRepository.getRemanisRTKCash(rtkTableRepositoriy.getNameRainbow(matrixRTK),sach));
-            saleRemanis.put("sale6",saleSimModemRepository6m.getSale6RTK(rtkTableRepositoriy.getNameRainbow(matrixRTK)));
-            saleRemanis.put("sale1",saleSimModemRepository1m.getSale1RTK(rtkTableRepositoriy.getNameRainbow(matrixRTK)));
-            distributionModel.put(matrixRTK,saleRemanis);
-        }
-
-        return distributionModel;
+        remains = rtkTableRepositoriy.remainsSim();
+        remainsCash = authorization_ttRepositoriy.getWarehouseList();
+        return remainsCashGroup(rtkTableRepositoriy.getGroupView());
 
     }
 

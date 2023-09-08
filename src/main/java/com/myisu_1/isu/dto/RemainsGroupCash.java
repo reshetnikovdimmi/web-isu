@@ -34,4 +34,13 @@ public class RemainsGroupCash {
         this.cash = cash;
         this.cash1 = cash1;
     }
+
+    public RemainsGroupCash(String group, String view) {
+        this.group = group;
+        this.view = view;
+    }
+
+    public RemainsGroupCash(String group) {
+        this.group = group;
+    }
 }

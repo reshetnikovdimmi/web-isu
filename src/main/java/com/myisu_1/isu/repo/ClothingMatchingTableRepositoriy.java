@@ -60,5 +60,7 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT DISTINCT viewClothes FROM ClothingMatchingTable WHERE phoneClothes = ?1")
     String getView(String nomenkl);
 
-
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Matrix_T2, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
+            "JOIN c.remanisSims p   GROUP BY p.shop, c.Matrix_T2")
+    List<OrderRecommendations> getRemainsShopClothing();
 }

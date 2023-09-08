@@ -2,6 +2,7 @@ package com.myisu_1.isu.repo;
 
 
 import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.SIM.SimAndRtkTable;
@@ -108,7 +109,12 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
             "JOIN c.remanisSims p   GROUP BY p.shop, c.Brend")
     List<OrderRecommendations> getRemainsShopPhoneGroup();
-    @Query("SELECT DISTINCT new com.myisu_1.isu.models.Phone_Smart (Brend) FROM Phone_Smart")
-    List<Phone_Smart> getGroupView();
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (Matrix_T2) FROM Phone_Smart")
+    List<RemainsGroupCash> getGroupView();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Matrix_T2, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
+            "JOIN c.remanisSims p   GROUP BY p.shop, c.Matrix_T2")
+    List<OrderRecommendations> getRemainsShopPhoneMatrixT2();
+
+
 }
 

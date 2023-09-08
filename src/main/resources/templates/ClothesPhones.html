@@ -123,8 +123,8 @@
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="current : ${RemainsGroupCash}">
-                                        <span th:if="${current.view == 'Glass'}">
+                                    <tr th:each="current : ${RemainsGroupCash}" th:if="${current.view == 'Glass'}">
+
                                         <td>
                                             <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
                                                     type="submit"></button>
@@ -132,7 +132,7 @@
 
                                         <td th:text="${current.remainsCash1}"></td>
                                         <td th:text="${current.remainsCash2}"></td>
-                                        </span>
+
                                     </tr>
 
 

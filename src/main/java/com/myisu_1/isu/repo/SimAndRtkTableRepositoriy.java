@@ -1,5 +1,6 @@
 package com.myisu_1.isu.repo;
 import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.SIM.SimAndRtkTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -38,6 +39,6 @@ public interface SimAndRtkTableRepositoriy extends JpaRepository<SimAndRtkTable,
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(r.shop, c.distributionModel, c.view, SUM( r.remainsSimAndModem)) FROM SimAndRtkTable c " +
             "LEFT JOIN  c.remanisSims r WHERE r.shop IS NOT NULL and c.distributionModel IS NOT NULL GROUP BY r.shop, c.distributionModel, c.view ORDER BY r.remainsSimAndModem DESC")
     List<OrderRecommendations> remainsSim();
-    @Query("SELECT DISTINCT new com.myisu_1.isu.models.SIM.SimAndRtkTable(distributionModel, view) FROM SimAndRtkTable WHERE distributionModel IS NOT NULL GROUP BY distributionModel " )
-    List<SimAndRtkTable> getGroupView();
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash(distributionModel, view) FROM SimAndRtkTable WHERE distributionModel IS NOT NULL GROUP BY distributionModel " )
+    List<RemainsGroupCash> getGroupView();
 }

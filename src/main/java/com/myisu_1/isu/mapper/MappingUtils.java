@@ -9,19 +9,6 @@ import java.util.List;
 @Service
 public class MappingUtils {
 
-    public SimPlan mapShopPlanSim(RemanisSim entity){
-        SimPlan dto = new SimPlan();
-        dto.setNameSim(entity.getNameSimAndModem());
-        dto.setRemains(entity.getRemainsSimModem());
-        return dto;
-    }
-
-    public SimPlan mapToProductEntity(SaleSim_6m entity){
-        SimPlan dto = new SimPlan();
-        dto.setNameSim(entity.getNameSimAndModem());
-        dto.setRemains(entity.getRemainsSimModem());
-        return dto;
-    }
 
     public SimPlan mapShopPlanSim(RemanisSim rem, SaleSim_1m sale1, SaleSim_6m sale6, ShopPlanSim s, SimAndRtkTable rtks) {
         SimPlan dto = new SimPlan();

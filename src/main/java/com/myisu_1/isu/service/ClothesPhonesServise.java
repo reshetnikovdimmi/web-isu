@@ -1,6 +1,8 @@
 package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.models.distribution.AnalysisDistribution;
+import com.myisu_1.isu.repo.ClothesForPhonesRepositoriy;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PostRepositoriy;
@@ -19,16 +21,17 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @Service
-public class ClothesPhonesServise {
+public class ClothesPhonesServise extends AnalysisDistribution {
     @Autowired
     private ClothingMatchingTableRepositoriy clothingMatchingTableRepositoriy;
     @Autowired
     private PostRepositoriy shop;
     @Autowired
     private PhoneRepositoriy phoneRepositoriy;
+    @Autowired
+    private ClothesForPhonesRepositoriy clothesForPhonesRepositoriy;
 
-
-    List<OrderRecommendations> remainsCash;
+    List<OrderRecommendations> remainsCashs;
     List<String> cash;
     List<String> shops;
     List<OrderRecommendations> groupSaleRemains;
@@ -41,40 +44,9 @@ public class ClothesPhonesServise {
     List<OrderRecommendations> sale6ShopClothingGroupAll;
 
     public Object remainsGroupCash() {
-        groupSaleRemains = new ArrayList<>();
-        List<OrderRecommendations> remainsShopClothingGroup = clothingMatchingTableRepositoriy.getRemainsShopClothingGroup();
-        List<OrderRecommendations> sale1ShopClothingGroup = clothingMatchingTableRepositoriy.getSale1ShopClothingGroup();
-        List<OrderRecommendations> sale6ShopClothingGroup = clothingMatchingTableRepositoriy.getSale6ShopClothingGroup();
-        List<OrderRecommendations> remainsShopPhoneGroup = phoneRepositoriy.getRemainsShopPhoneGroup();
-
-        remainsShopClothingGroupAll = clothingMatchingTableRepositoriy.getRemainsShopClothingGroupAll();
-        sale1ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale1ShopClothingGroupAll();
-        sale6ShopClothingGroupAll = clothingMatchingTableRepositoriy.getSale6ShopClothingGroupAll();
-
-
-        cash = shop.getWarehouseList();
-        List<String> phone = phoneRepositoriy.getBrendDisting();
-        shops = shop.getShopList();
-        List<String> view = new ArrayList<>();
-        view.add("Glass");
-        view.add("Case");
-        view.add("CoverBook");
-        for (String s : shops) {
-            for (String p : phone) {
-                for (String v : view) {
-                    groupSaleRemains.add(new OrderRecommendations(s, p, null, v,searchRemainsCash1( p, v, remainsShopClothingGroup),searchRemainsCash2( p, v, remainsShopClothingGroup),searchRemainsShopL(s, p, v, remainsShopClothingGroup),null,searchRemainsShopL(s, p, v, remainsShopPhoneGroup), searchRemainsShopL(s, p, v, sale1ShopClothingGroup), searchRemainsShopL(s, p, v, sale6ShopClothingGroup), null, null));
-
-                }
-            }
-        }
-
-        List<OrderRecommendations> groupRemainsCash = new ArrayList<>();
-            for (OrderRecommendations o : groupSaleRemains) {
-                if (cash.get(0).equals(o.getShop())) {
-                    groupRemainsCash.add(o);
-                }
-            }
-        return groupRemainsCash;
+        remains = clothingMatchingTableRepositoriy.getRemainsShopClothing();
+        remainsCash = shop.getWarehouseList();
+        return remainsCashGroup(phoneRepositoriy.getGroupView());
     }
 
     private Integer searchRemainsCash1(String p, String v, List<OrderRecommendations> remains) {
