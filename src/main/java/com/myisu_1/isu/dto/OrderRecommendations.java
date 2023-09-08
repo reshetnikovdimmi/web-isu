@@ -26,6 +26,10 @@ public class OrderRecommendations {
     List<OrderRecommendations> all;
     List<OrderRecommendations> remainsGroupShop;
 
+    public OrderRecommendations(String group) {
+        this.group = group;
+    }
+
     public OrderRecommendations(String group, String view, Integer remainsCash1, Integer remainsCash2) {
         this.group = group;
         this.view = view;

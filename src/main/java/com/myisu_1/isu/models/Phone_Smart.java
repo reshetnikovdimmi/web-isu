@@ -50,6 +50,10 @@ public class Phone_Smart implements Serializable {
 
     private List<ClothingMatchingTable> сlothingMatching;
 
+    public Phone_Smart(String brend) {
+        Brend = brend;
+    }
+
     public Phone_Smart(String model, String model_GB) {
         Model = model;
         Model_GB = model_GB;

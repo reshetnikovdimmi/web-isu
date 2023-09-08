@@ -1,11 +1,13 @@
 package com.myisu_1.isu.service;
 
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.Sales;
+import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Service
-public class PhoneServise {
+public class PhoneServise extends AnalysisDistribution {
     @Autowired
     private SalesRepositoriy salesRepositoriy;
     @Autowired
@@ -46,25 +48,12 @@ public class PhoneServise {
     private int remanis;
 
 
-    public Map<String, Map<String, Integer>> distributionModel() {
-        authorization_ttList = (List<Authorization_tt>) authorization_tt.findAll();
-        matrix_T2 = phoneRepositoriy.getMatrixT2Disting();
-        remanisSaleShop = new TreeMap<>();
-        shopMatrix = new TreeMap<>();
-        Map<String, Map<String, Integer>> distributionModel = new TreeMap<>();
+    public List<OrderRecommendations> distributionModel() {
 
-        for (String matrix : matrix_T2) {
-
-            Map<String, Integer> indicator = new TreeMap<>();
-
-            indicator.put("remanis", phoneRepositoriy.getPhoneRemanisSum(matrix));
-            indicator.put("sale1", phoneRepositoriy.getPhoneSale1Sum(matrix));
-            indicator.put("sale6", phoneRepositoriy.getPhoneSale6Sum(matrix));
-            indicator.put("remanisSach", phoneRepositoriy.getPhoneRemanSachAll(matrix, authorization_ttList.get(0).getName(), authorization_ttList.get(1).getName()));
-            distributionModel.put(matrix, indicator);
+            remains = phoneRepositoriy.getRemainsShopPhoneGroup();
+            remainsCash = authorization_tt.getWarehouseList();
+            return remainsCashGroupPhone(phoneRepositoriy.getGroupView());
         }
-        return distributionModel;
-    }
 
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
