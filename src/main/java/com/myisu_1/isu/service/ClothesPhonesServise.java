@@ -1,6 +1,7 @@
 package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.ClothesForPhonesRepositoriy;
 import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
@@ -45,8 +46,34 @@ public class ClothesPhonesServise extends AnalysisDistribution {
 
     public Object remainsGroupCash() {
         remains = clothingMatchingTableRepositoriy.getRemainsShopClothing();
+
         remainsCash = shop.getWarehouseList();
-        return remainsCashGroup(phoneRepositoriy.getGroupView());
+
+        return remainsCashGroup(phoneRepositoriy.getGroupViewClothing());
+    }
+@Override
+public List<OrderRecommendations> remainsCashGroup(List<RemainsGroupCash> all) {
+    remainsCashList = new ArrayList<>();
+    for (RemainsGroupCash o : all) {
+            OrderRecommendations dto = new OrderRecommendations();
+            dto.setGroup(o.getGroup());
+            dto.setView(o.getView());
+            OrderRecommendations rem = remains.stream().filter(r -> r.getShop().equals(remainsCash.get(0)) && r.getGroup().equals(o.getGroup())&&r.getView().equals(o.getView())).findAny().orElse(null);
+            if (rem != null) {
+                dto.setRemainsCash1(rem.getRemainsShopL() == null ? null : Math.toIntExact(rem.getRemainsShopL()));
+            } else {
+                dto.setRemainsCash1(null);
+            }
+            OrderRecommendations rem1 = remains.stream().filter(r -> r.getShop().equals(remainsCash.get(1)) && r.getGroup().equals(o.getGroup())&&r.getView().equals(o.getView())).findAny().orElse(null);
+            if (rem1 != null) {
+                dto.setRemainsCash2(rem1.getRemainsShopL() == null ? null : Math.toIntExact(rem1.getRemainsShopL()));
+            } else {
+                dto.setRemainsCash2(null);
+            }
+            remainsCashList.add(dto);
+    }
+       return remainsCashList;
+
     }
 
     private Integer searchRemainsCash1(String p, String v, List<OrderRecommendations> remains) {

@@ -97,7 +97,7 @@ public class BonusesServise {
         cbp.imeiSuppliers = suppliersRepositoriy.getListSuppliers(cbp.imeiSale, "ЦЕНТР ДИСТРИБЬЮЦИИ ООО Теле2 ");
         cbp.listPhone = phoneRepositoriy.getSaleModelList(cbp.model);
 
-
+System.out.println(cbp.bonusesCalculation());
         return cbp.bonusesCalculation();
     }
 

@@ -27,8 +27,6 @@ public class ButtonsPhoneServise {
     Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem;
 
     public List<Buttons> findAllButtonsPhone() {
-
-
         return buttonsPhoneRepositoriy.getButtonPhonePrice();
     }
 
@@ -42,26 +40,19 @@ public class ButtonsPhoneServise {
         modelShopSaleRem = new TreeMap<>();
         for (Integer graduation : arrayGraduation) {
             for (String modelGraduation : button.modelsGraduation) {
-
                 model = new ArrayList<>();
-
                 for (Buttons buttonList : buttonsList) {
-
                     if (buttonList.getPrice() != null && modelGraduation.equals(buttonList.getBrend()) && graduation >= Double.parseDouble(buttonList.getPrice()) && graduation - 1000 < Double.parseDouble(buttonList.getPrice())) {
-
                         model.add(buttonList.getModel());
                     }
                 }
                 button.graduationButton.put(modelGraduation + "--" + graduation, model);
             }
         }
-
         Map<String, Map<String, String>> networkBalance = new TreeMap<>();
         for (Map.Entry entry : button.graduationButton.entrySet()) {
-
             networkBalance.put((String) entry.getKey(), networkBalance((List<String>) entry.getValue()));
         }
-
         return networkBalance;
     }
 

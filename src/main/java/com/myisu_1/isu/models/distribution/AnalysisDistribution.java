@@ -14,8 +14,9 @@ public abstract class AnalysisDistribution {
 
     public List<OrderRecommendations> remains;
     public List<String> remainsCash;
-    List<OrderRecommendations> remainsCashList;
+    public List<OrderRecommendations> remainsCashList;
     public List<OrderRecommendations> remainsCashGroup(List<RemainsGroupCash> all) {
+       // remains.forEach(r->System.out.println(r));
        remainsCashList = new ArrayList<>();
         for (RemainsGroupCash o : all) {
             if (o.getGroup() != null) {
@@ -30,7 +31,6 @@ public abstract class AnalysisDistribution {
                 }
                 OrderRecommendations rem1 = remains.stream().filter(r -> r.getShop().equals(remainsCash.get(1)) && r.getGroup().equals(o.getGroup())).findAny().orElse(null);
                 if (rem1 != null) {
-
                     dto.setRemainsCash2(rem1.getRemainsShopL() == null ? null : Math.toIntExact(rem1.getRemainsShopL()));
                 } else {
                     dto.setRemainsCash2(null);

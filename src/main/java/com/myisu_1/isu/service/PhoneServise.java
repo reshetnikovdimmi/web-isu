@@ -51,6 +51,7 @@ public class PhoneServise extends AnalysisDistribution {
     public List<OrderRecommendations> distributionModel() {
 
             remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
+
             remainsCash = authorization_tt.getWarehouseList();
             return remainsCashGroup(phoneRepositoriy.getGroupView());
         }

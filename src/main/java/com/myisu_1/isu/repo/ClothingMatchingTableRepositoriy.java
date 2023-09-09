@@ -2,6 +2,7 @@ package com.myisu_1.isu.repo;
 
 
 import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -60,7 +61,9 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT DISTINCT viewClothes FROM ClothingMatchingTable WHERE phoneClothes = ?1")
     String getView(String nomenkl);
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Matrix_T2, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
-            "JOIN c.remanisSims p   GROUP BY p.shop, c.Matrix_T2")
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, c.viewClothes, SUM (p.remanisClothes)) FROM ClothingMatchingTable c   " +
+            "JOIN c.clothersPhone p   GROUP BY p.nameShop, c.nameClothes, c.viewClothes")
     List<OrderRecommendations> getRemainsShopClothing();
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (nameClothes,viewClothes) FROM ClothingMatchingTable")
+    List<RemainsGroupCash> getGroupView();
 }

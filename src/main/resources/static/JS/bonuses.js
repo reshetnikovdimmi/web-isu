@@ -281,6 +281,7 @@ var mydate = new Date(data);
     return  new Intl.DateTimeFormat().format(mydate);
 }
 function ceateTableNoT2Bonus(data) {
+console.log(data)
     var elem = document.querySelector('#table_TableNoT2Bonus');
     var elem1 = document.querySelector('#tables_TableNoT2Bonus');
     elem1.parentNode.removeChild(elem1);
