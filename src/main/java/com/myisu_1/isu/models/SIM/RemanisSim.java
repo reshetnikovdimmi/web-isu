@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
+
 @Data
 @ToString
 @Entity
-public class RemanisSim {
+public class RemanisSim implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;

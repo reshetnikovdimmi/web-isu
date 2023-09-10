@@ -1,7 +1,7 @@
 package com.myisu_1.isu.repo;
 
 
-import com.myisu_1.isu.models.Phone.Buttons;
+
 import com.myisu_1.isu.models.accessories.RangeAccessories;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

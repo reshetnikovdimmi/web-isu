@@ -1,5 +1,6 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.exporte.ExselFileExporteDistributionButton;
 import com.myisu_1.isu.exporte.ExselFileExporteDistributionImei;
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,8 +37,8 @@ public class ButtonsPhoneController {
     }
     @GetMapping("/ButtonsPhoneDistribution")
     public String ButtonsPhoneDistribution(Model model) {
-        model.addAttribute("Requirement",buttonsPhoneServise.tabletableRequirement());
-        model.addAttribute("Phone", buttonsPhoneServise.graduationPhone());
+       // model.addAttribute("Requirement",buttonsPhoneServise.tabletableRequirement());
+        model.addAttribute("Phone", buttonsPhoneServise.remainsCashGroup());
         return "ButtonsPhoneDistribution";
     }
     @ResponseBody
@@ -69,9 +71,9 @@ public class ButtonsPhoneController {
 
     @ResponseBody
     @RequestMapping(value = "ButtonsPhones", method = RequestMethod.GET)
-    public Map<String,Map<String,String>> price() {
+    public List<OrderRecommendations> price() {
 
-        return buttonsPhoneServise.graduationPhone();
+        return buttonsPhoneServise.remainsCashGroup();
     }
 
     @RequestMapping(value="/tableShopRemanisSele/{brend}", method=RequestMethod.GET)

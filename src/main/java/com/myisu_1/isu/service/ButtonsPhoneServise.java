@@ -1,10 +1,13 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Phone.Buttons;
+import com.myisu_1.isu.models.Phone.ButtonsPhone;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.SIM.SaleSim_1m;
 import com.myisu_1.isu.models.SIM.SaleSim_6m;
+import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.ButtonsPhoneRepositoriy;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +19,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Service
-public class ButtonsPhoneServise {
+public class ButtonsPhoneServise extends AnalysisDistribution {
     Buttons button = new Buttons();
     @Autowired
     private ButtonsPhoneRepositoriy buttonsPhoneRepositoriy;
     @Autowired
     private PostRepositoriy authorizationRep;
-    List<String> model;
+    List<Buttons> buttons;
     List<String> buttonModel;
     Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem;
 
@@ -30,30 +33,34 @@ public class ButtonsPhoneServise {
         return buttonsPhoneRepositoriy.getButtonPhonePrice();
     }
 
-    public Map<String, Map<String, String>> graduationPhone() {
-
-        int[] arrayGraduation = {1000, 2000, 3000, 4000, 5000, 6000};
-        List<Buttons> buttonsList = buttonsPhoneRepositoriy.getButtonPhonePrice();
-
-        button.modelsGraduation = buttonsPhoneRepositoriy.getModelsGraduation();
-        button.graduationButton = new TreeMap<>();
-        modelShopSaleRem = new TreeMap<>();
-        for (Integer graduation : arrayGraduation) {
-            for (String modelGraduation : button.modelsGraduation) {
-                model = new ArrayList<>();
-                for (Buttons buttonList : buttonsList) {
-                    if (buttonList.getPrice() != null && modelGraduation.equals(buttonList.getBrend()) && graduation >= Double.parseDouble(buttonList.getPrice()) && graduation - 1000 < Double.parseDouble(buttonList.getPrice())) {
-                        model.add(buttonList.getModel());
-                    }
-                }
-                button.graduationButton.put(modelGraduation + "--" + graduation, model);
-            }
+    public List<OrderRecommendations> remainsCashGroup() {
+        List<Buttons> buttons = buttonsPhoneRepositoriy.getButtonPhonePrice();
+        List<ButtonsPhone> bpList = new ArrayList<>();
+        for (Buttons b : buttons) {
+            ButtonsPhone bp = new ButtonsPhone();
+            bp.setGroup(searchGroup(b.getPrice(), b.getBrend()));
+            bp.setBrend(b.getBrend());
+            bp.setModel(b.getModel());
+            bpList.add(bp);
         }
-        Map<String, Map<String, String>> networkBalance = new TreeMap<>();
-        for (Map.Entry entry : button.graduationButton.entrySet()) {
-            networkBalance.put((String) entry.getKey(), networkBalance((List<String>) entry.getValue()));
+        buttonsPhoneRepositoriy.deleteAll();
+        buttonsPhoneRepositoriy.saveAll(bpList);
+        remains = buttonsPhoneRepositoriy.getRemainsShopButton();
+        remainsCash = authorizationRep.getWarehouseList();
+        return remainsCashGroup(buttonsPhoneRepositoriy.getGroupView());
+    }
+    private String searchGroup(String price, String brend) {
+
+        if(price!=null){
+            if(Double.valueOf(price)<=1000)return brend+ "--"+"1000";
+            if(Double.valueOf(price)<=2000)return brend+ "--"+"2000";
+            if(Double.valueOf(price)<=3000)return brend+ "--"+"3000";
+            if(Double.valueOf(price)<=4000)return brend+ "--"+"4000";
+            if(Double.valueOf(price)<=5000)return brend+ "--"+"5000";
+            if(Double.valueOf(price)<=6000)return brend+ "--"+"6000";
         }
-        return networkBalance;
+
+        return null;
     }
 
     private Map<String, String> networkBalance(List<String> value) {

@@ -16,9 +16,10 @@ public abstract class AnalysisDistribution {
     public List<String> remainsCash;
     public List<OrderRecommendations> remainsCashList;
     public List<OrderRecommendations> remainsCashGroup(List<RemainsGroupCash> all) {
-       // remains.forEach(r->System.out.println(r));
+
        remainsCashList = new ArrayList<>();
         for (RemainsGroupCash o : all) {
+
             if (o.getGroup() != null) {
                 OrderRecommendations dto = new OrderRecommendations();
                 dto.setGroup(o.getGroup());
@@ -38,7 +39,9 @@ public abstract class AnalysisDistribution {
                 remainsCashList.add(dto);
             }
         }
+     //   remainsCashList.forEach(r->System.out.println(r));
         return remainsCashList;
     }
+
 
 }

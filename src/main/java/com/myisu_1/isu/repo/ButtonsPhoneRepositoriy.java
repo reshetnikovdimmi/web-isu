@@ -1,6 +1,8 @@
 package com.myisu_1.isu.repo;
 
 
+import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.Phone.Buttons;
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
 import com.myisu_1.isu.models.SIM.RemanisSim;
@@ -55,4 +57,11 @@ public interface ButtonsPhoneRepositoriy extends JpaRepository<ButtonsPhone, Int
 
     @Query("SELECT remainsSimModem FROM SaleSim_1m WHERE shop = ?1 AND nameSimAndModem = ?2")
     String getShopRemanisSele1mModel(String authorizationList, String lis);
+
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.group, SUM (p.remainsSimAndModem)) FROM ButtonsPhone c   " +
+            "JOIN c.remanisSims p WHERE p.shop IS NOT NULL and c.group IS NOT NULL  GROUP BY p.shop, c.group ORDER BY c.group ASC")
+    List<OrderRecommendations> getRemainsShopButton();
+
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (group) FROM ButtonsPhone ORDER BY group ASC")
+    List<RemainsGroupCash> getGroupView();
 }

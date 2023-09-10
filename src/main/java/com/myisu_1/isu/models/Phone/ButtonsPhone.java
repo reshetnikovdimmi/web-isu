@@ -1,5 +1,6 @@
 package com.myisu_1.isu.models.Phone;
 
+import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.retail_price;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
@@ -7,6 +8,8 @@ import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+
 @Data
 @Entity
 public class ButtonsPhone implements Serializable {
@@ -15,17 +18,22 @@ public class ButtonsPhone implements Serializable {
     private int id;
     private String model;
     private String brend;
+    private String group;
+
 
 
     @OneToOne(cascade = CascadeType.REFRESH)
     @NotFound(action = NotFoundAction.IGNORE)
-    @JoinColumn(name = "model",
-            referencedColumnName = "name",
+    @JoinColumn(name = "model",referencedColumnName = "name",
             insertable = false, updatable = false,
             foreignKey = @javax.persistence
                     .ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     public retail_price prices;
 
+    @OneToMany(targetEntity = RemanisSim.class, cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+    @JoinColumn(name = "nameSimAndModem", referencedColumnName = "model", insertable = false, updatable = false)
+
+    private List<RemanisSim> remanisSims;
 
 
     public ButtonsPhone() {
