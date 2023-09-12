@@ -31,7 +31,7 @@ public class MatrixRTKServise extends AnalysisDistribution {
     List<String> shopRTKList;
     public Object getSaleRemanisAll() {
         remains = rtkTableRepositoriy.remainsSim();
-        remainsCash = authorization_ttRepositoriy.getWarehouseList();
+        warehouse = authorization_ttRepositoriy.getWarehouseList();
         return remainsCashGroup(rtkTableRepositoriy.getGroupView());
 
     }

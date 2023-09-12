@@ -52,7 +52,7 @@ public class PhoneServise extends AnalysisDistribution {
 
             remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
 
-            remainsCash = authorization_tt.getWarehouseList();
+            warehouse = authorization_tt.getWarehouseList();
             return remainsCashGroup(phoneRepositoriy.getGroupView());
         }
 

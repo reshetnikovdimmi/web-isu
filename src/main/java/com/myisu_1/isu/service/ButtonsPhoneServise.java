@@ -46,7 +46,7 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
         buttonsPhoneRepositoriy.deleteAll();
         buttonsPhoneRepositoriy.saveAll(bpList);
         remains = buttonsPhoneRepositoriy.getRemainsShopButton();
-        remainsCash = authorizationRep.getWarehouseList();
+        warehouse = authorizationRep.getWarehouseList();
         return remainsCashGroup(buttonsPhoneRepositoriy.getGroupView());
     }
     private String searchGroup(String price, String brend) {

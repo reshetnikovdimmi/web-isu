@@ -15,10 +15,10 @@ public class OrderRecommendations {
     String nomenclature;
     String view;
     Integer remainsCash1;
-
     Integer remainsCash2;
     Integer remainsShop;
     Long remainsShopL;
+    Integer requirement;
     Integer remainsPhone;
     Integer sale1;
     Integer sale6;

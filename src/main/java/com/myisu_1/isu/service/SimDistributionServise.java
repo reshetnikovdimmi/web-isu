@@ -40,7 +40,7 @@ public class SimDistributionServise extends AnalysisDistribution {
     Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
     public List<OrderRecommendations> remainsCash() {
         remains = simAndRtkTableRepositoriy.remainsSim();
-        remainsCash = authorization_ttRepositoriy.getWarehouseList();
+        warehouse = authorization_ttRepositoriy.getWarehouseList();
         return remainsCashGroup(simAndRtkTableRepositoriy.getGroupView());
     }
 
