@@ -68,27 +68,68 @@
         </header>
 
         <main class="px-3">
-            <div class="row text-center">
+            <div class="row">
                 <div class="col">
-                    <button type="button" id="updateMatrixSpark" class="btn btn-update">update</button>
+                    <button type="button" id="updateMatrixSpark" class="btn btn-outline-primary me-2 btn-update">update</button>
                 </div>
                 <div class="col">
-                    <button type="button" id="saveMatrixSpark" class="btn  btn-save">save</button>
+                    <button type="button" id="saveMatrixSpark" class="btn btn-outline-primary me-2 btn-save">save</button>
                 </div>
 
             </div>
             <div class="row text-center">
-                <div class="col">
-                    <div class="table" id="table_Spark">
-                        <table class="table-responsive table-hover" id="tables_Spark">
-                            <thead class="table-dark table-hover">
+                <div class="col-2">
 
+                    <div class="table_t2m">
+                        <table class="table-borderless-sm">
+                            <thead>
+                            <tr>
+                                <th name="Shop_1" id="Shop_1">МАГАЗИН</th>
+                            </tr>
                             </thead>
                             <tbody>
+                            <tr th:each="current : ${shop}" >
 
+                                <td th:text="${current}" class="btn btn-primary btn-sm btn-block">
+
+                                </td>
 
                             </tbody>
                         </table>
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="tableMatrix" th:fragment="tableMatrix" >
+                        <div class="table table-hover" id="table_t2">
+                            <table class="table table-hover" id="table_t3">
+                                <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Группа</th>
+                                    <th>Все продажи</th>
+                                    <th>Продажи за 6 мес</th>
+                                    <th>Продажи за 1 мес</th>
+                                    <th>Plan</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="current : ${tableMatrix}">
+
+                                    <td th:text="${current.id}"></td>
+                                    <td th:text="${current.group}"></td>
+                                    <td th:text="${current.saleAll}"></td>
+                                    <td th:text="${current.sale6}"></td>
+                                    <td th:text="${current.sale1}"></td>
+                                    <td><input  th:value="${current.matrix}"></td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col">

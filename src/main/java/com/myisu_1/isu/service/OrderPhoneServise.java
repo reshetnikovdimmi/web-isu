@@ -130,12 +130,12 @@ public class OrderPhoneServise extends MovementsPhoneServise {
         for (int i = 0; i < matrixSparkList.size(); i++) {
 
             for (int j = 0; j < distinctModel_GB.size(); j++) {
-                if (matrixSparkList.get(i).getModel().equals(distinctModel_GB.get(j))) {
+              /*  if (matrixSparkList.get(i).getModel().equals(distinctModel_GB.get(j))) {
                     list = new String[2];
                     list[0] = matrixSparkList.get(i).getSale();
                     list[1] = remanisList(distinctModel_GB.get(j));
                     salePhone.put(matrixSparkList.get(i).getModel(), list);
-                }
+                }*/
             }
         }
 
@@ -181,12 +181,12 @@ public class OrderPhoneServise extends MovementsPhoneServise {
                     }
                 }
             }
-            matrixSparkList.add(new MatrixSpark(iter, String.valueOf(summ)));
+            matrixSparkList.add(new MatrixSpark());
         }
         Collections.sort(matrixSparkList, new Comparator<MatrixSpark>() {
             @Override
             public int compare(MatrixSpark o1, MatrixSpark o2) {
-                return Integer.parseInt(o2.getSale()) - Integer.parseInt(o1.getSale());
+                return Integer.parseInt(null);//Integer.parseInt(o2.getSale()) - Integer.parseInt(o1.getSale());
             }
 
         });
