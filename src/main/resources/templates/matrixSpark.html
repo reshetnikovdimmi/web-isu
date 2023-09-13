@@ -49,6 +49,32 @@
 
 
     <div class="container-fluid themed-container text-center">
+        <p class="lead">
+            <!-- Модальное окно -->
+        <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h9 class="modal-title">не заполнено поле</h9>
+                        <button type="button" id="hide" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary">Понял</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </p>
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <svg class="bi me-2" width="40" height="32">
@@ -117,12 +143,13 @@
                                 <tbody>
                                 <tr th:each="current : ${tableMatrix}">
 
-                                    <td th:text="${current.id}"></td>
-                                    <td th:text="${current.group}"></td>
-                                    <td th:text="${current.saleAll}"></td>
-                                    <td th:text="${current.sale6}"></td>
-                                    <td th:text="${current.sale1}"></td>
-                                    <td><input  th:value="${current.matrix}"></td>
+                                    <td th:text="${current.id}" class="matrix"></td>
+                                    <td th:text="${current.group}" class="matrix"></td>
+                                    <td th:text="${current.saleAll}" class="matrix"></td>
+                                    <td th:text="${current.sale6}" class="matrix"></td>
+                                    <td th:text="${current.sale1}" class="matrix"></td>
+
+                                    <td><input  th:value="${current.matrix}" class="matrix"></td>
 
                                 </tr>
 

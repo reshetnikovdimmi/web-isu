@@ -3,43 +3,46 @@ const requestURLupdate = '/updateSparkSale'
 const requestURLsave = '/saveSparkSale'
 $(document).ready(function() {
     $('#updateMatrixSpark').on('click', function() {
-        $.get(requestURLupdate, function(sparkSalePhone, status) {
-            console.log(sparkSalePhone);
+        if ($('#Shop_1').text() == 'МАГАЗИН') {
+            modals("ВЫБЕРИ МАГАЗИН");
+        } else {
+            $.get(requestURLupdate + '/' + $('#Shop_1').text(), function(sparkSalePhone, status) {
+                $(".tableMatrix").html(sparkSalePhone);
+            });
+        }
+    });
+    $('#saveMatrixSpark').on('click', function() {
+        alert("ok")
+        var bodyArr = [];
+        var tds = document.querySelectorAll('#table_t2 td');
+        for (var i = 5; i < tds.length; i += 6) {
+            console.log(tds[i].children[0].value + "--" + tds[i - 1].innerHTML)
+            const body = {
+                matrix: null,
+                sale1: null,
+                sale6: null,
+                saleAll: null,
+                group: null,
+                shop: null
+            }
+            body.matrix = tds[i].children[0].value;
+            body.sale1 = tds[i - 1].innerHTML;
+            body.sale6 = tds[i - 2].innerHTML;
+            body.saleAll = tds[i - 3].innerHTML;
+            body.group = tds[i - 4].innerHTML;
+            body.shop = $('#Shop_1').text();
+            bodyArr.push(body);
+        }
+        sendRequest('POST', requestURLsave, bodyArr).then(data => console.log(data)).catch(err => console.log(err))
+    });
+    $('.table_t2m .btn').on('click', function(event) {
+        var shop = $(this).parents('tr:first').find('td:eq(0)').text();
+        $.get('/creatMatrix/' + shop, {}, function(data) {
+            $('#Shop_1').text(shop);
             $(".tableMatrix").html(data);
         });
     });
-    $('#saveMatrixSpark').on('click', function() {
-        var bodyArr = [];
-        $('input:checkbox:checked').each(function() {
-            const body = {
-                model: "0",
-                sale: "0"
-            }
-            body.model = $(this).parents('tr:first').find('td:eq(0)').text();
-            body.sale = $(this).parents('tr:first').find('td:eq(1)').text();
-            bodyArr.push(body);
-        });
-        sendRequest('POST', requestURLsave, bodyArr)
-        .then(data => createTableSpark(data))
-        .catch(err => console.log(err))
-    });
-     $('.table_t2m .btn').on('click', function(event) {
-    var shop = $(this).parents('tr:first').find('td:eq(0)').text();
-
-
-            $.get('/creatMatrix/' + shop, {}, function(data) {
-console.log(data)
-                        $(".tableMatrix").html(data);
-
-
-                    });
-
-
-
-
-    });
 });
-
 
 function delModel() {
     var cou = 0;
@@ -54,6 +57,17 @@ function delModel() {
     });
 }
 
+function modals(message) {
+    $('#myModal').modal("show");
+    document.querySelector('.modal-body').textContent = message;
+    $('.btn-close').on('click', function() {
+        $('#myModal').modal('hide');
+    });
+    $('.btn-secondary').on('click', function() {
+        $('#myModal').modal('hide');
+    });
+    $('.btn-primary').attr('disabled', true);
+}
 
 function sendRequest(method, url, body = null) {
     return new Promise((resolve, reject) => {

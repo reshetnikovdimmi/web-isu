@@ -17,4 +17,6 @@ public interface MatrixT2Repository extends JpaRepository<MatrixT2, Integer> {
 
     @Query("SELECT quantity FROM MatrixT2 WHERE distributionModel = ?1 AND cluster =?2")
     Integer getQuantityMatrix(String distributionModel, String cluster);
+    @Query("SELECT DISTINCT distributionModel FROM MatrixT2")
+    List<String> getDistingMatrix();
 }

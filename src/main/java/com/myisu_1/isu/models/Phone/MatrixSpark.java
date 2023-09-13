@@ -19,12 +19,26 @@ public class MatrixSpark {
     private int id;
     private String shop;
     private String group;
-    private Integer saleAll;
-    private Integer sale6;
-    private Integer sale1;
+    private Long saleAll;
+    private Long sale6;
+    private Long sale1;
     private Integer matrix;
 
     public MatrixSpark() {
     }
 
+    public MatrixSpark(String shop, String group, Long saleAll, Long sale6, Long sale1, Integer matrix) {
+        this.shop = shop;
+        this.group = group;
+        this.saleAll = saleAll;
+        this.sale6 = sale6;
+        this.sale1 = sale1;
+        this.matrix = matrix;
+    }
+
+    public MatrixSpark(String shop, String group, Long saleAll) {
+        this.shop = shop;
+        this.group = group;
+        this.saleAll = saleAll;
+    }
 }

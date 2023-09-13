@@ -3,9 +3,8 @@ package com.myisu_1.isu.repo;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.dto.RemainsGroupCash;
-import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
+import com.myisu_1.isu.models.Phone.MatrixSpark;
 import com.myisu_1.isu.models.Phone_Smart;
-import com.myisu_1.isu.models.SIM.SimAndRtkTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -118,5 +117,15 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash(c.Brend, p.viewClothes) FROM Phone_Smart c   " +
             "LEFT JOIN c.сlothingMatching p   ")
     List<RemainsGroupCash> getGroupViewClothing();
+    @Query("SELECT new com.myisu_1.isu.models.Phone.MatrixSpark(p.shop,c.Matrix_T2, SUM (p.remainsSimModem)) FROM Phone_Smart c   " +
+            "JOIN c.saleSim_6m p WHERE c.Matrix_T2 IN ?1  GROUP BY c.Matrix_T2 ")
+    List<MatrixSpark> getSaleAllMatrix(List<String> distingMatrix);
+    @Query("SELECT new com.myisu_1.isu.models.Phone.MatrixSpark(p.shop,c.Matrix_T2, SUM (p.remainsSimModem)) FROM Phone_Smart c   " +
+            "JOIN c.saleSim_6m p WHERE p.shop = ?1  GROUP BY c.Matrix_T2 ")
+    List<MatrixSpark> getSale6Shop(String shop);
+
+    @Query("SELECT new com.myisu_1.isu.models.Phone.MatrixSpark(p.shop,c.Matrix_T2, SUM (p.remainsSimModem)) FROM Phone_Smart c   " +
+            "JOIN c.saleSim_1m p WHERE p.shop = ?1  GROUP BY c.Matrix_T2 ")
+    List<MatrixSpark> getSale1Shop(String shop);
 }
 

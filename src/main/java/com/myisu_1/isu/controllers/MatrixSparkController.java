@@ -40,9 +40,9 @@ public class MatrixSparkController {
 
 
 
-    @RequestMapping(value = "updateSparkSale", method = RequestMethod.GET)
-    public String updateSparkSale(Model model) {
-        model.addAttribute("tableMatrix", matrixSparkServise.matrixSparkTableUpdate());
+    @RequestMapping(value = "updateSparkSale/{shop}", method = RequestMethod.GET)
+    public String updateSparkSale(@PathVariable("shop") String shop, Model model) {
+        model.addAttribute("tableMatrix", matrixSparkServise.matrixSparkTableUpdate(shop));
 
         return "matrixSpark::tableMatrix";
     }
