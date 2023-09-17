@@ -46,11 +46,11 @@ public class MatrixSparkController {
 
         return "matrixSpark::tableMatrix";
     }
-    @PostMapping(path = "/saveSparkSale")
+    @PostMapping(path = "/saveSparkSale/{shop}")
 
-    private ResponseEntity saveSparkSale(@RequestBody List<MatrixSpark> sim) {
+    private ResponseEntity saveSparkSale(@PathVariable("shop") String shop, @RequestBody List<MatrixSpark> sim) {
 
 
-        return ResponseEntity.ok(matrixSparkServise.saveSparkSale(sim));
+        return ResponseEntity.ok(matrixSparkServise.saveSparkSale(sim,shop));
     }
 }

@@ -33,16 +33,28 @@ $(document).ready(function() {
             body.shop = $('#Shop_1').text();
             bodyArr.push(body);
         }
-        sendRequest('POST', requestURLsave, bodyArr).then(data => console.log(data)).catch(err => console.log(err))
+        sendRequest('POST', requestURLsave + '/' + $('#Shop_1').text() , bodyArr).then(data => console.log(data)).catch(err => console.log(err))
     });
     $('.table_t2m .btn').on('click', function(event) {
         var shop = $(this).parents('tr:first').find('td:eq(0)').text();
         $.get('/creatMatrix/' + shop, {}, function(data) {
             $('#Shop_1').text(shop);
+
             $(".tableMatrix").html(data);
+            total()
         });
     });
 });
+function total() {
+var tds = document.querySelectorAll('#table_t2 td');
+var cou = 0;
+
+for (var i = 5; i < tds.length; i += 6) {
+console.log(tds[i].children[0].value + "--" + tds[i - 1].innerHTML)
+cou= cou+Number(tds[i].children[0].value)
+}
+$('#recommendedValue').text(cou);
+}
 
 function delModel() {
     var cou = 0;

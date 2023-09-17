@@ -52,9 +52,9 @@ public class MatrixSparkServise {
         return dto;
     }
 
-    public Object saveSparkSale(List<MatrixSpark> sim) {
+    public Object saveSparkSale(List<MatrixSpark> sim, String shop) {
+        matrixSparkRepository.deleteByShop(shop);
         matrixSparkRepository.saveAll(sim);
-       System.out.println(sim);
         return  matrixSparkRepository.findAll();
     }
 }
