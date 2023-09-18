@@ -139,7 +139,6 @@
                                 <th>ОСТАТОК К2</th>
 
 
-
                             </tr>
                             </thead>
                             <tbody class="tbody">
@@ -328,12 +327,7 @@
                                     </td>
 
 
-
-                                                       <td th:each="word : ${entry.value}" th:text="${word.value}"></td>
-
-
-
-
+                                    <td th:each="word : ${entry.value}" th:text="${word.value}"></td>
 
 
                                 </tr>
@@ -366,11 +360,7 @@
                                     </td>
 
 
-
-                                                       <td th:each="word : ${entry.value}" th:text="${word.value}"></td>
-
-
-
+                                    <td th:each="word : ${entry.value}" th:text="${word.value}"></td>
 
 
                                 </tr>
@@ -407,11 +397,12 @@
                         <tr th:each="entry, stats  : ${CreateMatrixT2}" th:with="user=${entry.value}">
                             <td th:text="${entry.key}"></td>
 
-                            <span th:each="word : ${entry.value}" >
+                            <span th:each="word : ${entry.value}">
                                         <span th:each="entry1  : ${distributionModel}">
 
 
-                                                <td th:text="${word.value}" th:if="${word.key == entry1 }"  th:style="${word.value}!='100%' ? 'color: red'"></td>
+                                                <td th:text="${word.value}" th:if="${word.key == entry1 }"
+                                                    th:style="${word.value}!='100%' ? 'color: red'"></td>
 
                                         </span>
 

@@ -8,15 +8,17 @@ $(document).ready(function() {
         } else {
             $.get(requestURLupdate + '/' + $('#Shop_1').text(), function(sparkSalePhone, status) {
                 $(".tableMatrix").html(sparkSalePhone);
+                total()
+                delModel()
             });
         }
     });
     $('#saveMatrixSpark').on('click', function() {
-        alert("ok")
+
         var bodyArr = [];
         var tds = document.querySelectorAll('#table_t2 td');
         for (var i = 5; i < tds.length; i += 6) {
-            console.log(tds[i].children[0].value + "--" + tds[i - 1].innerHTML)
+
             const body = {
                 matrix: null,
                 sale1: null,
@@ -33,39 +35,41 @@ $(document).ready(function() {
             body.shop = $('#Shop_1').text();
             bodyArr.push(body);
         }
-        sendRequest('POST', requestURLsave + '/' + $('#Shop_1').text() , bodyArr).then(data => console.log(data)).catch(err => console.log(err))
+        sendRequest('POST', requestURLsave + '/' + $('#Shop_1').text(), bodyArr).then(data => console.log(data)).catch(err => console.log(err))
     });
     $('.table_t2m .btn').on('click', function(event) {
         var shop = $(this).parents('tr:first').find('td:eq(0)').text();
         $.get('/creatMatrix/' + shop, {}, function(data) {
             $('#Shop_1').text(shop);
-
             $(".tableMatrix").html(data);
             total()
+            delModel()
         });
     });
 });
-function total() {
-var tds = document.querySelectorAll('#table_t2 td');
-var cou = 0;
 
-for (var i = 5; i < tds.length; i += 6) {
-console.log(tds[i].children[0].value + "--" + tds[i - 1].innerHTML)
-cou= cou+Number(tds[i].children[0].value)
-}
-$('#recommendedValue').text(cou);
+function total() {
+    var tds = document.querySelectorAll('#table_t2 td');
+    var cou = 0;
+    var sale1 = 0;
+    var sale6 = 0;
+    for (var i = 5; i < tds.length; i += 6) {
+        cou = cou + Number(tds[i].children[0].value)
+        sale1 = sale1 + Number(tds[i - 1].innerHTML)
+        sale6 = sale6 + Number(tds[i - 2].innerHTML)
+    }
+    $('#recommendedValue').text(cou);
+    $('#sale1').text(sale1);
+    $('#sale6').text(sale6);
 }
 
 function delModel() {
     var cou = 0;
-    $(document).find('.del').on('click', function() {
-        if ($(this).is(':checked')) {
-            cou++;
-            $('#recommendedValue').text(cou);
-        } else {
-            cou--;
-            $('#recommendedValue').text(cou);
-        }
+    $(document).find('.matrix').on('click', function() {
+        cou = Number($('#recommendedValue').text()) - $(this).parents('tr:first').find('td:eq(5) input').val();
+    });
+    $(document).find('.matrix').on('change', function() {
+        $('#recommendedValue').text(cou + Number($(this).parents('tr:first').find('td:eq(5) input').val()));
     });
 }
 

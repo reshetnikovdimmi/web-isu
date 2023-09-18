@@ -3,6 +3,7 @@ package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Authorization_tt;
+import com.myisu_1.isu.models.Matrix.Matrix;
 import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.SIM.RemanisSim;
@@ -55,7 +56,12 @@ public class PhoneServise extends AnalysisDistribution {
             warehouse = authorization_tt.getWarehouseList();
             return remainsCashGroup(phoneRepositoriy.getGroupView());
         }
-
+    public Object createMatrixT2() {
+        Matrix matrix = new Matrix();
+        matrix.distributionModelList = matrixT2Repository.getDistingMatrix();
+        matrix.remainMatrixList = phoneRepositoriy.getRemainsShopPhoneMatrix(matrix.distributionModelList, authorization_tt.getShopT2());
+        return shopMatrix;
+    }
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
 
@@ -196,48 +202,7 @@ public class PhoneServise extends AnalysisDistribution {
         return distributionModelMatrix;
     }
 
-    public Object createMatrixT2() {
-        if (shopMatrix.isEmpty()){
-            shopMatrix = new TreeMap<>();
-            for (String shop : authorization_tt.getShopMatrixT2()) {
-                Map<String, String> indicator = new TreeMap<>();
-                int cou = 0;
-                Double total = 0.0;
-                for (String matrix : distributionModelMatrix) {
-                    String proz = null;
-                    Integer remMatr = phoneRepositoriy.getPhoneRemanMatrix(matrix, shop);
 
-                    Integer kl = matrixT2Repository.getQuantityMatrix(matrix, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
-                    System.out.println(kl);
-                    if (remMatr == null) {
-                        remMatr = 0;
-                    }
-                    if (remMatr != null && kl != 0) {
-                        proz = String.format("%.0f", (double) remMatr / (double) kl * 100);
-                        if (Double.parseDouble(proz) > 100) {
-                            proz = "100";
-                        }
-
-                    }
-                    if (remMatr != null && kl == 0) {
-                        proz = "ЛОЖЬ";
-                    }
-                    if (kl > 0) {
-                        total += Double.parseDouble(proz);
-                        cou++;
-                    }
-
-                    indicator.put(matrix, proz + "%");
-                }
-                indicator.put("total", String.format("%.0f", total / cou) + "%");
-                shopMatrix.put(shop, indicator);
-
-            }
-
-            return shopMatrix;
-        }
-        return shopMatrix;
-    }
 
     public Map<String, Map<String, Map<String, Integer>>> tableUpDistriPhone(String shop, String models, String quantity, String brend) {
         System.out.println(shop + "--" + models + "--" + quantity + "--" + brend);

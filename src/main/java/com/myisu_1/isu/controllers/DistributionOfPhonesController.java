@@ -24,6 +24,7 @@ public class DistributionOfPhonesController {
     public String home(Model model) {
 
         model.addAttribute("DistributionModelPhone",phoneServise.distributionModel());
+        model.addAttribute("CreateMatrixT2", phoneServise.createMatrixT2());
 
         return "distributionOFphones";
     }
