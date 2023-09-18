@@ -2,6 +2,7 @@ package com.myisu_1.isu.models.Matrix;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,4 +13,9 @@ public class Matrix {
     private String distributionModel;
     private Map<String,Integer> shopRemains;
 
+    public Object createMatrix() {
+List<Matrix> matrixList = new ArrayList<>();
+
+        return null;
+    }
 }

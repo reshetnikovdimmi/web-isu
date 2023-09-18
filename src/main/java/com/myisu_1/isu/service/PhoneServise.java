@@ -60,7 +60,8 @@ public class PhoneServise extends AnalysisDistribution {
         Matrix matrix = new Matrix();
         matrix.distributionModelList = matrixT2Repository.getDistingMatrix();
         matrix.remainMatrixList = phoneRepositoriy.getRemainsShopPhoneMatrix(matrix.distributionModelList, authorization_tt.getShopT2());
-        return shopMatrix;
+
+        return matrix.createMatrix();
     }
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
