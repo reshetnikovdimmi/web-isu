@@ -398,6 +398,9 @@
                         <span th:each="entry  : ${CreateMatrixT2}" >
                             <tr th:each="entry, stats :${entry.shopRemains}" th:with="user=${entry.value}">
                                <td  th:text="${entry.key}"> </td >
+                                <span th:each="word : ${entry.value}">
+                                  <td   th:text="${word.value} ?  ${word.value} +'%' : 'ЛОЖЬ'"  th:style="${word.value}!='1' ? 'color: red'" ></td>
+                                </span>
                             </tr>
                         </span>
                         </tbody>

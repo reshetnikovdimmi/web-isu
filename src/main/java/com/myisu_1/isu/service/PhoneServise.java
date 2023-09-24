@@ -5,6 +5,8 @@ import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Matrix.Matrix;
 import com.myisu_1.isu.models.Phone.DistributionPhone;
+import com.myisu_1.isu.models.Phone.MatrixSpark;
+import com.myisu_1.isu.models.Phone.MatrixT2;
 import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.Sales;
@@ -13,6 +15,7 @@ import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -58,10 +61,20 @@ public class PhoneServise extends AnalysisDistribution {
         }
     public Object createMatrixT2() {
         Matrix matrix = new Matrix();
+
         matrix.distributionModelList = matrixT2Repository.getDistingMatrix();
+        List<Authorization_tt> clusterT2List = authorization_tt.getClusterT2List();
+        matrix.matrixSparks = new ArrayList<>();
         matrix.remainMatrixList = phoneRepositoriy.getRemainsShopPhoneMatrix(matrix.distributionModelList, authorization_tt.getShopT2());
 
-        return matrix.createMatrix();
+        for(MatrixT2 m:matrixT2Repository.findAll()){
+            for (Authorization_tt a:clusterT2List){
+                if (Integer.parseInt(m.getCluster())==Integer.parseInt(String.valueOf(a.getClusterT2().charAt(0)))){
+                    matrix.matrixSparks.add(new MatrixSpark(a.getName(),m.getDistributionModel(), Integer.valueOf(m.getQuantity())));
+                }
+            }
+        }
+        return matrix.createMatrix(clusterT2List);
     }
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {

@@ -36,6 +36,12 @@ public class MatrixSpark {
         this.matrix = matrix;
     }
 
+    public MatrixSpark(String shop, String group, Integer matrix) {
+        this.shop = shop;
+        this.group = group;
+        this.matrix = matrix;
+    }
+
     public MatrixSpark(String shop, String group, Long saleAll) {
         this.shop = shop;
         this.group = group;

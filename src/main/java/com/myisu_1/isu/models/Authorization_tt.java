@@ -68,6 +68,11 @@ public class Authorization_tt {
         this.shopRarus = shopRarus;
     }
 
+    public Authorization_tt(String name, String clusterT2) {
+        this.name = name;
+        this.clusterT2 = clusterT2;
+    }
+
     public String getShopIskra() {
         return shopIskra;
     }
