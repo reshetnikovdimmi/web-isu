@@ -399,7 +399,7 @@
                             <tr th:each="entry, stats :${entry.shopRemains}" th:with="user=${entry.value}">
                                <td  th:text="${entry.key}"> </td >
                                 <span th:each="word : ${entry.value}">
-                                  <td   th:text="${word.value} ?  ${word.value} +'%' : 'ЛОЖЬ'"  th:style="${word.value}!='1' ? 'color: red'" ></td>
+                                  <td   th:text="${word.value}!=null ?  ${word.value} +'%' : 'ЛОЖЬ'"  th:style="${word.value}!='100' and ${word.value}!=null ? 'color: red'" ></td>
                                 </span>
                             </tr>
                         </span>

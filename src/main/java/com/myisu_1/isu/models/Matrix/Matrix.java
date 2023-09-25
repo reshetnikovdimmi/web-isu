@@ -40,15 +40,12 @@ public class Matrix {
         }
         double average = distributionMode.values().stream().filter(r->r!=null).mapToDouble(Integer::doubleValue).average().orElse(0);
         distributionMode.put("итог", (int) average);
-
         return distributionMode;
     }
 
     private Integer searchCluster(String shop, String s) {
         OrderRecommendations  rem = remainMatrixList.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).findAny().orElse(null);
         MatrixSpark matrixSpark = matrixSparks.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).findAny().orElse(null);
-
-
-        return matrixSpark.getMatrix()==0?null:matrixSpark.getMatrix();
+        return matrixSpark.getMatrix() == 0 ? null : rem == null ? 0 : (int) Math.min(Double.valueOf(rem.getRemainsShopL()) / Double.valueOf(matrixSpark.getMatrix()) * 100, 100);
     }
 }
