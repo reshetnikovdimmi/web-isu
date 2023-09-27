@@ -41,4 +41,7 @@ public interface SimAndRtkTableRepositoriy extends JpaRepository<SimAndRtkTable,
     List<OrderRecommendations> remainsSim();
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash(distributionModel, view) FROM SimAndRtkTable WHERE distributionModel IS NOT NULL GROUP BY distributionModel " )
     List<RemainsGroupCash> getGroupView();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.distributionModel, SUM (p.remainsSimAndModem)) FROM SimAndRtkTable c   " +
+            "JOIN c.remanisSims p WHERE c.distributionModel IN ?1 AND p.shop IN ?2  GROUP BY p.shop, c.distributionModel")
+    List<OrderRecommendations> getRemainsShopRTKMatrix(List<String> matrix, List<String> shopT2);
 }

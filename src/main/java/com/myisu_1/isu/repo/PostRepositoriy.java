@@ -34,6 +34,8 @@ public interface PostRepositoriy extends CrudRepository <Authorization_tt, Integ
 
     @Query("SELECT new com.myisu_1.isu.models.Authorization_tt(name, clusterT2 ) FROM Authorization_tt WHERE  clusterT2 != ' '")
     List<Authorization_tt> getClusterT2List();
+    @Query("SELECT new com.myisu_1.isu.models.Authorization_tt(name, clusterRtk ) FROM Authorization_tt WHERE  clusterRtk != ' ' AND clusterRtk != 'Cash'")
+    List<Authorization_tt> getClusterRTKList();
 
     Authorization_tt findByName(String shop);
 }

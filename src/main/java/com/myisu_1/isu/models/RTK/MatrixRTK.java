@@ -19,4 +19,6 @@ public class MatrixRTK {
     private String cluster;
     private String distributionModel;
     private int quantity;
+
+
 }

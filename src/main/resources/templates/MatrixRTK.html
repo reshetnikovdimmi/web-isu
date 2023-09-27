@@ -250,53 +250,26 @@
                         <div class="table_graduation">
                             <table class="table-responsive table-hover">
                                 <thead>
-                                <tr>
-                                    <th>магазин</th>
-                                    <span th:each="entry  : ${distributionModel}">
-
-                            <th>
-                                <span th:text="${entry}"></span>
-                      </th>
-                      </span>
-                                    <th>итог                    </th>
+                                <tr th:each="entry  : ${TableMatrixRTK}" >
+                                    <th>-------магазин------</th>
+                                    <span th:each="currents:${entry.distributionModelList}">
+                            <th th:text="${currents.replace('/',' ')}"> </th>
+                            </span>
+                                    <th>итог</th>
                                 </tr>
                                 </thead>
                                 <tbody class="tbody">
-
-                                <tr th:each="entry, stats  : ${TableMatrixRTK}" th:with="user=${entry.value}">
-                                    <td th:text="${entry.key}">
-
-                                    </td>
-
-                                    <span th:each="word : ${entry.value}"
-                                          >
-                                        <span th:each="entry1  : ${distributionModel}">
-                                            <span  th:if="${word.key == entry1 }">
-
-                                                <td   th:text="${word.value}"   th:style="${word.value}!='100%' ? 'color: red'" ></td>
-
-
-                                              </span>
-                                        </span>
-
-                                              </span>
-                                    <span th:each="word : ${entry.value}">
-
-                                    <span  th:if="${word.key == 'total' }">
-                                                                                       <td   th:text="${word.value}" th:style="${word.value}!='100%' ? 'color: red'"></td>
-
+                                <span th:each="entry  : ${TableMatrixRTK}" >
+                            <tr th:each="entry, stats :${entry.shopRemains}" th:with="user=${entry.value}">
+                               <td  th:text="${entry.key}"> </td >
+                                <span th:each="word : ${entry.value}">
+                                  <td   th:text="${word.value}!=null ?  ${word.value} +'%' : 'ЛОЖЬ'"  th:style="${word.value}!='100' and ${word.value}!=null ? 'color: red'" ></td>
                                 </span>
-                                </span>
-
-                                    </span>
-
-
-                                </tr>
-
+                            </tr>
+                        </span>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
 

@@ -21,7 +21,7 @@ public class MatrixRTKController {
     @GetMapping("/MatrixRTK")
     public String MatrixPhone(Model model) {
         model.addAttribute("MatrixRTK", matrixRTKServise.getSaleRemanisAll());
-        model.addAttribute("distributionModel", simDistributionServise.distributionModel());
+        model.addAttribute("TableMatrixRTK", matrixRTKServise.getTableMatrixRTK());
         return "MatrixRTK";
     }
     @RequestMapping(value = "/RemanisCashRTK/{grop}", method = RequestMethod.GET)
