@@ -411,23 +411,23 @@
                                 <table class="table-responsive table-hover">
                                     <thead>
                                     <tr th:each="entry  : ${CreateMatrixT2}" >
-                                        <th>магазин</th>
+                                            <th>магазин</th>
                                         <span th:each="currents:${entry.distributionModelList}">
-                            <th th:text="${currents.replace('/',' ')}"> </th>
-                            </span>
-                                        <th>итог</th>
+                                            <th th:text="${currents.replace('/',' ')}"> </th>
+                                        </span>
+                                            <th>итог</th>
                                     </tr>
-                                    </thead>
-                                    <tbody class="tbody">
-                                    <span th:each="entry  : ${CreateMatrixT2}" >
-                            <tr th:each="entry, stats :${entry.shopRemains}" th:with="user=${entry.value}">
-                               <td  th:text="${entry.key}"> </td >
-                                <span th:each="word : ${entry.value}">
-                                  <td   th:text="${word.value}!=null ?  ${word.value} +'%' : 'ЛОЖЬ'"  th:style="${word.value}!='100' and ${word.value}!=null ? 'color: red'" ></td>
-                                </span>
-                            </tr>
-                            </span>
-                                    </tbody>
+                                                    </thead>
+                                                    <tbody class="tbody">
+                                                    <span th:each="entry  : ${CreateMatrixT2}" >
+                                            <tr th:each="entry, stats :${entry.shopRemains}" th:with="user=${entry.value}">
+                                               <td  th:text="${entry.key}"> </td >
+                                                <span th:each="word : ${entry.value}">
+                                                  <td   th:text="${word.value}!=null ?  ${word.value} +'%' : 'ЛОЖЬ'"  th:style="${word.value}!='100' and ${word.value}!=null ? 'color: red'" ></td>
+                                                </span>
+                                            </tr>
+                                                    </span>
+                                                    </tbody>
                                 </table>
                             </div>
 
