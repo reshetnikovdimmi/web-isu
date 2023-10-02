@@ -4,7 +4,6 @@ package com.myisu_1.isu.service;
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Matrix.Matrix;
-import com.myisu_1.isu.models.Phone.DistributionPhone;
 import com.myisu_1.isu.models.Phone.MatrixSpark;
 import com.myisu_1.isu.models.Phone.MatrixT2;
 import com.myisu_1.isu.models.Phone_Smart;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.DoubleStream;
 
 @Service
 public class PhoneServise extends AnalysisDistribution {
@@ -44,37 +44,79 @@ public class PhoneServise extends AnalysisDistribution {
     List<Phone_Smart> phoneSmartList;
     List<RemanisSim> remanisSimList;
     Map<String, Map<String, Map<String, Map<String, Integer>>>> remanisSaleShop;
-    List<DistributionPhone> distributionPhoneList;
+    List<OrderRecommendations> indicatorPhoneShop;
+    List<OrderRecommendations> sale1;
+    List<OrderRecommendations> sale6;
     List<String> matrix_T2;
     List<String> distributionModelMatrix;
     Map<String, Map<String, String>> shopMatrix;
+    List<Authorization_tt> clusterT2List;
 
     private int remanis;
-
+    Matrix matrix;
 
     public List<OrderRecommendations> distributionModel() {
+        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup();
+        sale1 = phoneRepositoriy.getSale1Phone();
+        sale6 = phoneRepositoriy.getSale6Phone();
+        remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
+        warehouse = authorization_tt.getWarehouseList();
 
-            remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
+        return remainsCashGroup(phoneRepositoriy.getGroupView());
+    }
 
-            warehouse = authorization_tt.getWarehouseList();
-            return remainsCashGroup(phoneRepositoriy.getGroupView());
-        }
     public Object createMatrixT2() {
-        Matrix matrix = new Matrix();
+        matrix = new Matrix();
 
         matrix.distributionModelList = matrixT2Repository.getDistingMatrix();
-        List<Authorization_tt> clusterT2List = authorization_tt.getClusterT2List();
+        clusterT2List = authorization_tt.getClusterT2List();
         matrix.matrixSparks = new ArrayList<>();
         matrix.remainMatrixList = phoneRepositoriy.getRemainsShopPhoneMatrix(matrix.distributionModelList, authorization_tt.getShopT2());
 
-        for(MatrixT2 m:matrixT2Repository.findAll()){
-            for (Authorization_tt a:clusterT2List){
-                if (Integer.parseInt(m.getCluster())==Integer.parseInt(String.valueOf(a.getClusterT2().charAt(0)))){
-                    matrix.matrixSparks.add(new MatrixSpark(a.getName(),m.getDistributionModel(), Integer.valueOf(m.getQuantity())));
+        for (MatrixT2 m : matrixT2Repository.findAll()) {
+            for (Authorization_tt a : clusterT2List) {
+                if (Integer.parseInt(m.getCluster()) == Integer.parseInt(String.valueOf(a.getClusterT2().charAt(0)))) {
+                    matrix.matrixSparks.add(new MatrixSpark(a.getName(), m.getDistributionModel(), Integer.valueOf(m.getQuantity())));
                 }
             }
         }
         return matrix.createMatrix(clusterT2List);
+    }
+
+    public List<OrderRecommendations> remanisPhoneShopT2() {
+
+
+        return remainsSaleShopAll(authorization_tt.getShopT2());
+    }
+
+    public List<OrderRecommendations> remanisPhoneShopMult() {
+
+        return remainsSaleShopAll(authorization_tt.getShopMult());
+    }
+
+    public List<OrderRecommendations> remainsSaleShopAll(List<String> shop) {
+
+        List<OrderRecommendations> remainsSaleShopAll = new ArrayList<>();
+        for (String s : shop) {
+            OrderRecommendations dto = new OrderRecommendations();
+            dto.setShop(s);
+
+            OrderRecommendations rem = indicatorPhoneShop.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
+            OrderRecommendations sale_1 = sale1.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
+            OrderRecommendations sale_6 = sale6.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
+            int  rems = matrix.remainMatrixList.stream().filter(r -> r.getShop().equals(s)).mapToInt(o -> Math.toIntExact(o.getRemainsShopL())).sum();
+            double max = DoubleStream.of(rems, sale_1==null?0:Math.toIntExact(sale_1.getRemainsShopL()), sale_6==null?0:Math.toIntExact(sale_6.getRemainsShopL()/3))
+                    .max()
+                    .getAsDouble();
+            dto.setRemainsShop(rem==null?null:Math.toIntExact(rem.getRemainsShopL()));
+            dto.setSale1(sale_1==null?null:Math.toIntExact(sale_1.getRemainsShopL()));
+            dto.setSale6(sale_6==null?null:Math.toIntExact(sale_6.getRemainsShopL()));
+            dto.setOrder((int) max);
+
+            remainsSaleShopAll.add(dto);
+        }
+
+        return remainsSaleShopAll;
     }
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
@@ -183,10 +225,6 @@ public class PhoneServise extends AnalysisDistribution {
         return remanisCash;
     }
 
-    public Map<String, Map<String, Integer>> remanisPhoneShopT2() {
-
-        return indicatorPhoneShop(authorization_tt.getShopT2());
-    }
 
     private Map<String, Map<String, Integer>> indicatorPhoneShop(List<String> shopT2) {
         Map<String, Map<String, Integer>> remanisPhoneShop1 = new TreeMap<>();
@@ -205,17 +243,12 @@ public class PhoneServise extends AnalysisDistribution {
         return remanisPhoneShop1;
     }
 
-    public Map<String, Map<String, Integer>> remanisPhoneShopMult() {
-
-        return indicatorPhoneShop(authorization_tt.getShopMult());
-    }
 
     public Object distributionModelMatrix() {
         distributionModelMatrix = matrixT2Repository.getDistributionModelMatrixDisting();
 
         return distributionModelMatrix;
     }
-
 
 
     public Map<String, Map<String, Map<String, Integer>>> tableUpDistriPhone(String shop, String models, String quantity, String brend) {
@@ -233,7 +266,7 @@ public class PhoneServise extends AnalysisDistribution {
         }
         remanisSaleShop.get(shop).get(brend).get("total").replace("orderCash", Integer.valueOf(quantity) + orderCash);
 
-        updateMatrixT2(remanisShop+Integer.valueOf(quantity) + orderCash,shop,brend);
+        updateMatrixT2(remanisShop + Integer.valueOf(quantity) + orderCash, shop, brend);
 
         Integer remanisCash2 = remanisSaleShop.get(shop).get(brend).get(models).get("remanisCash2");
         Integer remanisCash = remanisSaleShop.get(shop).get(brend).get(models).get("remanisCash");
@@ -289,34 +322,34 @@ public class PhoneServise extends AnalysisDistribution {
 
     private void updateMatrixT2(int i, String shop, String brend) {
 
-        if(authorization_tt.getShopMatrixT2().contains(shop)) {
+        if (authorization_tt.getShopMatrixT2().contains(shop)) {
 
             Integer kl = matrixT2Repository.getQuantityMatrix(brend, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
             Double remMatr = null;
-            if (kl!=null) {
-            if (kl < i) {
-                remMatr = 100.00;
-            } else {
-                remMatr = (double) i / (double) kl * 100;
-            }
-            shopMatrix.get(shop).replace(brend, String.format("%.0f", remMatr) + "%");
+            if (kl != null) {
+                if (kl < i) {
+                    remMatr = 100.00;
+                } else {
+                    remMatr = (double) i / (double) kl * 100;
+                }
+                shopMatrix.get(shop).replace(brend, String.format("%.0f", remMatr) + "%");
 
-            int cou = 0;
-            int matrix = 0;
-            for (Map.Entry entry : shopMatrix.get(shop).entrySet()) {
+                int cou = 0;
+                int matrix = 0;
+                for (Map.Entry entry : shopMatrix.get(shop).entrySet()) {
 
 
-                if (!entry.getKey().equals("total") && !entry.getValue().equals("ЛОЖЬ%")) {
-                    cou++;
-                    matrix += Integer.parseInt(entry.getValue().toString().replace("%", ""));
+                    if (!entry.getKey().equals("total") && !entry.getValue().equals("ЛОЖЬ%")) {
+                        cou++;
+                        matrix += Integer.parseInt(entry.getValue().toString().replace("%", ""));
+
+                    }
+
 
                 }
 
-
+                shopMatrix.get(shop).replace("total", String.format("%.0f", (double) matrix / (double) cou) + "%");
             }
-
-            shopMatrix.get(shop).replace("total", String.format("%.0f", (double) matrix / (double) cou) + "%");
-        }
         }
     }
 
@@ -324,12 +357,12 @@ public class PhoneServise extends AnalysisDistribution {
     public Object updateRemanisSaleMatrixT2Shop(String model) {
         Map<String, Map<String, Integer>> shop = new TreeMap<>();
 
-        for (Authorization_tt shops: authorization_ttList){
+        for (Authorization_tt shops : authorization_ttList) {
             Map<String, Integer> indicators = new TreeMap<>();
-            indicators.put("remanis",phoneRepositoriy.getPhoneRemanMatrix(model, shops.getName()));
+            indicators.put("remanis", phoneRepositoriy.getPhoneRemanMatrix(model, shops.getName()));
             indicators.put("sale1", phoneRepositoriy.getPhoneSale1Matrix(model, shops.getName()));
             indicators.put("sale6", phoneRepositoriy.getPhoneSale6Matrix(model, shops.getName()));
-            shop.put(shops.getName(),indicators);
+            shop.put(shops.getName(), indicators);
         }
 
         return shop;
@@ -340,12 +373,12 @@ public class PhoneServise extends AnalysisDistribution {
 
         List<String> modelGb = phoneRepositoriy.getPhonaModelGb(model);
         System.out.println(modelGb);
-        for (Authorization_tt shops: authorization_ttList){
+        for (Authorization_tt shops : authorization_ttList) {
             Map<String, Integer> indicators = new TreeMap<>();
-            indicators.put("remanis",phoneRepositoriy.getRemanisModelGbShop(modelGb, shops.getName()));
+            indicators.put("remanis", phoneRepositoriy.getRemanisModelGbShop(modelGb, shops.getName()));
             indicators.put("sale1", phoneRepositoriy.getSale1DistrModelGb(modelGb, shops.getName()));
             indicators.put("sale6", phoneRepositoriy.getSale6DistrModelGb(modelGb, shops.getName()));
-            shop.put(shops.getName(),indicators);
+            shop.put(shops.getName(), indicators);
         }
 
         return shop;

@@ -25,6 +25,8 @@ public class DistributionOfPhonesController {
 
         model.addAttribute("DistributionModelPhone",phoneServise.distributionModel());
         model.addAttribute("CreateMatrixT2", phoneServise.createMatrixT2());
+        model.addAttribute("RemanisPhoneShop", phoneServise.remanisPhoneShopT2());
+        model.addAttribute("RemanisPhoneShopMuilt", phoneServise.remanisPhoneShopMult());
 
         return "distributionOFphones";
     }

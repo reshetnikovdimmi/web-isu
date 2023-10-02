@@ -254,15 +254,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#menu1">МАТРИЦА КОЛ</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#menu2">МАТРИЦА SPARK</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#menu3">Menu 3</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#menu4">Menu 4</a>
-                            </li>
+
                         </ul>
                         <div class="tab-content">
                             <div id="home_hom" class=" tab-pane active"><br>
@@ -272,7 +264,7 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr th:each="entry  : ${TableMatrixRTK}" >
-                                    <th>-------магазин------</th>
+                                    <th>магазин</th>
                                     <span th:each="currents:${entry.distributionModelList}">
                             <th th:text="${currents.replace('/',' ')}"> </th>
                             </span>
@@ -297,7 +289,7 @@
                                 <div class="CreateMatrixQuantity" th:fragment="CreateMatrixQuantity">
 
                                     <div class="table_graduation">
-                                        <table class="table-responsive table-hover">
+                                        <table class="table table-hover">
                                             <thead>
                                             <tr th:each="entry  : ${TableMatrixRTK}" >
                                                 <th>магазин</th>
