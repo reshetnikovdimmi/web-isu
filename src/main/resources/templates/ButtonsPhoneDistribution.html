@@ -116,20 +116,20 @@
 
                                 </tr>
                                 </thead>
+
                                 <tbody class="tbody">
-                                <tr th:each="entry, stats  : ${Requirement}" th:with="user=${entry.value}">
+                                <tr th:each="entry : ${Requirement}">
+
+
                                     <td>
-                                        <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
-                                                type="submit"></button>
+                                        <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${entry.shop}"
+                                                type="button"></button>
                                     </td>
-
-                                    <span th:each="word : ${entry.value}">
-                                    <td th:text="${word.value}"></td>
-                                    </span>
-
-
+                                    <td th:text="${entry.remainsShop}"></td>
+                                    <td th:text="${entry.sale1}"></td>
+                                    <td th:text="${entry.sale6}"></td>
+                                    <td th:text="${entry.order}"></td>
                                 </tr>
-
 
                                 </tbody>
                             </table>

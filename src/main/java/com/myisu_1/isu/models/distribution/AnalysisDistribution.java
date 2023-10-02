@@ -5,12 +5,16 @@ import com.myisu_1.isu.dto.RemainsGroupCash;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.DoubleStream;
 
 public abstract class AnalysisDistribution {
 
     public List<OrderRecommendations> remains;
     public List<String> warehouse;
     public List<OrderRecommendations> remainsCashList;
+    public List<OrderRecommendations> indicatorPhoneShop;
+    public List<OrderRecommendations> sale1;
+    public List<OrderRecommendations> sale6;
     public List<OrderRecommendations> remainsCashGroup(List<RemainsGroupCash> all) {
 
        remainsCashList = new ArrayList<>();
@@ -46,5 +50,28 @@ public abstract class AnalysisDistribution {
         return remainsCashList;
     }
 
+    public List<OrderRecommendations> remainsSaleShopAll(List<String> shop, List<OrderRecommendations> remainMatrixList) {
 
+        List<OrderRecommendations> remainsSaleShopAll = new ArrayList<>();
+        for (String s : shop) {
+            OrderRecommendations dto = new OrderRecommendations();
+            dto.setShop(s);
+
+            OrderRecommendations rem = indicatorPhoneShop.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
+            OrderRecommendations sale_1 = sale1.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
+            OrderRecommendations sale_6 = sale6.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
+            int  rems =  remainMatrixList==null?0: remainMatrixList.stream().filter(r -> r.getShop().equals(s)).mapToInt(o -> Math.toIntExact(o.getRemainsShopL())).sum();
+            double max = DoubleStream.of(rems, sale_1==null?0:Math.toIntExact(sale_1.getRemainsShopL()), sale_6==null?0:Math.toIntExact(sale_6.getRemainsShopL()/3))
+                    .max()
+                    .getAsDouble();
+            dto.setRemainsShop(rem==null?null:Math.toIntExact(rem.getRemainsShopL()));
+            dto.setSale1(sale_1==null?null:Math.toIntExact(sale_1.getRemainsShopL()));
+            dto.setSale6(sale_6==null?null:Math.toIntExact(sale_6.getRemainsShopL()));
+            dto.setOrder((int) max);
+
+            remainsSaleShopAll.add(dto);
+        }
+
+        return remainsSaleShopAll;
+    }
 }

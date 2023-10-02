@@ -33,12 +33,15 @@ public class ButtonsPhoneController {
     public String bonuses(Model model) {
 
         model.addAttribute("Phone", buttonsPhoneServise.findAllButtonsPhone());
+
         return "ButtonsPhone";
     }
     @GetMapping("/ButtonsPhoneDistribution")
     public String ButtonsPhoneDistribution(Model model) {
-       // model.addAttribute("Requirement",buttonsPhoneServise.tabletableRequirement());
+
+
         model.addAttribute("Phone", buttonsPhoneServise.remainsCashGroup());
+        model.addAttribute("Requirement", buttonsPhoneServise.remanisButtonShop());
         return "ButtonsPhoneDistribution";
     }
     @ResponseBody

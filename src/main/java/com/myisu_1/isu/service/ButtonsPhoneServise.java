@@ -47,6 +47,9 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
         buttonsPhoneRepositoriy.saveAll(bpList);
         remains = buttonsPhoneRepositoriy.getRemainsShopButton();
         warehouse = authorizationRep.getWarehouseList();
+      //  sale1 = phoneRepositoriy.getSale1Phone();
+       // sale6 = phoneRepositoriy.getSale6Phone();
+      //  remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
         return remainsCashGroup(buttonsPhoneRepositoriy.getGroupView());
     }
     private String searchGroup(String price, String brend) {
@@ -62,7 +65,10 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
 
         return null;
     }
+    public Object remanisButtonShop() {
 
+       return remainsSaleShopAll(authorizationRep.getShopT2(),null);
+    }
     private Map<String, String> networkBalance(List<String> value) {
         Map<String, String> networkBalance = new TreeMap<>();
         networkBalance.put("Remanis", buttonsPhoneRepositoriy.getRemanisButton(value));
@@ -275,4 +281,6 @@ if(modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())){
 
         return modelShopSaleRem;
     }
+
+
 }

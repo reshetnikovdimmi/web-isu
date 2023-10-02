@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.DoubleStream;
 
 @Service
 public class PhoneServise extends AnalysisDistribution {
@@ -44,9 +43,7 @@ public class PhoneServise extends AnalysisDistribution {
     List<Phone_Smart> phoneSmartList;
     List<RemanisSim> remanisSimList;
     Map<String, Map<String, Map<String, Map<String, Integer>>>> remanisSaleShop;
-    List<OrderRecommendations> indicatorPhoneShop;
-    List<OrderRecommendations> sale1;
-    List<OrderRecommendations> sale6;
+
     List<String> matrix_T2;
     List<String> distributionModelMatrix;
     Map<String, Map<String, String>> shopMatrix;
@@ -86,38 +83,15 @@ public class PhoneServise extends AnalysisDistribution {
     public List<OrderRecommendations> remanisPhoneShopT2() {
 
 
-        return remainsSaleShopAll(authorization_tt.getShopT2());
+        return remainsSaleShopAll(authorization_tt.getShopT2(),matrix.remainMatrixList);
     }
 
     public List<OrderRecommendations> remanisPhoneShopMult() {
 
-        return remainsSaleShopAll(authorization_tt.getShopMult());
+        return remainsSaleShopAll(authorization_tt.getShopMult(), matrix.remainMatrixList);
     }
 
-    public List<OrderRecommendations> remainsSaleShopAll(List<String> shop) {
 
-        List<OrderRecommendations> remainsSaleShopAll = new ArrayList<>();
-        for (String s : shop) {
-            OrderRecommendations dto = new OrderRecommendations();
-            dto.setShop(s);
-
-            OrderRecommendations rem = indicatorPhoneShop.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
-            OrderRecommendations sale_1 = sale1.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
-            OrderRecommendations sale_6 = sale6.stream().filter(r -> r.getGroup().equals(s) ).findAny().orElse(null);
-            int  rems = matrix.remainMatrixList.stream().filter(r -> r.getShop().equals(s)).mapToInt(o -> Math.toIntExact(o.getRemainsShopL())).sum();
-            double max = DoubleStream.of(rems, sale_1==null?0:Math.toIntExact(sale_1.getRemainsShopL()), sale_6==null?0:Math.toIntExact(sale_6.getRemainsShopL()/3))
-                    .max()
-                    .getAsDouble();
-            dto.setRemainsShop(rem==null?null:Math.toIntExact(rem.getRemainsShopL()));
-            dto.setSale1(sale_1==null?null:Math.toIntExact(sale_1.getRemainsShopL()));
-            dto.setSale6(sale_6==null?null:Math.toIntExact(sale_6.getRemainsShopL()));
-            dto.setOrder((int) max);
-
-            remainsSaleShopAll.add(dto);
-        }
-
-        return remainsSaleShopAll;
-    }
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
 
