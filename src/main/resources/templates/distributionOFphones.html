@@ -130,13 +130,13 @@
         <div class="row">
             <div class="col">
                 <div class="row">
-                    <div class="tableDistributionModelPhone">
+                    <div class="tableRemainsCash">
                         <table class="table-borderless">
                             <thead>
                             <tr>
-                                <th>ГРУППА</th>
-                                <th>ОСТАТОК К1</th>
-                                <th>ОСТАТОК К2</th>
+                                <th style="width: 50%;" >ГРУППА</th>
+                                <th >ОСТАТОК К1</th>
+                                <th >ОСТАТОК К2</th>
 
 
                             </tr>
@@ -167,7 +167,7 @@
                             <table class="table-borderless">
                                 <thead>
                                 <tr>
-                                    <th>ТТ</th>
+                                    <th style="width: 50%;">ТТ</th>
                                     <th>ОСТАТОК</th>
                                     <th>ПРОД 1М</th>
                                     <th>ПРОД 6/3М</th>
@@ -201,7 +201,7 @@
                             <table class="table-borderless">
                                 <thead>
                                 <tr>
-                                    <th>ТТ</th>
+                                    <th style="width: 50%;">ТТ</th>
                                     <th>ОСТАТОК</th>
                                     <th>ПРОД 1М</th>
                                     <th>ПРОД 6/3М</th>
@@ -406,7 +406,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr th:each="entry  : ${CreateMatrixT2}" >
-                                            <th>магазин</th>
+                                            <th style="width: 1000px;">магазин</th>
                                         <span th:each="currents:${entry.distributionModelList}">
                                             <th th:text="${currents.replace('/',' ')}"> </th>
                                         </span>
@@ -438,7 +438,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr th:each="entry  : ${CreateMatrixT2}" >
-                                        <th>магазин</th>
+                                        <th style="width: 1000px;">магазин</th>
                                         <span th:each="currents:${entry.distributionModelList}">
                             <th th:text="${currents.replace('/',' ')}"> </th>
                             </span>

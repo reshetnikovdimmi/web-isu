@@ -91,6 +91,17 @@ public class PhoneServise extends AnalysisDistribution {
         return remainsSaleShopAll(authorization_tt.getShopMult(), matrix.remainMatrixList);
     }
 
+    public Object remanisPhoneSach(String matrixT2) {
+        Map<String, Map<String, Integer>> remanisCash = new TreeMap<>();
+
+
+        return remanisCash;
+    }
+
+
+
+
+
 
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
@@ -163,41 +174,7 @@ public class PhoneServise extends AnalysisDistribution {
         return remanisSaleShop.get(shop);
     }
 
-    public Object remanisPhoneSach(String matrixT2) {
 
-        Map<String, Map<String, Integer>> remanisCash = new TreeMap<>();
-        int total = 0;
-        int total2 = 0;
-        for (String model : phoneRepositoriy.getModelMatrixT2List(matrixT2)) {
-            Map<String, Integer> remanis = new TreeMap<>();
-            Integer rem;
-            Integer rem2;
-
-            rem = remanisSaleShop(authorization_ttList.get(0).getName()).get(matrixT2).get(model).get("remanis");
-            rem2 = remanisSaleShop(authorization_ttList.get(1).getName()).get(matrixT2).get(model).get("remanis");
-
-            if (rem != null && rem > 0 || rem2 != null && rem2 > 0) {
-                remanis.put("Cash", rem);
-                remanis.put("Cash2", rem2);
-                if (rem != null) {
-                    total += rem;
-                }
-                if (rem2 != null) {
-                    total2 += rem2;
-                }
-            }
-            if (!remanis.isEmpty()) {
-                remanisCash.put(model, remanis);
-            }
-
-        }
-        Map<String, Integer> remanis = new TreeMap<>();
-        remanis.put("totalCash", total);
-        remanis.put("totalCash2", total2);
-        remanisCash.put("total", remanis);
-
-        return remanisCash;
-    }
 
 
     private Map<String, Map<String, Integer>> indicatorPhoneShop(List<String> shopT2) {

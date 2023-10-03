@@ -1,6 +1,8 @@
 package com.myisu_1.isu.models.Phone;
 
 import com.myisu_1.isu.models.SIM.RemanisSim;
+import com.myisu_1.isu.models.SIM.SaleSim_1m;
+import com.myisu_1.isu.models.SIM.SaleSim_6m;
 import com.myisu_1.isu.models.retail_price;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
@@ -35,7 +37,15 @@ public class ButtonsPhone implements Serializable {
 
     private List<RemanisSim> remanisSims;
 
+    @OneToMany(targetEntity = SaleSim_1m.class, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "model", insertable = false, updatable = false)
 
+    private List<SaleSim_1m> saleSim_1m;
+
+    @OneToMany(targetEntity = SaleSim_6m.class, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "nameSimAndModem",referencedColumnName = "model", insertable = false, updatable = false)
+
+    private List<SaleSim_6m> saleSim_6m;
     public ButtonsPhone() {
     }
 

@@ -64,4 +64,14 @@ public interface ButtonsPhoneRepositoriy extends JpaRepository<ButtonsPhone, Int
 
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (group) FROM ButtonsPhone ORDER BY group ASC")
     List<RemainsGroupCash> getGroupView();
+
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimAndModem)) FROM ButtonsPhone c   " +
+            "JOIN c.remanisSims p  GROUP BY p.shop")
+    List<OrderRecommendations> getRemainsButton();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimModem)) FROM ButtonsPhone c   " +
+            "JOIN c.saleSim_1m p   GROUP BY p.shop")
+    List<OrderRecommendations> getSale1Phone();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimModem)) FROM ButtonsPhone c   " +
+            "JOIN c.saleSim_6m p   GROUP BY p.shop")
+    List<OrderRecommendations> getSale6Phone();
 }

@@ -89,7 +89,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("update Phone_Smart u set u.Brend = ?1 where u.Brend = ?2")
     void updateBrendPhoneSmart(String brend, String brend1);
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
-            "JOIN c.remanisSims p   GROUP BY p.shop")
+            "JOIN c.remanisSims p WHERE c.Phone !=' '  GROUP BY p.shop")
     List<OrderRecommendations> getRemainsShopPhoneGroup();
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimModem)) FROM Phone_Smart c   " +
             "JOIN c.saleSim_1m p   GROUP BY p.shop")
