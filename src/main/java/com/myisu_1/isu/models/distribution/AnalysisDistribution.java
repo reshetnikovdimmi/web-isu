@@ -13,7 +13,7 @@ public abstract class AnalysisDistribution {
     public List<String> warehouse;
     public List<OrderRecommendations> remainsCashList;
     public List<OrderRecommendations> indicatorPhoneShop;
-    public List<OrderRecommendations> indicatorPhoneSach;
+
 
     public List<OrderRecommendations> sale1;
     public List<OrderRecommendations> sale6;
@@ -60,15 +60,15 @@ public abstract class AnalysisDistribution {
         or.setIndicatorPhoneShop(remainsCashList);
         return or;
     }
-    public OrderRecommendations indicatorsPhoneSach(List<RemainsGroupCash> all){
+    public void indicatorsPhoneSach(List<RemainsGroupCash> all){
         remainsCashGroup(all);
         or.setIndicatorPhoneSach(remainsCashList);
-        return or;
-    }
-    public OrderRecommendations indicatorsPhoneShopGroup(List<String> shop, List<OrderRecommendations> remainMatrixList){
 
+    }
+    public void indicatorsPhoneShopGroup(List<String> shop, List<OrderRecommendations> remainMatrixList){
+        remainsSaleShopAll(shop,remainMatrixList);
         or.setIndicatorPhoneShop(remainsSaleShopAll(shop,  remainMatrixList));
-        return or;
+
     }
 
 

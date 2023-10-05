@@ -92,10 +92,14 @@ public class PhoneServise extends AnalysisDistribution {
         return remainsSaleShopAll(authorization_tt.getShopMult(), matrix.remainMatrixList);
     }
 
-    public Object remanisPhoneSach(String matrixT2) {
+    public OrderRecommendations remanisPhoneSach(String matrixT2) {
        remains = phoneRepositoriy.getRemainsShopPhone(matrixT2);
-
-       return indicatorsPhoneSach(phoneRepositoriy.getRemainsGroupView(matrixT2)).getIndicatorPhoneSach();
+        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup();
+        sale1 = phoneRepositoriy.getSale1Phone();
+        sale6 = phoneRepositoriy.getSale6Phone();
+        indicatorsPhoneShopGroup(authorization_tt.getShopMult(), matrix.remainMatrixList);
+        indicatorsPhoneSach(phoneRepositoriy.getRemainsGroupView(matrixT2));
+       return or;
     }
 
 

@@ -279,49 +279,41 @@
                         </div>
                         <div class="row">
                             <div class="col">
+                                <div class="table_graduation">
+                                    <table class="table-borderless">
+                                        <thead>
+                                        <tr>
+                                            <th name="grad" id="grad">МОДЕЛЬ</th>
+                                            <th>ПРОД 1М</th>
+                                            <th>ПРОД 6m</th>
+                                            <th>ТЕЛЕ2</th>
 
-                            </div>
-                            <div class="col">
+                                        </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                        <tr th:each="current : ${RemanisPhoneGroup}">
 
+                                            <td>
+                                                <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${current.shop}"
+                                                        type="button"></button>
+                                            </td>
+                                            <td th:text="${current.remainsShop}"></td>
+                                            <td th:text="${current.sale1}"></td>
+                                            <td th:text="${current.sale6}"></td>
+                                            <td th:text="${current.order}"></td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="row"><span class="fs-4"></span></div>
-                <div class="row">
-                    <div class="RemanisSaleMatrixT2Shop" th:fragment="RemanisSaleMatrixT2Shop">
 
-                        <div class="table_graduation">
-                            <table class="table-borderless">
-                                <thead>
-                                <tr>
-                                    <th name="grad" id="grad">МОДЕЛЬ</th>
-                                    <th>ПРОД 1М</th>
-                                    <th>ПРОД 6m</th>
-                                    <th>ТЕЛЕ2</th>
-
-                                </tr>
-                                </thead>
-                                <tbody class="tbody">
-                                <tr th:each="entry, stats  : ${RemanisSaleMatrixT2Shop}"
-                                    th:with="user=${entry.value}">
-                                    <td>
-                                        <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
-                                                type="submit"></button>
-                                    </td>
-
-
-                                    <td th:each="word : ${entry.value}" th:text="${word.value}"></td>
-
-
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
                 <div class="row">
                     <div class="RemanisSaleModelShop" th:fragment="RemanisSaleModelShop">
 
@@ -358,10 +350,10 @@
             </div>
         </div>
         <div class="row">
+            <hr class="my-4">
 
-            <div class="row mb-3 text-center">
-                <a href="/exselDistributionPhones" class="btn">EXSEL</a>
-            </div>
+                <a href="/exselDistributionPhones" class="btn btn-primary btn-lg btn-block">EXSEL</a>
+            <hr class="my-4">
         </div>
         <div class="row">
             <div class="container-xxl themed-container">

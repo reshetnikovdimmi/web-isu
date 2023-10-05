@@ -1,5 +1,6 @@
 package com.myisu_1.isu.controllers;
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
 import com.myisu_1.isu.models.Phone.*;
 import com.myisu_1.isu.service.PhoneServise;
@@ -34,9 +35,11 @@ public class DistributionOfPhonesController {
     @RequestMapping(value = "/RemanisPhoneSach/{matrixT2}", method = RequestMethod.GET)
 
     private String remanisPhoneSach(@PathVariable("matrixT2") String matrixT2, Model model) {
+        OrderRecommendations or =  phoneServise.remanisPhoneSach(matrixT2);
 
-       model.addAttribute("RemanisPhoneSach", phoneServise.remanisPhoneSach(matrixT2));
+       model.addAttribute("RemanisPhoneSach", or.getIndicatorPhoneSach());
 
+        model.addAttribute("RemanisPhoneGroup", or.getIndicatorPhoneShop());
         return "distributionOFphones::RemanisPhoneSach";
 
     }
