@@ -48,7 +48,7 @@ public class ClothesPhonesServise extends AnalysisDistribution {
 
         warehouse = shop.getWarehouseList();
 
-        return remainsCashGroup(phoneRepositoriy.getGroupViewClothing());
+        return indicatorsPhoneShop(phoneRepositoriy.getGroupViewClothing());
     }
 
 

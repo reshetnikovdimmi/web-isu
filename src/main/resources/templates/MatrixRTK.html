@@ -84,7 +84,7 @@
                                     </thead>
                                     <tbody class="tbody">
 
-                                    <tr th:each="current : ${MatrixRTK}" th:if="${current.view == 'RTK'}">
+                                    <tr th:each="current : ${MatrixRTK.indicatorPhoneShop}" th:if="${current.view == 'RTK'}">
 
                                         <td>
                                             <button type="button" class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 95%; font-size: 10px;" th:text="${current.group}"

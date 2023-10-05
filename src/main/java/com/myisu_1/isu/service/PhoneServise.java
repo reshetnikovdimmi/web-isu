@@ -2,6 +2,7 @@ package com.myisu_1.isu.service;
 
 
 import com.myisu_1.isu.dto.OrderRecommendations;
+import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Matrix.Matrix;
 import com.myisu_1.isu.models.Phone.MatrixSpark;
@@ -52,14 +53,14 @@ public class PhoneServise extends AnalysisDistribution {
     private int remanis;
     Matrix matrix;
 
-    public List<OrderRecommendations> distributionModel() {
+    public OrderRecommendations distributionModel() {
         indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup();
         sale1 = phoneRepositoriy.getSale1Phone();
         sale6 = phoneRepositoriy.getSale6Phone();
         remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
         warehouse = authorization_tt.getWarehouseList();
-
-        return remainsCashGroup(phoneRepositoriy.getGroupView());
+        or = new OrderRecommendations();
+        return indicatorsPhoneShop(phoneRepositoriy.getGroupView());
     }
 
     public Object createMatrixT2() {
@@ -92,14 +93,10 @@ public class PhoneServise extends AnalysisDistribution {
     }
 
     public Object remanisPhoneSach(String matrixT2) {
-        Map<String, Map<String, Integer>> remanisCash = new TreeMap<>();
+       remains = phoneRepositoriy.getRemainsShopPhone(matrixT2);
 
-
-        return remanisCash;
+       return indicatorsPhoneSach(phoneRepositoriy.getRemainsGroupView(matrixT2)).getIndicatorPhoneSach();
     }
-
-
-
 
 
 

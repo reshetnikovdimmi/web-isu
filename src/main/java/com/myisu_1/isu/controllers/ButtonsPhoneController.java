@@ -74,7 +74,7 @@ public class ButtonsPhoneController {
 
     @ResponseBody
     @RequestMapping(value = "ButtonsPhones", method = RequestMethod.GET)
-    public List<OrderRecommendations> price() {
+    public OrderRecommendations price() {
 
         return buttonsPhoneServise.remainsCashGroup();
     }

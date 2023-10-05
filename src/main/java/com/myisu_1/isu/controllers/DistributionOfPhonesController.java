@@ -34,9 +34,8 @@ public class DistributionOfPhonesController {
     @RequestMapping(value = "/RemanisPhoneSach/{matrixT2}", method = RequestMethod.GET)
 
     private String remanisPhoneSach(@PathVariable("matrixT2") String matrixT2, Model model) {
-System.out.println(matrixT2);
-        phoneServise.remanisPhoneSach(matrixT2);
-      //  model.addAttribute("RemanisPhoneSach", phoneServise.remanisPhoneSach(matrixT2.replaceAll("_","/")));
+
+       model.addAttribute("RemanisPhoneSach", phoneServise.remanisPhoneSach(matrixT2));
 
         return "distributionOFphones::RemanisPhoneSach";
 

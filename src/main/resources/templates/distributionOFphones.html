@@ -142,7 +142,7 @@
                             </tr>
                             </thead>
                             <tbody class="tbody">
-                            <tr th:each="current : ${DistributionModelPhone}">
+                            <tr th:each="current : ${DistributionModelPhone.indicatorPhoneShop}">
 
                                 <td>
                                     <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.group}"
@@ -261,12 +261,16 @@
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="entry : ${RemanisPhoneSach}">
-                                        <td th:text="${entry.key} " th:if="${entry.key != 'total' }"></td>
-                                        <td th:each="word : ${entry.value}" th:if="${word.key == 'Cash' }"
-                                            th:text="${word.value}"></td>
-                                        <td th:each="word : ${entry.value}" th:if="${word.key == 'Cash2' }"
-                                            th:text="${word.value}"></td>
+                                    <tr th:each="current : ${RemanisPhoneSach}">
+
+                                        <td>
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.group}"
+                                                    type="button"></button>
+                                        </td>
+
+                                        <td th:text="${current.remainsCash1}"></td>
+                                        <td th:text="${current.remainsCash2}"></td>
+
                                     </tr>
 
                                     </tbody>
@@ -275,25 +279,10 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                    <span th:each="entry, stats  : ${RemanisPhoneSach}" th:with="user=${entry.value}">
-                                          <span th:if="${entry.key == 'total'}">
 
-                                              <p th:each="word : ${entry.value}" th:if="${word.key == 'totalCash'}"
-                                                 th:text="${word.key} +'   '+ ${word.value}"/>
-
-                                          </span>
-
-                    </span>
                             </div>
                             <div class="col">
-                    <span th:each="entry, stats  : ${RemanisPhoneSach}" th:with="user=${entry.value}">
-                                          <span th:if="${entry.key == 'total'}">
-                                            <h12 class="mt-4"><p th:each="word : ${entry.value}"
-                                                                 th:if="${word.key == 'totalCash2'}"
-                                                                 th:text="${word.key} +'   '+ ${word.value}"/></h12>
-                                          </span>
 
-                    </span>
                             </div>
                         </div>
                     </div>

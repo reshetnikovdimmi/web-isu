@@ -33,7 +33,7 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
         return buttonsPhoneRepositoriy.getButtonPhonePrice();
     }
 
-    public List<OrderRecommendations> remainsCashGroup() {
+    public OrderRecommendations remainsCashGroup() {
         List<Buttons> buttons = buttonsPhoneRepositoriy.getButtonPhonePrice();
         List<ButtonsPhone> bpList = new ArrayList<>();
         for (Buttons b : buttons) {
@@ -51,7 +51,7 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
         sale6 = buttonsPhoneRepositoriy.getSale6Phone();
         indicatorPhoneShop = buttonsPhoneRepositoriy.getRemainsButton();
 
-        return remainsCashGroup(buttonsPhoneRepositoriy.getGroupView());
+        return indicatorsPhoneShop(buttonsPhoneRepositoriy.getGroupView());
     }
 
     private String searchGroup(String price, String brend) {

@@ -13,9 +13,12 @@ public abstract class AnalysisDistribution {
     public List<String> warehouse;
     public List<OrderRecommendations> remainsCashList;
     public List<OrderRecommendations> indicatorPhoneShop;
+    public List<OrderRecommendations> indicatorPhoneSach;
+
     public List<OrderRecommendations> sale1;
     public List<OrderRecommendations> sale6;
-    public List<OrderRecommendations> remainsCashGroup(List<RemainsGroupCash> all) {
+    public OrderRecommendations or;
+    public  void remainsCashGroup(List<RemainsGroupCash> all) {
 
        remainsCashList = new ArrayList<>();
         for (RemainsGroupCash o : all) {
@@ -27,6 +30,7 @@ public abstract class AnalysisDistribution {
                 OrderRecommendations rem;
                 OrderRecommendations rem1;
                 if(o.getView()==null){
+
                     rem = remains.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getGroup().equals(o.getGroup())).findAny().orElse(null);
                     rem1 = remains.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).findAny().orElse(null);
                 }else {
@@ -34,21 +38,39 @@ public abstract class AnalysisDistribution {
                     rem1 = remains.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())&&r.getView().equals(o.getView())).findAny().orElse(null);
                 }
                 if (rem != null) {
-                    dto.setRemainsCash1(rem.getRemainsShopL() == null ? null : Math.toIntExact(rem.getRemainsShopL()));
+                    dto.setRemainsCash1(rem.getRemainsShopL() == null ? rem.getRemainsShop() : Math.toIntExact(rem.getRemainsShopL()));
+
                 } else {
                     dto.setRemainsCash1(null);
                 }
                 if (rem1 != null) {
-                    dto.setRemainsCash2(rem1.getRemainsShopL() == null ? null : Math.toIntExact(rem1.getRemainsShopL()));
+                    dto.setRemainsCash2(rem1.getRemainsShopL() == null ? rem1.getRemainsShop() : Math.toIntExact(rem1.getRemainsShopL()));
                 } else {
                     dto.setRemainsCash2(null);
                 }
                 remainsCashList.add(dto);
             }
         }
+        //or = new OrderRecommendations();
 
-        return remainsCashList;
+
     }
+    public OrderRecommendations indicatorsPhoneShop(List<RemainsGroupCash> all){
+        remainsCashGroup(all);
+        or.setIndicatorPhoneShop(remainsCashList);
+        return or;
+    }
+    public OrderRecommendations indicatorsPhoneSach(List<RemainsGroupCash> all){
+        remainsCashGroup(all);
+        or.setIndicatorPhoneSach(remainsCashList);
+        return or;
+    }
+    public OrderRecommendations indicatorsPhoneShopGroup(List<String> shop, List<OrderRecommendations> remainMatrixList){
+
+        or.setIndicatorPhoneShop(remainsSaleShopAll(shop,  remainMatrixList));
+        return or;
+    }
+
 
     public List<OrderRecommendations> remainsSaleShopAll(List<String> shop, List<OrderRecommendations> remainMatrixList) {
 

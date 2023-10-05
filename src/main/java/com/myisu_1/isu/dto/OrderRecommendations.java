@@ -25,6 +25,8 @@ public class OrderRecommendations {
     Integer order;
     List<OrderRecommendations> all;
     List<OrderRecommendations> remainsGroupShop;
+    List<OrderRecommendations> indicatorPhoneShop;
+    List<OrderRecommendations> indicatorPhoneSach;
 
     public OrderRecommendations(String group) {
         this.group = group;
@@ -117,9 +119,20 @@ public class OrderRecommendations {
         this.remainsShopL = remainsShopL;
     }
 
+    public OrderRecommendations(String shop, String group, Integer remainsShop) {
+        this.shop = shop;
+        this.group = group;
+        this.remainsShop = remainsShop;
+    }
+
     public OrderRecommendations(String group, Long remainsShopL) {
         this.group = group;
         this.remainsShopL = remainsShopL;
+    }
+
+    public OrderRecommendations(String shop, Integer remainsShop) {
+        this.shop = shop;
+        this.remainsShop = remainsShop;
     }
 
     public OrderRecommendations(String group, String view, Integer remainsCash1, Integer remainsCash2, Integer remainsShop, Integer remainsPhone, Integer sale1, Integer sale6, Integer order) {
@@ -145,11 +158,7 @@ public class OrderRecommendations {
         this.order = order;
     }
 
-    public OrderRecommendations(String nomenclature, String view, Integer remainsShop) {
-        this.nomenclature = nomenclature;
-        this.view = view;
-        this.remainsShop = remainsShop;
-    }
+
 
     public OrderRecommendations(String group, String nomenclature, String view, Integer remainsShop) {
 

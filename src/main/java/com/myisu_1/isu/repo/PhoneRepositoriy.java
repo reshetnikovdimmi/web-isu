@@ -100,6 +100,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
 
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (Matrix_T2) FROM Phone_Smart")
     List<RemainsGroupCash> getGroupView();
+
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Matrix_T2, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
             "JOIN c.remanisSims p   GROUP BY p.shop, c.Matrix_T2")
     List<OrderRecommendations> getRemainsShopPhoneMatrixT2();
@@ -121,6 +122,10 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
             "JOIN c.saleSim_1m p WHERE p.shop = ?1  GROUP BY c.Matrix_T2 ")
     List<MatrixSpark> getSale1Shop(String shop);
 
-
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Model, p.remainsSimAndModem) FROM Phone_Smart c   " +
+            "JOIN c.remanisSims p WHERE c.Matrix_T2 = ?1   ")
+    List<OrderRecommendations> getRemainsShopPhone(String matrixT2);
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (c.Model) FROM Phone_Smart c JOIN c.remanisSims p WHERE c.Matrix_T2 = ?1")
+    List<RemainsGroupCash> getRemainsGroupView(String matrixT2);
 }
 

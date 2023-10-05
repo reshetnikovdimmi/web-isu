@@ -1,5 +1,6 @@
 package com.myisu_1.isu.service;
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Matrix.Matrix;
 import com.myisu_1.isu.models.Phone.MatrixSpark;
@@ -38,7 +39,8 @@ public class MatrixRTKServise extends AnalysisDistribution {
     public Object getSaleRemanisAll() {
         remains = rtkTableRepositoriy.remainsSim();
         warehouse = authorization_ttRepositoriy.getWarehouseList();
-        return remainsCashGroup(rtkTableRepositoriy.getGroupView());
+        or = new OrderRecommendations();
+        return indicatorsPhoneShop(rtkTableRepositoriy.getGroupView());
 
     }
 
