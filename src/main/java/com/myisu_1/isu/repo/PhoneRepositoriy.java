@@ -89,14 +89,14 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("update Phone_Smart u set u.Brend = ?1 where u.Brend = ?2")
     void updateBrendPhoneSmart(String brend, String brend1);
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
-            "JOIN c.remanisSims p WHERE c.Phone !=' '  GROUP BY p.shop")
-    List<OrderRecommendations> getRemainsShopPhoneGroup();
+            "JOIN c.remanisSims p WHERE c.Phone !=' ' AND (?1 is null or c.Matrix_T2=?1)  GROUP BY p.shop")
+    List<OrderRecommendations> getRemainsShopPhoneGroup(String matrixT2);
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimModem)) FROM Phone_Smart c   " +
-            "JOIN c.saleSim_1m p   GROUP BY p.shop")
-    List<OrderRecommendations> getSale1Phone();
+            "JOIN c.saleSim_1m p WHERE (?1 is null or c.Matrix_T2=?1)  GROUP BY p.shop")
+    List<OrderRecommendations> getSale1Phone(String matrixT2);
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimModem)) FROM Phone_Smart c   " +
-            "JOIN c.saleSim_6m p   GROUP BY p.shop")
-    List<OrderRecommendations> getSale6Phone();
+            "JOIN c.saleSim_6m p  WHERE (?1 is null or c.Matrix_T2=?1) GROUP BY p.shop")
+    List<OrderRecommendations> getSale6Phone(String matrixT2);
 
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (Matrix_T2) FROM Phone_Smart")
     List<RemainsGroupCash> getGroupView();
@@ -127,5 +127,6 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     List<OrderRecommendations> getRemainsShopPhone(String matrixT2);
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (c.Model) FROM Phone_Smart c JOIN c.remanisSims p WHERE c.Matrix_T2 = ?1")
     List<RemainsGroupCash> getRemainsGroupView(String matrixT2);
+
 }
 

@@ -43,6 +43,14 @@ public class DistributionOfPhonesController {
         return "distributionOFphones::RemanisPhoneSach";
 
     }
+
+    @RequestMapping(value = "TableDistributionPhone/{shop}", method = RequestMethod.GET)
+    public String createTableDistributionPhone(@PathVariable("shop") String shop,Model model) {
+        model.addAttribute("TableDistributionPhone", phoneServise.remanisSaleShop(shop));
+
+        return "distributionOFphones::TableDistributionPhone";
+
+    }
     @RequestMapping(value = "/UpdateRemanisSaleMatrixT2Shop/{matrixT2}", method = RequestMethod.GET)
 
     private String updateRemanisSaleMatrixT2Shop(@PathVariable("matrixT2") String matrixT2, Model model) {
@@ -81,13 +89,7 @@ public class DistributionOfPhonesController {
 
     }
 
-    @ResponseBody
-    @RequestMapping(value = "TableDistributionPhone/{shop}", method = RequestMethod.GET)
-    public Map<String,Map<String, Map<String, Integer>>> createTableDistributionPhone(@PathVariable("shop") String shop) {
 
-        return phoneServise.remanisSaleShop(shop);
-
-    }
     @ResponseBody
     @RequestMapping(value = "tableUpDistriPhone/{shop}/{models}/{quantity}/{brend}", method = RequestMethod.GET)
     public Map<String, Map<String, Map<String, Integer>>> tableUpDistriPhone(@PathVariable("shop")  String shop, @PathVariable("models")  String models,@PathVariable("quantity")  String quantity,@PathVariable("brend")  String brend) {

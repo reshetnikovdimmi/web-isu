@@ -2,7 +2,6 @@ package com.myisu_1.isu.service;
 
 
 import com.myisu_1.isu.dto.OrderRecommendations;
-import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Matrix.Matrix;
 import com.myisu_1.isu.models.Phone.MatrixSpark;
@@ -54,9 +53,9 @@ public class PhoneServise extends AnalysisDistribution {
     Matrix matrix;
 
     public OrderRecommendations distributionModel() {
-        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup();
-        sale1 = phoneRepositoriy.getSale1Phone();
-        sale6 = phoneRepositoriy.getSale6Phone();
+        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup(null);
+        sale1 = phoneRepositoriy.getSale1Phone(null);
+        sale6 = phoneRepositoriy.getSale6Phone(null);
         remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
         warehouse = authorization_tt.getWarehouseList();
         or = new OrderRecommendations();
@@ -93,11 +92,11 @@ public class PhoneServise extends AnalysisDistribution {
     }
 
     public OrderRecommendations remanisPhoneSach(String matrixT2) {
-       remains = phoneRepositoriy.getRemainsShopPhone(matrixT2);
-        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup();
-        sale1 = phoneRepositoriy.getSale1Phone();
-        sale6 = phoneRepositoriy.getSale6Phone();
-        indicatorsPhoneShopGroup(authorization_tt.getShopMult(), matrix.remainMatrixList);
+        remains = phoneRepositoriy.getRemainsShopPhone(matrixT2);
+        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup(matrixT2);
+        sale1 = phoneRepositoriy.getSale1Phone(matrixT2);
+        sale6 = phoneRepositoriy.getSale6Phone(matrixT2);
+        indicatorsPhoneShopGroup(authorization_tt.getShopList(), matrix.remainMatrixList);
         indicatorsPhoneSach(phoneRepositoriy.getRemainsGroupView(matrixT2));
        return or;
     }
@@ -105,95 +104,22 @@ public class PhoneServise extends AnalysisDistribution {
 
 
 
+
+
+    public OrderRecommendations remanisSaleShop(String shop) {
+
+
+        return or;
+    }
+
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
 
 
         return remanisSaleShop;
     }
 
-    public Map<String, Map<String, Map<String, Integer>>> remanisSaleShop(String shop) {
-        System.out.println(shop);
-        if (!remanisSaleShop.containsKey(shop)) {
-            Map<String, Map<String, Map<String, Integer>>> matrixT2 = new TreeMap<>();
 
 
-            for (String matrix : matrix_T2) {
-                Map<String, Map<String, Integer>> model = new TreeMap<>();
-                Map<String, Integer> indicator;
-                for (String models : phoneRepositoriy.getModelMatrixT2List(matrix)) {
-                    indicator = new TreeMap<>();
-
-                    indicator.put("remanis", remanisSimRepository.getRemanisSimShop(models, shop));
-
-                    indicator.put("sale1", saleSimModemRepository_1m.getSale1SimShop(models, shop));
-                    indicator.put("sale6", saleSimModemRepository_6m.getSale6SimShop(models, shop));
-                    if (remanisSaleShop.containsKey(authorization_ttList.get(0).getName())) {
-                        indicator.put("remanisCash", remanisSaleShop.get(authorization_ttList.get(0).getName()).get(matrix).get(models).get("remanisCash"));
-                    } else {
-                        indicator.put("remanisCash", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(0).getName()));
-                    }
-                    if (remanisSaleShop.containsKey(authorization_ttList.get(1).getName())) {
-                        indicator.put("remanisCash2", remanisSaleShop.get(authorization_ttList.get(1).getName()).get(matrix).get(models).get("remanisCash2"));
-                    } else {
-                        indicator.put("remanisCash2", remanisSimRepository.getRemanisSimShop(models, authorization_ttList.get(1).getName()));
-                    }
-
-                    indicator.put("order", 0);
-
-                    model.put(models, indicator);
-
-
-                }
-                indicator = new TreeMap<>();
-                indicator.put("totalRemanis", phoneRepositoriy.getPhoneRemanMatrix(matrix, shop));
-                indicator.put("totalSale1", phoneRepositoriy.getPhoneSale1Matrix(matrix, shop));
-                indicator.put("totalSale6", phoneRepositoriy.getPhoneSale6Matrix(matrix, shop));
-                if (remanisSaleShop.containsKey(authorization_ttList.get(0).getName())) {
-                    indicator.put("totalRemanisCash", remanisSaleShop.get(authorization_ttList.get(0).getName()).get(matrix).get("total").get("totalRemanisCash"));
-                } else {
-                    indicator.put("totalRemanisCash", phoneRepositoriy.getPhoneRemanMatrix(matrix, authorization_ttList.get(0).getName()));
-                }
-                if (remanisSaleShop.containsKey(authorization_ttList.get(1).getName())) {
-                    indicator.put("totalRemanisCash2", remanisSaleShop.get(authorization_ttList.get(1).getName()).get(matrix).get("total").get("totalRemanisCash2"));
-                } else {
-                    indicator.put("totalRemanisCash2", phoneRepositoriy.getPhoneRemanMatrix(matrix, authorization_ttList.get(1).getName()));
-                }
-
-                indicator.put("orderCash", 0);
-
-                indicator.put("matrix", 3);
-
-                model.put("total", indicator);
-
-                matrixT2.put(matrix, model);
-
-            }
-            remanisSaleShop.put(shop, matrixT2);
-        }
-
-
-        return remanisSaleShop.get(shop);
-    }
-
-
-
-
-    private Map<String, Map<String, Integer>> indicatorPhoneShop(List<String> shopT2) {
-        Map<String, Map<String, Integer>> remanisPhoneShop1 = new TreeMap<>();
-        List<String> model = phoneRepositoriy.getModelList();
-        for (String shop : shopT2) {
-            Map<String, Integer> indicator = new TreeMap<>();
-            indicator.put("remanis", remanisSimRepository.getRemanisRTKGropShop(model, shop));
-            indicator.put("sale1", saleSimModemRepository_1m.getSale1DistrModel(model, shop));
-            indicator.put("sale6", saleSimModemRepository_6m.getSale6DistrModel(model, shop));
-            indicator.put("requirement", 27);
-            indicator.put("assortment", 55);
-            remanisPhoneShop1.put(shop, indicator);
-        }
-
-
-        return remanisPhoneShop1;
-    }
 
 
     public Object distributionModelMatrix() {
