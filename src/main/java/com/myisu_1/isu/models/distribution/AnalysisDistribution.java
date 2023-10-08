@@ -5,6 +5,8 @@ import com.myisu_1.isu.dto.RemainsGroupCash;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
 public abstract class AnalysisDistribution {
@@ -13,7 +15,7 @@ public abstract class AnalysisDistribution {
     public List<String> warehouse;
     public List<OrderRecommendations> remainsCashList;
     public List<OrderRecommendations> indicatorPhoneShop;
-
+    public List<OrderRecommendations> remainsAll;
 
     public List<OrderRecommendations> sale1;
     public List<OrderRecommendations> sale6;
@@ -70,7 +72,34 @@ public abstract class AnalysisDistribution {
         or.setIndicatorPhoneShop(remainsSaleShopAll(shop,  remainMatrixList));
 
     }
+    public void distributionPhone(List<RemainsGroupCash> all, String shop) {
+        List<OrderRecommendations> distributionPhone = new ArrayList<>();
 
+        for (RemainsGroupCash o : all) {
+            OrderRecommendations dto = new OrderRecommendations();
+            dto.setGroup(o.getGroup());
+            int rem = remains.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r-> Math.toIntExact(r.getRemainsShopL())).sum();
+            int sale_1 = sale1.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r-> Math.toIntExact(r.getRemainsShopL())).sum();
+            int sale_6 = sale6.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r-> Math.toIntExact(r.getRemainsShopL())).sum();
+            dto.setRemainsShop(rem==0?null:rem);
+            dto.setSale1(sale_1==0?null:sale_1);
+            dto.setSale6(sale_6==0?null:sale_6);
+            dto.setAll(alls(o.getGroup(),shop));
+            distributionPhone.add(dto);
+
+        }
+
+        or.setDistributionPhone(distributionPhone);
+    }
+
+    private List<OrderRecommendations> alls(String group, String shop) {
+
+        List<OrderRecommendations> alls = remainsAll.stream().filter(r->r.getGroup().equals(shop)&&r.getNomenclature().equals(group)).collect(Collectors.toList());
+
+
+
+        return alls;
+    }
 
     public List<OrderRecommendations> remainsSaleShopAll(List<String> shop, List<OrderRecommendations> remainMatrixList) {
 

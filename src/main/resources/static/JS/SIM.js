@@ -150,6 +150,7 @@ var shop = $(this).parents('tr:first').find('td:eq(0)').text();
                                         var input = document.createElement('input');
                                         input.value = this.innerHTML;
                                         this.innerHTML = '';
+                                        input.classList.add("form-control");
                                         this.appendChild(input);
                                         var td = this;
                                         input.addEventListener('blur', function() {
@@ -190,7 +191,10 @@ $('#Shop').html(shop);
                                             var input = document.createElement('input');
                                             input.value = this.innerHTML;
                                             this.innerHTML = '';
+                                            input.classList.add("form-control");
+
                                             this.appendChild(input);
+
                                             var td = this;
                                             input.addEventListener('blur', function() {
                                                 td.innerHTML = this.value;

@@ -27,6 +27,7 @@ public class OrderRecommendations {
     List<OrderRecommendations> remainsGroupShop;
     List<OrderRecommendations> indicatorPhoneShop;
     List<OrderRecommendations> indicatorPhoneSach;
+    List<OrderRecommendations> distributionPhone;
 
     public OrderRecommendations(String group) {
         this.group = group;

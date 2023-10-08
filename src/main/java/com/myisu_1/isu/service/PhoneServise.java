@@ -58,6 +58,8 @@ public class PhoneServise extends AnalysisDistribution {
         sale6 = phoneRepositoriy.getSale6Phone(null);
         remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
         warehouse = authorization_tt.getWarehouseList();
+        remainsAll = phoneRepositoriy.remainsAll();
+
         or = new OrderRecommendations();
         return indicatorsPhoneShop(phoneRepositoriy.getGroupView());
     }
@@ -108,9 +110,14 @@ public class PhoneServise extends AnalysisDistribution {
 
     public OrderRecommendations remanisSaleShop(String shop) {
 
-
+        sale1 = phoneRepositoriy.getSale1PhoneShop();
+        sale6 = phoneRepositoriy.getSale6PhoneShop();
+        remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
+        distributionPhone(phoneRepositoriy.getGroupView(),shop);
         return or;
     }
+
+
 
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
 
@@ -250,7 +257,7 @@ public class PhoneServise extends AnalysisDistribution {
         Map<String, Map<String, Integer>> shop = new TreeMap<>();
 
         List<String> modelGb = phoneRepositoriy.getPhonaModelGb(model);
-        System.out.println(modelGb);
+
         for (Authorization_tt shops : authorization_ttList) {
             Map<String, Integer> indicators = new TreeMap<>();
             indicators.put("remanis", phoneRepositoriy.getRemanisModelGbShop(modelGb, shops.getName()));

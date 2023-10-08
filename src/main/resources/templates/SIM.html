@@ -109,7 +109,7 @@
 
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody">
                                     <tr th:each="current : ${zakazSimT2m}" th:if="${current.view == 't2'}">
 
                                         <td th:text="${current.nameRainbow}"></td>
@@ -144,7 +144,7 @@
 
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody">
                                     <tr th:each="current : ${zakazSimT2m}">
                                         <span th:if="${current.view == 't2m'}">
                                       <td th:text="${current.nameRainbow}"></td>
@@ -179,7 +179,7 @@
 
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody">
                                     <tr th:each="current : ${zakazSimT2m}">
                                         <span th:if="${current.view == 'mts'}">
                                      <td th:text="${current.nameRainbow}"></td>
@@ -213,7 +213,7 @@
 
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody">
                                     <tr th:each="current : ${zakazSimT2m}">
                                         <span th:if="${current.view == 'mf'}">
                                      <td th:text="${current.nameRainbow}"></td>
@@ -250,7 +250,7 @@
                                         <th name="Shop" id="Shop">МАГАЗИН</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody">
                                     <tr th:each="current : ${shop}" th:if="${current.simT2 == 't2'}">
 
                                         <td th:text="${current.name}" class="btn btn-primary btn-sm btn-block">
@@ -274,7 +274,7 @@
                                         <th name="Shop_1" id="Shop_1">МАГАЗИН</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="tbody">
                                     <tr th:each="current : ${shop}" th:if="${current.simT2 == 't2m'}">
 
                                         <td th:text="${current.name}" class="btn btn-primary btn-sm btn-block">
@@ -304,7 +304,7 @@
                                             <th>% Plan</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="tbody">
                                         <tr th:each="current : ${SimT2}" th:if="${current.view == 't2' || current.view == 't2m'}">
 
                                             <td th:text="${current.id}"></td>
@@ -343,7 +343,7 @@
                                     <th name="Shopmts" id="Shopmts">МАГАЗИН</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody">
                                 <tr th:each="current : ${shop}" th:if="${current.simMts == 'mts'}">
 
                                 <td class="btn btn-primary btn-sm btn-block" th:text="${current.name}">
@@ -369,7 +369,7 @@
                                             <th>% Plan</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="tbody">
                                         <tr th:each="current : ${SimT2} " th:if="${current.view == 'mts'}">
                                             <td th:text="${current.id}"></td>
                                             <td th:text="${current.nameSim}"></td>
@@ -406,7 +406,7 @@
                                     <th name="Shopmf" id="Shopmf">МАГАЗИН</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody">
                                 <tr th:each="current : ${shop}" th:if="${current.simMf == 'mf'}">
                                 <td th:text="${current.name}" class="btn btn-primary btn-sm btn-block">
                                 </td>
@@ -430,7 +430,7 @@
                                             <th>% Plan</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="tbody">
                                         <tr th:each="current : ${SimT2}">
                                             <td th:text="${current.id}"></td>
                                             <td th:text="${current.nameSim}"></td>
@@ -483,7 +483,7 @@
                         </tr>
 
                         </thead>
-                        <tbody>
+                        <tbody class="tbody">
                         <tr th:each="entry, stats  : ${matrixRTK}"
                             th:with="user=${entry.value}">
                             <td th:text="${entry.key}">

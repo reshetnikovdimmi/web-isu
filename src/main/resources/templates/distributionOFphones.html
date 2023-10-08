@@ -131,7 +131,7 @@
             <div class="col">
                 <div class="row">
                     <div class="tableRemainsCash">
-                        <table class="table-borderless">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th style="width: 50%;" >ГРУППА</th>
@@ -164,7 +164,7 @@
 
                         <div class="RemanisPhoneShopT2">
 
-                            <table class="table-borderless">
+                            <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th style="width: 50%;">ТТ</th>
@@ -198,7 +198,7 @@
 
                         <div class="RemanisPhoneShopMult">
 
-                            <table class="table-borderless">
+                            <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th style="width: 50%;">ТТ</th>
@@ -236,32 +236,59 @@
 
                 <div class="TableDistributionPhone"  th:fragment="TableDistributionPhone">
                     <div class="table_graduation" >
-                        <table class="table-borderless" >
+                        <table class="table table-hover" >
                             <thead>
                             <tr>
-                                <th>МОДЕЛЬ</th>
-                                <th>ОСТАТОК ОСН СКЛ</th>
-                                <th>ОСТАТОК СКЛ Т2</th>
-
+                                <th id="TT_Glass" style="width: 25%;">------ТТ-----</th>
+                                <th>ОСТАТОК</th>
+                                <th>ОСТАТОК ТЕЛ</th>
+                                <th>ПРОД 1М</th>
+                                <th>ПРОД 6/3М</th>
+                                <th>ПОТРЕБНОСТЬ</th>
+                                <th>СКЛАД 1</th>
+                                <th>СКЛАД 2</th>
                             </tr>
                             </thead>
-                            <tbody class="tbody" style="height: 750px;">
-                            <span th:each="current : ${TableDistributionPhone}">
-                            <tr th:each="currents:${current.indicatorPhoneShop}">
+                        </table>
+                        <div class="fixed_header">
 
-                               <td>
-                                        <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${currents.shop}"
-                                                type="button"></button>
-                                    </td>
-                                    <td th:text="${currents.remainsShop}"></td>
-                                    <td th:text="${currents.sale1}"></td>
-                                    <td th:text="${currents.sale6}"></td>
-                                    <td th:text="${currents.order}"></td>
+                            <table class="table table-hover" >
 
+                                <span th:each="current : ${TableDistributionPhone}">
+                                <tbody class="labels"  th:each="current:${current.distributionPhone}" >
 
-                            </tr>
-                            </span>
-                            </tbody>
+                                <tr style="border:2px solid rgb(240, 240, 240);">
+
+                                        <td >
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-aut minMatrix" style="width: 200px; font-size: 10px;"
+                                                    th:text="${current.group}"
+                                                    type="button"></button>
+                                        </td >
+                                        <td  th:text="${current.remainsShop}"></td>
+                                        <td  th:text="${current.remainsPhone}"></td>
+                                        <td  th:text="${current.sale1}"></td>
+                                        <td  th:text="${current.sale6}"></td>
+                                        <td  th:text="${current.order}"></td>
+                                        <td  th:text="${current.remainsCash1}"></td>
+                                        <td  th:text="${current.remainsCash2}"></td>
+
+                                </tr>
+
+                                <tr th:each="currents:${current.all}" class="hide_minMatrix">
+                                    <td style="background: #cccccc;" th:text="${currents.view}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsShop}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsPhone}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.sale1}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.sale6}"></td>
+                                    <td style="background: #cccccc;" > <input name="" id=" " class="form-control" th:value="${currents.order}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsCash1}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsCash2}"></td>
+                                </tr>
+
+                                </tbody>
+                                </span>
+                            </table>
+                        </div>
                         </table>
                     </div>
                 </div>
@@ -273,7 +300,7 @@
                     <div class="RemanisPhoneSach" th:fragment="RemanisPhoneSach">
                         <div class="row">
                             <div class="table_graduation">
-                                <table class="table-borderless">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>МОДЕЛЬ</th>
@@ -302,7 +329,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="table_graduation">
-                                    <table class="table-borderless">
+                                    <table class="table table-hover">
                                         <thead>
                                         <tr>
                                             <th name="grad" id="grad">МОДЕЛЬ</th>
@@ -341,7 +368,7 @@
                     <div class="RemanisSaleModelShop" th:fragment="RemanisSaleModelShop">
 
                         <div class="table_graduation">
-                            <table class="table-borderless">
+                            <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th name="grad" id="grad">МОДЕЛЬ</th>
@@ -410,7 +437,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr th:each="entry  : ${CreateMatrixT2}" >
-                                            <th style="width: 1000px;">магазин</th>
+                                            <th style="width: 6%;">магазин</th>
                                         <span th:each="currents:${entry.distributionModelList}">
                                             <th th:text="${currents.replace('/',' ')}"> </th>
                                         </span>
