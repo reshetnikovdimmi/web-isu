@@ -53,13 +53,13 @@ public class PhoneServise extends AnalysisDistribution {
     Matrix matrix;
 
     public OrderRecommendations distributionModel() {
-        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup(null);
+
+        or = new OrderRecommendations();
         sale1 = phoneRepositoriy.getSale1Phone(null);
         sale6 = phoneRepositoriy.getSale6Phone(null);
         remainsGroup = phoneRepositoriy.getRemainsShopPhone();
         warehouse = authorization_tt.getWarehouseList();
-        remainsAll = phoneRepositoriy.remainsAll();
-        or = new OrderRecommendations();
+
         remainsCashGroup(phoneRepositoriy.getGroupView());
         return or;
     }
@@ -95,12 +95,9 @@ public class PhoneServise extends AnalysisDistribution {
 
     public OrderRecommendations remanisPhoneSach(String matrixT2) {
 
-
-        indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup(matrixT2);
-        sale1 = phoneRepositoriy.getSale1Phone(matrixT2);
-        sale6 = phoneRepositoriy.getSale6Phone(matrixT2);
-        indicatorsPhoneShopGroup(authorization_tt.getShopList(), matrix.remainMatrixList);
+        indicatorsPhoneShopGroup(phoneRepositoriy.getModelAll(), matrix.remainMatrixList);
         remainsNomenclatureSach(phoneRepositoriy.getModelAll());
+
        return or;
     }
 
@@ -113,7 +110,7 @@ public class PhoneServise extends AnalysisDistribution {
 
         sale1 = phoneRepositoriy.getSale1PhoneShop();
         sale6 = phoneRepositoriy.getSale6PhoneShop();
-        remainsGroup = phoneRepositoriy.getRemainsShopPhone();
+
         distributionPhone(phoneRepositoriy.getGroupView(),shop);
         return or;
     }

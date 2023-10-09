@@ -31,7 +31,6 @@ public abstract class AnalysisDistribution {
             dto.setGroup(o.getGroup());
             dto.setRemainsCash1(remainsGroup.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getGroup().equals(o.getGroup())).mapToInt(r -> Math.toIntExact(r.getRemainsShop())).sum());
             dto.setRemainsCash2(remainsGroup.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).mapToInt(r -> Math.toIntExact(r.getRemainsShop())).sum());
-            //  String view = rem.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).map(r->r.getView()).findFirst().orElse(null);
             remainsCashList.add(dto);
         }
         or.setIndicatorPhoneShop(remainsCashList);
@@ -63,9 +62,10 @@ public abstract class AnalysisDistribution {
 
 
 
-    public void indicatorsPhoneShopGroup(List<String> shop, List<OrderRecommendations> remainMatrixList) {
-        remainsSaleShopAll(shop, remainMatrixList);
-        or.setIndicatorPhoneShop(remainsSaleShopAll(shop, remainMatrixList));
+    public void indicatorsPhoneShopGroup(List<String> nomenclature, List<OrderRecommendations> remainMatrixList) {
+        List<OrderRecommendations> remainsSaleShopAll = new ArrayList<>();
+
+        or.setIndicatorPhoneShop(remainsSaleShopAll);
 
     }
 
@@ -104,14 +104,14 @@ public abstract class AnalysisDistribution {
             OrderRecommendations dto = new OrderRecommendations();
             dto.setShop(s);
 
-            OrderRecommendations rem = indicatorPhoneShop.stream().filter(r -> r.getGroup().equals(s)).findAny().orElse(null);
+            int rem = remainsGroup.stream().filter(r -> r.getShop().equals(s)).mapToInt(OrderRecommendations::getRemainsShop).sum();
             OrderRecommendations sale_1 = sale1.stream().filter(r -> r.getGroup().equals(s)).findAny().orElse(null);
             OrderRecommendations sale_6 = sale6.stream().filter(r -> r.getGroup().equals(s)).findAny().orElse(null);
             int rems = remainMatrixList == null ? 0 : remainMatrixList.stream().filter(r -> r.getShop().equals(s)).mapToInt(o -> Math.toIntExact(o.getRemainsShopL())).sum();
             double max = DoubleStream.of(rems, sale_1 == null ? 0 : Math.toIntExact(sale_1.getRemainsShopL()), sale_6 == null ? 0 : Math.toIntExact(sale_6.getRemainsShopL() / 3))
                     .max()
                     .getAsDouble();
-            dto.setRemainsShop(rem == null ? null : Math.toIntExact(rem.getRemainsShopL()));
+            dto.setRemainsShop(rem);
             dto.setSale1(sale_1 == null ? null : Math.toIntExact(sale_1.getRemainsShopL()));
             dto.setSale6(sale_6 == null ? null : Math.toIntExact(sale_6.getRemainsShopL()));
             dto.setOrder((int) max);
