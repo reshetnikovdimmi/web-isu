@@ -56,12 +56,12 @@ public class PhoneServise extends AnalysisDistribution {
         indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup(null);
         sale1 = phoneRepositoriy.getSale1Phone(null);
         sale6 = phoneRepositoriy.getSale6Phone(null);
-        remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
+        remainsGroup = phoneRepositoriy.getRemainsShopPhone();
         warehouse = authorization_tt.getWarehouseList();
         remainsAll = phoneRepositoriy.remainsAll();
-
         or = new OrderRecommendations();
-        return indicatorsPhoneShop(phoneRepositoriy.getGroupView());
+        remainsCashGroup(phoneRepositoriy.getGroupView());
+        return or;
     }
 
     public Object createMatrixT2() {
@@ -94,12 +94,13 @@ public class PhoneServise extends AnalysisDistribution {
     }
 
     public OrderRecommendations remanisPhoneSach(String matrixT2) {
-        remains = phoneRepositoriy.getRemainsShopPhone(matrixT2);
+
+
         indicatorPhoneShop = phoneRepositoriy.getRemainsShopPhoneGroup(matrixT2);
         sale1 = phoneRepositoriy.getSale1Phone(matrixT2);
         sale6 = phoneRepositoriy.getSale6Phone(matrixT2);
         indicatorsPhoneShopGroup(authorization_tt.getShopList(), matrix.remainMatrixList);
-        indicatorsPhoneSach(phoneRepositoriy.getRemainsGroupView(matrixT2));
+        remainsNomenclatureSach(phoneRepositoriy.getModelAll());
        return or;
     }
 
@@ -112,7 +113,7 @@ public class PhoneServise extends AnalysisDistribution {
 
         sale1 = phoneRepositoriy.getSale1PhoneShop();
         sale6 = phoneRepositoriy.getSale6PhoneShop();
-        remains = phoneRepositoriy.getRemainsShopPhoneMatrixT2();
+        remainsGroup = phoneRepositoriy.getRemainsShopPhone();
         distributionPhone(phoneRepositoriy.getGroupView(),shop);
         return or;
     }
@@ -130,142 +131,28 @@ public class PhoneServise extends AnalysisDistribution {
 
 
     public Object distributionModelMatrix() {
-        distributionModelMatrix = matrixT2Repository.getDistributionModelMatrixDisting();
 
-        return distributionModelMatrix;
+
+        return null;
     }
 
 
     public Map<String, Map<String, Map<String, Integer>>> tableUpDistriPhone(String shop, String models, String quantity, String brend) {
-        System.out.println(shop + "--" + models + "--" + quantity + "--" + brend);
-
-        remanisSaleShop.get(shop).get(brend).get(models).replace("order", Integer.valueOf(quantity));
-
-        Integer orderCash = remanisSaleShop.get(shop).get(brend).get("total").get("orderCash");
-        if (orderCash == null) {
-            orderCash = 0;
-        }
-        Integer remanisShop = phoneRepositoriy.getPhoneRemanMatrix(brend, shop);
-        if (remanisShop == null) {
-            remanisShop = 0;
-        }
-        remanisSaleShop.get(shop).get(brend).get("total").replace("orderCash", Integer.valueOf(quantity) + orderCash);
-
-        updateMatrixT2(remanisShop + Integer.valueOf(quantity) + orderCash, shop, brend);
-
-        Integer remanisCash2 = remanisSaleShop.get(shop).get(brend).get(models).get("remanisCash2");
-        Integer remanisCash = remanisSaleShop.get(shop).get(brend).get(models).get("remanisCash");
-
-        Integer totalRemanisCash2 = remanisSaleShop.get(shop).get(brend).get("total").get("totalRemanisCash2");
-        Integer totalRemanisCash = remanisSaleShop.get(shop).get(brend).get("total").get("totalRemanisCash");
-
-        System.out.println(totalRemanisCash2);
-
-        if (remanisCash2 == null) {
-            remanisCash2 = 0;
-        }
-        if (remanisCash == null) {
-            remanisCash = 0;
-        }
-        if (totalRemanisCash2 == null) {
-            totalRemanisCash2 = 0;
-        }
-        if (totalRemanisCash == null) {
-            totalRemanisCash = 0;
-        }
-
-        if (authorization_tt.getShopMatrixT2().contains(shop) && remanisCash2 > 0) {
-            remanisSaleShop.get(authorization_ttList.get(1).getName()).get(brend).get(models).replace("remanis", remanisCash2 - Integer.valueOf(quantity));
-            for (Map.Entry entry : remanisSaleShop.entrySet()) {
-
-                remanisSaleShop.get(entry.getKey()).get(brend).get(models).replace("remanisCash2", remanisCash2 - Integer.valueOf(quantity));
-            }
-
-        } else {
-            remanisSaleShop.get(authorization_ttList.get(0).getName()).get(brend).get(models).replace("remanis", remanisCash - Integer.valueOf(quantity));
-            for (Map.Entry entry : remanisSaleShop.entrySet()) {
-                remanisSaleShop.get(entry.getKey()).get(brend).get(models).replace("remanisCash", remanisCash - Integer.valueOf(quantity));
-            }
-
-        }
-
-        if (authorization_tt.getShopMatrixT2().contains(shop) && remanisCash2 > 0) {
-            for (Map.Entry entry : remanisSaleShop.entrySet()) {
-                remanisSaleShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash2", totalRemanisCash2 - Integer.valueOf(quantity));
-            }
-
-        } else {
-            for (Map.Entry entry : remanisSaleShop.entrySet()) {
-                remanisSaleShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash", totalRemanisCash - Integer.valueOf(quantity));
-            }
-
-        }
 
 
-        return remanisSaleShop.get(shop);
+        return null;
     }
 
-    private void updateMatrixT2(int i, String shop, String brend) {
-
-        if (authorization_tt.getShopMatrixT2().contains(shop)) {
-
-            Integer kl = matrixT2Repository.getQuantityMatrix(brend, String.valueOf(authorization_tt.getClusterT2(shop).charAt(0)));
-            Double remMatr = null;
-            if (kl != null) {
-                if (kl < i) {
-                    remMatr = 100.00;
-                } else {
-                    remMatr = (double) i / (double) kl * 100;
-                }
-                shopMatrix.get(shop).replace(brend, String.format("%.0f", remMatr) + "%");
-
-                int cou = 0;
-                int matrix = 0;
-                for (Map.Entry entry : shopMatrix.get(shop).entrySet()) {
-
-
-                    if (!entry.getKey().equals("total") && !entry.getValue().equals("ЛОЖЬ%")) {
-                        cou++;
-                        matrix += Integer.parseInt(entry.getValue().toString().replace("%", ""));
-
-                    }
-
-
-                }
-
-                shopMatrix.get(shop).replace("total", String.format("%.0f", (double) matrix / (double) cou) + "%");
-            }
-        }
-    }
 
 
     public Object updateRemanisSaleMatrixT2Shop(String model) {
-        Map<String, Map<String, Integer>> shop = new TreeMap<>();
 
-        for (Authorization_tt shops : authorization_ttList) {
-            Map<String, Integer> indicators = new TreeMap<>();
-            indicators.put("remanis", phoneRepositoriy.getPhoneRemanMatrix(model, shops.getName()));
-            indicators.put("sale1", phoneRepositoriy.getPhoneSale1Matrix(model, shops.getName()));
-            indicators.put("sale6", phoneRepositoriy.getPhoneSale6Matrix(model, shops.getName()));
-            shop.put(shops.getName(), indicators);
-        }
 
-        return shop;
+        return null;
     }
 
     public Object updateRemanisSaleModelShop(String model) {
-        Map<String, Map<String, Integer>> shop = new TreeMap<>();
 
-        List<String> modelGb = phoneRepositoriy.getPhonaModelGb(model);
-
-        for (Authorization_tt shops : authorization_ttList) {
-            Map<String, Integer> indicators = new TreeMap<>();
-            indicators.put("remanis", phoneRepositoriy.getRemanisModelGbShop(modelGb, shops.getName()));
-            indicators.put("sale1", phoneRepositoriy.getSale1DistrModelGb(modelGb, shops.getName()));
-            indicators.put("sale6", phoneRepositoriy.getSale6DistrModelGb(modelGb, shops.getName()));
-            shop.put(shops.getName(), indicators);
-        }
-
-        return shop;
+        return null;
     }
 }

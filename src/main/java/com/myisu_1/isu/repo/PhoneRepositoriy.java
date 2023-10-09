@@ -16,8 +16,8 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT DISTINCT Brend FROM Phone_Smart")
     List<String> getBrendDisting();
 
-    @Query("SELECT DISTINCT Matrix_T2 FROM Phone_Smart")
-    List<String> getMatrixT2Disting();
+    @Query("SELECT DISTINCT Model FROM Phone_Smart")
+    List<String> getModelAll();
 
     @Query("SELECT Model  FROM Phone_Smart WHERE Matrix_T2 = ?1")
     List<String> getModelMatrixT2List(String matrix);
@@ -122,9 +122,9 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
             "JOIN c.saleSim_1m p WHERE p.shop = ?1  GROUP BY c.Matrix_T2 ")
     List<MatrixSpark> getSale1Shop(String shop);
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Model, p.remainsSimAndModem) FROM Phone_Smart c   " +
-            "JOIN c.remanisSims p WHERE c.Matrix_T2 = ?1   ")
-    List<OrderRecommendations> getRemainsShopPhone(String matrixT2);
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Matrix_T2, c.Model, p.remainsSimAndModem) FROM Phone_Smart c   " +
+            "JOIN c.remanisSims p ")
+    List<OrderRecommendations> getRemainsShopPhone();
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (c.Model) FROM Phone_Smart c JOIN c.remanisSims p WHERE c.Matrix_T2 = ?1")
     List<RemainsGroupCash> getRemainsGroupView(String matrixT2);
 

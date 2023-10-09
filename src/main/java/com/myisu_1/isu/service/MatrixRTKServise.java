@@ -4,7 +4,6 @@ import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Matrix.Matrix;
 import com.myisu_1.isu.models.Phone.MatrixSpark;
-import com.myisu_1.isu.models.Phone.MatrixT2;
 import com.myisu_1.isu.models.RTK.MatrixRTK;
 import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.*;
@@ -37,10 +36,11 @@ public class MatrixRTKServise extends AnalysisDistribution {
     List<String> shopRTKList;
 
     public Object getSaleRemanisAll() {
-        remains = rtkTableRepositoriy.remainsSim();
+        remainsGroup = rtkTableRepositoriy.remainsSim();
         warehouse = authorization_ttRepositoriy.getWarehouseList();
         or = new OrderRecommendations();
-        return indicatorsPhoneShop(rtkTableRepositoriy.getGroupView());
+        remainsCashGroup(rtkTableRepositoriy.getGroupView());
+        return or;
 
     }
 

@@ -45,13 +45,13 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
         }
         buttonsPhoneRepositoriy.deleteAll();
         buttonsPhoneRepositoriy.saveAll(bpList);
-        remains = buttonsPhoneRepositoriy.getRemainsShopButton();
+        remainsGroup = buttonsPhoneRepositoriy.getRemainsShopButton();
         warehouse = authorizationRep.getWarehouseList();
         sale1 = buttonsPhoneRepositoriy.getSale1Phone();
         sale6 = buttonsPhoneRepositoriy.getSale6Phone();
         indicatorPhoneShop = buttonsPhoneRepositoriy.getRemainsButton();
-
-        return indicatorsPhoneShop(buttonsPhoneRepositoriy.getGroupView());
+        remainsCashGroup(buttonsPhoneRepositoriy.getGroupView());
+        return or;
     }
 
     private String searchGroup(String price, String brend) {

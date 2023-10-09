@@ -149,8 +149,8 @@
                                             type="button"></button>
                                 </td>
 
-                                <td th:text="${current.remainsCash1}"></td>
-                                <td th:text="${current.remainsCash2}"></td>
+                                <td th:text="${current.remainsCash1}==0?null:${current.remainsCash1}"></td>
+                                <td th:text="${current.remainsCash2}==0?null:${current.remainsCash2}"></td>
 
                             </tr>
 
@@ -275,7 +275,7 @@
                                 </tr>
 
                                 <tr th:each="currents:${current.all}" class="hide_minMatrix">
-                                    <td style="background: #cccccc;" th:text="${currents.view}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.nomenclature}"></td>
                                     <td style="background: #cccccc;" th:text="${currents.remainsShop}"></td>
                                     <td style="background: #cccccc;" th:text="${currents.remainsPhone}"></td>
                                     <td style="background: #cccccc;" th:text="${currents.sale1}"></td>
@@ -313,7 +313,7 @@
                                     <tr th:each="current : ${RemanisPhoneSach}">
 
                                         <td>
-                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.group}"
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.nomenclature}"
                                                     type="button"></button>
                                         </td>
 

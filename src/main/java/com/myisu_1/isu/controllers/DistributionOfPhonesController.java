@@ -15,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class DistributionOfPhonesController {
@@ -37,7 +38,7 @@ public class DistributionOfPhonesController {
     private String remanisPhoneSach(@PathVariable("matrixT2") String matrixT2, Model model) {
         OrderRecommendations or =  phoneServise.remanisPhoneSach(matrixT2);
 
-       model.addAttribute("RemanisPhoneSach", or.getIndicatorPhoneSach());
+       model.addAttribute("RemanisPhoneSach", or.getIndicatorPhoneSach().stream().filter(r->r.getGroup().equals(matrixT2)).collect(Collectors.toList()));
 
         model.addAttribute("RemanisPhoneGroup", or.getIndicatorPhoneShop());
         return "distributionOFphones::RemanisPhoneSach";

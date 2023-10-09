@@ -44,11 +44,11 @@ public class ClothesPhonesServise extends AnalysisDistribution {
     List<OrderRecommendations> sale6ShopClothingGroupAll;
 
     public Object remainsGroupCash() {
-        remains = clothingMatchingTableRepositoriy.getRemainsShopClothing();
+        remainsGroup = clothingMatchingTableRepositoriy.getRemainsShopClothing();
 
         warehouse = shop.getWarehouseList();
-
-        return indicatorsPhoneShop(phoneRepositoriy.getGroupViewClothing());
+        remainsCashGroup(phoneRepositoriy.getGroupViewClothing());
+        return or;
     }
 
 

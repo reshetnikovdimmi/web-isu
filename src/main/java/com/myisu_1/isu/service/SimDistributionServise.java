@@ -39,9 +39,10 @@ public class SimDistributionServise extends AnalysisDistribution {
     List<Authorization_tt> authorization;
     Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
     public OrderRecommendations remainsCash() {
-        remains = simAndRtkTableRepositoriy.remainsSim();
+        remainsGroup = simAndRtkTableRepositoriy.remainsSim();
         warehouse = authorization_ttRepositoriy.getWarehouseList();
-        return indicatorsPhoneShop(simAndRtkTableRepositoriy.getGroupView());
+        remainsCashGroup(simAndRtkTableRepositoriy.getGroupView());
+        return or;
     }
 
     private Integer plan(String nameRainbow) {

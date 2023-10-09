@@ -159,15 +159,13 @@ public class OrderRecommendations {
         this.order = order;
     }
 
-
-
-    public OrderRecommendations(String group, String nomenclature, String view, Integer remainsShop) {
-
+    public OrderRecommendations(String shop, String group, String nomenclature, Integer remainsShop) {
+        this.shop = shop;
         this.group = group;
         this.nomenclature = nomenclature;
-        this.view = view;
         this.remainsShop = remainsShop;
     }
+
     public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsShop, Integer sale1) {
         this.shop = shop;
         this.group = group;
