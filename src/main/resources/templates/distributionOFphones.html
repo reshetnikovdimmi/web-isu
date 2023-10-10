@@ -241,7 +241,7 @@
                             <tr>
                                 <th id="TT_Glass" style="width: 25%;">------ТТ-----</th>
                                 <th>ОСТАТОК</th>
-                                <th>ОСТАТОК ТЕЛ</th>
+
                                 <th>ПРОД 1М</th>
                                 <th>ПРОД 6/3М</th>
                                 <th>ПОТРЕБНОСТЬ</th>
@@ -254,8 +254,8 @@
 
                             <table class="table table-hover" >
 
-                                <span th:each="current : ${TableDistributionPhone}">
-                                <tbody class="labels"  th:each="current:${current.distributionPhone}" >
+
+                                <tbody class="labels"  th:each="current:${TableDistributionPhone}" >
 
                                 <tr style="border:2px solid rgb(240, 240, 240);">
 
@@ -265,7 +265,7 @@
                                                     type="button"></button>
                                         </td >
                                         <td  th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
-                                        <td  th:text="${current.remainsPhone}==0?null:${current.remainsPhone}"></td>
+
                                         <td  th:text="${current.sale1}==0?null:${current.sale1}"></td>
                                         <td  th:text="${current.sale6}==0?null:${current.sale6}"></td>
                                         <td  th:text="${current.order}"></td>
@@ -276,8 +276,8 @@
 
                                 <tr th:each="currents:${current.all}" class="hide_minMatrix">
                                     <td style="background: #cccccc;" th:text="${currents.nomenclature}"></td>
-                                    <td style="background: #cccccc;" th:text="${currents.remainsShop}"></td>
-                                    <td style="background: #cccccc;" th:text="${currents.remainsPhone}==0?null:${currents.remainsPhone}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsShop}==0?null:${currents.remainsShop}"></td>
+
                                     <td style="background: #cccccc;" th:text="${currents.sale1}==0?null:${currents.sale1}"></td>
                                     <td style="background: #cccccc;" th:text="${currents.sale6}==0?null:${currents.sale6}"></td>
                                     <td style="background: #cccccc;" > <input name="" id=" " class="form-control" th:value="${currents.order}"></td>
@@ -286,7 +286,7 @@
                                 </tr>
 
                                 </tbody>
-                                </span>
+
                             </table>
                         </div>
                         </table>

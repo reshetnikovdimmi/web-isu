@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PhoneServise extends AnalysisDistribution {
@@ -45,8 +46,10 @@ public class PhoneServise extends AnalysisDistribution {
         sale6Nomenclature = phoneRepositoriy.getSale6Phone();
         remainsNomenclature = phoneRepositoriy.getRemainsShopPhone();
         warehouse = authorization_tt.getShopList();
+        phoneSmarts = phoneRepositoriy.findAll();
 
         remainsCashGroup(phoneRepositoriy.getGroupView());
+        distributionPhone(phoneRepositoriy.getGroupView());
         return or;
     }
 
@@ -71,11 +74,8 @@ public class PhoneServise extends AnalysisDistribution {
     }
 
 
-    public OrderRecommendations remanisSaleShop(String shop) {
-
-
-        distributionPhone(phoneRepositoriy.getGroupView(), shop);
-        return or;
+    public List<OrderRecommendations> remanisSaleShop(String shop) {
+        return or.getDistributionPhone().stream().filter(r->r.getShop().equals(shop)).collect(Collectors.toList());
     }
 
     public Object createMatrixT2() {
