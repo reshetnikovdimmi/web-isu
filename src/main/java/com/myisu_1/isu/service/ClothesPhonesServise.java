@@ -44,7 +44,7 @@ public class ClothesPhonesServise extends AnalysisDistribution {
     List<OrderRecommendations> sale6ShopClothingGroupAll;
 
     public Object remainsGroupCash() {
-        remainsGroup = clothingMatchingTableRepositoriy.getRemainsShopClothing();
+        remainsNomenclature = clothingMatchingTableRepositoriy.getRemainsShopClothing();
 
         warehouse = shop.getWarehouseList();
         remainsCashGroup(phoneRepositoriy.getGroupViewClothing());

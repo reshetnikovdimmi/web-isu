@@ -45,11 +45,11 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
         }
         buttonsPhoneRepositoriy.deleteAll();
         buttonsPhoneRepositoriy.saveAll(bpList);
-        remainsGroup = buttonsPhoneRepositoriy.getRemainsShopButton();
+        remainsNomenclature = buttonsPhoneRepositoriy.getRemainsShopButton();
         warehouse = authorizationRep.getWarehouseList();
-        sale1 = buttonsPhoneRepositoriy.getSale1Phone();
-        sale6 = buttonsPhoneRepositoriy.getSale6Phone();
-        indicatorPhoneShop = buttonsPhoneRepositoriy.getRemainsButton();
+        sale1Nomenclature = buttonsPhoneRepositoriy.getSale1Phone();
+        sale6Nomenclature = buttonsPhoneRepositoriy.getSale6Phone();
+
         remainsCashGroup(buttonsPhoneRepositoriy.getGroupView());
         return or;
     }

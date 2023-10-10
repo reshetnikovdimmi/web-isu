@@ -40,7 +40,7 @@ public class DistributionOfPhonesController {
 
        model.addAttribute("RemanisPhoneSach", or.getIndicatorPhoneSach().stream().filter(r->r.getGroup().equals(matrixT2)).collect(Collectors.toList()));
 
-        model.addAttribute("RemanisPhoneGroup", or.getIndicatorPhoneShop());
+        model.addAttribute("RemanisPhoneGroup", or.getIndicatorPhoneShop().stream().filter(r->r.getGroup().equals(matrixT2)).collect(Collectors.toList()));
         return "distributionOFphones::RemanisPhoneSach";
 
     }

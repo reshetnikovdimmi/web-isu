@@ -10,27 +10,23 @@ import java.util.stream.DoubleStream;
 
 public abstract class AnalysisDistribution {
 
-    public List<OrderRecommendations> remainsGroup;
     public List<OrderRecommendations> remainsNomenclature;
-    public List<String> warehouse;
-    public List<OrderRecommendations> remainsCashList;
-    public List<OrderRecommendations> indicatorPhoneShop;
-    public List<OrderRecommendations> remainsAll;
+    public List<OrderRecommendations> sale1Nomenclature;
+    public List<OrderRecommendations> sale6Nomenclature;
 
-    public List<OrderRecommendations> sale1;
-    public List<OrderRecommendations> sale6;
+    public List<String> warehouse;
     public OrderRecommendations or;
 
     public void remainsCashGroup(List<RemainsGroupCash> all) {
 
-        remainsCashList = new ArrayList<>();
+        List<OrderRecommendations>  remainsCashList = new ArrayList<>();
 
-        remainsGroup = remainsGroup.stream().filter(r -> r.getShop() != null).collect(Collectors.toList());
+        remainsNomenclature = remainsNomenclature.stream().filter(r -> r.getShop() != null).collect(Collectors.toList());
         for (RemainsGroupCash o : all) {
             OrderRecommendations dto = new OrderRecommendations();
             dto.setGroup(o.getGroup());
-            dto.setRemainsCash1(remainsGroup.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getGroup().equals(o.getGroup())).mapToInt(r -> Math.toIntExact(r.getRemainsShop())).sum());
-            dto.setRemainsCash2(remainsGroup.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).mapToInt(r -> Math.toIntExact(r.getRemainsShop())).sum());
+            dto.setRemainsCash1(remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getGroup().equals(o.getGroup())).mapToInt(r -> r.getRemainsShop()).sum());
+            dto.setRemainsCash2(remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).mapToInt(r -> r.getRemainsShop()).sum());
             remainsCashList.add(dto);
         }
         or.setIndicatorPhoneShop(remainsCashList);
@@ -42,8 +38,8 @@ public abstract class AnalysisDistribution {
         List<OrderRecommendations> remain = new ArrayList<>();
         for (String o : all) {
             OrderRecommendations dto = new OrderRecommendations();
-            OrderRecommendations rem = remainsGroup.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getNomenclature().equals(o)).findAny().orElse(null);
-            OrderRecommendations rem1 = remainsGroup.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getNomenclature().equals(o)).findAny().orElse(null);
+            OrderRecommendations rem = remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getNomenclature().equals(o)).findAny().orElse(null);
+            OrderRecommendations rem1 = remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getNomenclature().equals(o)).findAny().orElse(null);
             if (rem != null) {
                 dto.setNomenclature(rem.getNomenclature());
                 dto.setRemainsCash1(rem.getRemainsShop());
@@ -57,16 +53,23 @@ public abstract class AnalysisDistribution {
             remain.add(dto);
         }
         or.setIndicatorPhoneSach(remain.stream().filter(r -> r.getGroup() != null).collect(Collectors.toList()));
-
     }
 
-
-
-    public void indicatorsPhoneShopGroup(List<String> nomenclature, List<OrderRecommendations> remainMatrixList) {
+    public void indicatorsPhoneShopGroup(List<String> group, List<OrderRecommendations> remainMatrixList) {
         List<OrderRecommendations> remainsSaleShopAll = new ArrayList<>();
 
+        for (String o:group){
+            for (String w:warehouse){
+                OrderRecommendations dto = new OrderRecommendations();
+                dto.setRemainsShop(remainsNomenclature.stream().filter(r->r.getGroup().equals(o)&& r.getShop().equals(w)).mapToInt(r-> r.getRemainsShop()).sum());
+                dto.setSale1(sale1Nomenclature.stream().filter(r->r.getGroup().equals(o)&& r.getShop().equals(w)).mapToInt(r-> r.getRemainsShop()).sum());
+                dto.setSale6(sale6Nomenclature.stream().filter(r->r.getGroup().equals(o)&& r.getShop().equals(w)).mapToInt(r-> r.getRemainsShop()).sum());
+                dto.setShop(w);
+                dto.setGroup(o);
+                remainsSaleShopAll.add(dto);
+            }
+        }
         or.setIndicatorPhoneShop(remainsSaleShopAll);
-
     }
 
     public void distributionPhone(List<RemainsGroupCash> all, String shop) {
@@ -74,16 +77,13 @@ public abstract class AnalysisDistribution {
 
         for (RemainsGroupCash o : all) {
             OrderRecommendations dto = new OrderRecommendations();
+
             dto.setGroup(o.getGroup());
-            int rem = remainsGroup.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r -> Math.toIntExact(r.getRemainsShop())).sum();
-         //   int sale_1 = sale1.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r -> Math.toIntExact(r.getRemainsShop())).sum();
-        //    int sale_6 = sale6.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r -> Math.toIntExact(r.getRemainsShop())).sum();
-            dto.setRemainsShop(rem == 0 ? null : rem);
-          //  dto.setSale1(sale_1 == 0 ? null : sale_1);
-          //  dto.setSale6(sale_6 == 0 ? null : sale_6);
+            dto.setRemainsShop(remainsNomenclature.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r -> r.getRemainsShop()).sum());
+            dto.setSale1(sale1Nomenclature.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r -> r.getRemainsShop()).sum());
+            dto.setSale6(sale6Nomenclature.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(o.getGroup())).mapToInt(r -> r.getRemainsShop()).sum());
             dto.setAll(alls(o.getGroup(), shop));
             distributionPhone.add(dto);
-
         }
 
         or.setDistributionPhone(distributionPhone);
@@ -91,7 +91,7 @@ public abstract class AnalysisDistribution {
 
     private List<OrderRecommendations> alls(String group, String shop) {
 
-        List<OrderRecommendations> alls = remainsGroup.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(group)).collect(Collectors.toList());
+        List<OrderRecommendations> alls = remainsNomenclature.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(group)).collect(Collectors.toList());
 
 
         return alls;
@@ -104,16 +104,16 @@ public abstract class AnalysisDistribution {
             OrderRecommendations dto = new OrderRecommendations();
             dto.setShop(s);
 
-            int rem = remainsGroup.stream().filter(r -> r.getShop().equals(s)).mapToInt(OrderRecommendations::getRemainsShop).sum();
-            OrderRecommendations sale_1 = sale1.stream().filter(r -> r.getGroup().equals(s)).findAny().orElse(null);
-            OrderRecommendations sale_6 = sale6.stream().filter(r -> r.getGroup().equals(s)).findAny().orElse(null);
+            dto.setRemainsShop(remainsNomenclature.stream().filter(r -> r.getShop().equals(s)).mapToInt(OrderRecommendations::getRemainsShop).sum());
+            int sale_1 = sale1Nomenclature.stream().filter(r -> r.getShop().equals(s)).mapToInt(OrderRecommendations::getRemainsShop).sum();
+            int sale_6 = sale6Nomenclature.stream().filter(r -> r.getShop().equals(s)).mapToInt(OrderRecommendations::getRemainsShop).sum();
             int rems = remainMatrixList == null ? 0 : remainMatrixList.stream().filter(r -> r.getShop().equals(s)).mapToInt(o -> Math.toIntExact(o.getRemainsShopL())).sum();
-            double max = DoubleStream.of(rems, sale_1 == null ? 0 : Math.toIntExact(sale_1.getRemainsShopL()), sale_6 == null ? 0 : Math.toIntExact(sale_6.getRemainsShopL() / 3))
+            double max = DoubleStream.of(rems, sale_1, sale_6 / 3)
                     .max()
                     .getAsDouble();
-            dto.setRemainsShop(rem);
-            dto.setSale1(sale_1 == null ? null : Math.toIntExact(sale_1.getRemainsShopL()));
-            dto.setSale6(sale_6 == null ? null : Math.toIntExact(sale_6.getRemainsShopL()));
+
+            dto.setSale1(sale_1);
+            dto.setSale6(sale_6);
             dto.setOrder((int) max);
 
             remainsSaleShopAll.add(dto);

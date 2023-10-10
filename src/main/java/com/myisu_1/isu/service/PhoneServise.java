@@ -8,7 +8,6 @@ import com.myisu_1.isu.models.Phone.MatrixSpark;
 import com.myisu_1.isu.models.Phone.MatrixT2;
 import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.SIM.RemanisSim;
-import com.myisu_1.isu.models.Sales;
 import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,50 +16,65 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 @Service
 public class PhoneServise extends AnalysisDistribution {
     @Autowired
-    private SalesRepositoriy salesRepositoriy;
+    public SalesRepositoriy salesRepositoriy;
     @Autowired
     public PostRepositoriy authorization_tt;
     @Autowired
-    private PhoneRepositoriy phoneRepositoriy;
-    @Autowired
-    private RemanisSimRepository remanisSimRepository;
-    @Autowired
-    private SaleSimModemRepository_6m saleSimModemRepository_6m;
-    @Autowired
-    private SaleSimModemRepository_1m saleSimModemRepository_1m;
-    @Autowired
-    private MatrixT2Repository matrixT2Repository;
-    @Autowired
-    private MatrixSparkRepository matrixSparkRepository;
+    public PhoneRepositoriy phoneRepositoriy;
 
-    List<Sales> sales;
-    public List<Authorization_tt> authorization_ttList;
+    @Autowired
+    public MatrixT2Repository matrixT2Repository;
+
     List<Phone_Smart> phoneSmartList;
     List<RemanisSim> remanisSimList;
     Map<String, Map<String, Map<String, Map<String, Integer>>>> remanisSaleShop;
 
-    List<String> matrix_T2;
-    List<String> distributionModelMatrix;
-    Map<String, Map<String, String>> shopMatrix;
     List<Authorization_tt> clusterT2List;
 
-    private int remanis;
+
     Matrix matrix;
 
     public OrderRecommendations distributionModel() {
 
         or = new OrderRecommendations();
-        sale1 = phoneRepositoriy.getSale1Phone(null);
-        sale6 = phoneRepositoriy.getSale6Phone(null);
-        remainsGroup = phoneRepositoriy.getRemainsShopPhone();
-        warehouse = authorization_tt.getWarehouseList();
+        sale1Nomenclature = phoneRepositoriy.getSale1Phone();
+        sale6Nomenclature = phoneRepositoriy.getSale6Phone();
+        remainsNomenclature = phoneRepositoriy.getRemainsShopPhone();
+        warehouse = authorization_tt.getShopList();
 
         remainsCashGroup(phoneRepositoriy.getGroupView());
+        return or;
+    }
+
+
+    public List<OrderRecommendations> remanisPhoneShopT2() {
+
+
+        return remainsSaleShopAll(authorization_tt.getShopT2(), matrix.remainMatrixList);
+    }
+
+    public List<OrderRecommendations> remanisPhoneShopMult() {
+
+        return remainsSaleShopAll(authorization_tt.getShopMult(), matrix.remainMatrixList);
+    }
+
+    public OrderRecommendations remanisPhoneSach(String matrixT2) {
+
+        indicatorsPhoneShopGroup(phoneRepositoriy.getMatrix_T2(), matrix.remainMatrixList);
+        remainsNomenclatureSach(phoneRepositoriy.getModelAll());
+
+        return or;
+    }
+
+
+    public OrderRecommendations remanisSaleShop(String shop) {
+
+
+        distributionPhone(phoneRepositoriy.getGroupView(), shop);
         return or;
     }
 
@@ -82,49 +96,11 @@ public class PhoneServise extends AnalysisDistribution {
         return matrix.createMatrix(clusterT2List);
     }
 
-    public List<OrderRecommendations> remanisPhoneShopT2() {
-
-
-        return remainsSaleShopAll(authorization_tt.getShopT2(),matrix.remainMatrixList);
-    }
-
-    public List<OrderRecommendations> remanisPhoneShopMult() {
-
-        return remainsSaleShopAll(authorization_tt.getShopMult(), matrix.remainMatrixList);
-    }
-
-    public OrderRecommendations remanisPhoneSach(String matrixT2) {
-
-        indicatorsPhoneShopGroup(phoneRepositoriy.getModelAll(), matrix.remainMatrixList);
-        remainsNomenclatureSach(phoneRepositoriy.getModelAll());
-
-       return or;
-    }
-
-
-
-
-
-
-    public OrderRecommendations remanisSaleShop(String shop) {
-
-        sale1 = phoneRepositoriy.getSale1PhoneShop();
-        sale6 = phoneRepositoriy.getSale6PhoneShop();
-
-        distributionPhone(phoneRepositoriy.getGroupView(),shop);
-        return or;
-    }
-
-
-
     public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
 
 
         return remanisSaleShop;
     }
-
-
-
 
 
     public Object distributionModelMatrix() {
@@ -139,7 +115,6 @@ public class PhoneServise extends AnalysisDistribution {
 
         return null;
     }
-
 
 
     public Object updateRemanisSaleMatrixT2Shop(String model) {
