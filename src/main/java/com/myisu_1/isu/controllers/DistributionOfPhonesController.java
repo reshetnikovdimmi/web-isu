@@ -31,6 +31,7 @@ public class DistributionOfPhonesController {
         model.addAttribute("DistributionModelPhone", phoneServise.distributionModel());
         model.addAttribute("RemanisPhoneShop", phoneServise.remanisPhoneShopT2());
         model.addAttribute("RemanisPhoneShopMuilt", phoneServise.remanisPhoneShopMult());
+
         return "distributionOFphones";
     }
 
@@ -46,14 +47,6 @@ public class DistributionOfPhonesController {
     public String createTableDistributionPhone(@PathVariable("shop") String shop, Model model) {
         model.addAttribute("TableDistributionPhone", phoneServise.remanisSaleShop(shop));
         return "distributionOFphones::TableDistributionPhone";
-    }
-
-    @GetMapping("/CreateRemanisPhonesShopT2")
-    private String createRemanisPhoneShopT2(Model model) {
-        model.addAttribute("RemanisPhoneShop", phoneServise.remanisPhoneShopT2());
-        model.addAttribute("RemanisPhoneShopMuilt", phoneServise.remanisPhoneShopMult());
-        return "distributionOFphones::RemanisPhoneShop";
-
     }
 
     @GetMapping("/CreateMatrixT2")

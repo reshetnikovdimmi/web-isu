@@ -26,21 +26,14 @@ public class PhoneServise extends AnalysisDistribution {
     public PostRepositoriy authorization_tt;
     @Autowired
     public PhoneRepositoriy phoneRepositoriy;
-
     @Autowired
     public MatrixT2Repository matrixT2Repository;
-
     List<Phone_Smart> phoneSmartList;
     List<RemanisSim> remanisSimList;
-    Map<String, Map<String, Map<String, Map<String, Integer>>>> remanisSaleShop;
-
     List<Authorization_tt> clusterT2List;
-
-
     Matrix matrix;
 
     public OrderRecommendations distributionModel() {
-
         or = new OrderRecommendations();
         sale1Nomenclature = phoneRepositoriy.getSale1Phone();
         sale6Nomenclature = phoneRepositoriy.getSale6Phone();
@@ -54,20 +47,17 @@ public class PhoneServise extends AnalysisDistribution {
         return or;
     }
 
-
     public List<OrderRecommendations> remanisPhoneShopT2() {
-
         or.setRemanisPhoneShopT2(remainsSaleShopAll(authorization_tt.getShopT2(), matrix.remainMatrixList));
         return or.getRemanisPhoneShopT2();
     }
 
     public List<OrderRecommendations> remanisPhoneShopMult() {
-
-        return remainsSaleShopAll(authorization_tt.getShopMult(), matrix.remainMatrixList);
+        or.setRemanisPhoneShopMult(remainsSaleShopAll(authorization_tt.getShopMult(), matrix.remainMatrixList));
+        return or.getRemanisPhoneShopMult();
     }
 
     public OrderRecommendations remanisPhoneSach(String matrixT2) {
-
         return or;
     }
 
@@ -78,12 +68,10 @@ public class PhoneServise extends AnalysisDistribution {
 
     public Object createMatrixT2() {
         matrix = new Matrix();
-
         matrix.distributionModelList = matrixT2Repository.getDistingMatrix();
         clusterT2List = authorization_tt.getClusterT2List();
         matrix.matrixSparks = new ArrayList<>();
         matrix.remainMatrixList = phoneRepositoriy.getRemainsShopPhoneMatrix(matrix.distributionModelList, authorization_tt.getShopT2());
-
         for (MatrixT2 m : matrixT2Repository.findAll()) {
             for (Authorization_tt a : clusterT2List) {
                 if (Integer.parseInt(m.getCluster()) == Integer.parseInt(String.valueOf(a.getClusterT2().charAt(0)))) {
@@ -94,10 +82,8 @@ public class PhoneServise extends AnalysisDistribution {
         return matrix.createMatrix(clusterT2List);
     }
 
-    public Map<String, Map<String, Map<String, Map<String, Integer>>>> distributionPhoneList() {
-
-
-        return remanisSaleShop;
+    public OrderRecommendations distributionPhoneList() {
+        return or;
     }
 
 

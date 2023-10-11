@@ -1,5 +1,6 @@
 package com.myisu_1.isu.exporte;
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.Phone.DistributionPhone;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ExselFileExporteDistributionPhones {
-    public static ByteArrayInputStream exportPrisePromoFile(Map<String, Map<String, Map<String, Map<String, Integer>>>> exselDistributionButto) {
+    public static ByteArrayInputStream exportPrisePromoFile(OrderRecommendations exselDistributionButto) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheetStartPromo = workbook.createSheet("DistributionPhone");
             Row nameShopRow = sheetStartPromo.createRow(0);
@@ -31,7 +32,7 @@ public class ExselFileExporteDistributionPhones {
 
 
             distingCell.add("Модель распределения");
-            distingCell.addAll(exselDistributionButto.keySet());
+            /*distingCell.addAll(exselDistributionButto.keySet());
             for (Map.Entry entry: exselDistributionButto.get(exselDistributionButto.keySet().stream().findFirst().get()).entrySet()) {
                 Map<String, Map<String, String>> ppp = (Map<String, Map<String, String>>) entry.getValue();
                 for (Map.Entry entry1: ppp.entrySet()) {
@@ -85,7 +86,7 @@ public class ExselFileExporteDistributionPhones {
 
                 }
             }
-            sheetStartPromo.autoSizeColumn(0);
+            sheetStartPromo.autoSizeColumn(0);*/
 
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

@@ -19,12 +19,9 @@ public abstract class AnalysisDistribution {
     public OrderRecommendations or;
 
     public void remainsCashGroup(List<RemainsGroupCash> all) {
-
         List<OrderRecommendations> remainsCashList = new ArrayList<>();
-
         remainsNomenclature = remainsNomenclature.stream().filter(r -> r.getShop() != null).collect(Collectors.toList());
         for (RemainsGroupCash o : all) {
-
             OrderRecommendations dto = new OrderRecommendations();
             dto.setGroup(o.getGroup());
             dto.setRemainsCash1(remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
@@ -33,7 +30,6 @@ public abstract class AnalysisDistribution {
         }
         or.setIndicatorPhoneShop(remainsCashList);
     }
-
 
     public void remainsNomenclatureSach(List<String> all) {
         List<OrderRecommendations> remain = new ArrayList<>();
@@ -53,27 +49,22 @@ public abstract class AnalysisDistribution {
             }
             remain.add(dto);
         }
-
         or.setIndicatorPhoneSach(remain.stream().filter(r -> r.getGroup() != null).collect(Collectors.toList()));
     }
 
     public void indicatorsPhoneShopGroup(List<String> group, List<OrderRecommendations> remainMatrixList) {
         List<OrderRecommendations> remainsSaleShopAll = new ArrayList<>();
-
         for (String o : group) {
             for (String w : warehouse) {
-
                 OrderRecommendations dto = new OrderRecommendations();
                 dto.setRemainsShop(remainsNomenclature.stream().filter(r -> r.getGroup().equals(o) && r.getShop().equals(w)).mapToInt(OrderRecommendations::getRemainsShop).sum());
                 dto.setSale1(sale1Nomenclature.stream().filter(r -> r.getGroup().equals(o) && r.getShop().equals(w)).mapToInt(OrderRecommendations::getRemainsShop).sum());
                 dto.setSale6(sale6Nomenclature.stream().filter(r -> r.getGroup().equals(o) && r.getShop().equals(w)).mapToInt(OrderRecommendations::getRemainsShop).sum());
-
                 dto.setShop(w);
                 dto.setGroup(o);
                 remainsSaleShopAll.add(dto);
             }
         }
-
        or.setRemainsGroupShop(remainsSaleShopAll);
     }
 
@@ -87,8 +78,8 @@ public abstract class AnalysisDistribution {
                 dto.setRemainsShop(remainsNomenclature.stream().filter(r -> r.getShop().equals(w) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
                 dto.setSale1(sale1Nomenclature.stream().filter(r -> r.getShop().equals(w) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
                 dto.setSale6(sale6Nomenclature.stream().filter(r -> r.getShop().equals(w) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
-                dto.setRemainsCash1(or.getIndicatorPhoneShop().stream().filter(r -> r.getGroup().equals(o.getGroup())).mapToInt(r -> r.getRemainsCash1()).sum());
-                dto.setRemainsCash2(or.getIndicatorPhoneShop().stream().filter(r -> r.getGroup().equals(o.getGroup())).mapToInt(r -> r.getRemainsCash2()).sum());
+                dto.setRemainsCash1(or.getIndicatorPhoneShop().stream().filter(r -> r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsCash1).sum());
+                dto.setRemainsCash2(or.getIndicatorPhoneShop().stream().filter(r -> r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsCash2).sum());
                 dto.setAll(alls(o.getGroup(), w));
                 distributionPhone.add(dto);
             }
@@ -104,8 +95,8 @@ public abstract class AnalysisDistribution {
             dto.setRemainsShop(remainsNomenclature.stream().filter(r -> r.getShop().equals(shop) && r.getNomenclature().equals(p.getModel())).mapToInt(OrderRecommendations::getRemainsShop).sum());
             dto.setSale1(sale1Nomenclature.stream().filter(r -> r.getShop().equals(shop) && r.getNomenclature().equals(p.getModel())).mapToInt(OrderRecommendations::getRemainsShop).sum());
             dto.setSale6(sale6Nomenclature.stream().filter(r -> r.getShop().equals(shop) && r.getNomenclature().equals(p.getModel())).mapToInt(OrderRecommendations::getRemainsShop).sum());
-            dto.setRemainsCash1(or.getIndicatorPhoneSach().stream().filter(r ->r.getRemainsCash1() != null && r.getNomenclature().equals(p.getModel())).mapToInt(r -> r.getRemainsCash1()).sum());
-            dto.setRemainsCash2(or.getIndicatorPhoneSach().stream().filter(r ->r.getRemainsCash2() != null && r.getNomenclature().equals(p.getModel())).mapToInt(r -> r.getRemainsCash2()).sum());
+            dto.setRemainsCash1(or.getIndicatorPhoneSach().stream().filter(r ->r.getRemainsCash1() != null && r.getNomenclature().equals(p.getModel())).mapToInt(OrderRecommendations::getRemainsCash1).sum());
+            dto.setRemainsCash2(or.getIndicatorPhoneSach().stream().filter(r ->r.getRemainsCash2() != null && r.getNomenclature().equals(p.getModel())).mapToInt(OrderRecommendations::getRemainsCash2).sum());
             dto.setNomenclature(p.getModel());
             alls.add(dto);
         }
