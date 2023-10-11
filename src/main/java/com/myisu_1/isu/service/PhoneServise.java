@@ -47,17 +47,18 @@ public class PhoneServise extends AnalysisDistribution {
         remainsNomenclature = phoneRepositoriy.getRemainsShopPhone();
         warehouse = authorization_tt.getShopList();
         phoneSmarts = phoneRepositoriy.findAll();
-
         remainsCashGroup(phoneRepositoriy.getGroupView());
+        remainsNomenclatureSach(phoneRepositoriy.getModelAll());
         distributionPhone(phoneRepositoriy.getGroupView());
+        indicatorsPhoneShopGroup(phoneRepositoriy.getMatrix_T2(), matrix.remainMatrixList);
         return or;
     }
 
 
     public List<OrderRecommendations> remanisPhoneShopT2() {
 
-
-        return remainsSaleShopAll(authorization_tt.getShopT2(), matrix.remainMatrixList);
+        or.setRemanisPhoneShopT2(remainsSaleShopAll(authorization_tt.getShopT2(), matrix.remainMatrixList));
+        return or.getRemanisPhoneShopT2();
     }
 
     public List<OrderRecommendations> remanisPhoneShopMult() {
@@ -67,15 +68,12 @@ public class PhoneServise extends AnalysisDistribution {
 
     public OrderRecommendations remanisPhoneSach(String matrixT2) {
 
-        indicatorsPhoneShopGroup(phoneRepositoriy.getMatrix_T2(), matrix.remainMatrixList);
-        remainsNomenclatureSach(phoneRepositoriy.getModelAll());
-
         return or;
     }
 
 
     public List<OrderRecommendations> remanisSaleShop(String shop) {
-        return or.getDistributionPhone().stream().filter(r->r.getShop().equals(shop)).collect(Collectors.toList());
+        return or.getDistributionPhone().stream().filter(r -> r.getShop().equals(shop)).collect(Collectors.toList());
     }
 
     public Object createMatrixT2() {
@@ -103,28 +101,8 @@ public class PhoneServise extends AnalysisDistribution {
     }
 
 
-    public Object distributionModelMatrix() {
+    public OrderRecommendations distribution(OrderRecommendations order) {
 
-
-        return null;
-    }
-
-
-    public Map<String, Map<String, Map<String, Integer>>> tableUpDistriPhone(String shop, String models, String quantity, String brend) {
-
-
-        return null;
-    }
-
-
-    public Object updateRemanisSaleMatrixT2Shop(String model) {
-
-
-        return null;
-    }
-
-    public Object updateRemanisSaleModelShop(String model) {
-
-        return null;
+        return or;
     }
 }

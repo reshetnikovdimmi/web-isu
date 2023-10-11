@@ -239,7 +239,7 @@
                         <table class="table table-hover" >
                             <thead>
                             <tr>
-                                <th id="TT_Glass" style="width: 25%;">------ТТ-----</th>
+                                <th id="Shop" style="width: 25%;">------ТТ-----</th>
                                 <th>ОСТАТОК</th>
 
                                 <th>ПРОД 1М</th>
@@ -269,8 +269,8 @@
                                         <td  th:text="${current.sale1}==0?null:${current.sale1}"></td>
                                         <td  th:text="${current.sale6}==0?null:${current.sale6}"></td>
                                         <td  th:text="${current.order}"></td>
-                                        <td  th:text="${current.remainsCash1}"></td>
-                                        <td  th:text="${current.remainsCash2}"></td>
+                                        <td  th:text="${current.remainsCash1}==0?null:${current.remainsCash1}"></td>
+                                        <td  th:text="${current.remainsCash2}==0?null:${current.remainsCash2}"></td>
 
                                 </tr>
 
@@ -281,8 +281,8 @@
                                     <td style="background: #cccccc;" th:text="${currents.sale1}==0?null:${currents.sale1}"></td>
                                     <td style="background: #cccccc;" th:text="${currents.sale6}==0?null:${currents.sale6}"></td>
                                     <td style="background: #cccccc;" > <input name="" id=" " class="form-control" th:value="${currents.order}"></td>
-                                    <td style="background: #cccccc;" th:text="${currents.remainsCash1}"></td>
-                                    <td style="background: #cccccc;" th:text="${currents.remainsCash2}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsCash1}==0?null:${currents.remainsCash1}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsCash2}==0?null:${currents.remainsCash2}"></td>
                                 </tr>
 
                                 </tbody>
@@ -327,38 +327,39 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <div class="table_graduation">
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th name="grad" id="grad">МОДЕЛЬ</th>
-                                            <th>ост</th>
-                                            <th>ПРОД 1М</th>
-                                            <th>ПРОД 6m</th>
+                            <div class="RemainsShopGroup">
+                                <div class="col">
+                                    <div class="table_graduation">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th name="grad" id="group">МОДЕЛЬ</th>
+                                                <th>ост</th>
+                                                <th>ПРОД 1М</th>
+                                                <th>ПРОД 6m</th>
 
 
-                                        </tr>
-                                        </thead>
-                                        <tbody class="tbody">
-                                        <tr th:each="current : ${RemanisPhoneGroup}">
+                                            </tr>
+                                            </thead>
+                                            <tbody class="tbody">
+                                            <tr th:each="current : ${RemanisPhoneGroup}">
 
-                                            <td>
-                                                <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${current.shop}"
-                                                        type="button"></button>
-                                            </td>
-                                            <td th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
-                                            <td th:text="${current.sale1}==0?null:${current.sale1}"></td>
-                                            <td th:text="${current.sale6}==0?null:${current.sale6}"></td>
+                                                <td>
+                                                    <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${current.shop}"
+                                                            type="button"></button>
+                                                </td>
+                                                <td th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
+                                                <td th:text="${current.sale1}==0?null:${current.sale1}"></td>
+                                                <td th:text="${current.sale6}==0?null:${current.sale6}"></td>
 
 
-                                        </tr>
+                                            </tr>
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

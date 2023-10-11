@@ -28,7 +28,8 @@ public class OrderRecommendations {
     List<OrderRecommendations> indicatorPhoneShop;
     List<OrderRecommendations> indicatorPhoneSach;
     List<OrderRecommendations> distributionPhone;
-
+    List<OrderRecommendations> remanisPhoneShopT2;
+    List<OrderRecommendations> remanisPhoneShopMult;
     public OrderRecommendations(String group) {
         this.group = group;
     }
