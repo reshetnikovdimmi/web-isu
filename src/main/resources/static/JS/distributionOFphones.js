@@ -63,36 +63,46 @@ function tableRemainsGroupShopGlassAll() {
         $(document).find('.form-control').on('change', function() {
             var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text()
             var order = $(this).parents('tr:first').find('td:eq(4)').text()
-
-                let OrderRecommendations = {
-                        shop: shop,
-                        nomenclature: nomenclature,
-                        group: group,
-                        order: this.value,
-
-                    };
-
-                    sendRequest('POST', '/Distribution', OrderRecommendations).then(data => console.log(data)).catch(err => console.log(err))
+            let OrderRecommendations = {
+                shop: shop,
+                nomenclature: nomenclature,
+                group: group,
+                order: this.value,
+            };
+            sendRequest('POST', '/Distribution', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
         });
     });
 }
- function sendRequest(method, url, body = null) {
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest()
 
-            xhr.open(method, url)
-            xhr.responseType = 'json'
-            xhr.setRequestHeader('Content-Type', 'application/json')
-            xhr.onload = () => {
-                if (xhr.status >= 400) {
-                    reject(xhr.response)
-                } else {
-                    resolve(xhr.response)
-                }
+function distribution(data) {
+
+    var tds = document.querySelectorAll('.tableRemainsCash td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.indicatorPhoneShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneShop[j].group) {
+                tds[i + 1].innerHTML = data.indicatorPhoneShop[j].remainsCash1 == 0 ? null : data.indicatorPhoneShop[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneShop[j].remainsCash2 == 0 ? null : data.indicatorPhoneShop[j].remainsCash2;
             }
-            xhr.onerror = () => {
-                reject(xhr.response)
-            }
-            xhr.send(JSON.stringify(body))
-        })
+        }
     }
+}
+
+function sendRequest(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.responseType = 'json'
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response)
+            } else {
+                resolve(xhr.response)
+            }
+        }
+        xhr.onerror = () => {
+            reject(xhr.response)
+        }
+        xhr.send(JSON.stringify(body))
+    })
+}

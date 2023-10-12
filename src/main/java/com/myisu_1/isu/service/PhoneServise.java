@@ -89,6 +89,11 @@ public class PhoneServise extends AnalysisDistribution {
 
     public OrderRecommendations distribution(OrderRecommendations order) {
 
+        for (int i =0;i<or.getIndicatorPhoneShop().size();i++){
+               if (or.getIndicatorPhoneShop().get(i).getGroup().equals(order.getGroup())) {
+                   or.getIndicatorPhoneShop().get(i).setRemainsCash1(or.getIndicatorPhoneShop().get(i).getRemainsCash1()-order.getOrder());
+               }
+        }
         return or;
     }
 }
