@@ -1,4 +1,4 @@
-var a, group, shop;
+var a, group, shop, nomenclature;
 var btn;
 $(document).ready(function() {
     $(document).find('.tableRemainsCash .btn').on('click', function() {
@@ -60,22 +60,21 @@ function tableRemainsGroupShopGlassAll() {
         }
         a = $(this);
         a.parents().nextAll('.hide_minMatrix').toggle();
-        $(document).find('.form-control').on('change', function() {
-            var nomenclature = $(this).parents('tr:first').find('td:eq(0)').text()
-            var order = $(this).parents('tr:first').find('td:eq(4)').text()
-            let OrderRecommendations = {
-                shop: shop,
-                nomenclature: nomenclature,
-                group: group,
-                order: this.value,
-            };
-            sendRequest('POST', '/Distribution', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
-        });
+    });
+    $(document).find('.form-control').on('change', function() {
+        nomenclature = $(this).parents('tr:first').find('td:eq(0)').text()
+        var order = $(this).parents('tr:first').find('td:eq(4)').text()
+        let OrderRecommendations = {
+            shop: shop,
+            nomenclature: nomenclature,
+            group: group,
+            order: this.value,
+        };
+        sendRequest('POST', '/Distribution', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
     });
 }
 
 function distribution(data) {
-
     var tds = document.querySelectorAll('.tableRemainsCash td');
     for (var i = 0; i < tds.length; i++) {
         for (var j = 0; j < data.indicatorPhoneShop.length; j++) {
@@ -83,6 +82,60 @@ function distribution(data) {
                 tds[i + 1].innerHTML = data.indicatorPhoneShop[j].remainsCash1 == 0 ? null : data.indicatorPhoneShop[j].remainsCash1;
                 tds[i + 2].innerHTML = data.indicatorPhoneShop[j].remainsCash2 == 0 ? null : data.indicatorPhoneShop[j].remainsCash2;
             }
+        }
+    }
+    var tds = document.querySelectorAll('.RemanisPhoneShopT2 td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remanisPhoneShopT2.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopT2[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopT2[j].remainsShop == 0 ? null : data.remanisPhoneShopT2[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.RemanisPhoneShopMult td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remanisPhoneShopMult.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopMult[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopMult[j].remainsShop == 0 ? null : data.remanisPhoneShopMult[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.RemanisPhoneSach td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.indicatorPhoneSach.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneSach[j].nomenclature) {
+                tds[i + 1].innerHTML = data.indicatorPhoneSach[j].remainsCash1 == 0 ? null : data.indicatorPhoneSach[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneSach[j].remainsCash2 == 0 ? null : data.indicatorPhoneSach[j].remainsCash2;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.RemainsShopGroup td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remainsGroupShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remainsGroupShop[j].shop && data.remainsGroupShop[j].group == group) {
+                tds[i + 1].innerHTML = data.remainsGroupShop[j].remainsShop == 0 ? null : data.remainsGroupShop[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.TableDistributionPhone td');
+    var rem, rem1;
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.distributionPhone.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.distributionPhone[j].group && data.distributionPhone[j].shop == shop) {
+                tds[i + 4].innerHTML = data.distributionPhone[j].order == 0 ? null : data.distributionPhone[j].order;
+                tds[i + 5].innerHTML = data.distributionPhone[j].remainsCash1 == 0 ? null : data.distributionPhone[j].remainsCash1;
+                tds[i + 6].innerHTML = data.distributionPhone[j].remainsCash2 == 0 ? null : data.distributionPhone[j].remainsCash2;
+                for (var c = 0; c < data.distributionPhone[j].all.length; c++) {
+                    if (data.distributionPhone[j].all[c].nomenclature == nomenclature) {
+                        rem = data.distributionPhone[j].all[c].remainsCash1;
+                        rem1 = data.distributionPhone[j].all[c].remainsCash2;
+                    }
+                }
+            }
+        }
+        if (tds[i].innerHTML == nomenclature) {
+            tds[i + 5].innerHTML = rem == 0 ? null : rem;
+            tds[i + 6].innerHTML = rem1 == 0 ? null : rem1;
         }
     }
 }
