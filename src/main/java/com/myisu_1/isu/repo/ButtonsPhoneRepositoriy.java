@@ -5,6 +5,7 @@ import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.Phone.Buttons;
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
+import com.myisu_1.isu.models.Phone_Smart;
 import com.myisu_1.isu.models.SIM.RemanisSim;
 import com.myisu_1.isu.models.SIM.SaleSim_1m;
 import com.myisu_1.isu.models.SIM.SaleSim_6m;
@@ -20,8 +21,10 @@ public interface ButtonsPhoneRepositoriy extends JpaRepository<ButtonsPhone, Int
     List<Buttons> getButtonPhonePrice();
 
 
-    @Query("SELECT DISTINCT brend FROM ButtonsPhone")
+    @Query("SELECT model FROM ButtonsPhone ")
     List<String> getModelsGraduation();
+    @Query("SELECT  group FROM ButtonsPhone ")
+    List<String> getGroupShop();
 
     @Query("SELECT DISTINCT model FROM ButtonsPhone")
     List<String> getModelsButton();
@@ -58,8 +61,8 @@ public interface ButtonsPhoneRepositoriy extends JpaRepository<ButtonsPhone, Int
     @Query("SELECT remainsSimModem FROM SaleSim_1m WHERE shop = ?1 AND nameSimAndModem = ?2")
     String getShopRemanisSele1mModel(String authorizationList, String lis);
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.group, SUM (p.remainsSimAndModem)) FROM ButtonsPhone c   " +
-            "JOIN c.remanisSims p WHERE p.shop IS NOT NULL and c.group IS NOT NULL  GROUP BY p.shop, c.group ORDER BY c.group ASC")
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.group, c.model, p.remainsSimAndModem) FROM ButtonsPhone c   " +
+            "JOIN c.remanisSims p ")
     List<OrderRecommendations> getRemainsShopButton();
 
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (group) FROM ButtonsPhone ORDER BY group ASC")
@@ -68,10 +71,12 @@ public interface ButtonsPhoneRepositoriy extends JpaRepository<ButtonsPhone, Int
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimAndModem)) FROM ButtonsPhone c   " +
             "JOIN c.remanisSims p  GROUP BY p.shop")
     List<OrderRecommendations> getRemainsButton();
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimModem)) FROM ButtonsPhone c   " +
-            "JOIN c.saleSim_1m p   GROUP BY p.shop")
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, c.group, c.model, p.remainsSimModem) FROM ButtonsPhone c   " +
+            "JOIN c.saleSim_1m p   ")
     List<OrderRecommendations> getSale1Phone();
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, SUM (p.remainsSimModem)) FROM ButtonsPhone c   " +
-            "JOIN c.saleSim_6m p   GROUP BY p.shop")
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop, c.group, c.model, p.remainsSimModem) FROM ButtonsPhone c   " +
+            "JOIN c.saleSim_6m p   ")
     List<OrderRecommendations> getSale6Phone();
+    @Query("SELECT new com.myisu_1.isu.models.Phone_Smart (group, model,model,model,model) FROM ButtonsPhone")
+    List<Phone_Smart> phoneSmar();
 }

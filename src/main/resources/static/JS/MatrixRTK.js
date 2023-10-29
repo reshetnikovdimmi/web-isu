@@ -1,262 +1,175 @@
-var grop;
-var shop;
-var name;
+var a, group, shop, nomenclature;
+var btn;
+
 $(document).ready(function() {
-    remanisCash();
+
+    $(document).find('.table_RTK .btn').on('click', function() {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
+        $.get('/RemanisCashRTK/' + group, {}, function(data) {
+
+            $(".RemanRTKCash").html(data);
+            $("#group").html(group);
+            scrollInto()
+            $(document).find('.RemainsShopGroup .btn').on('click', function() {
+                var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
+                distributionTable(shop)
+            });
+        });
+    });
+    $(document).find('.RemanisPhoneShopT2 .btn').on('click', function() {
+        shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        distributionTable(shop)
+    });
+    $(document).find('.RemanisPhoneShopMult .btn').on('click', function() {
+        shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        distributionTable(shop)
+    });
 });
 
-function remanisCash() {
-    $(document).find('.table_RTK .btn').on('click', function() {
-        grop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-        $.get('/RemanisCashRTK/' + grop, {}, function(data) {
-            $(".RemanRTKCash").html(data);
-            remanisSaleRTKShop();
-        });
-    });
-}
-function updateRemanisCash() {
-
-        $.get('/RemanisCashRTK/' + grop, {}, function(data) {
-            $(".RemanRTKCash").html(data);
-
-        });
-
-}
-
-function remanisSaleRTKShop() {
-        $.get('/RemanisSaleRTKShop/' + grop, {}, function(data) {
-            $(".MatrixRTKShop").html(data);
-            createTableMatrixRTK();
-            createTableDistributionRTK();
-        });
-    }
-    function updateRemanisSaleRTKShop() {
-            $.get('/RemanisSaleRTKShop/' + grop, {}, function(data) {
-                $(".MatrixRTKShop").html(data);
-                createTableDistributionRTK()
-            });
-        }
-
-function createTableMatrixRTK() {
-  $.get('/TableMatrixRTK/', {}, function(data) {
-
-            $(".TableMatrixRTK").html(data);
-            console.log("ok")
-            var tds = document.querySelectorAll('.TableMatrixRTK');
-                for (var i = 0; i < tds.length; i++) {
-                console.log(tds[i])
-                if(tds[i].innerHTML<100){
-                                    tds[i].innerHTML.style.color = "#ff0000";
-                }
-}
-        });
-
-}
-function createTableDistributionRTK() {
-$(document).find('.MatrixRTKShop .btn').on('click', function() {
-        shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-        $.get('/TableDistributionRTK/' + shop, {}, function(data) {
-
-            tableDistributionRTK(data);
-        });
-    });
-}
-function tableDistributionRTK(data) {
-    var elem = document.querySelector('#table_DistributionRTK');
-    var elem1 = document.querySelector('#tables_DistributionRTK');
-    elem1.parentNode.removeChild(elem1);
-    var table = document.createElement(`table`);
-    table.id = 'tables_DistributionRTK';
-    table.classList.add("table-borderless");
-    table.classList.add("tables_DistributionRTK");
-    let thead = document.createElement('thead');
-    let row_1 = document.createElement('tr');
-    let heading_1 = document.createElement('th');
-    heading_1.innerHTML = shop;
-    let heading_2 = document.createElement('th');
-    heading_2.innerHTML = "ОСТ";
-    let heading_3 = document.createElement('th');
-    heading_3.innerHTML = "ПРОД6";
-    let heading_4 = document.createElement('th');
-    heading_4.innerHTML = "ПРОД";
-    let heading_5 = document.createElement('th');
-    heading_5.innerHTML = "ОСТСК";
-    let heading_6 = document.createElement('th');
-    heading_6.innerHTML = "ЗАКАЗ";
-    row_1.appendChild(heading_1);
-    row_1.appendChild(heading_2);
-    row_1.appendChild(heading_3);
-    row_1.appendChild(heading_4);
-    row_1.appendChild(heading_5);
-    row_1.appendChild(heading_6);
-    let tbody = document.createElement('tbody');
-    tbody.classList.add("labels2");
-    for (key in data) {
-
-            let tbody1 = document.createElement('tbody');
-            table.id = 'tables_DistributionRTK';
-            var tr = document.createElement('tr');
-            for (var j = 0; j < 6; j++) {
-                var td = document.createElement('td');
-                if (j == 0) {
-                    var button = document.createElement('button')
-                    button.classList.add("minMatrix");
-                    button.id = 'minMatrix';
-                    button.innerHTML = key;
-                    td.appendChild(button);
-                } else if (j > 0) {
-                    for (keys in data[key]) {
-                        if (keys == "total") {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "totalRemanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "totalSale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "totalSale6") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 4 && keyss === "totalRemanisCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 5 && keyss === "orderCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                            }
-                        }
-                    }
-                }
-                tr.appendChild(td);
-            }
-            tbody1.appendChild(tr);
-            tbody1.classList.add("labels");
-            tbody.appendChild(tbody1);
-            let tbody2 = document.createElement('tbody');
-            for (keys in data[key]) {
-                var tr = document.createElement('tr');
-                for (var j = 0; j < 6; j++) {
-                    var td = document.createElement('td');
-                    if (keys != "total") {
-                        if (j == 0) {
-                            td.innerHTML = keys;
-                         /*   if (keys == nameSim.replaceAll('_', '/')) {
-
-                                grop = key;
-                            }*/
-                        } else if (j > 0) {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "remanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "sale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "sale6") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 4 && keyss === "remanisCash") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 5 && keyss === "order") {
-                                    var input = document.createElement('input');
-                                    td.appendChild(input);
-                                    input.classList.add("SKYPhone");
-                                    input.value = data[key][keys][keyss]
-                                }
-                            }
-                        }
-                    }
-                    tr.appendChild(td);
-                }
-                tbody2.appendChild(tr);
-                tbody2.classList.add("hide_minMatrix");
-            }
-            tbody.appendChild(tbody2);
-
-    }
-    table.appendChild(tbody);
-    thead.appendChild(row_1);
-    table.appendChild(thead);
-    elem.appendChild(table);
-    var d;
-    $(document).find('.minMatrix').on('click', function() {
-        if (d != undefined) {
-            d.parents().next('.hide_minMatrix').toggle();
-        }
-        d = $(this);
-        d.parents().next('.hide_minMatrix').toggle();
-    });
+function scrollInto() {
     var tds = document.querySelectorAll('.minMatrix');
     for (var i = 0; i < tds.length; i++) {
-        if (tds[i].innerHTML == grop) {
-
+        if (tds[i].innerHTML == group) {
+            tds[i].scrollIntoView(true);
             tds[i].click();
-            tds[i].scrollIntoView();
         }
-        tds[i].addEventListener('click', function func() {
-            grop = this.innerHTML;
-
-
-            updateRemanisCash();
-            updateRemanisSaleRTKShop()
-        });
     }
-    $(document).find('.SKYPhone').on('click', function() {
-  name = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
+}
 
-    });
-
-    $(document).find('.SKYPhone').on('change', function() {
-        $('.btn-primary').attr('disabled', false);
-
-        $.get('/tableUpDistributionSim/' + shop.trim() + '/' + name + '/' + this.value + '/' + grop.trim(), {}, function(data) {
-
-        //   tableUpDistributionButton(data);
-         //   updateRemanisCash(grop);
-        });
+function distributionTable(shop) {
+    $.get('/TableDistributionRTK/' + shop, {}, function(data) {
+        $(".TableDistributionPhone").html(data);
+        tableRemainsGroupShopGlassAll()
+        $("#Shop").html(shop);
+        scrollInto()
     });
 }
 
-function view(key, data) {
-    var view = false;
-    for (keys in data[key]) {
-        for (keyss in data[key][keys]) {
-            if (Object.values(data[key][keys]).includes('t2')) {
-                view = true;
-            }
+function tableRemainsGroupShopGlassAll() {
+    $(document).find('.TableDistributionPhone .btn').on('click', function() {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        $.get('/RemanisCashRTK/' + group, {}, function(data) {
+            $(".RemanRTKCash").html(data);
+            $("#group").html(group);
+            $(document).find('.RemainsShopGroup .btn').on('click', function() {
+                var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                distributionTable(shop)
+            });
+        });
+    });
+    $(document).find('.minMatrix').on('click', function() {
+        if (a != undefined) {
+            a.parents().nextAll('.hide_minMatrix').toggle();
         }
-    }
-    return view;
+        a = $(this);
+        a.parents().nextAll('.hide_minMatrix').toggle();
+    });
+    $(document).find('.form-control').on('change', function() {
+        nomenclature = $(this).parents('tr:first').find('td:eq(0)').text()
+        var order = $(this).parents('tr:first').find('td:eq(4)').text()
+        let OrderRecommendations = {
+            shop: shop,
+            nomenclature: nomenclature,
+            group: group,
+            order: this.value,
+        };
+        $('#loader').removeClass('hidden')
+        sendRequest('POST', '/DistributionRTK', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
+    });
 }
-function tableUpDistributionButton(data) {
 
-    var tds = document.querySelectorAll('table.tables_DistributionButton td');
+function distribution(data) {
+
+    var tds = document.querySelectorAll('.tableRemainsCash td');
     for (var i = 0; i < tds.length; i++) {
-        for (key in data) {
-            if (tds[i].lastElementChild != null && key == tds[i].lastElementChild.innerHTML) {
-                for (keys in data[key]) {
-                    if (keys == "total") {
-                        for (keyss in data[key][keys]) {
-                            if (keyss == "orderCash") {
-                                tds[i + 5].innerHTML = data[key][keys][keyss];
-                            }
-                            if (keyss == "totalRemanisCash") {
-                                tds[i + 4].innerHTML = data[key][keys][keyss];
-                            }
-                        }
-                    }
-                }
+        for (var j = 0; j < data.indicatorPhoneShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneShop[j].group) {
+                tds[i + 1].innerHTML = data.indicatorPhoneShop[j].remainsCash1 == 0 ? null : data.indicatorPhoneShop[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneShop[j].remainsCash2 == 0 ? null : data.indicatorPhoneShop[j].remainsCash2;
             }
-            for (keys in data[key]) {
-                if (keys == tds[i].innerHTML) {
-                    for (keyss in data[key][keys]) {
-                        if (keyss == "remanisCash" && tds[i + 4].innerHTML != data[key][keys][keyss]) {
-                            tds[i + 4].innerHTML = data[key][keys][keyss];
-                        }
+        }
+    }
+    var tds = document.querySelectorAll('.RemanisPhoneShopT2 td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remanisPhoneShopT2.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopT2[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopT2[j].remainsShop == 0 ? null : data.remanisPhoneShopT2[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.RemanisPhoneShopMult td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remanisPhoneShopMult.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopMult[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopMult[j].remainsShop == 0 ? null : data.remanisPhoneShopMult[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.RemanisPhoneSach td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.indicatorPhoneSach.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneSach[j].nomenclature) {
+                tds[i + 1].innerHTML = data.indicatorPhoneSach[j].remainsCash1 == 0 ? null : data.indicatorPhoneSach[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneSach[j].remainsCash2 == 0 ? null : data.indicatorPhoneSach[j].remainsCash2;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.RemainsShopGroup td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remainsGroupShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remainsGroupShop[j].shop && data.remainsGroupShop[j].group == group) {
+                tds[i + 1].innerHTML = data.remainsGroupShop[j].remainsShop == 0 ? null : data.remainsGroupShop[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.TableDistributionPhone td');
+    var rem, rem1;
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.distributionPhone.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.distributionPhone[j].group && data.distributionPhone[j].shop == shop) {
+                tds[i + 4].innerHTML = data.distributionPhone[j].order == 0 ? null : data.distributionPhone[j].order;
+                tds[i + 5].innerHTML = data.distributionPhone[j].remainsCash1 == 0 ? null : data.distributionPhone[j].remainsCash1;
+                tds[i + 6].innerHTML = data.distributionPhone[j].remainsCash2 == 0 ? null : data.distributionPhone[j].remainsCash2;
+                for (var c = 0; c < data.distributionPhone[j].all.length; c++) {
+                    if (data.distributionPhone[j].all[c].nomenclature == nomenclature) {
+                        rem = data.distributionPhone[j].all[c].remainsCash1;
+                        rem1 = data.distributionPhone[j].all[c].remainsCash2;
                     }
                 }
             }
         }
+        if (tds[i].innerHTML == nomenclature) {
+            tds[i + 5].innerHTML = rem == 0 ? null : rem;
+            tds[i + 6].innerHTML = rem1 == 0 ? null : rem1;
+        }
+
     }
+ /* $.get('/UpDateMatrix', {}, function(data) {
+            $(".UpDateMatrix").html(data);
+
+        });*/
+
+$('#loader').addClass('hidden')
+}
+
+function sendRequest(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.responseType = 'json'
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response)
+            } else {
+                resolve(xhr.response)
+            }
+        }
+        xhr.onerror = () => {
+            reject(xhr.response)
+        }
+        xhr.send(JSON.stringify(body))
+    })
 }

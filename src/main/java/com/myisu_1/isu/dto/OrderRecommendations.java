@@ -41,6 +41,14 @@ public class OrderRecommendations {
         this.remainsCash2 = remainsCash2;
     }
 
+    public OrderRecommendations(String shop, String group, String nomenclature, Integer remainsShop, List<OrderRecommendations> all) {
+        this.shop = shop;
+        this.group = group;
+        this.nomenclature = nomenclature;
+        this.remainsShop = remainsShop;
+        this.all = all;
+    }
+
     public OrderRecommendations(String shop, String group, String nomenclature, String view, Integer remainsCash1, Integer remainsCash2, Integer remainsShop, Long remainsShopL, Integer remainsPhone, Integer sale1, Integer sale6, Integer order, List<OrderRecommendations> all) {
         this.shop = shop;
         this.group = group;

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Service
 public class MatrixRTKServise extends AnalysisDistribution {
@@ -34,18 +34,26 @@ public class MatrixRTKServise extends AnalysisDistribution {
     List<Authorization_tt> authorization;
     List<String> matrixRTKAll;
     List<String> shopRTKList;
-
+    Matrix matrix;
     public Object getSaleRemanisAll() {
-        remainsNomenclature = rtkTableRepositoriy.remainsSim();
-        warehouse = authorization_ttRepositoriy.getWarehouseList();
         or = new OrderRecommendations();
+        remainsNomenclature = rtkTableRepositoriy.remainsRTK();
+        sale1Nomenclature = rtkTableRepositoriy.getSale1Phone();
+        sale6Nomenclature = rtkTableRepositoriy.getSale6Phone();
+        phoneSmarts = rtkTableRepositoriy.phoneSmar();
+
+        warehouse = authorization_ttRepositoriy.getShopList();
+
+        remainsNomenclatureSach(rtkTableRepositoriy.getMatrixRTKAll());
         remainsCashGroup(rtkTableRepositoriy.getGroupView());
+        distributionPhone(rtkTableRepositoriy.getGroupView());
+        indicatorsPhoneShopGroup(rtkTableRepositoriy.getMatrixRTK(), null);
         return or;
 
     }
 
     public Object getTableMatrixRTK() {
-        Matrix matrix = new Matrix();
+        matrix = new Matrix();
 
         matrix.distributionModelList = matrixRTKRepository.getDistributionModelDistinct();
         List<Authorization_tt> clusterT2List = authorization_ttRepositoriy.getClusterRTKList();
@@ -59,80 +67,26 @@ public class MatrixRTKServise extends AnalysisDistribution {
                 }
             }
         }
-
-        return matrix.createMatrix(clusterT2List);
-    }
-
-    public Object getSaleRemanisShop(String grop) {
-
-        Map<String, Map<String, Integer>> distributionModel = new TreeMap<>();
-        Map<String, Integer> saleRemanis;
-
-        for (String shop : shopRTKList) {
-            saleRemanis = new TreeMap<>();
-            saleRemanis.put("remanis", remanisSimRepository.getRemanisRTKGropShop(rtkTableRepositoriy.getNameRainbow(grop), shop));
-            saleRemanis.put("sale6", saleSimModemRepository6m.getSale6DistrModel(rtkTableRepositoriy.getNameRainbow(grop), shop));
-            saleRemanis.put("sale1", saleSimModemRepository1m.getSale1DistrModel(rtkTableRepositoriy.getNameRainbow(grop), shop));
-            distributionModel.put(shop, saleRemanis);
-        }
-
-        return distributionModel;
-
-    }
-
-    public Map<String, Map<String, Map<String, Integer>>> remanisSaleShopRTK(String shop) {
-        if (shopRTK.containsKey(shop)) {
-            return shopRTK.get(shop);
-        } else {
-
-
-            for (String shops : shopRTKList) {
-                Map<String, Map<String, Map<String, Integer>>> distributionModel = new TreeMap<>();
-                for (String matrixRTK : matrixRTKAll) {
-                    List<String> nameRTK = rtkTableRepositoriy.getNameRainbow(matrixRTK);
-                    Map<String, Map<String, Integer>> model = new TreeMap<>();
-                    for (String name : nameRTK) {
-                        Map<String, Integer> indicator = new TreeMap<>();
-
-                        indicator.put("sale1", saleSimModemRepository1m.getSale1SimShop(name, shops));
-                        indicator.put("sale6", saleSimModemRepository6m.getSale6SimShop(name, shops));
-                        indicator.put("remanis", remanisSimRepository.getRemanisSimShop(name, shops));
-                        indicator.put("remanisCash", remanisSimRepository.getRemanisSimShop(name, shop));
-                        indicator.put("order", 0);
-                        model.put(name, indicator);
-
-                        indicator = new TreeMap<>();
-                        indicator.put("totalRemanis", remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(matrixRTK), shops));
-                        indicator.put("totalSale1", saleSimModemRepository1m.getSale1DistrModel(rtkTableRepositoriy.getNameRainbow(matrixRTK), shops));
-                        indicator.put("totalSale6", saleSimModemRepository6m.getSale6DistrModel(rtkTableRepositoriy.getNameRainbow(matrixRTK), shops));
-                        indicator.put("totalRemanisCash", remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(matrixRTK), authorization.get(2).getName()));
-                        indicator.put("orderCash", 0);
-                        model.put("total", indicator);
-
-
-                    }
-
-
-                    distributionModel.put(matrixRTK, model);
-                }
-                shopRTK.put(shops, distributionModel);
-            }
-
-            return shopRTK.get(shop);
-        }
-
-
-    }
-
-    public Object remanisCashRTK(String grop) {
-
-        return remanisSaleShopRTK(authorization.get(2).getName()).get(grop);
-
+        matrix.createMatrix(clusterT2List);
+        return matrix;
     }
 
 
-    public Map<String, Map<String, Map<String, Integer>>> createTableDistributionRTK(String shop) {
 
-        return shopRTK.get(shop);
+
+    public List<OrderRecommendations>  createTableDistributionRTK(String shop) {
+
+        return or.getDistributionPhone().stream().filter(r -> r.getShop().equals(shop)).collect(Collectors.toList());
+    }
+
+    public OrderRecommendations remanisPhoneSachRTK(String grop) {
+
+        return or;
+    }
+
+    public OrderRecommendations distribution(OrderRecommendations order) {
+        System.out.println(order);
+       // distributions(order,authorization_tt.getShopMult(),matrix.remainMatrixList);
+        return or;
     }
 }

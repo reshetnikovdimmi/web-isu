@@ -1,4 +1,47 @@
 
+    /*Hidden class for adding and removing*/
+    .lds-dual-ring.hidden {
+        display: none;
+    }
+
+    /*Add an overlay to the entire page blocking any further presses to buttons or other elements.*/
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0,0,0,.8);
+        z-index: 999;
+        opacity: 1;
+        transition: all 0.5s;
+    }
+
+    /*Spinner Styles*/
+    .lds-dual-ring {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+    }
+    .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 5% auto;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 
 
 
@@ -20,7 +63,7 @@
                         padding:1px;
 
                         width: 100%;
-                        height: 900px;
+                        height: 850px;
                         overflow: auto;
 
       }
@@ -42,16 +85,16 @@
 
             tbody td, thead th {
                 width: 300px;
-                 font-size: 09px;
+                 font-size: 08px;
                 overflow: hidden;
 
             }
 
 
- table {width: 100%; border-collapse: separate; border-spacing: 4px;}
+ table {width: 100%; border-collapse: separate; border-spacing: 1px;}
 .table thead tr {color: #ffffff; border-radius: 20px 20px 0 0; font-weight: bold;}
 .table thead tr td {border-radius: 4px 4px 0 0; background: #2e82c3;}
-.table tbody tr td {border:  1px solid #2e82c3; border-radius: 4px; background: #cbdfef;}
+.table tbody tr td {border:  1px solid #2e82c3; border-radius: 1px; background: #cbdfef;}
 .table tbody tr td:hover {background: #a2c3dd; transition-duration: 0.2s;}
  tbody, thead tr { display: block; }
 

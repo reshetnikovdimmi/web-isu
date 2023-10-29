@@ -124,6 +124,9 @@
                     </div>
                 </div>
             </div>
+            <div class="progress-bar">
+                <div class="progress-bar-inner"></div>
+            </div>
         </div>
 
 
@@ -275,7 +278,7 @@
                                 </tr>
 
                                 <tr th:each="currents:${current.all}" class="hide_minMatrix">
-                                    <td style="background: #cccccc;" th:text="${currents.nomenclature}"></td>
+                                    <td style="background: #cccccc; width: 200px; font-size: 10px;" th:text="${currents.nomenclature}"></td>
                                     <td style="background: #cccccc;" th:text="${currents.remainsShop}==0?null:${currents.remainsShop}"></td>
 
                                     <td style="background: #cccccc;" th:text="${currents.sale1}==0?null:${currents.sale1}"></td>
@@ -427,7 +430,7 @@
                         <a class="nav-link" data-toggle="tab" href="#menu4">Menu 4</a>
                     </li>
                 </ul>
-
+                <div class="UpDateMatrix" th:fragment="UpDateMatrix">
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div id="home_hom" class=" tab-pane active"><br>
@@ -438,7 +441,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr th:each="entry  : ${CreateMatrixT2}" >
-                                            <th style="width: 6%;">магазин</th>
+                                            <th style="width: 7%;">магазин</th>
                                         <span th:each="currents:${entry.distributionModelList}">
                                             <th th:text="${currents.replace('/',' ')}"> </th>
                                         </span>
@@ -470,7 +473,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr th:each="entry  : ${CreateMatrixT2}" >
-                                        <th style="width: 1000px;">магазин</th>
+                                        <th style="width: 7%;">магазин</th>
                                         <span th:each="currents:${entry.distributionModelList}">
                             <th th:text="${currents.replace('/',' ')}"> </th>
                             </span>
@@ -508,7 +511,7 @@
                     </div>
                 </div>
             </div>
-
+            </div>
         </div>
 
 

@@ -74,7 +74,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
 
 
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.Matrix_T2, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
-            "JOIN c.remanisSims p WHERE c.Matrix_T2 IN ?1 AND p.shop IN ?2  GROUP BY p.shop, c.Matrix_T2")
+            "LEFT JOIN c.remanisSims p WHERE c.Matrix_T2 IN ?1 AND p.shop IN ?2  GROUP BY p.shop, c.Matrix_T2")
     List<OrderRecommendations> getRemainsShopPhoneMatrix(List<String> matrix, List<String> shopT2);
 
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash(c.Brend, p.viewClothes) FROM Phone_Smart c   " +

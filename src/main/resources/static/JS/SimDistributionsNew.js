@@ -1,717 +1,178 @@
-var shop;
-var shopT2m;
-var shopMTS;
-var nameSim;
-var nameMTS;
-var nameSimT2m;
-var grop;
-var gropT2m;
-var gropMTS;
+var a, group, shop, nomenclature;
+var btn;
+
 $(document).ready(function() {
-    var tab;
+ var tab;
     $(".nav-tabs a").click(function() {
         $(this).tab('show');
     });
-    nameSimShop();
-    nameSimShopT2mult()
-    nameSimShopMTS();
-});
-
-function nameSimShop() {
     $(document).find('.table_simT2 .btn').on('click', function() {
-        nameSim = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_');
-        $.get('/RemanSimCash/' + nameSim, {}, function(data) {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
+        $.get('/table_simT2/' + group, {}, function(data) {
+
             $(".RemanSimCash").html(data);
-            remanSimShop();
+            $("#group").html(group);
+           scrollInto()
+            $(document).find('.table_graduation .btn').on('click', function() {
+                shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
 
-
+                distributionTable(shop)
+            });
         });
     });
-}
-function nameSimShopMTS() {
-    $(document).find('.table_simMTS .btn').on('click', function() {
-        nameMTS = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_');
-
-        $.get('/RemanSimCashMTS/' + nameMTS, {}, function(data) {
-            $(".RemanSimCashMTS").html(data);
-           remanSimShopMTS();
-
-
-        });
-    });
-}
-function nameSimShopT2mult() {
-    $(document).find('.table_simT2mult .btn').on('click', function() {
-        nameSimT2m = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_');
-        $.get('/RemanSimCashT2mult/' + nameSimT2m, {}, function(data) {
-            $(".RemanSimCashT2mult").html(data);
-           remanSimShopT2mult();
-
-
-        });
-    });
-}
-function remanSimShop() {
-$.get('/NameSimShop/' + nameSim + '/' + 't2', {}, function(data) {
-                $(".NameSimShop").html(data);
-               remanSaleSimShop();
-});
-}
-function remanSimShopMTS() {
-$.get('/NameSimShopMTS/' + nameMTS + '/' + 'mts', {}, function(data) {
-
-                $(".NameSimShopMTS").html(data);
-              remanSaleSimShopMTS();
-});
-}
-
-function remanSimShopT2mult() {
-
-$.get('/NameSimShopT2mult/' + nameSimT2m + '/' + 't2m', {}, function(data) {
-                $(".NameSimShopT2mult").html(data);
-              remanSaleSimShopT2m();
-});
-}
-function remanSaleSimShopMTS() {
-    $(document).find('.NameSimShopMTS .btn').on('click', function() {
-        shopMTS = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-
-        $.get('/RemanSaleSimShop/' + shopMTS, {}, function(data) {
-
-            orderFromSimMTS(data, shopMTS);
-        });
-    });
-}
-function remanSaleSimShopT2m() {
-    $(document).find('.NameSimShopT2mult .btn').on('click', function() {
-        shopT2m = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-        $.get('/RemanSaleSimShop/' + shopT2m, {}, function(data) {
-
-            orderFromSimT2m(data, shopT2m);
-        });
-    });
-}
-function remanSaleSimShop() {
-    $(document).find('.NameSimShop .btn').on('click', function() {
+    $(document).find('.RemanisPhoneShopT2 .btn').on('click', function() {
         shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-        $.get('/RemanSaleSimShop/' + shop, {}, function(data) {
-
-            orderFromMinMatrixT2Warehouse(data, shop);
-        });
+        distributionTable(shop)
     });
-}
-function updateRemanisCash(grop){
-$.get('/UpdateRemanisCash/' + grop, {}, function(data) {
-            $(".RemanSimCash").html(data);
-            });
-}
-function updateRemanisCashMTS(gropMTS){
-$.get('/UpdateRemanisCashMTS/' + gropMTS, {}, function(data) {
-
-            $(".RemanSimCashMTS").html(data);
-            });
-}
-function updateRemanisCashT2m(gropT2m){
-$.get('/UpdateRemanisCashT2mult/' + gropT2m, {}, function(data) {
-
-            $(".RemanSimCashT2mult").html(data);
-            });
-}
-
-function orderFromMinMatrixT2Warehouse(data, shop) {
-    var elem = document.querySelector('#table_DistributionButton');
-    var elem1 = document.querySelector('#tables_DistributionButton');
-    elem1.parentNode.removeChild(elem1);
-    var table = document.createElement(`table`);
-    table.id = 'tables_DistributionButton';
-    table.classList.add("table-borderless-1");
-    table.classList.add("tables_DistributionButton");
-    let thead = document.createElement('thead');
-    let row_1 = document.createElement('tr');
-    let heading_1 = document.createElement('th');
-    heading_1.innerHTML = shop;
-    let heading_2 = document.createElement('th');
-    heading_2.innerHTML = "ОСТ";
-    let heading_3 = document.createElement('th');
-    heading_3.innerHTML = "ПРОД6";
-    let heading_4 = document.createElement('th');
-    heading_4.innerHTML = "ПРОД";
-    let heading_5 = document.createElement('th');
-    heading_5.innerHTML = "ОСТСК";
-    let heading_6 = document.createElement('th');
-    heading_6.innerHTML = "ЗАКАЗ";
-    row_1.appendChild(heading_1);
-    row_1.appendChild(heading_2);
-    row_1.appendChild(heading_3);
-    row_1.appendChild(heading_4);
-    row_1.appendChild(heading_5);
-    row_1.appendChild(heading_6);
-    let tbody = document.createElement('tbody');
-    tbody.classList.add("labels2");
-    for (key in data) {
-        if (view(key, data)) {
-            let tbody1 = document.createElement('tbody');
-            table.id = 'tables_DistributionButton';
-            var tr = document.createElement('tr');
-            for (var j = 0; j < 6; j++) {
-                var td = document.createElement('td');
-                if (j == 0) {
-                    var button = document.createElement('button')
-                    button.classList.add("minMatrix");
-                    button.id = 'minMatrix';
-                    button.innerHTML = key;
-                    td.appendChild(button);
-                } else if (j > 0) {
-                    for (keys in data[key]) {
-                        if (keys == "total") {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "totalRemanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "totalSale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "totalSale6") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 4 && keyss === "totalRemanisCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 5 && keyss === "orderCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                            }
-                        }
-                    }
-                }
-                tr.appendChild(td);
-            }
-            tbody1.appendChild(tr);
-            tbody1.classList.add("labels");
-            tbody.appendChild(tbody1);
-            let tbody2 = document.createElement('tbody');
-            for (keys in data[key]) {
-                var tr = document.createElement('tr');
-                for (var j = 0; j < 6; j++) {
-                    var td = document.createElement('td');
-                    if (keys != "total") {
-                        if (j == 0) {
-                            td.innerHTML = keys;
-                            if (keys == nameSim.replaceAll('_', '/')) {
-
-                                grop = key;
-                            }
-                        } else if (j > 0) {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "remanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "sale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "sale6") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 4 && keyss === "remanisCash") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 5 && keyss === "order") {
-                                    var input = document.createElement('input');
-                                    td.appendChild(input);
-                                    input.classList.add("SKYPhone");
-                                    input.value = data[key][keys][keyss]
-                                }
-                            }
-                        }
-                    }
-                    tr.appendChild(td);
-                }
-                tbody2.appendChild(tr);
-                tbody2.classList.add("hide_minMatrix");
-            }
-            tbody.appendChild(tbody2);
-        }
-    }
-    table.appendChild(tbody);
-    thead.appendChild(row_1);
-    table.appendChild(thead);
-    elem.appendChild(table);
-    var d;
-    $(document).find('.minMatrix').on('click', function() {
-        if (d != undefined) {
-            d.parents().next('.hide_minMatrix').toggle();
-        }
-        d = $(this);
-        d.parents().next('.hide_minMatrix').toggle();
+    $(document).find('.RemanisPhoneShopMult .btn').on('click', function() {
+        shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        distributionTable(shop)
     });
+});
+
+function scrollInto() {
     var tds = document.querySelectorAll('.minMatrix');
     for (var i = 0; i < tds.length; i++) {
-        if (tds[i].innerHTML == grop) {
-
+        if (tds[i].innerHTML == group) {
+            tds[i].scrollIntoView(true);
             tds[i].click();
-            tds[i].scrollIntoView();
         }
-        tds[i].addEventListener('click', function func() {
-            grop = this.innerHTML;
-
-            //    accessoriesCategoryShop(grop);
-               updateRemanisCash(grop);
-            //  accessoriesCategoryMaxSale(grop);
-        });
     }
-    $(document).find('.SKYPhone').on('click', function() {
-    nameSim = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
-    remanSimShop();
-    });
+}
 
-    $(document).find('.SKYPhone').on('change', function() {
-        $('.btn-primary').attr('disabled', false);
-
-        $.get('/tableUpDistributionSim/' + shop.trim() + '/' + nameSim + '/' + this.value + '/' + grop.trim(), {}, function(data) {
-
-           tableUpDistributionButton(data);
-            updateRemanisCash(grop);
-        });
+function distributionTable(shop) {
+    $.get('/TableDistributionSim/' + shop, {}, function(data) {
+        $(".TableDistributionPhone").html(data);
+        tableRemainsGroupShopGlassAll()
+        $("#Shop").html(shop);
+        scrollInto()
     });
 }
 
-function view(key, data) {
-    var view = false;
-    for (keys in data[key]) {
-        for (keyss in data[key][keys]) {
-            if (Object.values(data[key][keys]).includes('t2')) {
-                view = true;
-            }
-        }
-    }
-    return view;
-}
-function tableUpDistributionButton(data) {
-
-    var tds = document.querySelectorAll('table.tables_DistributionButton td');
-    for (var i = 0; i < tds.length; i++) {
-        for (key in data) {
-            if (tds[i].lastElementChild != null && key == tds[i].lastElementChild.innerHTML) {
-                for (keys in data[key]) {
-                    if (keys == "total") {
-                        for (keyss in data[key][keys]) {
-                            if (keyss == "orderCash") {
-                                tds[i + 5].innerHTML = data[key][keys][keyss];
-                            }
-                            if (keyss == "totalRemanisCash") {
-                                tds[i + 4].innerHTML = data[key][keys][keyss];
-                            }
-                        }
-                    }
-                }
-            }
-            for (keys in data[key]) {
-                if (keys == tds[i].innerHTML) {
-                    for (keyss in data[key][keys]) {
-                        if (keyss == "remanisCash" && tds[i + 4].innerHTML != data[key][keys][keyss]) {
-                            tds[i + 4].innerHTML = data[key][keys][keyss];
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-function orderFromSimT2m(data, shop) {
-    var elem = document.querySelector('#table_DistribSim');
-    var elem1 = document.querySelector('#tables_DistribSim');
-    elem1.parentNode.removeChild(elem1);
-    var table = document.createElement(`table`);
-    table.id = 'tables_DistribSim';
-    table.classList.add("table-borderless-1");
-    table.classList.add("tables_DistribSim");
-    let thead = document.createElement('thead');
-    let row_1 = document.createElement('tr');
-    let heading_1 = document.createElement('th');
-    heading_1.innerHTML = shop;
-    let heading_2 = document.createElement('th');
-    heading_2.innerHTML = "ОСТ";
-    let heading_3 = document.createElement('th');
-    heading_3.innerHTML = "ПРОД6";
-    let heading_4 = document.createElement('th');
-    heading_4.innerHTML = "ПРОД";
-    let heading_5 = document.createElement('th');
-    heading_5.innerHTML = "ОСТСК";
-    let heading_6 = document.createElement('th');
-    heading_6.innerHTML = "ЗАКАЗ";
-    row_1.appendChild(heading_1);
-    row_1.appendChild(heading_2);
-    row_1.appendChild(heading_3);
-    row_1.appendChild(heading_4);
-    row_1.appendChild(heading_5);
-    row_1.appendChild(heading_6);
-    let tbody = document.createElement('tbody');
-    tbody.classList.add("labels2");
-    for (key in data) {
-        if (viewT2m(key, data)) {
-            let tbody1 = document.createElement('tbody');
-            table.id = 'tables_DistribSim';
-            var tr = document.createElement('tr');
-            for (var j = 0; j < 6; j++) {
-                var td = document.createElement('td');
-                if (j == 0) {
-                    var button = document.createElement('button')
-                    button.classList.add("minMatrix");
-                    button.id = 'minMatrix';
-                    button.innerHTML = key;
-                    td.appendChild(button);
-                } else if (j > 0) {
-                    for (keys in data[key]) {
-                        if (keys == "total") {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "totalRemanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "totalSale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "totalSale6") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 4 && keyss === "totalRemanisCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 5 && keyss === "orderCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                            }
-                        }
-                    }
-                }
-                tr.appendChild(td);
-            }
-            tbody1.appendChild(tr);
-            tbody1.classList.add("labels");
-            tbody.appendChild(tbody1);
-            let tbody2 = document.createElement('tbody');
-            for (keys in data[key]) {
-                var tr = document.createElement('tr');
-                for (var j = 0; j < 6; j++) {
-                    var td = document.createElement('td');
-                    if (keys != "total") {
-                        if (j == 0) {
-                            td.innerHTML = keys;
-                            if (keys == nameSimT2m.replaceAll('_', '/')) {
-
-                                gropT2m = key;
-                            }
-                        } else if (j > 0) {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "remanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "sale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "sale6") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 4 && keyss === "remanisCash") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 5 && keyss === "order") {
-                                    var input = document.createElement('input');
-                                    td.appendChild(input);
-                                    input.classList.add("SKYPhone");
-                                    input.value = data[key][keys][keyss]
-                                }
-                            }
-                        }
-                    }
-                    tr.appendChild(td);
-                }
-                tbody2.appendChild(tr);
-                tbody2.classList.add("hide_minMatrix");
-            }
-            tbody.appendChild(tbody2);
-        }
-    }
-    table.appendChild(tbody);
-    thead.appendChild(row_1);
-    table.appendChild(thead);
-    elem.appendChild(table);
-    var d;
+function tableRemainsGroupShopGlassAll() {
+    $(document).find('.TableDistributionPhone .btn').on('click', function() {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        $.get('/RemanisPhoneSach/' + group, {}, function(data) {
+            $(".RemanisPhoneSach").html(data);
+            $("#group").html(group);
+            $(document).find('.RemainsShopGroup .btn').on('click', function() {
+                var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                distributionTable(shop)
+            });
+        });
+    });
     $(document).find('.minMatrix').on('click', function() {
-        if (d != undefined) {
-            d.parents().next('.hide_minMatrix').toggle();
+        if (a != undefined) {
+            a.parents().nextAll('.hide_minMatrix').toggle();
         }
-        d = $(this);
-        d.parents().next('.hide_minMatrix').toggle();
+        a = $(this);
+        a.parents().nextAll('.hide_minMatrix').toggle();
     });
-    var tds = document.querySelectorAll('.minMatrix');
+    $(document).find('.form-control').on('change', function() {
+        nomenclature = $(this).parents('tr:first').find('td:eq(0)').text()
+        var order = $(this).parents('tr:first').find('td:eq(4)').text()
+        let OrderRecommendations = {
+            shop: shop,
+            nomenclature: nomenclature,
+            group: group,
+            order: this.value,
+        };
+        $('#loader').removeClass('hidden')
+        sendRequest('POST', '/Distribution', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
+    });
+}
+
+function distribution(data) {
+
+    var tds = document.querySelectorAll('.tableRemainsCash td');
     for (var i = 0; i < tds.length; i++) {
-        if (tds[i].innerHTML == gropT2m) {
-
-            tds[i].click();
-            tds[i].scrollIntoView();
-        }
-        tds[i].addEventListener('click', function func() {
-            gropT2m = this.innerHTML;
-
-            //    accessoriesCategoryShop(grop);
-              updateRemanisCashT2m(gropT2m);
-            //  accessoriesCategoryMaxSale(grop);
-        });
-    }
-    $(document).find('.SKYPhone').on('click', function() {
-    nameSimT2m = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
-    remanSimShopT2mult();
-    });
-
-    $(document).find('.SKYPhone').on('change', function() {
-        $('.btn-primary').attr('disabled', false);
-
-        $.get('/tableUpDistributionSim/' + shopT2m.trim() + '/' + nameSimT2m + '/' + this.value + '/' + gropT2m.trim(), {}, function(data) {
-
-           tableUpDistriSim(data);
-           updateRemanisCashT2m(gropT2m);
-        });
-    });
-}
-
-function viewT2m(key, data) {
-    var view = false;
-    for (keys in data[key]) {
-        for (keyss in data[key][keys]) {
-            if (Object.values(data[key][keys]).includes('t2m')) {
-                view = true;
+        for (var j = 0; j < data.indicatorPhoneShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneShop[j].group) {
+                tds[i + 1].innerHTML = data.indicatorPhoneShop[j].remainsCash1 == 0 ? null : data.indicatorPhoneShop[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneShop[j].remainsCash2 == 0 ? null : data.indicatorPhoneShop[j].remainsCash2;
             }
         }
     }
-    return view;
-}
-function tableUpDistriSim(data) {
-
-    var tds = document.querySelectorAll('table.tables_DistribSim td');
+    var tds = document.querySelectorAll('.RemanisPhoneShopT2 td');
     for (var i = 0; i < tds.length; i++) {
-        for (key in data) {
-            if (tds[i].lastElementChild != null && key == tds[i].lastElementChild.innerHTML) {
-                for (keys in data[key]) {
-                    if (keys == "total") {
-                        for (keyss in data[key][keys]) {
-                            if (keyss == "orderCash") {
-                                tds[i + 5].innerHTML = data[key][keys][keyss];
-                            }
-                            if (keyss == "totalRemanisCash") {
-                                tds[i + 4].innerHTML = data[key][keys][keyss];
-                            }
-                        }
-                    }
-                }
-            }
-            for (keys in data[key]) {
-                if (keys == tds[i].innerHTML) {
-                    for (keyss in data[key][keys]) {
-                        if (keyss == "remanisCash" && tds[i + 4].innerHTML != data[key][keys][keyss]) {
-                            tds[i + 4].innerHTML = data[key][keys][keyss];
-                        }
-                    }
-                }
+        for (var j = 0; j < data.remanisPhoneShopT2.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopT2[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopT2[j].remainsShop == 0 ? null : data.remanisPhoneShopT2[j].remainsShop;
             }
         }
     }
-}
-function orderFromSimMTS(data, shop) {
-    var elem = document.querySelector('#table_DistribSimMTS');
-    var elem1 = document.querySelector('#tables_DistribSimMTS');
-    elem1.parentNode.removeChild(elem1);
-    var table = document.createElement(`table`);
-    table.id = 'tables_DistribSimMTS';
-    table.classList.add("table-borderless-1");
-    table.classList.add("tables_DistribSimMTS");
-    let thead = document.createElement('thead');
-    let row_1 = document.createElement('tr');
-    let heading_1 = document.createElement('th');
-    heading_1.innerHTML = shop;
-    let heading_2 = document.createElement('th');
-    heading_2.innerHTML = "ОСТ";
-    let heading_3 = document.createElement('th');
-    heading_3.innerHTML = "ПРОД6";
-    let heading_4 = document.createElement('th');
-    heading_4.innerHTML = "ПРОД";
-    let heading_5 = document.createElement('th');
-    heading_5.innerHTML = "ОСТСК";
-    let heading_6 = document.createElement('th');
-    heading_6.innerHTML = "ЗАКАЗ";
-    row_1.appendChild(heading_1);
-    row_1.appendChild(heading_2);
-    row_1.appendChild(heading_3);
-    row_1.appendChild(heading_4);
-    row_1.appendChild(heading_5);
-    row_1.appendChild(heading_6);
-    let tbody = document.createElement('tbody');
-    tbody.classList.add("labels2");
-    for (key in data) {
-        if (viewMTS(key, data)) {
-            let tbody1 = document.createElement('tbody');
-            table.id = 'tables_DistribSimMTS';
-            var tr = document.createElement('tr');
-            for (var j = 0; j < 6; j++) {
-                var td = document.createElement('td');
-                if (j == 0) {
-                    var button = document.createElement('button')
-                    button.classList.add("minMatrix");
-                    button.id = 'minMatrix';
-                    button.innerHTML = key;
-                    td.appendChild(button);
-                } else if (j > 0) {
-                    for (keys in data[key]) {
-                        if (keys == "total") {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "totalRemanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "totalSale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "totalSale6") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 4 && keyss === "totalRemanisCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 5 && keyss === "orderCash") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                            }
-                        }
-                    }
-                }
-                tr.appendChild(td);
-            }
-            tbody1.appendChild(tr);
-            tbody1.classList.add("labels");
-            tbody.appendChild(tbody1);
-            let tbody2 = document.createElement('tbody');
-            for (keys in data[key]) {
-                var tr = document.createElement('tr');
-                for (var j = 0; j < 6; j++) {
-                    var td = document.createElement('td');
-                    if (keys != "total") {
-                        if (j == 0) {
-                            td.innerHTML = keys;
-                            if (keys == nameMTS.replaceAll('_', '/')) {
-
-                                gropMTS = key;
-                            }
-                        } else if (j > 0) {
-                            for (keyss in data[key][keys]) {
-                                if (j == 1 && keyss === "remanis") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 2 && keyss === "sale1") {
-                                    td.innerHTML = data[key][keys][keyss];
-                                }
-                                if (j == 3 && keyss === "sale6") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 4 && keyss === "remanisCash") {
-                                    td.innerHTML = data[key][keys][keyss]
-                                }
-                                if (j == 5 && keyss === "order") {
-                                    var input = document.createElement('input');
-                                    td.appendChild(input);
-                                    input.classList.add("SKYPhone");
-                                    input.value = data[key][keys][keyss]
-                                }
-                            }
-                        }
-                    }
-                    tr.appendChild(td);
-                }
-                tbody2.appendChild(tr);
-                tbody2.classList.add("hide_minMatrix");
-            }
-            tbody.appendChild(tbody2);
-        }
-    }
-    table.appendChild(tbody);
-    thead.appendChild(row_1);
-    table.appendChild(thead);
-    elem.appendChild(table);
-    var d;
-    $(document).find('.minMatrix').on('click', function() {
-        if (d != undefined) {
-            d.parents().next('.hide_minMatrix').toggle();
-        }
-        d = $(this);
-        d.parents().next('.hide_minMatrix').toggle();
-    });
-    var tds = document.querySelectorAll('.minMatrix');
+    var tds = document.querySelectorAll('.RemanisPhoneShopMult td');
     for (var i = 0; i < tds.length; i++) {
-        if (tds[i].innerHTML == gropMTS) {
-
-            tds[i].click();
-            tds[i].scrollIntoView();
-        }
-        tds[i].addEventListener('click', function func() {
-            gropMTS = this.innerHTML;
-
-              // accessoriesCategoryShop(grop);
-             updateRemanisCashMTS(gropMTS);
-            // accessoriesCategoryMaxSale(grop);
-        });
-    }
-    $(document).find('.SKYPhone').on('click', function() {
-    nameMTS = $(this).parents('tr:first').find('td:eq(0)').text().trim().replaceAll('/', '_')
-    remanSimShopMTS();
-    });
-
-    $(document).find('.SKYPhone').on('change', function() {
-        $('.btn-primary').attr('disabled', false);
-
-        $.get('/tableUpDistributionSim/' + shopMTS.trim() + '/' + nameMTS + '/' + this.value + '/' + gropMTS.trim(), {}, function(data) {
-
-           tableUpDistriSimMTS(data);
-           updateRemanisCashMTS(gropMTS);
-        });
-    });
-}
-
-function viewMTS(key, data) {
-    var view = false;
-    for (keys in data[key]) {
-        for (keyss in data[key][keys]) {
-            if (Object.values(data[key][keys]).includes('mts')) {
-                view = true;
+        for (var j = 0; j < data.remanisPhoneShopMult.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopMult[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopMult[j].remainsShop == 0 ? null : data.remanisPhoneShopMult[j].remainsShop;
             }
         }
     }
-    return view;
-}
-function tableUpDistriSimMTS(data) {
-
-    var tds = document.querySelectorAll('table.tables_DistribSimMTS td');
+    var tds = document.querySelectorAll('.RemanisPhoneSach td');
     for (var i = 0; i < tds.length; i++) {
-        for (key in data) {
-            if (tds[i].lastElementChild != null && key == tds[i].lastElementChild.innerHTML) {
-                for (keys in data[key]) {
-                    if (keys == "total") {
-                        for (keyss in data[key][keys]) {
-                            if (keyss == "orderCash") {
-                                tds[i + 5].innerHTML = data[key][keys][keyss];
-                            }
-                            if (keyss == "totalRemanisCash") {
-                                tds[i + 4].innerHTML = data[key][keys][keyss];
-                            }
-                        }
-                    }
-                }
+        for (var j = 0; j < data.indicatorPhoneSach.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneSach[j].nomenclature) {
+                tds[i + 1].innerHTML = data.indicatorPhoneSach[j].remainsCash1 == 0 ? null : data.indicatorPhoneSach[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneSach[j].remainsCash2 == 0 ? null : data.indicatorPhoneSach[j].remainsCash2;
             }
-            for (keys in data[key]) {
-                if (keys == tds[i].innerHTML) {
-                    for (keyss in data[key][keys]) {
-                        if (keyss == "remanisCash" && tds[i + 4].innerHTML != data[key][keys][keyss]) {
-                            tds[i + 4].innerHTML = data[key][keys][keyss];
-                        }
+        }
+    }
+    var tds = document.querySelectorAll('.RemainsShopGroup td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remainsGroupShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remainsGroupShop[j].shop && data.remainsGroupShop[j].group == group) {
+                tds[i + 1].innerHTML = data.remainsGroupShop[j].remainsShop == 0 ? null : data.remainsGroupShop[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.TableDistributionPhone td');
+    var rem, rem1;
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.distributionPhone.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.distributionPhone[j].group && data.distributionPhone[j].shop == shop) {
+                tds[i + 4].innerHTML = data.distributionPhone[j].order == 0 ? null : data.distributionPhone[j].order;
+                tds[i + 5].innerHTML = data.distributionPhone[j].remainsCash1 == 0 ? null : data.distributionPhone[j].remainsCash1;
+                tds[i + 6].innerHTML = data.distributionPhone[j].remainsCash2 == 0 ? null : data.distributionPhone[j].remainsCash2;
+                for (var c = 0; c < data.distributionPhone[j].all.length; c++) {
+                    if (data.distributionPhone[j].all[c].nomenclature == nomenclature) {
+                        rem = data.distributionPhone[j].all[c].remainsCash1;
+                        rem1 = data.distributionPhone[j].all[c].remainsCash2;
                     }
                 }
             }
         }
+        if (tds[i].innerHTML == nomenclature) {
+            tds[i + 5].innerHTML = rem == 0 ? null : rem;
+            tds[i + 6].innerHTML = rem1 == 0 ? null : rem1;
+        }
+
     }
+  $.get('/UpDateMatrix', {}, function(data) {
+            $(".UpDateMatrix").html(data);
+         $('#loader').addClass('hidden')
+        });
+
+
+}
+
+function sendRequest(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.responseType = 'json'
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response)
+            } else {
+                resolve(xhr.response)
+            }
+        }
+        xhr.onerror = () => {
+            reject(xhr.response)
+        }
+        xhr.send(JSON.stringify(body))
+    })
 }

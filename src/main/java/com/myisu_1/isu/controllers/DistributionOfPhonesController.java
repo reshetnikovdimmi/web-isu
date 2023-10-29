@@ -55,6 +55,12 @@ public class DistributionOfPhonesController {
         return "distributionOFphones::CreateMatrixT2";
 
     }
+    @GetMapping("/UpDateMatrix")
+    private String UpDateMatrix(Model model) {
+        model.addAttribute("CreateMatrixT2", phoneServise.upDateMatrix());
+        return "distributionOFphones::UpDateMatrix";
+
+    }
     @PostMapping("/Distribution")
     private ResponseEntity<OrderRecommendations> distribution(@RequestBody OrderRecommendations OR) {
 

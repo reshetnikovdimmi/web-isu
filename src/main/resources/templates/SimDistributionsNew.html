@@ -10,8 +10,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
     <script type="text/javascript" th:src="@{/JS/SimDistributionsNew.js}"></script>
-    <link rel="stylesheet" th:href="@{/CSS/ButtonsPhoneDistribution.css}"/>
-    <link href="headers.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/CSS/SIM.css}"/>
+
 </head>
 <body>
 
@@ -89,7 +89,7 @@
                     <div class="col">
                         <div class="row">
                             <div class="table_simT2">
-                                <table class="table-borderless">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>ГРУППА</th>
@@ -102,11 +102,11 @@
                                     </thead>
                                     <tbody class="tbody">
 
-                                    <tr th:each="current : ${Accessories}" th:if="${current.view == 't2'}">
+                                    <tr th:each="current : ${Accessories.indicatorPhoneShop}" th:if="${current.view == 't2'}">
 
                                         <td>
-                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
-                                                    type="submit"></button>
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.group}"
+                                                    type="button"></button>
                                         </td>
 
                                         <td th:text="${current.remainsCash1}"></td>
@@ -123,7 +123,7 @@
 
                             <div class="NameSimShop" th:fragment="NameSimShop">
                                 <div class="table_NameSimShop">
-                                <table class="table-borderless">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>ТТ</th>
@@ -159,26 +159,71 @@
                         </div>
                     </div>
                     <div class="col-md-6 themed-grid-col">
-                        <div class="table" id="table_DistributionButton">
-                            <table class="table-responsive table-hover" id="tables_DistributionButton">
-                                <thead class="table-dark table-hover">
+                        <div class="TableDistributionPhone" th:fragment="TableDistributionPhone">
+                            <table class="table table-hover" >
+                                <thead>
+                                <tr>
+                                    <th id="Shop" style="width: 25%;">------ТТ-----</th>
+                                    <th>ОСТАТОК</th>
 
+                                    <th>ПРОД 1М</th>
+                                    <th>ПРОД 6/3М</th>
+                                    <th>ПОТРЕБНОСТЬ</th>
+                                    <th>СКЛАД 1</th>
+                                    <th>СКЛАД 2</th>
+                                </tr>
                                 </thead>
-                                <tbody>
+                            </table>
+                            <div class="fixed_header">
+
+                                <table class="table table-hover" >
 
 
-                                </tbody>
+                                    <tbody class="labels"  th:each="current:${TableDistributionPhone}" th:if="${current.view == 't2'}">
+
+                                    <tr style="border:2px solid rgb(240, 240, 240);">
+
+                                        <td >
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-aut minMatrix" style="width: 200px; font-size: 10px;"
+                                                    th:text="${current.group}"
+                                                    type="button"></button>
+                                        </td >
+                                        <td  th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
+
+                                        <td  th:text="${current.sale1}==0?null:${current.sale1}"></td>
+                                        <td  th:text="${current.sale6}==0?null:${current.sale6}"></td>
+                                        <td  th:text="${current.order}"></td>
+                                        <td  th:text="${current.remainsCash1}==0?null:${current.remainsCash1}"></td>
+                                        <td  th:text="${current.remainsCash2}==0?null:${current.remainsCash2}"></td>
+
+                                    </tr>
+
+                                    <tr th:each="currents:${current.all}" class="hide_minMatrix">
+                                        <td style="background: #cccccc; width: 200px; font-size: 10px;" th:text="${currents.nomenclature}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsShop}==0?null:${currents.remainsShop}"></td>
+
+                                        <td style="background: #cccccc;" th:text="${currents.sale1}==0?null:${currents.sale1}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.sale6}==0?null:${currents.sale6}"></td>
+                                        <td style="background: #cccccc;" > <input name="" id=" " class="form-control" th:value="${currents.order}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsCash1}==0?null:${currents.remainsCash1}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsCash2}==0?null:${currents.remainsCash2}"></td>
+                                    </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
                             </table>
                         </div>
                     </div>
                     <div class="col">
-
+                        <div class="RemanSimCash" th:fragment="RemanSimCash">
                         <div class="row">
 
-                            <div class="RemanSimCash" th:fragment="RemanSimCash">
+
                                 <div class="row">
-                                    <div class="table_graduation">
-                                        <table class="table-borderless">
+
+                                        <table class="table table-hover">
                                             <thead>
                                             <tr>
                                                 <th>МОДЕЛЬ</th>
@@ -187,82 +232,64 @@
                                             </tr>
                                             </thead>
                                             <tbody class="tbody">
-                                            <tr th:each="entry, stats  : ${RemanSimCash}" th:with="user=${entry.value}">
-                                                  <span th:if="${entry.key != 'total'}">
-                                                  <td th:text="${entry.key}"></td>
-                                                  <span th:each="word : ${entry.value}">
-                                                  <span th:if="${word.key == 'remanisCash'}">
-                                              <td th:text="${word.value}"></td>
-                                              </span>
-                                                      </span>
-                                    </span>
+
+                                            <tr th:each="current : ${RemanSimCash} " >
+
+                                                <td>
+                                                    <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.nomenclature}"
+                                                            type="button"></button>
+                                                </td>
+
+                                                <td th:text="${current.remainsCash1}"></td>
+                                                <td th:text="${current.remainsCash2}"></td>
+
+                                            </tr>
                                             </tr>
 
 
                                             </tbody>
                                         </table>
-                                    </div>
+
                                 </div>
                                 <div class="row">
-                                      <span th:each="entry, stats  : ${RemanSimCash}" th:with="user=${entry.value}">
-                                          <span th:if="${entry.key == 'total'}">
 
-
-                                          <span th:each="word : ${entry.value}">
-                                                  <span th:if="${word.key == 'totalRemanisCash'}">
-                                                      <h8 class="mt-4"><p th:text="${entry.key} +'   '+ ${word.value}"/></h8>
-
-                                              </span>
-                                                 </span>
-                                      </span>
-                                      </span>
                                 </div>
-                            </div>
+
                         </div>
                         <div class="row"><span class="fs-4"></span></div>
                         <div class="row">
-                            <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
+
 
                                 <div class="table_graduation">
-                                    <table class="table-borderless">
+                                    <table class="table table-hover">
                                         <thead>
                                         <tr>
-                                            <th name="grad" id="grad">МОДЕЛЬ</th>
+                                            <th name="grad" id="group">МОДЕЛЬ</th>
+                                            <th>ост</th>
                                             <th>ПРОД 1М</th>
                                             <th>ПРОД 6m</th>
-                                            <th>ТЕЛЕ2</th>
 
 
                                         </tr>
                                         </thead>
                                         <tbody class="tbody">
-                                        <tr th:each="entry, stats  : ${AccessoriesCategoryMaxSale}"
-                                            th:with="user=${entry.value}">
-                                            <td th:text="${entry.key}">
+                                        <tr th:each="current : ${RemanisPhoneGroup}"th:if="${current.view == 't2'}">
 
+                                            <td>
+                                                <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${current.shop}"
+                                                        type="button"></button>
                                             </td>
-
-                                            <span th:each="word : ${entry.value}">
-                                                   <span th:if="${word.key == 'ПРОД 6/3М' }">
-                                                       <td th:text="${word.value}"></td>
-                                                   </span>
-                                                  <span th:if="${word.key == 'ПРОД 1М' }">
-                                                       <td th:text="${word.value}"></td>
-                                                   </span>
-                                                  <span th:if="${word.key == 'ТЕЛЕ2' }">
-                                                       <td th:text="${word.value}"></td>
-                                                   </span>
+                                            <td th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
+                                            <td th:text="${current.sale1}==0?null:${current.sale1}"></td>
+                                            <td th:text="${current.sale6}==0?null:${current.sale6}"></td>
 
 
-                                              </span>
                                         </tr>
-
 
                                         </tbody>
                                     </table>
                                 </div>
-
-                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -278,7 +305,7 @@
                     <div class="col">
                         <div class="row">
                             <div class="table_simT2mult">
-                                <table class="table-borderless">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>МОДЕЛЬ</th>
@@ -291,11 +318,11 @@
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="current : ${Accessories}" th:if="${current.view == 't2m'}">
+                                    <tr th:each="current : ${Accessories.indicatorPhoneShop}" th:if="${current.view == 't2m'}">
 
                                         <td>
-                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
-                                                    type="submit"></button>
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.group}"
+                                                    type="button"></button>
                                         </td>
 
                                         <td th:text="${current.remainsCash1}"></td>
@@ -312,7 +339,7 @@
 
 
                             <div class="NameSimShopT2mult" th:fragment="NameSimShopT2mult">
-                                <table class="table-borderless">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>ТТ</th>
@@ -366,7 +393,7 @@
                             <div class="RemanSimCashT2mult" th:fragment="RemanSimCashT2mult">
                                 <div class="row">
                                     <div class="table_graduation">
-                                        <table class="table-borderless">
+                                        <table class="table table-hover">
                                             <thead>
                                             <tr>
                                                 <th>МОДЕЛЬ</th>
@@ -414,7 +441,7 @@
                             <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
 
                                 <div class="table_graduation">
-                                    <table class="table-borderless">
+                                    <table class="table table-hover">
                                         <thead>
                                         <tr>
                                             <th name="grad" id="grad">МОДЕЛЬ</th>
@@ -471,7 +498,7 @@
                     <div class="col">
                         <div class="row">
                             <div class="table_simMTS">
-                                <table class="table-borderless">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>МОДЕЛЬ</th>
@@ -484,11 +511,11 @@
                                     </tr>
                                     </thead>
                                     <tbody class="tbody">
-                                    <tr th:each="current : ${Accessories}" th:if="${current.view == 'mts'}">
+                                    <tr th:each="current : ${Accessories.indicatorPhoneShop}" th:if="${current.view == 'mts'}">
 
                                         <td>
-                                            <button class="btn btn-primary btn-sm btn-block" th:text="${current.group}"
-                                                    type="submit"></button>
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.group}"
+                                                    type="button"></button>
                                         </td>
 
                                         <td th:text="${current.remainsCash1}"></td>
@@ -505,7 +532,7 @@
 
 
                             <div class="NameSimShopMTS" th:fragment="NameSimShopMTS">
-                                <table class="table-borderless">
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>ТТ</th>
@@ -559,7 +586,7 @@
                             <div class="RemanSimCashMTS" th:fragment="RemanSimCashMTS">
                                 <div class="row">
                                     <div class="table_graduation">
-                                        <table class="table-borderless">
+                                        <table class="table table-hover">
                                             <thead>
                                             <tr>
                                                 <th>МОДЕЛЬ</th>
@@ -607,7 +634,7 @@
                             <div class="AccessoriesCategoryMaxSale" th:fragment="AccessoriesCategoryMaxSale">
 
                                 <div class="table_graduation">
-                                    <table class="table-borderless">
+                                    <table class="table table-hover">
                                         <thead>
                                         <tr>
                                             <th name="grad" id="grad">МОДЕЛЬ</th>

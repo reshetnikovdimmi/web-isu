@@ -3,12 +3,15 @@ package com.myisu_1.isu.controllers;
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.exporte.ExselFileExporteDistributionButton;
 import com.myisu_1.isu.exporte.ExselFileExporteDistributionImei;
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
 import com.myisu_1.isu.repo.ButtonsPhoneRepositoriy;
 import com.myisu_1.isu.repo.SuppliersRepositoriy;
 import com.myisu_1.isu.service.ButtonsPhoneServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class ButtonsPhoneController {
@@ -82,42 +86,33 @@ public class ButtonsPhoneController {
     @RequestMapping(value="/tableShopRemanisSele/{brend}", method=RequestMethod.GET)
     private String tableShopRemanisSele(@PathVariable("brend")  String brend, Model model) {
 
-       model.addAttribute("graduation",buttonsPhoneServise.tableShopRemanisSele(brend));
+      // model.addAttribute("graduation",buttonsPhoneServise.tableShopRemanisSele(brend));
+        OrderRecommendations or = buttonsPhoneServise.tableShopRemanisSele(brend);
 
+        model.addAttribute("graduation", or.getIndicatorPhoneSach().stream().filter(r -> r.getGroup().equals(brend)).collect(Collectors.toList()));
+        model.addAttribute("RemanisPhoneGroup", or.getRemainsGroupShop().stream().filter(r ->r.getGroup()!=null && r.getGroup().equals(brend)).collect(Collectors.toList()));
         return "ButtonsPhoneDistribution::graduation";
     }
-    @RequestMapping(value="/tableShopRemanisCash/{brend}", method=RequestMethod.GET)
-    private String tableShopRemanisCash(@PathVariable("brend")  String brend, Model model) {
-
-        model.addAttribute("graduation",buttonsPhoneServise.tableShopRemanisCash(brend));
-
-        return "ButtonsPhoneDistribution::RemanisCash";
+    @PostMapping("/DistributionButton")
+    private ResponseEntity<OrderRecommendations> distribution(@RequestBody OrderRecommendations OR) {
+        return new ResponseEntity<>(buttonsPhoneServise.distribution(OR), HttpStatus.OK);
     }
-    @ResponseBody
+
     @RequestMapping(value="/tableDistributionButton/{shop}", method=RequestMethod.GET)
-    private Map<String, Map<String, Map<String, String>>> tableDistributionButton(@PathVariable("shop")  String shop, Model model) {
-
-        return buttonsPhoneServise.tableShopRemanis(shop);
+    private String tableDistributionButton(@PathVariable("shop")  String shop, Model model) {
+        model.addAttribute("TableDistributionPhone", buttonsPhoneServise.tableShopRemanis(shop));
+        return "ButtonsPhoneDistribution::TableDistributionPhone";
     }
-    @ResponseBody
-    @RequestMapping(value = "tableShopRemanis/{shop}", method = RequestMethod.GET)
-    public Map<String, Map<String, Map<String, String>>> tableShopRemanis(@PathVariable("shop")  String shop) {
 
-        return buttonsPhoneServise.tableShopRemanis(shop);
-    }
-    @ResponseBody
-    @RequestMapping(value = "tableUpDistributionButton/{shop}/{models}/{quantity}/{brend}", method = RequestMethod.GET)
-    public Map<String, Map<String, Map<String, String>>> tableUpDistributionButton(@PathVariable("shop")  String shop, @PathVariable("models")  String models,@PathVariable("quantity")  String quantity,@PathVariable("brend")  String brend) {
 
-        return buttonsPhoneServise.tableUpDistributionButton(shop,models,quantity,brend);
-    }
+
     @GetMapping("/exselDistributionButton")
     public void downloadExselFile(HttpServletResponse response) throws IOException {
 
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition","attachment; filename=DistributionButton.xlsx");
 
-        ByteArrayInputStream inputStream = ExselFileExporteDistributionButton.exportPrisePromoFile(buttonsPhoneServise.exselDistributionButto(), buttonsPhoneRepositoriy.getModelsButton());
+        ByteArrayInputStream inputStream = ExselFileExporteDistributionPhones.exportPrisePromoFile(buttonsPhoneServise.exselDistributionButto());
 
         IOUtils.copy(inputStream, response.getOutputStream());
 

@@ -1,12 +1,8 @@
 package com.myisu_1.isu.service;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
-import com.myisu_1.isu.models.Authorization_tt;
 import com.myisu_1.isu.models.Phone.Buttons;
 import com.myisu_1.isu.models.Phone.ButtonsPhone;
-import com.myisu_1.isu.models.SIM.RemanisSim;
-import com.myisu_1.isu.models.SIM.SaleSim_1m;
-import com.myisu_1.isu.models.SIM.SaleSim_6m;
 import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.ButtonsPhoneRepositoriy;
 import com.myisu_1.isu.repo.PostRepositoriy;
@@ -16,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Service
 public class ButtonsPhoneServise extends AnalysisDistribution {
@@ -25,16 +21,17 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
     private ButtonsPhoneRepositoriy buttonsPhoneRepositoriy;
     @Autowired
     private PostRepositoriy authorizationRep;
-    List<Buttons> buttons;
-    List<String> buttonModel;
-    Map<String, Map<String, Map<String, Map<String, String>>>> modelShopSaleRem;
+    @Autowired
+    public PostRepositoriy authorization_tt;
 
-    public List<Buttons> findAllButtonsPhone() {
+     public List<Buttons> findAllButtonsPhone() {
         return buttonsPhoneRepositoriy.getButtonPhonePrice();
     }
 
     public OrderRecommendations remainsCashGroup() {
+        or = new OrderRecommendations();
         List<Buttons> buttons = buttonsPhoneRepositoriy.getButtonPhonePrice();
+
         List<ButtonsPhone> bpList = new ArrayList<>();
         for (Buttons b : buttons) {
             ButtonsPhone bp = new ButtonsPhone();
@@ -45,12 +42,17 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
         }
         buttonsPhoneRepositoriy.deleteAll();
         buttonsPhoneRepositoriy.saveAll(bpList);
+
         remainsNomenclature = buttonsPhoneRepositoriy.getRemainsShopButton();
-        warehouse = authorizationRep.getWarehouseList();
+
+        warehouse = authorizationRep.getShopList();
         sale1Nomenclature = buttonsPhoneRepositoriy.getSale1Phone();
         sale6Nomenclature = buttonsPhoneRepositoriy.getSale6Phone();
-
-        remainsCashGroup(buttonsPhoneRepositoriy.getGroupView());
+        phoneSmarts = buttonsPhoneRepositoriy.phoneSmar();
+        remainsCashGroup(buttonsPhoneRepositoriy.getGroupView().stream().filter(r -> r.getGroup() != null).collect(Collectors.toList()));
+        remainsNomenclatureSach(buttonsPhoneRepositoriy.getModelsGraduation());
+        indicatorsPhoneShopGroup(buttonsPhoneRepositoriy.getGroupShop().stream().distinct().collect(Collectors.toList()), null);
+        distributionPhone(buttonsPhoneRepositoriy.getGroupView());
         return or;
     }
 
@@ -70,173 +72,29 @@ public class ButtonsPhoneServise extends AnalysisDistribution {
 
     public Object remanisButtonShop() {
 
-        return remainsSaleShopAll(authorizationRep.getShopList(), null);
+        or.setRemanisPhoneShopMult(remainsSaleShopAll(authorization_tt.getShopList(), null));
+        return or.getRemanisPhoneShopMult();
     }
 
 
-
-    public Map<String, Map<String, Map<String, String>>> tableShopRemanis(String shop) {
-
-        if (!modelShopSaleRem.isEmpty() && modelShopSaleRem.containsKey(shop)) {
-            return modelShopSaleRem.get(shop);
-        } else {
-
-            Map<String, Map<String, Map<String, String>>> modelShopSale = new TreeMap<>();
-            Map<String, Map<String, String>> modelShop;
-
-
-            for (String List : button.graduationButton.keySet()) {
-                modelShop = new TreeMap<>();
-                modelShop.put("ИТОГО", shopRemanisSele(button.graduationButton.get(List), shop, List));
-                for (String Lis : button.graduationButton.get(List)) {
-                    modelShop.put(Lis, model(shop, Lis, List));
-                }
-
-                modelShopSale.put(List, modelShop);
-
-            }
-            modelShopSaleRem.put(shop, modelShopSale);
-        }
-
-        return modelShopSaleRem.get(shop);
+    public List<OrderRecommendations> tableShopRemanis(String shop) {
+        return or.getDistributionPhone().stream().filter(r -> r.getShop().equals(shop)).collect(Collectors.toList());
     }
 
-    private Map<String, String> model(String authorizationList, String lis, String list) {
-        Map<String, String> model = new TreeMap<>();
-
-
-        model.put("ОСТ", buttonsPhoneRepositoriy.getShopRemanisModel(authorizationList, lis));
-        model.put("ПРОД6", buttonsPhoneRepositoriy.getShopRemanisSele6mModel(authorizationList, lis));
-        model.put("ПРОД1", buttonsPhoneRepositoriy.getShopRemanisSele1mModel(authorizationList, lis));
-        if (modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())) {
-
-
-            model.put("ОСТСК", String.valueOf(modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(list).get(lis).get("ОСТСК")));
-        } else {
-            model.put("ОСТСК", buttonsPhoneRepositoriy.getShopRemanisModel(button.authorization_ttList.get(0).getName(), lis));
-        }
-
-        model.put("ЗАКАЗ", "0");
-
-        return model;
-
+    public OrderRecommendations tableShopRemanisSele(String brendPhone) {
+        return or;
     }
 
 
-    public Map<String, Map<String, String>> tableShopRemanisSele(String brendPhone) {
+    public OrderRecommendations exselDistributionButto() {
 
-
-        Map<String, Map<String, String>> shopRemanisSele = new TreeMap<>();
-
-        for (Authorization_tt authorizationList : button.authorization_ttList) {
-            shopRemanisSele.put(authorizationList.getName(), shopRemanisSele(button.graduationButton.get(brendPhone), authorizationList.getName(), brendPhone));
-
-        }
-        return shopRemanisSele;
-    }
-
-    private Map<String, String> shopRemanisSele(List<String> strings, String name, String list) {
-        int sumsale = 0;
-        Map<String, String> shopRemanisSele = new TreeMap<>();
-        List<RemanisSim> remanis = buttonsPhoneRepositoriy.getShopRemanis(strings);
-        for (RemanisSim sal : remanis) {
-            if (name.equals(sal.getShop())) {
-                sumsale += sal.getRemainsSimModem();
-            }
-
-        }
-
-        shopRemanisSele.put("Remanis", String.valueOf(sumsale));
-        sumsale = 0;
-
-        List<SaleSim_6m> sale6m = buttonsPhoneRepositoriy.getShopRemanisSele6m(strings);
-        for (SaleSim_6m sal : sale6m) {
-            if (name.equals(sal.getShop())) {
-                sumsale += sal.getRemainsSimModem();
-            }
-
-        }
-        shopRemanisSele.put("Sale 6_3m", String.valueOf(sumsale));
-        sumsale = 0;
-
-        List<SaleSim_1m> sale1m = buttonsPhoneRepositoriy.getShopRemanisSele1m(strings);
-        for (SaleSim_1m sal : sale1m) {
-            if (name.equals(sal.getShop())) {
-                sumsale += sal.getRemainsSimModem();
-            }
-
-        }
-        shopRemanisSele.put("Sale 1m", String.valueOf(sumsale));
-        sumsale = 0;
-
-
-        for (RemanisSim sal : remanis) {
-            if (button.authorization_ttList.get(0).getName().equals(sal.getShop())) {
-                sumsale += sal.getRemainsSimModem();
-            }
-
-        }
-        if (modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())) {
-
-
-            shopRemanisSele.put("RemanisCash", String.valueOf(tableShopRemanisCash(list).get("Итого")));
-        } else {
-            shopRemanisSele.put("RemanisCash", String.valueOf(sumsale));
-        }
-
-
-        shopRemanisSele.put("Order", "0");
-
-        return shopRemanisSele;
-    }
-
-    public Map<String, Integer> tableShopRemanisCash(String brendPhone) {
-        Map<String, Integer> shopRemanisSele = new TreeMap<>();
-        if (!modelShopSaleRem.containsKey(button.authorization_ttList.get(0).getName())) {
-            tableShopRemanis(button.authorization_ttList.get(0).getName());
-        }
-
-        for (Map.Entry entry : modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brendPhone).entrySet()) {
-            if (!entry.getKey().equals("ИТОГО") && modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brendPhone).get(entry.getKey()).get("ОСТСК") != null) {
-                shopRemanisSele.put(String.valueOf(entry.getKey()), Integer.parseInt(modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brendPhone).get(entry.getKey()).get("ОСТСК")));
-            }
-
-
-        }
-        Integer result = shopRemanisSele.entrySet()
-                .stream()
-                .mapToInt(Map.Entry::getValue)
-                .sum();
-        shopRemanisSele.put("Итого", result);
-
-
-        return shopRemanisSele;
+        return or;
     }
 
 
-
-
-
-    public Map<String, Map<String, Map<String, String>>> tableUpDistributionButton(String shop, String models, String quantity, String brend) {
-        String orderResult = String.valueOf(Integer.parseInt(modelShopSaleRem.get(shop).get(brend).get("ИТОГО").get("Order")) + Integer.parseInt(quantity));
-        String rem = String.valueOf(Integer.parseInt(modelShopSaleRem.get(shop).get(brend).get(models).get("ОСТСК")) - Integer.parseInt(quantity));
-        ;
-        String remCash = String.valueOf(Integer.parseInt(modelShopSaleRem.get(shop).get(brend).get("ИТОГО").get("RemanisCash")) - Integer.parseInt(quantity));
-
-        modelShopSaleRem.get(shop).get(brend).get(models).replace("ЗАКАЗ", quantity);
-        modelShopSaleRem.get(shop).get(brend).get("ИТОГО").replace("Order", orderResult);
-        modelShopSaleRem.get(button.authorization_ttList.get(0).getName()).get(brend).get(models).replace("ОСТСК", rem);
-        modelShopSaleRem.get(shop).get(brend).get(models).replace("ОСТСК", rem);
-        modelShopSaleRem.get(shop).get(brend).get("ИТОГО").replace("RemanisCash", remCash);
-
-
-        return modelShopSaleRem.get(shop);
+    public OrderRecommendations distribution(OrderRecommendations order) {
+        System.out.println(order);
+        distributions(order,authorization_tt.getShopMult(),null);
+        return or;
     }
-
-    public Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionButto() {
-
-        return modelShopSaleRem;
-    }
-
-
 }

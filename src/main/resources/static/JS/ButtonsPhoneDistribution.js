@@ -1,199 +1,172 @@
-var brend;
+var a, group, shop, nomenclature;
+var btn;
+
 $(document).ready(function() {
-    var tds = document.querySelectorAll('.table_graduation .btn');
-    table_DistributionButton(tds);
-    window.onload = function() {
-        var tds1 = document.querySelectorAll('.table_Requirement .btn');
-        orderFromWarehouse(tds1);
-    }
+
+    $(document).find('.table_graduation .btn').on('click', function() {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
+        $.get('/tableShopRemanisSele/' + group, {}, function(data) {
+            $(".graduation").html(data);
+            $("#group").html(group);
+            scrollInto()
+            $(document).find('.RemainsShopGroup .btn').on('click', function() {
+                shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+
+               distributionTable(shop)
+            });
+        });
+    });
+
+    $(document).find('.table_Requirement .btn').on('click', function() {
+        shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        distributionTable(shop)
+    });
 });
 
-function orderFromWarehouse(tds1) {
-    for (var i = 1; i < tds1.length; i++) {
-        tds1[i].addEventListener('click', function func() {
-            var shop = this.innerHTML;
-            $.get('/tableDistributionButton/' + shop, {}, function(data) {
-                orderFromMinMatrixT2Warehouse(data, shop);
-
-            });
-        });
-    }
-}
-
-function table_DistributionButton(tds) {
-    for (var i = 0; i < tds.length; i++) {
-        tds[i].addEventListener('click', function func() {
-            brend = this.innerHTML;
-            $.get('/tableShopRemanisSele/' + brend, {}, function(data) {
-                $(".graduation").html(data);
-                var tds = document.querySelectorAll('.graduation .btn');
-                orderFromWarehouse(tds);
-                $('#grad').html(brend);
-            });
-            $.get('/tableShopRemanisCash/' + brend, {}, function(data) {
-                $(".RemanisCash").html(data);
-
-            });
-        });
-    }
-}
-
-function orderFromMinMatrixT2Warehouse(data, shop) {
-    var elem = document.querySelector('#table_DistributionButton');
-    var elem1 = document.querySelector('#tables_DistributionButton');
-    elem1.parentNode.removeChild(elem1);
-    var table = document.createElement(`table`);
-    table.id = 'tables_DistributionButton';
-    table.classList.add("table-borderless");
-    table.classList.add("tables_DistributionButton");
-    let thead = document.createElement('thead');
-    let row_1 = document.createElement('tr');
-    let heading_1 = document.createElement('th');
-    heading_1.innerHTML = shop;
-
-    let heading_2 = document.createElement('th');
-    heading_2.innerHTML = "ОСТ";
-    let heading_3 = document.createElement('th');
-    heading_3.innerHTML = "ПРОД6";
-    let heading_4 = document.createElement('th');
-    heading_4.innerHTML = "ПРОД";
-    let heading_5 = document.createElement('th');
-    heading_5.innerHTML = "ОСТСК";
-    let heading_6 = document.createElement('th');
-    heading_6.innerHTML = "ЗАКАЗ";
-    row_1.appendChild(heading_1);
-    row_1.appendChild(heading_2);
-    row_1.appendChild(heading_3);
-    row_1.appendChild(heading_4);
-    row_1.appendChild(heading_5);
-    row_1.appendChild(heading_6);
-    let tbody = document.createElement('tbody');
-    tbody.classList.add("labels2");
-    for (key in data) {
-        let tbody1 = document.createElement('tbody');
-        table.id = 'tables_DistributionButton';
-        var tr = document.createElement('tr');
-        for (var j = 0; j < 6; j++) {
-            var td = document.createElement('td');
-            if (j == 0) {
-                var button = document.createElement('button')
-                button.classList.add("minMatrix");
-                button.id = 'minMatrix';
-                button.innerHTML = key;
-                td.appendChild(button);
-            } else if (j > 0) {
-                for (keys in data[key]) {
-                    for (keyss in data[key][keys]) {
-                        if (j == 1 && keyss === "Remanis") {
-                            td.innerHTML = data[key][keys][keyss];
-                        }
-                        if (j == 2 && keyss === "Sale 1m") {
-                            td.innerHTML = data[key][keys][keyss];
-                        }
-                        if (j == 3 && keyss === "Sale 6_3m") {
-                            td.innerHTML = data[key][keys][keyss];
-                        }
-                        if (j == 4 && keyss === "RemanisCash") {
-                            td.innerHTML = data[key][keys][keyss];
-                        }
-                        if (j == 5 && keyss === "Order") {
-                            td.innerHTML = data[key][keys][keyss];
-                        }
-                    }
-                }
-            }
-            tr.appendChild(td);
-        }
-        tbody1.appendChild(tr);
-        tbody1.classList.add("labels");
-        tbody.appendChild(tbody1);
-        let tbody2 = document.createElement('tbody');
-        for (keys in data[key]) {
-            var tr = document.createElement('tr');
-            for (var j = 0; j < 6; j++) {
-                var td = document.createElement('td');
-                if (keys != "ИТОГО") {
-                    if (j == 0) {
-                        td.innerHTML = keys;
-                    } else if (j > 0) {
-                        for (keyss in data[key][keys]) {
-                            if (j == 1 && keyss === "ОСТ") {
-                                td.innerHTML = data[key][keys][keyss];
-                            }
-                            if (j == 2 && keyss === "ПРОД1") {
-                                td.innerHTML = data[key][keys][keyss];
-                            }
-                            if (j == 3 && keyss === "ПРОД6") {
-                                td.innerHTML = data[key][keys][keyss]
-                            }
-                            if (j == 4 && keyss === "ОСТСК") {
-                                td.innerHTML = data[key][keys][keyss]
-                            }
-                            if (j == 5 && keyss === "ЗАКАЗ") {
-                                var input = document.createElement('input');
-                                td.appendChild(input);
-                                input.classList.add("SKYPhone");
-                                input.value = data[key][keys][keyss]
-                            }
-                        }
-                    }
-                }
-                tr.appendChild(td);
-            }
-            tbody2.appendChild(tr);
-            tbody2.classList.add("hide_minMatrix");
-        }
-        tbody.appendChild(tbody2);
-    }
-    table.appendChild(tbody);
-    thead.appendChild(row_1);
-    table.appendChild(thead);
-    elem.appendChild(table);
-    $(document).find('.minMatrix').on('click', function() {
-        $(this).parents().next('.hide_minMatrix').toggle();
-    });
+function scrollInto() {
     var tds = document.querySelectorAll('.minMatrix');
-    table_DistributionButton(tds);
-    $(document).find('.SKYPhone').on('change', function() {
-        $('.btn-primary').attr('disabled', false);
-        $.get('/tableUpDistributionButton/' + shop + '/' + $(this).parents('tr:first').find('td:eq(0)').text() + '/' + this.value + '/' + brend, {}, function(data) {
-            $.get('/tableShopRemanisCash/' + brend, {}, function(data) {
-                $(".RemanisCash").html(data);
-                $('#grad').html(brend);
-            });
-            tableUpDistributionButton(data);
+    for (var i = 0; i < tds.length; i++) {
+        if (tds[i].innerHTML == group) {
+            tds[i].scrollIntoView(true);
+            tds[i].click();
+        }
+    }
+}
 
+function distributionTable(shop) {
+    $.get('/tableDistributionButton/' + shop, {}, function(data) {
+        $(".TableDistributionPhone").html(data);
+        tableRemainsGroupShopGlassAll()
+        $("#Shop").html(shop);
+        scrollInto()
+    });
+}
+
+function tableRemainsGroupShopGlassAll() {
+    $(document).find('.TableDistributionPhone .btn').on('click', function() {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        $.get('/tableShopRemanisSele/' + group, {}, function(data) {
+            $(".graduation").html(data);
+            $("#group").html(group);
+            $(document).find('.RemainsShopGroup .btn').on('click', function() {
+                shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                distributionTable(shop)
+            });
         });
     });
+    $(document).find('.minMatrix').on('click', function() {
+        if (a != undefined) {
+            a.parents().nextAll('.hide_minMatrix').toggle();
+        }
+        a = $(this);
+        a.parents().nextAll('.hide_minMatrix').toggle();
+    });
+    $(document).find('.form-control').on('change', function() {
+        nomenclature = $(this).parents('tr:first').find('td:eq(0)').text()
+        order = $(this).parents('tr:first').find('td:eq(4)').text()
+        let OrderRecommendations = {
+            shop: shop,
+            nomenclature: nomenclature,
+            group: group,
+            order: this.value,
+        };
 
+        $('#loader').removeClass('hidden')
+        sendRequest('POST', '/DistributionButton', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
+    });
 }
-function tableUpDistributionButton(data) {
-    var tds = document.querySelectorAll('table.tables_DistributionButton td');
+
+function distribution(data) {
+
+    var tds = document.querySelectorAll('.table_graduation td');
     for (var i = 0; i < tds.length; i++) {
-        for (key in data) {
-            if (tds[i].lastElementChild != null && key == tds[i].lastElementChild.innerHTML) {
-                for (keys in data[key]) {
-                    if (keys == "ИТОГО") {
-                        for (keyss in data[key][keys]) {
-                            if (keyss == "Order") {
-                                tds[i + 5].innerHTML = data[key][keys][keyss];
-                            }
-                            if (keyss == "RemanisCash") {
-                                tds[i + 4].innerHTML = data[key][keys][keyss];
-                            }
-                        }
-                    }
-                }
+        for (var j = 0; j < data.indicatorPhoneShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneShop[j].group) {
+                tds[i + 1].innerHTML = data.indicatorPhoneShop[j].remainsCash1 == 0 ? null : data.indicatorPhoneShop[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneShop[j].remainsCash2 == 0 ? null : data.indicatorPhoneShop[j].remainsCash2;
             }
-            for (keys in data[key]) {
-                if (keys == tds[i].innerHTML) {
-                    for (keyss in data[key][keys]) {
-                        if (keyss == "ОСТСК" && tds[i + 4].innerHTML != data[key][keys][keyss]) {
-                            tds[i + 4].innerHTML = data[key][keys][keyss];
-                        }
+        }
+    }
+    var tds = document.querySelectorAll('.RemanisPhoneShopT2 td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remanisPhoneShopT2.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopT2[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopT2[j].remainsShop == 0 ? null : data.remanisPhoneShopT2[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.table_Requirement td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remanisPhoneShopMult.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remanisPhoneShopMult[j].shop) {
+                tds[i + 1].innerHTML = data.remanisPhoneShopMult[j].remainsShop == 0 ? null : data.remanisPhoneShopMult[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.graduation td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.indicatorPhoneSach.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneSach[j].nomenclature) {
+                tds[i + 1].innerHTML = data.indicatorPhoneSach[j].remainsCash1 == 0 ? null : data.indicatorPhoneSach[j].remainsCash1;
+                tds[i + 2].innerHTML = data.indicatorPhoneSach[j].remainsCash2 == 0 ? null : data.indicatorPhoneSach[j].remainsCash2;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.RemainsShopGroup td');
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.remainsGroupShop.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remainsGroupShop[j].shop && data.remainsGroupShop[j].group == group) {
+                tds[i + 1].innerHTML = data.remainsGroupShop[j].remainsShop == 0 ? null : data.remainsGroupShop[j].remainsShop;
+            }
+        }
+    }
+    var tds = document.querySelectorAll('.TableDistributionPhone td');
+    var rem, rem1;
+    for (var i = 0; i < tds.length; i++) {
+        for (var j = 0; j < data.distributionPhone.length; j++) {
+            if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.distributionPhone[j].group && data.distributionPhone[j].shop == shop) {
+                tds[i + 4].innerHTML = data.distributionPhone[j].order == 0 ? null : data.distributionPhone[j].order;
+                tds[i + 5].innerHTML = data.distributionPhone[j].remainsCash1 == 0 ? null : data.distributionPhone[j].remainsCash1;
+                tds[i + 6].innerHTML = data.distributionPhone[j].remainsCash2 == 0 ? null : data.distributionPhone[j].remainsCash2;
+                for (var c = 0; c < data.distributionPhone[j].all.length; c++) {
+                    if (data.distributionPhone[j].all[c].nomenclature == nomenclature) {
+                        rem = data.distributionPhone[j].all[c].remainsCash1;
+                        rem1 = data.distributionPhone[j].all[c].remainsCash2;
                     }
                 }
             }
         }
+        if (tds[i].innerHTML == nomenclature) {
+            tds[i + 5].innerHTML = rem == 0 ? null : rem;
+            tds[i + 6].innerHTML = rem1 == 0 ? null : rem1;
+        }
+
     }
+  /*$.get('/UpDateMatrix', {}, function(data) {
+            $(".UpDateMatrix").html(data);
+         $('#loader').addClass('hidden')
+        });*/
+
+
+}
+
+function sendRequest(method, url, body = null) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+        xhr.responseType = 'json'
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status >= 400) {
+                reject(xhr.response)
+            } else {
+                resolve(xhr.response)
+            }
+        }
+        xhr.onerror = () => {
+            reject(xhr.response)
+        }
+        xhr.send(JSON.stringify(body))
+    })
 }

@@ -73,7 +73,7 @@
                     <div class="row">
                         <div class="table_graduation">
 
-                            <table class="table-borderless">
+                            <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>ГРУППА</th>
@@ -86,15 +86,15 @@
                                 </thead>
                                 <tbody class="tbody">
 
-                                <tr th:each="current : ${Phone}" >
+                                <tr th:each="current : ${Phone.indicatorPhoneShop}" >
 
                                     <td>
                                         <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.group}"
                                                 type="button"></button>
                                     </td>
 
-                                    <td th:text="${current.remainsCash1}"></td>
-                                    <td th:text="${current.remainsCash2}"></td>
+                                    <td th:text="${current.remainsCash1}==0?null:${current.remainsCash1}"></td>
+                                    <td th:text="${current.remainsCash2}==0?null:${current.remainsCash2}"></td>
 
                                 </tr>
 
@@ -106,7 +106,7 @@
 
 
                         <div class="table_Requirement">
-                            <table class="table-borderless">
+                            <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>ТТ</th>
@@ -125,10 +125,10 @@
                                         <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${entry.shop}"
                                                 type="button"></button>
                                     </td>
-                                    <td th:text="${entry.remainsShop}"></td>
-                                    <td th:text="${entry.sale1}"></td>
-                                    <td th:text="${entry.sale6}"></td>
-                                    <td th:text="${entry.order}"></td>
+                                    <td th:text="${entry.remainsShop}==0?null:${entry.remainsShop}"></td>
+                                    <td th:text="${entry.sale1}==0?null:${entry.sale1}"></td>
+                                    <td th:text="${entry.sale6}==0?null:${entry.sale6}"></td>
+                                    <td th:text="${entry.order}==0?null:${entry.order}"></td>
                                 </tr>
 
                                 </tbody>
@@ -139,85 +139,138 @@
                     </div>
                 </div>
                 <div class="col-md-6 themed-grid-col">
-                    <div class="table" id="table_DistributionButton">
-                        <table class="table-responsive table-hover" id="tables_DistributionButton">
-                            <thead class="table-dark table-hover">
+                    <div class="TableDistributionPhone"  th:fragment="TableDistributionPhone">
 
-                            </thead>
-                            <tbody>
+                            <table class="table table-hover" >
+                                <thead>
+                                <tr>
+                                    <th id="Shop" style="width: 25%;">------ТТ-----</th>
+                                    <th>ОСТАТОК</th>
+
+                                    <th>ПРОД 1М</th>
+                                    <th>ПРОД 6/3М</th>
+                                    <th>ПОТРЕБНОСТЬ</th>
+                                    <th>СКЛАД 1</th>
+                                    <th>СКЛАД 2</th>
+                                </tr>
+                                </thead>
+                            </table>
+                            <div class="fixed_header">
+
+                                <table class="table table-hover" >
 
 
-                            </tbody>
-                        </table>
+                                    <tbody class="labels"  th:each="current:${TableDistributionPhone}" >
+
+                                    <tr style="border:2px solid rgb(240, 240, 240);">
+
+                                        <td >
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-aut minMatrix" style="width: 200px; font-size: 10px;"
+                                                    th:text="${current.group}"
+                                                    type="button"></button>
+                                        </td >
+                                        <td  th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
+
+                                        <td  th:text="${current.sale1}==0?null:${current.sale1}"></td>
+                                        <td  th:text="${current.sale6}==0?null:${current.sale6}"></td>
+                                        <td  th:text="${current.order}"></td>
+                                        <td  th:text="${current.remainsCash1}==0?null:${current.remainsCash1}"></td>
+                                        <td  th:text="${current.remainsCash2}==0?null:${current.remainsCash2}"></td>
+
+                                    </tr>
+
+                                    <tr th:each="currents:${current.all}" class="hide_minMatrix">
+                                        <td style="background: #cccccc; width: 200px; font-size: 10px;" th:text="${currents.nomenclature}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsShop}==0?null:${currents.remainsShop}"></td>
+
+                                        <td style="background: #cccccc;" th:text="${currents.sale1}==0?null:${currents.sale1}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.sale6}==0?null:${currents.sale6}"></td>
+                                        <td style="background: #cccccc;" > <input name="" id=" " class="form-control" th:value="${currents.order}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsCash1}==0?null:${currents.remainsCash1}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsCash2}==0?null:${currents.remainsCash2}"></td>
+                                    </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            </table>
+
                     </div>
                 </div>
                 <div class="col">
 
                     <div class="row">
 
-                        <div class="RemanisCash" th:fragment="RemanisCash">
-
-                            <div class="table_graduation">
-                                <table class="table-borderless">
-                                    <thead>
-                                    <tr>
-                                        <th>МОДЕЛЬ</th>
-                                        <th>ОСТАТОК</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody class="tbody">
-                                    <tr th:each="entry, stats  : ${graduation}" th:with="user=${entry.value}">
-                                        <td th:text="${entry.key}"></td>
-
-                                        <td th:text="${entry.value}"></td>
-
-
-                                    </tr>
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row"> <span class="fs-4"  ></span></div>
-                    <div class="row">
                         <div class="graduation" th:fragment="graduation">
 
-                            <div class="table_graduation">
-                                <table class="table-borderless">
-                                    <thead>
-                                    <tr>
-                                        <th name ="grad" id="grad">МОДЕЛЬ</th>
-                                        <th>ОСТАТОК</th>
-                                        <th>ПРОД 1М</th>
-                                        <th>ПРОД 6/3М</th>
+                            <div class="row">
+                                <div class="table_graduation">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>МОДЕЛЬ</th>
+                                            <th>ОСТАТОК ОСН СКЛ</th>
+                                            <th>ОСТАТОК СКЛ Т2</th>
 
-                                    </tr>
-                                    </thead>
-                                    <tbody class="tbody">
-                                    <tr th:each="entry, stats  : ${graduation}" th:with="user=${entry.value}">
-                                        <td>
-                                            <button class="btn btn-primary btn-sm btn-block" th:text="${entry.key}"
-                                                    type="submit"></button>
-                                        </td>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="tbody">
+                                        <tr th:each="current : ${graduation}">
 
-                                        <span th:each="word : ${entry.value}">
-                                             <span th:if="${word.key != 'RemanisCash' AND word.key != 'Order'}" >
-                                                 <td th:text="${word.value}"></td>
-                                             </span>
-                                        </span>
-                                    </tr>
+                                            <td>
+                                                <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.nomenclature}"
+                                                        type="button"></button>
+                                            </td>
+
+                                            <td th:text="${current.remainsCash1}"></td>
+                                            <td th:text="${current.remainsCash2}"></td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="RemainsShopGroup">
+                                    <div class="col">
+                                        <div class="table_graduation">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th name="grad" id="group">МОДЕЛЬ</th>
+                                                    <th>ост</th>
+                                                    <th>ПРОД 1М</th>
+                                                    <th>ПРОД 6m</th>
 
 
-                                    </tbody>
-                                </table>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbody">
+                                                <tr th:each="current : ${RemanisPhoneGroup}">
+
+                                                    <td>
+                                                        <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;"  th:text="${current.shop}"
+                                                                type="button"></button>
+                                                    </td>
+                                                    <td th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
+                                                    <td th:text="${current.sale1}==0?null:${current.sale1}"></td>
+                                                    <td th:text="${current.sale6}==0?null:${current.sale6}"></td>
+
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="row">

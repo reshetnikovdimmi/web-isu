@@ -113,10 +113,10 @@
                                 <th name="Shop_1" id="Shop_1">МАГАЗИН</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="tbody">
                             <tr th:each="current : ${shop}" >
 
-                                <td th:text="${current}" class="btn btn-primary btn-sm btn-block">
+                                <td th:text="${current}" class="btn btn-secondary btn-sm btn-block d-block mx-aut">
 
                                 </td>
 
@@ -140,7 +140,7 @@
 
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="tbody">
                                 <tr th:each="current : ${tableMatrix}">
 
                                     <td th:text="${current.id}" class="matrix"></td>
@@ -149,7 +149,7 @@
                                     <td th:text="${current.sale6}" class="matrix"></td>
                                     <td th:text="${current.sale1}" class="matrix"></td>
 
-                                    <td><input  th:value="${current.matrix}" class="matrix"></td>
+                                    <td><input  th:value="${current.matrix}" class="matrix form-control"></td>
 
                                 </tr>
 

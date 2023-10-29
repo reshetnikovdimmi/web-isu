@@ -16,24 +16,29 @@ public class Matrix {
     public List<String> distributionModelList;
     public List<OrderRecommendations> remainMatrixList;
     public List<MatrixSpark> matrixSparks;
-    Matrix dtoMatrix;
+
     Map<String,Map<String,Integer>> shopRemains ;
     Map<String,Map<String,String>> shopQuantity ;
+    Map<String,Map<String,Integer>> shopRemainsSpark ;
+    Map<String,Map<String,String>> shopQuantitySpark ;
 
-    public Object createMatrix(List<Authorization_tt> shopT2) {
+    public void  createMatrix(List<Authorization_tt> shopT2) {
         shopRemains = new TreeMap<>();
         shopQuantity = new TreeMap<>();
         for (Authorization_tt o:shopT2){
             shopRemains.put(o.getName(),distributionMode(o.getName()));
             shopQuantity.put(o.getName(),distributionModeQuantity(o.getName()));
         }
+    }
 
-        dtoMatrix = new Matrix();
-        dtoMatrix.setDistributionModelList(distributionModelList);
-        dtoMatrix.setShopRemains(shopRemains);
-        dtoMatrix.setShopQuantity(shopQuantity);
+    public void  createMatrixSpark(List<Authorization_tt> shopT2) {
+        shopRemainsSpark = new TreeMap<>();
+        shopQuantitySpark = new TreeMap<>();
+        for (Authorization_tt o:shopT2){
 
-        return dtoMatrix;
+            shopRemainsSpark.put(o.getName(),distributionMode(o.getName()));
+            shopQuantitySpark.put(o.getName(),distributionModeQuantity(o.getName()));
+        }
     }
 
     private Map<String, Integer> distributionMode(String shop) {
@@ -57,15 +62,16 @@ public class Matrix {
     }
     private String searchClusterQuantity(String shop, String s) {
         OrderRecommendations  rem = remainMatrixList.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).findAny().orElse(null);
-        MatrixSpark matrixSpark = matrixSparks.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).findAny().orElse(null);
+        int matrixSpark = matrixSparks.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).mapToInt(r->r.getMatrix()).sum();
 
-        return matrixSpark.getMatrix() + "/" +  String.valueOf(rem == null ? 0 : rem.getRemainsShopL());
+        return matrixSpark + "/" +  String.valueOf(rem == null ? 0 : rem.getRemainsShopL());
     }
 
     private Integer searchCluster(String shop, String s) {
-        OrderRecommendations  rem = remainMatrixList.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).findAny().orElse(null);
-        MatrixSpark matrixSpark = matrixSparks.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).findAny().orElse(null);
+        int  rem = remainMatrixList.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).mapToInt(r-> Math.toIntExact(r.getRemainsShopL())).sum();
 
-        return matrixSpark.getMatrix() == 0 ? null : rem == null ? 0 : (int) Math.min(Double.valueOf(rem.getRemainsShopL()) / Double.valueOf(matrixSpark.getMatrix()) * 100, 100);
+        int matrixSpark = matrixSparks.stream().filter(r -> r.getShop().equals(shop) && r.getGroup().equals(s)).mapToInt(r->r.getMatrix()).sum();
+
+        return matrixSpark == 0 ? null : rem == 0 ? 0 : (int) Math.min(Double.valueOf(rem) / Double.valueOf(matrixSpark) * 100, 100);
     }
 }

@@ -1,6 +1,7 @@
 package com.myisu_1.isu.controllers;
 
 
+import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.exporte.ExselFileExporteDistributionSim;
 import com.myisu_1.isu.repo.*;
 import com.myisu_1.isu.service.SimDistributionServise;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class SimDistributionController {
@@ -42,19 +44,21 @@ public class SimDistributionController {
         return "SimDistributionsNew";
 
     }
-    @RequestMapping(value = "/NameSimShop/{nameSim}/{view}", method = RequestMethod.GET)
+    @RequestMapping(value = "/table_simT2/{nameSim}", method = RequestMethod.GET)
 
-    private String accessoriesCategoryMaxSale(@PathVariable("nameSim") String nameSim,@PathVariable("view") String view, Model model) {
+    private String accessoriesCategoryMaxSale(@PathVariable("nameSim") String nameSim, Model model) {
+        OrderRecommendations or = simDistributionServise.nameSimShop();
 
-        model.addAttribute("NameSimShop", simDistributionServise.nameSimShop(nameSim.replaceAll("_","/"),view));
-        return "SimDistributionsNew::NameSimShop";
+        model.addAttribute("RemanSimCash", or.getIndicatorPhoneSach().stream().filter(r -> r.getGroup().equals(nameSim)).collect(Collectors.toList()));
+        model.addAttribute("RemanisPhoneGroup", or.getRemainsGroupShop().stream().filter(r ->r.getGroup()!=null && r.getGroup().equals(nameSim)).collect(Collectors.toList()));
+        return "SimDistributionsNew::RemanSimCash";
 
     }
     @RequestMapping(value = "/NameSimShopMTS/{nameSim}/{view}", method = RequestMethod.GET)
 
     private String nameSimShopMTS(@PathVariable("nameSim") String nameSim,@PathVariable("view") String view, Model model) {
 
-        model.addAttribute("NameSimShopMTS", simDistributionServise.nameSimShop(nameSim.replaceAll("_","/"),view));
+        model.addAttribute("NameSimShopMTS", simDistributionServise.nameSimShop());
         return "SimDistributionsNew::NameSimShopMTS";
 
     }
@@ -62,7 +66,7 @@ public class SimDistributionController {
 
     private String nameSimShopT2mult(@PathVariable("nameSim") String nameSim,@PathVariable("view") String view, Model model) {
 
-        model.addAttribute("NameSimShopT2mult", simDistributionServise.nameSimShop(nameSim.replaceAll("_","/"),view));
+        model.addAttribute("NameSimShopT2mult", simDistributionServise.nameSimShop());
         return "SimDistributionsNew::NameSimShopT2mult";
 
     }
@@ -114,11 +118,11 @@ public class SimDistributionController {
         return "SimDistributionsNew::RemanSimCashMTS";
 
     }
-    @ResponseBody
-    @RequestMapping(value = "RemanSaleSimShop/{shop}", method = RequestMethod.GET)
-    public Map<String,Map<String, Map<String, String>>> remanSaleSimShop(@PathVariable("shop") String shop) {
 
-        return simDistributionServise.remanSaleSimShop(shop);
+    @RequestMapping(value = "TableDistributionSim/{shop}", method = RequestMethod.GET)
+    private String tableDistributionButton(@PathVariable("shop")  String shop, Model model) {
+        model.addAttribute("TableDistributionPhone", simDistributionServise.tableShopRemanis(shop));
+        return "SimDistributionsNew::TableDistributionPhone";
 
     }
     @ResponseBody

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SimDistributionServise extends AnalysisDistribution {
@@ -39,136 +40,42 @@ public class SimDistributionServise extends AnalysisDistribution {
     List<Authorization_tt> authorization;
     Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
     public OrderRecommendations remainsCash() {
+        or = new OrderRecommendations();
         remainsNomenclature = simAndRtkTableRepositoriy.remainsSim();
-        warehouse = authorization_ttRepositoriy.getWarehouseList();
-        remainsCashGroup(simAndRtkTableRepositoriy.getGroupView());
+        warehouse = authorization_ttRepositoriy.getShopList();
+        sale1Nomenclature = simAndRtkTableRepositoriy.getSale1Phone();
+        sale6Nomenclature = simAndRtkTableRepositoriy.getSale6Phone();
+        phoneSmarts = simAndRtkTableRepositoriy.phoneSmar();
+        remainsCashGroup(simAndRtkTableRepositoriy.getGroupViewSim());
+        remainsNomenclatureSach(simAndRtkTableRepositoriy.getNameRainbows());
+        indicatorsPhoneShopGroup(simAndRtkTableRepositoriy.getDistributionModelDISTINCT(), null);
+        distributionPhone(simAndRtkTableRepositoriy.getGroupViewSim());
         return or;
     }
 
-    private Integer plan(String nameRainbow) {
-        Integer plan = 0;
 
-            Integer plans = shopPlanSimRepository.getPlanShopSim(authorization_ttRepositoriy.getShopList(),nameRainbow);
-            Integer sale6 = saleSimModemRepository6m.getSale6AllShopSim(authorization_ttRepositoriy.getShopList(),nameRainbow);
-            Integer sale1 = saleSimModemRepository1m.getSale1AllShopSim(authorization_ttRepositoriy.getShopList(),nameRainbow);
 
-            if (sale6==null){
-                sale6=0;
-            }
-        if (sale1==null){
-            sale1=0;
-        }
-
-            if(plans!=null){
-                plan += plans;
-            }else {
-                plan += 0;
-            }
-        plan = Math.max(Math.max(plan, sale6/6),sale1);
+    public OrderRecommendations  nameSimShop() {
 
 
 
-
-        return plan;
-    }
-
-    public Map<String,Map<String,String>> nameSimShop(String nameSim, String view) {
-
-        Map<String,Map<String,String>> ddd = new TreeMap<>();
-
-
-        for (Authorization_tt shop : authorization)    {
-            Map<String,String> dddd = new TreeMap<>();
-            if (shop.getSimT2().equals(view)){
-
-                Integer sale6 = saleSimModemRepository6m.getSale6SimShop(nameSim,shop.getName());
-                if(sale6==null){
-                    sale6 =0;
-                }
-
-                dddd.put("remanis", String.valueOf(remanisSimRepository.getRemanisSimShop(nameSim,shop.getName())));
-                dddd.put("sale1", String.valueOf(saleSimModemRepository1m.getSale1SimShop(nameSim,shop.getName())));
-                dddd.put("sale6",String.valueOf(sale6/6));
-
-                ddd.put(shop.getName(),dddd);
-            }else if (shop.getSimMts().equals(view)){
-                Integer sale6 = saleSimModemRepository6m.getSale6SimShop(nameSim,shop.getSimMts());
-                if(sale6==null){
-                    sale6 =0;
-                }
-
-                dddd.put("remanis", String.valueOf(remanisSimRepository.getRemanisSimShop(nameSim,shop.getName())));
-                dddd.put("sale1", String.valueOf(saleSimModemRepository1m.getSale1SimShop(nameSim,shop.getName())));
-                dddd.put("sale6",String.valueOf(sale6/6));
-
-                ddd.put(shop.getName(),dddd);
-            }
-
-
-        }
-
-
-        return ddd;
+        return or;
     }
 
     public Object remanSimCash(String nameSim) {
 
-        //remanSaleSimShop(authorization.get(0).getName()).get(nameSim);
+
         return remanSaleSimShop(authorization.get(0).getName()).get(rtkTableRepositoriy.getDistributionModelS(nameSim));
+    }
+    public List<OrderRecommendations> tableShopRemanis(String shop) {
+
+        return or.getDistributionPhone().stream().filter(r -> r.getShop().equals(shop)).collect(Collectors.toList());
     }
 
     public Map<String,Map<String, Map<String, String>>> remanSaleSimShop(String shop) {
-        System.out.println(shop);
-        if(remanSaleSimShop.containsKey(shop)){
-            return remanSaleSimShop.get(shop);
-        }else {
 
+            return null;
 
-            List<String> distributionModel = rtkTableRepositoriy.getDistributionModelDISTINCT();
-
-            Map<String, Map<String, Map<String, String>>> categorySim = new TreeMap<>();
-
-            for (String distrModel : distributionModel) {
-
-                Map<String, Map<String, String>> sim = new TreeMap<>();
-
-                for (String nameRainbow : rtkTableRepositoriy.getNameRainbow(distrModel)) {
-                    String remanisCash;
-                    String totalRemanisCash;
-                    if (!remanSaleSimShop.containsKey(authorization.get(0).getName())) {
-                        remanisCash = String.valueOf(remanisSimRepository.getRemanisSimShop(nameRainbow, authorization.get(0).getName()));
-                        totalRemanisCash = String.valueOf(remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(distrModel), authorization.get(0).getName()));
-                    } else {
-                        remanisCash = remanSaleSimShop.get(authorization.get(0).getName()).get(distrModel).get(nameRainbow).get("remanisCash");
-                        totalRemanisCash = remanSaleSimShop.get(authorization.get(0).getName()).get(distrModel).get("total").get("totalRemanisCash");
-                    }
-
-                    Map<String, String> simIndicators = new TreeMap<>();
-                    simIndicators.put("view", rtkTableRepositoriy.findByNameRainbow(nameRainbow).getView());
-                    simIndicators.put("sale1", String.valueOf(saleSimModemRepository1m.getSale1SimShop(nameRainbow, shop)));
-                    simIndicators.put("sale6", String.valueOf(saleSimModemRepository6m.getSale6SimShop(nameRainbow, shop)));
-                    simIndicators.put("remanis", String.valueOf(remanisSimRepository.getRemanisSimShop(nameRainbow, shop)));
-                    simIndicators.put("remanisCash", remanisCash);
-                    simIndicators.put("order", "0");
-
-                    sim.put(nameRainbow, simIndicators);
-
-                    simIndicators = new TreeMap<>();
-                    simIndicators.put("view", rtkTableRepositoriy.findByNameRainbow(nameRainbow).getView());
-                    simIndicators.put("totalRemanis", String.valueOf(remanisSimRepository.totalSimRTK(rtkTableRepositoriy.getNameRainbow(distrModel), shop)));
-                    simIndicators.put("totalSale1", String.valueOf(saleSimModemRepository1m.getSale1DistrModel(rtkTableRepositoriy.getNameRainbow(distrModel), shop)));
-                    simIndicators.put("totalSale6", String.valueOf(saleSimModemRepository6m.getSale6DistrModel(rtkTableRepositoriy.getNameRainbow(distrModel), shop)));
-                    simIndicators.put("totalRemanisCash", totalRemanisCash);
-                    simIndicators.put("orderCash", "0");
-                    sim.put("total", simIndicators);
-
-                }
-                categorySim.put(distrModel, sim);
-            }
-            remanSaleSimShop.put(shop, categorySim);
-
-            return remanSaleSimShop.get(shop);
-        }
     }
 
     public Object updateRemanisCash(String grop) {
@@ -178,33 +85,13 @@ public class SimDistributionServise extends AnalysisDistribution {
     }
 
     public Map<String, Map<String, Map<String, String>>> tableUpDistributionSim(String shop, String nameRainbow, String quantity, String brend) {
-        System.out.println(shop+"--"+nameRainbow+"--"+quantity+"--"+brend);
 
-        String orderResult = String.valueOf(Integer.parseInt(remanSaleSimShop.get(shop).get(brend).get("total").get("orderCash")) + Integer.parseInt(quantity));
-        remanSaleSimShop.get(shop).get(brend).get("total").replace("orderCash", orderResult);
 
-        String remCash = String.valueOf(Integer.parseInt(remanSaleSimShop.get(shop).get(brend).get("total").get("totalRemanisCash")) - Integer.parseInt(quantity));
-        remanSaleSimShop.get(shop).get(brend).get("total").replace("totalRemanisCash", remCash);
-
-        String sumRemCash = String.valueOf(Integer.parseInt(remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get("total").get("totalRemanisCash")) - Integer.parseInt(quantity));
-        remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get("total").replace("totalRemanisCash", sumRemCash);
-
-        String rem = String.valueOf(Integer.parseInt(remanSaleSimShop.get(shop).get(brend).get(nameRainbow).get("remanisCash")) - Integer.parseInt(quantity));
-
-        for (Map.Entry entry : remanSaleSimShop.entrySet()) {
-            remanSaleSimShop.get(entry.getKey()).get(brend).get(nameRainbow).replace("remanisCash", rem);
-            remanSaleSimShop.get(entry.getKey()).get(brend).get("total").replace("totalRemanisCash", remCash);
-        }
-
-        remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get(nameRainbow).replace("remanisCash", rem);
-        remanSaleSimShop.get(authorization.get(0).getName()).get(brend).get("total").replace("totalRemanisCash", remCash);
-        remanSaleSimShop.get(shop).get(brend).get(nameRainbow).replace("order", quantity);
-
-        return remanSaleSimShop.get(shop);
+        return null;
     }
 
     public Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionSim() {
-        System.out.println(remanSaleSimShop);
+
         return remanSaleSimShop;
     }
 

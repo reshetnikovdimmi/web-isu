@@ -1,6 +1,8 @@
 var a, group, shop, nomenclature;
 var btn;
+
 $(document).ready(function() {
+
     $(document).find('.tableRemainsCash .btn').on('click', function() {
         group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
         $.get('/RemanisPhoneSach/' + group, {}, function(data) {
@@ -70,11 +72,13 @@ function tableRemainsGroupShopGlassAll() {
             group: group,
             order: this.value,
         };
+        $('#loader').removeClass('hidden')
         sendRequest('POST', '/Distribution', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
     });
 }
 
 function distribution(data) {
+
     var tds = document.querySelectorAll('.tableRemainsCash td');
     for (var i = 0; i < tds.length; i++) {
         for (var j = 0; j < data.indicatorPhoneShop.length; j++) {
@@ -137,7 +141,14 @@ function distribution(data) {
             tds[i + 5].innerHTML = rem == 0 ? null : rem;
             tds[i + 6].innerHTML = rem1 == 0 ? null : rem1;
         }
+
     }
+  $.get('/UpDateMatrix', {}, function(data) {
+            $(".UpDateMatrix").html(data);
+         $('#loader').addClass('hidden')
+        });
+
+
 }
 
 function sendRequest(method, url, body = null) {

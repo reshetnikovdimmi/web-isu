@@ -71,7 +71,7 @@ public class SimController {
     @ResponseBody
     @RequestMapping(value = "AddSimPlan/{id}/{plan}", method = RequestMethod.GET)
     public String AddSimPlan(@PathVariable("id") Integer id, @PathVariable("plan") Integer plan) {
-        System.out.println(id);
+
         shopPlanSimRepository.updatePlanSim(id, plan);
           return "SIM";
 
@@ -79,10 +79,7 @@ public class SimController {
     @PostMapping("/loadExelRTK")
     public String matrixT2Import(@RequestParam("loadExelRTK") MultipartFile loadExelRTK, Model model) throws IOException, ParseException {
 
-
-
         model.addAttribute("time", simDistributionServise.loadExelRTK(loadExelRTK));
-
 
         return "SIM";
     }
