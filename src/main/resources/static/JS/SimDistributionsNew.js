@@ -3,8 +3,10 @@ var btn;
 
 $(document).ready(function() {
  var tab;
+
     $(".nav-tabs a").click(function() {
         $(this).tab('show');
+
     });
     $(document).find('.table_simT2 .btn').on('click', function() {
         group = $(this).parents('tr:first').find('td:eq(0)').text().trim();

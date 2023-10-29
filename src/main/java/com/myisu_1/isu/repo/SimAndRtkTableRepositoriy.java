@@ -59,10 +59,16 @@ public interface SimAndRtkTableRepositoriy extends JpaRepository<SimAndRtkTable,
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.distributionModel, c.nameRainbow, p.remainsSimModem) FROM SimAndRtkTable c   " +
             "JOIN c.saleSim1ms p WHERE c.view = 'RTK'")
     List<OrderRecommendations> getSale1Phone();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.distributionModel, c.nameRainbow, p.remainsSimModem) FROM SimAndRtkTable c   " +
+            "JOIN c.saleSim1ms p ")
+    List<OrderRecommendations> getSale1Sim();
 
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.distributionModel, c.nameRainbow, p.remainsSimModem) FROM SimAndRtkTable c   " +
             "JOIN c.saleSim6ms p WHERE c.view = 'RTK'")
     List<OrderRecommendations> getSale6Phone();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.shop,c.distributionModel, c.nameRainbow, p.remainsSimModem) FROM SimAndRtkTable c   " +
+            "JOIN c.saleSim6ms p ")
+    List<OrderRecommendations> getSale6Sim();
     @Query("SELECT new com.myisu_1.isu.models.Phone_Smart (distributionModel, nameRarus,nameRainbow,nameSpark,view) FROM SimAndRtkTable")
     List<Phone_Smart> phoneSmar();
 }

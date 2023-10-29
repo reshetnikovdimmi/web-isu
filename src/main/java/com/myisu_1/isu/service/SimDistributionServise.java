@@ -43,8 +43,8 @@ public class SimDistributionServise extends AnalysisDistribution {
         or = new OrderRecommendations();
         remainsNomenclature = simAndRtkTableRepositoriy.remainsSim();
         warehouse = authorization_ttRepositoriy.getShopList();
-        sale1Nomenclature = simAndRtkTableRepositoriy.getSale1Phone();
-        sale6Nomenclature = simAndRtkTableRepositoriy.getSale6Phone();
+        sale1Nomenclature = simAndRtkTableRepositoriy.getSale1Sim();
+        sale6Nomenclature = simAndRtkTableRepositoriy.getSale6Sim();
         phoneSmarts = simAndRtkTableRepositoriy.phoneSmar();
         remainsCashGroup(simAndRtkTableRepositoriy.getGroupViewSim());
         remainsNomenclatureSach(simAndRtkTableRepositoriy.getNameRainbows());
