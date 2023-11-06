@@ -1,38 +1,42 @@
-var a, group, shop, nomenclature;
-var btn;
+var a, group, shop, nomenclature, fragment, view, btn;
 
 $(document).ready(function() {
- var tab;
-
+    var tab;
     $(".nav-tabs a").click(function() {
         $(this).tab('show');
-
     });
     $(document).find('.table_simT2 .btn').on('click', function() {
         group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-
-        $.get('/table_simT2/' + group, {}, function(data) {
-
-            $(".RemanSimCash").html(data);
+        fragment = "RemanSimCash";
+        view = "TableDistributionPhone";
+       updateRemainsSimCash()
+    });
+    $(document).find('.table_simT2mult .btn').on('click', function() {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        fragment = "RemanSimCashT2mult";
+        view = "TableDistributionMult";
+        updateRemainsSimCash()
+    });
+    $(document).find('.table_simMTS .btn').on('click', function() {
+        group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+        fragment = "RemanSimCashMTS";
+        view = "TableDistributionMts";
+        updateRemainsSimCash()
+    });
+});
+function updateRemainsSimCash() {
+ $.get('/table_simT2/' + group + '/'+ fragment, {}, function(data) {
+            $("." + fragment).html(data);
             $("#group").html(group);
-           scrollInto()
+            scrollInto()
             $(document).find('.table_graduation .btn').on('click', function() {
                 shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
 
-                distributionTable(shop)
+                distributionTable()
             });
         });
-    });
-    $(document).find('.RemanisPhoneShopT2 .btn').on('click', function() {
-        shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-        distributionTable(shop)
-    });
-    $(document).find('.RemanisPhoneShopMult .btn').on('click', function() {
-        shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-        distributionTable(shop)
-    });
-});
 
+}
 function scrollInto() {
     var tds = document.querySelectorAll('.minMatrix');
     for (var i = 0; i < tds.length; i++) {
@@ -43,9 +47,9 @@ function scrollInto() {
     }
 }
 
-function distributionTable(shop) {
-    $.get('/TableDistributionSim/' + shop, {}, function(data) {
-        $(".TableDistributionPhone").html(data);
+function distributionTable() {
+    $.get('/TableDistributionSim/' + shop + '/'+view, {}, function(data) {
+        $("."+view).html(data);
         tableRemainsGroupShopGlassAll()
         $("#Shop").html(shop);
         scrollInto()
@@ -53,14 +57,14 @@ function distributionTable(shop) {
 }
 
 function tableRemainsGroupShopGlassAll() {
-    $(document).find('.TableDistributionPhone .btn').on('click', function() {
+    $(document).find('.'+ view +' .btn').on('click', function() {
         group = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-        $.get('/RemanisPhoneSach/' + group, {}, function(data) {
-            $(".RemanisPhoneSach").html(data);
+        $.get('/table_simT2/' + group + '/'+fragment, {}, function(data) {
+            $("."+fragment).html(data);
             $("#group").html(group);
-            $(document).find('.RemainsShopGroup .btn').on('click', function() {
-                var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
-                distributionTable(shop)
+            $(document).find('.table_graduation .btn').on('click', function() {
+               shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                distributionTable()
             });
         });
     });
@@ -73,7 +77,7 @@ function tableRemainsGroupShopGlassAll() {
     });
     $(document).find('.form-control').on('change', function() {
         nomenclature = $(this).parents('tr:first').find('td:eq(0)').text()
-        var order = $(this).parents('tr:first').find('td:eq(4)').text()
+       order = $(this).parents('tr:first').find('td:eq(4)').text()
         let OrderRecommendations = {
             shop: shop,
             nomenclature: nomenclature,
@@ -81,13 +85,13 @@ function tableRemainsGroupShopGlassAll() {
             order: this.value,
         };
         $('#loader').removeClass('hidden')
-        sendRequest('POST', '/Distribution', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
+
+        sendRequest('POST', '/DistributionSim', OrderRecommendations).then(data => distribution(data)).catch(err => console.log(err))
     });
 }
 
 function distribution(data) {
-
-    var tds = document.querySelectorAll('.tableRemainsCash td');
+    var tds = document.querySelectorAll('.table td');
     for (var i = 0; i < tds.length; i++) {
         for (var j = 0; j < data.indicatorPhoneShop.length; j++) {
             if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneShop[j].group) {
@@ -112,7 +116,7 @@ function distribution(data) {
             }
         }
     }
-    var tds = document.querySelectorAll('.RemanisPhoneSach td');
+    var tds = document.querySelectorAll('.'+fragment+' td');
     for (var i = 0; i < tds.length; i++) {
         for (var j = 0; j < data.indicatorPhoneSach.length; j++) {
             if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.indicatorPhoneSach[j].nomenclature) {
@@ -121,7 +125,7 @@ function distribution(data) {
             }
         }
     }
-    var tds = document.querySelectorAll('.RemainsShopGroup td');
+    var tds = document.querySelectorAll('.table_graduation td');
     for (var i = 0; i < tds.length; i++) {
         for (var j = 0; j < data.remainsGroupShop.length; j++) {
             if (tds[i].lastElementChild != null && tds[i].lastElementChild.innerHTML == data.remainsGroupShop[j].shop && data.remainsGroupShop[j].group == group) {
@@ -129,7 +133,7 @@ function distribution(data) {
             }
         }
     }
-    var tds = document.querySelectorAll('.TableDistributionPhone td');
+    var tds = document.querySelectorAll('.'+view+' td');
     var rem, rem1;
     for (var i = 0; i < tds.length; i++) {
         for (var j = 0; j < data.distributionPhone.length; j++) {
@@ -149,14 +153,11 @@ function distribution(data) {
             tds[i + 5].innerHTML = rem == 0 ? null : rem;
             tds[i + 6].innerHTML = rem1 == 0 ? null : rem1;
         }
-
     }
-  $.get('/UpDateMatrix', {}, function(data) {
-            $(".UpDateMatrix").html(data);
-         $('#loader').addClass('hidden')
-        });
-
-
+   /* $.get('/UpDateMatrix', {}, function(data) {
+        $(".UpDateMatrix").html(data);
+        $('#loader').addClass('hidden')
+    });*/
 }
 
 function sendRequest(method, url, body = null) {

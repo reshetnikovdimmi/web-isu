@@ -44,10 +44,18 @@ public class ClothesPhonesServise extends AnalysisDistribution {
     List<OrderRecommendations> sale6ShopClothingGroupAll;
 
     public Object remainsGroupCash() {
-        remainsNomenclature = clothingMatchingTableRepositoriy.getRemainsShopClothing();
+        or = new OrderRecommendations();
+        remainsNomenclature = clothingMatchingTableRepositoriy.remainsSim();
+        warehouse = shop.getShopList();
+        sale1Nomenclature = clothingMatchingTableRepositoriy.getSale1ShopClothingGroupAll();
+        sale6Nomenclature = clothingMatchingTableRepositoriy.getSale6ShopClothingGroupAll();
+        phoneSmarts = clothingMatchingTableRepositoriy.phoneSmar();
 
-        warehouse = shop.getWarehouseList();
-        remainsCashGroup(phoneRepositoriy.getGroupViewClothing());
+        remainsCashGroup(clothingMatchingTableRepositoriy.getGroupViewSim());
+        remainsNomenclatureSach(clothingMatchingTableRepositoriy.getNameRainbows());
+        indicatorsPhoneShopGroup(clothingMatchingTableRepositoriy.getDistributionModelDISTINCT(), null);
+        or.getRemainsGroupShop().forEach(System.out::println);
+     //   distributionPhone(simAndRtkTableRepositoriy.getGroupViewSim());
         return or;
     }
 

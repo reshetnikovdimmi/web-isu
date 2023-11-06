@@ -5,6 +5,7 @@ import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.dto.RemainsGroupCash;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.ClothingMatchingTable;
 import com.myisu_1.isu.models.ClothesForPhones.Glass.Glass;
+import com.myisu_1.isu.models.Phone_Smart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -51,6 +52,7 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.namesClothes,c.viewClothes, p.remanisClothes) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersPhone p")
     List<OrderRecommendations> getRemainsShopClothingGroupAll();
+
     @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(p.nameShop,c.nameClothes, p.nameClothes,c.viewClothes, p.saleClothes) FROM ClothingMatchingTable c   " +
             "JOIN c.clothersSale1 p")
     List<OrderRecommendations> getSale1ShopClothingGroupAll();
@@ -66,4 +68,17 @@ public interface ClothingMatchingTableRepositoriy extends JpaRepository<Clothing
     List<OrderRecommendations> getRemainsShopClothing();
     @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash (nameClothes,viewClothes) FROM ClothingMatchingTable")
     List<RemainsGroupCash> getGroupView();
+    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(r.nameShop, c.nameClothes, c.phoneClothes, c.viewClothes,  r.remanisClothes) FROM ClothingMatchingTable c " +
+            " JOIN  c.clothersPhone r")
+
+    List<OrderRecommendations> remainsSim();
+    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash(nameClothes, viewClothes) FROM ClothingMatchingTable" )
+
+    List<RemainsGroupCash> getGroupViewSim();
+    @Query("SELECT DISTINCT nameClothes FROM ClothingMatchingTable")
+    List<String> getDistributionModelDISTINCT();
+    @Query("SELECT new com.myisu_1.isu.models.Phone_Smart (nameClothes, phoneClothes,phoneClothes,phoneClothes,viewClothes) FROM ClothingMatchingTable")
+    List<Phone_Smart> phoneSmar();
+    @Query("SELECT DISTINCT phoneClothes FROM ClothingMatchingTable")
+    List<String> getNameRainbows();
 }

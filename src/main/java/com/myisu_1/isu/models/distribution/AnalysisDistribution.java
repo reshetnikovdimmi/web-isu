@@ -28,9 +28,16 @@ public abstract class AnalysisDistribution {
             OrderRecommendations dto = new OrderRecommendations();
             dto.setGroup(o.getGroup());
             dto.setView(o.getView());
-            dto.setRemainsCash1(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(0)) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
-            dto.setRemainsCash2(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
-            remainsCashList.add(dto);
+            if (o.getView()==null){
+                dto.setRemainsCash1(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(0)) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
+                dto.setRemainsCash2(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
+                remainsCashList.add(dto);
+            }else {
+                dto.setRemainsCash1(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(0)) && o.getView().equals(r.getView()) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
+                dto.setRemainsCash2(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(1)) && o.getView().equals(r.getView())  && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
+                remainsCashList.add(dto);
+            }
+
         }
         or.setIndicatorPhoneShop(remainsCashList);
     }
@@ -188,10 +195,11 @@ if(remainMatrixList!=null){
                 }
             }
         }
-
-        for (int i = 0; i < or.getRemanisPhoneShopMult().size(); i++) {
-            if (or.getRemanisPhoneShopMult().get(i).getShop().equals(order.getShop())) {
-                or.getRemanisPhoneShopMult().get(i).setRemainsShop(or.getRemanisPhoneShopMult().get(i).getRemainsShop() + order.getOrder());
+        if(or.getRemanisPhoneShopMult()!=null) {
+            for (int i = 0; i < or.getRemanisPhoneShopMult().size(); i++) {
+                if (or.getRemanisPhoneShopMult().get(i).getShop().equals(order.getShop())) {
+                    or.getRemanisPhoneShopMult().get(i).setRemainsShop(or.getRemanisPhoneShopMult().get(i).getRemainsShop() + order.getOrder());
+                }
             }
         }
         for (int i = 0; i < or.getIndicatorPhoneSach().size(); i++) {

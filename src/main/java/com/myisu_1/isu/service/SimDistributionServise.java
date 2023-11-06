@@ -37,8 +37,7 @@ public class SimDistributionServise extends AnalysisDistribution {
     @Autowired
     private SimAndRtkTableRepositoriy simAndRtkTableRepositoriy;
 
-    List<Authorization_tt> authorization;
-    Map<String,Map<String,Map<String,Map<String,String>>>> remanSaleSimShop;
+
     public OrderRecommendations remainsCash() {
         or = new OrderRecommendations();
         remainsNomenclature = simAndRtkTableRepositoriy.remainsSim();
@@ -62,37 +61,24 @@ public class SimDistributionServise extends AnalysisDistribution {
         return or;
     }
 
-    public Object remanSimCash(String nameSim) {
 
-
-        return remanSaleSimShop(authorization.get(0).getName()).get(rtkTableRepositoriy.getDistributionModelS(nameSim));
-    }
     public List<OrderRecommendations> tableShopRemanis(String shop) {
 
         return or.getDistributionPhone().stream().filter(r -> r.getShop().equals(shop)).collect(Collectors.toList());
     }
 
-    public Map<String,Map<String, Map<String, String>>> remanSaleSimShop(String shop) {
 
-            return null;
+    public OrderRecommendations distribution(OrderRecommendations order) {
 
+        distributions(order,authorization_ttRepositoriy.getShopMult(),null);
+        return or;
     }
 
-    public Object updateRemanisCash(String grop) {
 
 
-        return remanSaleSimShop(authorization.get(0).getName()).get(grop);
-    }
+    public OrderRecommendations exselDistributionSim() {
 
-    public Map<String, Map<String, Map<String, String>>> tableUpDistributionSim(String shop, String nameRainbow, String quantity, String brend) {
-
-
-        return null;
-    }
-
-    public Map<String, Map<String, Map<String, Map<String, String>>>> exselDistributionSim() {
-
-        return remanSaleSimShop;
+        return or;
     }
 
 

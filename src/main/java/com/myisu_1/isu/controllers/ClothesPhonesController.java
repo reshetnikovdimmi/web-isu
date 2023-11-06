@@ -26,7 +26,7 @@ public class ClothesPhonesController {
 
 
         model.addAttribute("RemainsGroupCash", clothesPhonesServise.remainsGroupCash());
-        model.addAttribute("OrderRecommendations", clothesPhonesServise.orderRecommendations());
+
         return "ClothesPhones";
     }
     @RequestMapping(value = "/remainsGroupShopGlass/{models}", method = RequestMethod.GET)
