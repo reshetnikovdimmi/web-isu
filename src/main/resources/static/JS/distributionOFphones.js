@@ -10,7 +10,7 @@ $(document).ready(function() {
             $("#group").html(group);
             scrollInto()
             $(document).find('.RemainsShopGroup .btn').on('click', function() {
-                var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
                 distributionTable(shop)
             });
         });
@@ -51,7 +51,7 @@ function tableRemainsGroupShopGlassAll() {
             $(".RemanisPhoneSach").html(data);
             $("#group").html(group);
             $(document).find('.RemainsShopGroup .btn').on('click', function() {
-                var shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
+                shop = $(this).parents('tr:first').find('td:eq(0)').text().trim();
                 distributionTable(shop)
             });
         });
