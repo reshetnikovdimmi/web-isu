@@ -46,6 +46,7 @@ public class ClothesPhonesServise extends AnalysisDistribution {
     public Object remainsGroupCash() {
         or = new OrderRecommendations();
         remainsNomenclature = clothingMatchingTableRepositoriy.remainsSim();
+        remainsNomenclature.forEach(System.out::println);
         warehouse = shop.getShopList();
         sale1Nomenclature = clothingMatchingTableRepositoriy.getSale1ShopClothingGroupAll();
         sale6Nomenclature = clothingMatchingTableRepositoriy.getSale6ShopClothingGroupAll();
@@ -54,121 +55,27 @@ public class ClothesPhonesServise extends AnalysisDistribution {
         remainsCashGroup(clothingMatchingTableRepositoriy.getGroupViewSim());
         remainsNomenclatureSach(clothingMatchingTableRepositoriy.getNameRainbows());
         indicatorsPhoneShopGroup(clothingMatchingTableRepositoriy.getDistributionModelDISTINCT(), null);
-        or.getRemainsGroupShop().forEach(System.out::println);
+
      //   distributionPhone(simAndRtkTableRepositoriy.getGroupViewSim());
         return or;
     }
 
 
-    private Integer searchRemainsCash1(String p, String v, List<OrderRecommendations> remains) {
-        Integer rem = null;
-        for (OrderRecommendations o : remains) {
-            if (cash.get(0).equals(o.getShop()) && p.equals(o.getGroup()) && v.equals(o.getView())) {
-                rem = Math.toIntExact(o.getRemainsShopL());
-            }
-        }
-        return rem;
 
-    }
-    private Integer searchRemainsCash2(String p, String v, List<OrderRecommendations> remains) {
-        Integer rem = null;
-        for (OrderRecommendations o : remains) {
-            if (cash.get(1).equals(o.getShop()) && p.equals(o.getGroup()) && v.equals(o.getView())) {
-                rem = Math.toIntExact(o.getRemainsShopL());
-            }
-        }
-        return rem;
-    }
 
-    private Integer searchRemainsShopL(String s, String p, String v, List<OrderRecommendations> remains) {
-        Integer rem = null;
-        for (OrderRecommendations o : remains) {
-            if (s.equals(o.getShop()) && p.equals(o.getGroup()) && v.equals(o.getView())) {
-                rem = Math.toIntExact(o.getRemainsShopL());
-            }
-            if (s.equals(o.getShop()) && p.equals(o.getGroup()) && o.getView() == null) {
-                rem = Math.toIntExact(o.getRemainsShopL());
-            }
-        }
-        return rem;
-    }
 
-    public Object orderRecommendations() {
 
-        List<OrderRecommendations> orderRecommendationsClothesList = clothingMatchingTableRepositoriy.getRemainsShopPhoneAll();
-        List<OrderRecommendations> orderRecommendationsClothesList1 = clothingMatchingTableRepositoriy.getSale1ShopPhoneAll();
-        List<OrderRecommendations> orderRecommendationsClothesList6 = clothingMatchingTableRepositoriy.getSale6ShopPhoneAll();
-        List<OrderRecommendations> orderRecommendationsClothesList7 = phoneRepositoriy.getRemainsPhoneAll();
 
-        List<OrderRecommendations> a = new ArrayList<>();
-        List<String> phone = phoneRepositoriy.getBrendDisting();
-        List<String> view = new ArrayList<>();
-        view.add("Glass");
-        view.add("Case");
-        view.add("CoverBook");
-        for (String p : phone) {
-            for (String v : view) {
-                a.add(new OrderRecommendations(p, v, serchRemainsAll(p, v, orderRecommendationsClothesList), serchRemainsAll(p, orderRecommendationsClothesList7), serchRemainsAll(p, v, orderRecommendationsClothesList1), serchRemainsAll(p, v, orderRecommendationsClothesList6), 5));
-            }
-        }
-        List<OrderRecommendations> sortedEmployeeList = a.stream()
-                .sorted(Comparator.comparing(OrderRecommendations::getRemainsShop,
-                        Comparator.nullsLast(Comparator.naturalOrder())))
-                .collect(Collectors.toList());
-        return sortedEmployeeList;
-    }
+    public OrderRecommendations remainsGroupShop() {
 
-    private Integer serchRemainsAll(String p, List<OrderRecommendations> orderRecommendationsClothesList7) {
-        for (OrderRecommendations o : orderRecommendationsClothesList7) {
-            if (p.equals(o.getGroup())) {
-                return Math.toIntExact(o.getRemainsShopL());
-            }
-        }
-        return null;
-    }
 
-    private Integer serchRemainsAll(String p, String v, List<OrderRecommendations> orderRecommendationsClothesList) {
-        for (OrderRecommendations o : orderRecommendationsClothesList) {
-            if (p.equals(o.getShop()) && v.equals(o.getGroup())) {
-                return Math.toIntExact(o.getRemainsShopL());
-            }
-        }
-        return null;
-    }
-
-    public Object remainsGroupShop(String models) {
-
-        remainsGroupShop = new ArrayList<>();
-        for (int i = 0; i < groupSaleRemains.size(); i++) {
-            if (models.equals(groupSaleRemains.get(i).getGroup())) {
-                remainsGroupShop.add(groupSaleRemains.get(i));
-            }
-        }
-        return remainsGroupShop;
+        return or;
     }
 
 
     public List<OrderRecommendations> remainsCash(String models) {
-        addAll(cash, models);
-        List<OrderRecommendations> remCash = new ArrayList<>();
-        for (OrderRecommendations o : groupSaleRemains) {
-            if (o.getAll() != null&& models.equals(o.getGroup())) {
 
-                for (OrderRecommendations all : o.getAll()) {
-                    OrderRecommendations remainsGroupCash = new OrderRecommendations();
-                    if (cash.get(0).equals(all.getShop())) {
-
-                        remainsGroupCash.setNomenclature(all.getNomenclature());
-                        remainsGroupCash.setView(all.getView());
-                        remainsGroupCash.setRemainsCash1(all.getRemainsCash1());
-                        remainsGroupCash.setRemainsCash2(all.getRemainsCash2());
-                    }
-
-                    remCash.add(remainsGroupCash);
-                }
-            }
-        }
-        return remCash;
+        return null;
     }
 
     public void addAll(List<String> shop, String models) {

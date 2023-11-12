@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ClothesPhonesController {
@@ -29,30 +30,19 @@ public class ClothesPhonesController {
 
         return "ClothesPhones";
     }
-    @RequestMapping(value = "/remainsGroupShopGlass/{models}", method = RequestMethod.GET)
+    @RequestMapping(value = "/remainsGroupShopGlass/{models}/{fragment}", method = RequestMethod.GET)
 
-    private String remainsGroupShop(@PathVariable("models") String models, Model model) {
+    private String remainsGroupShop(@PathVariable("models") String models,@PathVariable("fragment")String fragment, Model model) {
 
-        model.addAttribute("RemainsGroupShop", clothesPhonesServise.remainsGroupShop(models));
 
-        return "ClothesPhones::remainsGroupShopGlass";
+        OrderRecommendations or =  clothesPhonesServise.remainsGroupShop();
+
+        model.addAttribute("RemanSimCash", or.getIndicatorPhoneSach().stream().filter(r -> r.getGroup().equals(models)).collect(Collectors.toList()));
+        model.addAttribute("RemanisPhoneGroup", or.getRemainsGroupShop().stream().filter(r ->r.getGroup()!=null && r.getGroup().equals(models)).collect(Collectors.toList()));
+        return "ClothesPhones::"+fragment;
     }
-    @RequestMapping(value = "/remainsGroupShopCase/{models}", method = RequestMethod.GET)
 
-    private String remainsGroupShopCase(@PathVariable("models") String models, Model model) {
 
-        model.addAttribute("RemainsGroupShop", clothesPhonesServise.remainsGroupShop(models));
-
-        return "ClothesPhones::remainsGroupShopCase";
-    }
-    @RequestMapping(value = "/remainsGroupShopCoverBook/{models}", method = RequestMethod.GET)
-
-    private String remainsGroupShopCoverBook(@PathVariable("models") String models, Model model) {
-
-        model.addAttribute("RemainsGroupShop", clothesPhonesServise.remainsGroupShop(models));
-
-        return "ClothesPhones::remainsGroupShopCoverBook";
-    }
     @RequestMapping(value = "/remainsCashGlass/{models}", method = RequestMethod.GET)
 
     private String remainsCashGlass(@PathVariable("models") String models, Model model) {

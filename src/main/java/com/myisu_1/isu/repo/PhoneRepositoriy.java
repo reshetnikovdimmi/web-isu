@@ -16,7 +16,7 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     @Query("SELECT DISTINCT Brend FROM Phone_Smart")
     List<String> getBrendDisting();
 
-    @Query("SELECT DISTINCT Model FROM Phone_Smart")
+    @Query("SELECT Model FROM Phone_Smart")
     List<String> getModelAll();
     @Query("SELECT DISTINCT Matrix_T2 FROM Phone_Smart")
     List<String> getMatrix_T2();
