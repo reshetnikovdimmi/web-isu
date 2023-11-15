@@ -46,17 +46,16 @@ public class ClothesPhonesServise extends AnalysisDistribution {
     public Object remainsGroupCash() {
         or = new OrderRecommendations();
         remainsNomenclature = clothingMatchingTableRepositoriy.remainsSim();
-        remainsNomenclature.forEach(System.out::println);
         warehouse = shop.getShopList();
         sale1Nomenclature = clothingMatchingTableRepositoriy.getSale1ShopClothingGroupAll();
         sale6Nomenclature = clothingMatchingTableRepositoriy.getSale6ShopClothingGroupAll();
         phoneSmarts = clothingMatchingTableRepositoriy.phoneSmar();
-
         remainsCashGroup(clothingMatchingTableRepositoriy.getGroupViewSim());
         remainsNomenclatureSach(clothingMatchingTableRepositoriy.getNameRainbows());
         indicatorsPhoneShopGroup(clothingMatchingTableRepositoriy.getDistributionModelDISTINCT(), null);
 
-     //   distributionPhone(simAndRtkTableRepositoriy.getGroupViewSim());
+        distributionPhone(clothingMatchingTableRepositoriy.getGroupViewSim());
+
         return or;
     }
 
@@ -77,60 +76,9 @@ public class ClothesPhonesServise extends AnalysisDistribution {
 
         return null;
     }
+    public List<OrderRecommendations> remainsGroupShopAll(String shop) {
 
-    public void addAll(List<String> shop, String models) {
-
-        for (String s : shop) {
-            for (int i = 0; i < groupSaleRemains.size(); i++) {
-                if (s.equals(groupSaleRemains.get(i).getShop()) && groupSaleRemains.get(i).getAll() == null) {
-                    List<OrderRecommendations> remShop = new ArrayList<>();
-                    List<String> n = clothingMatchingTableRepositoriy.getClothingList(groupSaleRemains.get(i).getGroup(), groupSaleRemains.get(i).getView());
-                    for (String nom : n) {
-                        if (nom != null) {
-                            remShop.add(new OrderRecommendations(s, groupSaleRemains.get(i).getGroup(), nom, groupSaleRemains.get(i).getView(), remainsCashN1(cash.get(0),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(cash.get(1),groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),remainsShopClothingGroupAll), null, null, remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale1ShopClothingGroupAll), remainsCashN(s,groupSaleRemains.get(i).getGroup(),nom,groupSaleRemains.get(i).getView(),sale6ShopClothingGroupAll), null, null));
-                        }
-                    }
-          //          groupSaleRemains.set(i, new OrderRecommendations(groupSaleRemains.get(i).getShop(), groupSaleRemains.get(i).getGroup(),null, groupSaleRemains.get(i).getView(), groupSaleRemains.get(i).getRemainsCash1(), groupSaleRemains.get(i).getRemainsCash2(),  groupSaleRemains.get(i).getRemainsShop(), null, groupSaleRemains.get(i).getRemainsPhone(), groupSaleRemains.get(i).getSale1(), groupSaleRemains.get(i).getSale6(), groupSaleRemains.get(i).getOrder(), remShop, null));
-                }
-            }
-        }
-    }
-
-    private Integer remainsCashN1(String s, String group, String nom, String view, List<OrderRecommendations> remainsShopClothingGroupAll) {
-        for (OrderRecommendations o:groupSaleRemains){
-            if(cash.get(0).equals(o.getShop())&&group.equals(o.getGroup())&&view.equals(o.getView())&&o.getAll()!=null){
-                for (OrderRecommendations a:o.getAll()){
-                    if (nom.equals(a.getNomenclature())){
-                        return a.getRemainsCash1();
-                    }
-                }
-            }
-        }
-        return remainsCashN(s,group,nom,view,remainsShopClothingGroupAll);
-    }
-
-    private Integer remainsCashN(String s,String group, String nom, String view,List<OrderRecommendations> sale) {
-        Integer rem = null;
-        for (OrderRecommendations o : sale) {
-            if (s.equals(o.getShop()) && group.equals(o.getGroup()) && view.equals(o.getView())&&nom.equals(o.getNomenclature())) {
-                rem = Math.toIntExact(o.getRemainsShop());
-            }
-        }
-        return rem;
-    }
-
-
-
-    public Object remainsGroupShopAll(String models, String shop) {
-        List<String> ss = Collections.singletonList(shop);
-        addAll(ss, models);
-        List<OrderRecommendations> order = new ArrayList<>();
-        for (OrderRecommendations o : groupSaleRemains) {
-            if (shop.equals(o.getShop())) {
-                order.add(o);
-            }
-        }
-        return order;
+        return or.getDistributionPhone().stream().filter(r -> r.getShop().equals(shop)).collect(Collectors.toList());
     }
 
 

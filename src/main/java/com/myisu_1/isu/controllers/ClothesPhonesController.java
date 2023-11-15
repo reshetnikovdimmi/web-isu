@@ -41,7 +41,12 @@ public class ClothesPhonesController {
         model.addAttribute("RemanisPhoneGroup", or.getRemainsGroupShop().stream().filter(r ->r.getGroup()!=null && r.getGroup().equals(models)).collect(Collectors.toList()));
         return "ClothesPhones::"+fragment;
     }
+    @RequestMapping(value = "TableDistributionClothes/{shop}/{fragment}", method = RequestMethod.GET)
+    private String tableDistributionButton(@PathVariable("shop")  String shop,@PathVariable("fragment") String fragment, Model model) {
+        model.addAttribute("TableDistributionPhone", clothesPhonesServise.remainsGroupShopAll(shop));
+        return "ClothesPhones::"+fragment;
 
+    }
 
     @RequestMapping(value = "/remainsCashGlass/{models}", method = RequestMethod.GET)
 
@@ -67,30 +72,9 @@ public class ClothesPhonesController {
 
         return "ClothesPhones::remainsCashCoverBook";
     }
-    @RequestMapping(value = "/remainsGroupShopGlassAll/{models}/{shop}", method = RequestMethod.GET)
 
-    private String remainsGroupShopGlassAll(@PathVariable("models") String models,@PathVariable("shop") String shop, Model model) {
 
-        model.addAttribute("remainsGroupShopAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
 
-        return "ClothesPhones::remainsGroupShopGlassAll";
-    }
-    @RequestMapping(value = "/remainsGroupShopCaseAll/{models}/{shop}", method = RequestMethod.GET)
-
-    private String remainsGroupShopCaseAll(@PathVariable("models") String models,@PathVariable("shop") String shop, Model model) {
-
-        model.addAttribute("remainsGroupShopCaseAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
-
-        return "ClothesPhones::remainsGroupShopCaseAll";
-    }
-    @RequestMapping(value = "/remainsGroupShopCoverBookAll/{models}/{shop}", method = RequestMethod.GET)
-
-    private String remainsGroupShopCoverBookAll(@PathVariable("models") String models,@PathVariable("shop") String shop, Model model) {
-
-        model.addAttribute("remainsGroupShopCoverBookAll", clothesPhonesServise.remainsGroupShopAll(models,shop));
-
-        return "ClothesPhones::remainsGroupShopCoverBookAll";
-    }
     @ResponseBody
     @RequestMapping(value = "/updatingAllTables/{shop}/{models}/{nomenkl}/{kol}", method = RequestMethod.GET)
     private OrderRecommendations updatingAllTables(@PathVariable("shop") String shop,@PathVariable("models") String models, @PathVariable("nomenkl") String nomenkl, @PathVariable("kol") Integer kol) {
