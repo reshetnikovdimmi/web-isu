@@ -54,9 +54,6 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
     List<String> getModelListPhone(String p);
 
 
-    @Query("SELECT new com.myisu_1.isu.dto.OrderRecommendations(c.Brend, SUM (p.remainsSimAndModem)) FROM Phone_Smart c   " +
-            "JOIN c.remanisSims p   GROUP BY c.Brend")
-    List<OrderRecommendations> getRemainsPhoneAll();
     @Modifying
     @Transactional
     @Query("update Phone_Smart u set u.Brend = ?1 where u.Brend = ?2")
@@ -77,9 +74,6 @@ public interface PhoneRepositoriy extends JpaRepository<Phone_Smart, Integer> {
             "LEFT JOIN c.remanisSims p WHERE c.Matrix_T2 IN ?1 AND p.shop IN ?2  GROUP BY p.shop, c.Matrix_T2")
     List<OrderRecommendations> getRemainsShopPhoneMatrix(List<String> matrix, List<String> shopT2);
 
-    @Query("SELECT DISTINCT new com.myisu_1.isu.dto.RemainsGroupCash(c.Brend, p.viewClothes) FROM Phone_Smart c   " +
-            "LEFT JOIN c.сlothingMatching p   ")
-    List<RemainsGroupCash> getGroupViewClothing();
     @Query("SELECT new com.myisu_1.isu.models.Phone.MatrixSpark(p.shop,c.Matrix_T2, SUM (p.remainsSimModem)) FROM Phone_Smart c   " +
             "JOIN c.saleSim_6m p WHERE c.Matrix_T2 IN ?1  GROUP BY c.Matrix_T2 ")
     List<MatrixSpark> getSaleAllMatrix(List<String> distingMatrix);

@@ -17,13 +17,6 @@ public interface ShopPlanSimRepository extends JpaRepository<ShopPlanSim, Intege
 
     void updatePlanSim(Integer id,Integer plan);
 
-
-
-
-
-    @Query("SELECT SUM(plan)  FROM ShopPlanSim WHERE shop IN ?1 AND nameSimModem = ?2")
-    Integer getPlanShopSim(List<String> authorization, String nameRainbow);
-
     @Query("SELECT nameSimModem  FROM ShopPlanSim WHERE shop = ?1")
     List<String> simShopPlanRem(String shop);
 

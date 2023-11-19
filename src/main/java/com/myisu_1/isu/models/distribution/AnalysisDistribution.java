@@ -33,6 +33,7 @@ public abstract class AnalysisDistribution {
                 dto.setRemainsCash2(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(1)) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
                 remainsCashList.add(dto);
             }else {
+
                 dto.setRemainsCash1(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(0)) && o.getView().equals(r.getView()) && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
                 dto.setRemainsCash2(remainsNomenclature.stream().filter(r ->r.getGroup()!=null && r.getShop().equals(warehouse.get(1)) && o.getView().equals(r.getView())  && r.getGroup().equals(o.getGroup())).mapToInt(OrderRecommendations::getRemainsShop).sum());
                 remainsCashList.add(dto);
@@ -54,11 +55,13 @@ public abstract class AnalysisDistribution {
                 dto.setNomenclature(rem.getNomenclature());
                 dto.setRemainsCash1(rem.getRemainsShop());
                 dto.setGroup(rem.getGroup());
+                dto.setView(rem.getView());
             }
             if (rem1 != null) {
                 dto.setNomenclature(rem1.getNomenclature());
                 dto.setRemainsCash2(rem1.getRemainsShop());
                 dto.setGroup(rem1.getGroup());
+                dto.setView(rem1.getView());
             }
             remain.add(dto);
         }
@@ -152,6 +155,7 @@ public abstract class AnalysisDistribution {
         return remainsSaleShopAll;
     }
     public OrderRecommendations distributions(OrderRecommendations order, List<String> shopMult, List<OrderRecommendations> remainMatrixList) {
+        System.out.println(order);
 if(remainMatrixList!=null){
 
 

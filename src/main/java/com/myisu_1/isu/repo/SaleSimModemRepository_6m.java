@@ -11,20 +11,6 @@ import java.util.List;
 
 @Repository
 public interface SaleSimModemRepository_6m extends CrudRepository<SaleSim_6m, Integer> {
-    @Query("SELECT SUM(remainsSimModem)  FROM SaleSim_6m WHERE nameSimAndModem = ?1")
-    Integer getSale6Sim(String nameAccessories);
-
-    @Query("SELECT SUM(remainsSimModem)  FROM SaleSim_6m WHERE shop IN ?1 AND nameSimAndModem = ?2")
-    Integer getSale6AllShopSim(List<String> shopList, String nameRainbow);
-
-    @Query("SELECT remainsSimModem  FROM SaleSim_6m WHERE nameSimAndModem = ?1 AND shop = ?2")
-    Integer getSale6SimShop(String nameAccessories, String shop);
-
-    @Query("SELECT SUM(remainsSimModem)  FROM SaleSim_6m WHERE nameSimAndModem IN ?1 AND shop = ?2")
-    Integer getSale6DistrModel(List<String> nameRainbow, String shop);
-
-    @Query("SELECT SUM(remainsSimModem)  FROM SaleSim_6m WHERE nameSimAndModem IN ?1")
-    Integer getSale6RTK(List<String> nameRainbow);
 
     List<SaleSim_6m> findByShop(String shop);
 }

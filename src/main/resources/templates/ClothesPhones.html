@@ -219,7 +219,7 @@
                                         </thead>
                                         <tbody class="tbody">
 
-                                        <tr th:each="current : ${RemanSimCash} " >
+                                        <tr th:each="current : ${RemanSimCash} " th:if="${current.view == 'Glass'}">
 
                                             <td>
                                                 <button class="btn btn-secondary btn-sm btn-block d-block mx-auto" style="width: 200px; font-size: 10px;" th:text="${current.nomenclature}"
@@ -360,13 +360,13 @@
 
                     </div>
                     <div class="col-md-6 themed-grid-col">
-                        <div class="remainsGroupShopCaseAll" th:fragment="remainsGroupShopCaseAll">
+                        <div class="TableDistributionCase" th:fragment="TableDistributionCase">
                             <table class="table table-hover" >
                                 <thead>
                                 <tr>
-                                    <th id="TT_Case">------ТТ-----</th>
+                                    <th id="Shop" style="width: 25%;">------ТТ-----</th>
                                     <th>ОСТАТОК</th>
-                                    <th>ОСТАТОК ТЕЛ</th>
+
                                     <th>ПРОД 1М</th>
                                     <th>ПРОД 6/3М</th>
                                     <th>ПОТРЕБНОСТЬ</th>
@@ -377,42 +377,44 @@
                             </table>
                             <div class="fixed_header">
 
-                                <table class="table-borderless table-hover" >
+                                <table class="table table-hover" >
 
 
-                                    <tbody class="labels" th:each="current:${remainsGroupShopCaseAll}" >
+                                    <tbody class="labels"  th:each="current:${TableDistributionPhone}" th:if="${current.view == 'Case'}">
 
                                     <tr style="border:2px solid rgb(240, 240, 240);">
-                                    <span th:if="${current.view == 'Case'}">
-                                        <td>
-                                            <button class="btn btn-primary btn-sm btn-block minMatrix"
+
+                                        <td >
+                                            <button class="btn btn-secondary btn-sm btn-block d-block mx-aut minMatrix" style="width: 200px; font-size: 10px;"
                                                     th:text="${current.group}"
-                                                    type="submit"></button>
-                                        </td>
-                                        <td th:text="${current.remainsShop}"></td>
-                                        <td th:text="${current.remainsPhone}"></td>
-                                        <td th:text="${current.sale1}"></td>
-                                        <td th:text="${current.sale6}"></td>
-                                        <td th:text="${current.order}"></td>
-                                        <td th:text="${current.remainsCash1}"></td>
-                                        <td th:text="${current.remainsCash2}"></td>
-                                       </span>
+                                                    type="button"></button>
+                                        </td >
+                                        <td  th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
+
+                                        <td  th:text="${current.sale1}==0?null:${current.sale1}"></td>
+                                        <td  th:text="${current.sale6}==0?null:${current.sale6}"></td>
+                                        <td  th:text="${current.order}"></td>
+                                        <td  th:text="${current.remainsCash1}==0?null:${current.remainsCash1}"></td>
+                                        <td  th:text="${current.remainsCash2}==0?null:${current.remainsCash2}"></td>
+
                                     </tr>
 
                                     <tr th:each="currents:${current.all}" class="hide_minMatrix">
-                                        <td th:text="${currents.nomenclature}"></td>
-                                        <td th:text="${currents.remainsShop}"></td>
-                                        <td th:text="${currents.remainsPhone}"></td>
-                                        <td th:text="${currents.sale1}"></td>
-                                        <td th:text="${currents.sale6}"></td>
-                                        <td > <input name="" id="11" class="changeCase" th:value="${currents.order}"></td>
-                                        <td th:text="${currents.remainsCash1}"></td>
-                                        <td th:text="${currents.remainsCash2}"></td>
+                                        <td style="background: #cccccc; width: 200px; font-size: 10px;" th:text="${currents.nomenclature}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsShop}==0?null:${currents.remainsShop}"></td>
+
+                                        <td style="background: #cccccc;" th:text="${currents.sale1}==0?null:${currents.sale1}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.sale6}==0?null:${currents.sale6}"></td>
+                                        <td style="background: #cccccc;" > <input name="" id=" " class="form-control" th:value="${currents.order}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsCash1}==0?null:${currents.remainsCash1}"></td>
+                                        <td style="background: #cccccc;" th:text="${currents.remainsCash2}==0?null:${currents.remainsCash2}"></td>
                                     </tr>
 
                                     </tbody>
+
                                 </table>
                             </div>
+                            </table>
                         </div>
                     </div>
                     <div class="col">
@@ -498,7 +500,7 @@
                 <div class="row">
                     <div class="row">
                         <div class="table_OrderRecommendations">
-                            <table class="table-borderless">
+                            <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>ТТ</th>
@@ -572,60 +574,62 @@
 
                     </div>
                     <div class="col-md-6 themed-grid-col">
-                        <div class="remainsGroupShopCoverBookAll" th:fragment="remainsGroupShopCoverBookAll">
+                        <div class="TableDistributionCoverBook" th:fragment="TableDistributionCoverBook">
+                        <table class="table table-hover" >
+                            <thead>
+                            <tr>
+                                <th id="Shop" style="width: 25%;">------ТТ-----</th>
+                                <th>ОСТАТОК</th>
+
+                                <th>ПРОД 1М</th>
+                                <th>ПРОД 6/3М</th>
+                                <th>ПОТРЕБНОСТЬ</th>
+                                <th>СКЛАД 1</th>
+                                <th>СКЛАД 2</th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <div class="fixed_header">
+
                             <table class="table table-hover" >
-                                <thead>
-                                <tr>
-                                    <th id="TT_CoverBook">------ТТ-----</th>
-                                    <th>ОСТАТОК</th>
-                                    <th>ОСТАТОК ТЕЛ</th>
-                                    <th>ПРОД 1М</th>
-                                    <th>ПРОД 6/3М</th>
-                                    <th>ПОТРЕБНОСТЬ</th>
-                                    <th>СКЛАД 1</th>
-                                    <th>СКЛАД 2</th>
+
+
+                                <tbody class="labels"  th:each="current:${TableDistributionPhone}" th:if="${current.view == 'CoverBook'}">
+
+                                <tr style="border:2px solid rgb(240, 240, 240);">
+
+                                    <td >
+                                        <button class="btn btn-secondary btn-sm btn-block d-block mx-aut minMatrix" style="width: 200px; font-size: 10px;"
+                                                th:text="${current.group}"
+                                                type="button"></button>
+                                    </td >
+                                    <td  th:text="${current.remainsShop}==0?null:${current.remainsShop}"></td>
+
+                                    <td  th:text="${current.sale1}==0?null:${current.sale1}"></td>
+                                    <td  th:text="${current.sale6}==0?null:${current.sale6}"></td>
+                                    <td  th:text="${current.order}"></td>
+                                    <td  th:text="${current.remainsCash1}==0?null:${current.remainsCash1}"></td>
+                                    <td  th:text="${current.remainsCash2}==0?null:${current.remainsCash2}"></td>
+
                                 </tr>
-                                </thead>
+
+                                <tr th:each="currents:${current.all}" class="hide_minMatrix">
+                                    <td style="background: #cccccc; width: 200px; font-size: 10px;" th:text="${currents.nomenclature}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsShop}==0?null:${currents.remainsShop}"></td>
+
+                                    <td style="background: #cccccc;" th:text="${currents.sale1}==0?null:${currents.sale1}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.sale6}==0?null:${currents.sale6}"></td>
+                                    <td style="background: #cccccc;" > <input name="" id=" " class="form-control" th:value="${currents.order}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsCash1}==0?null:${currents.remainsCash1}"></td>
+                                    <td style="background: #cccccc;" th:text="${currents.remainsCash2}==0?null:${currents.remainsCash2}"></td>
+                                </tr>
+
+                                </tbody>
+
                             </table>
-                            <div class="fixed_header">
-
-                                <table class="table-borderless table-hover" >
-
-
-                                    <tbody class="labels" th:each="current:${remainsGroupShopCoverBookAll}" >
-
-                                    <tr style="border:2px solid rgb(240, 240, 240);">
-                                    <span th:if="${current.view == 'CoverBook'}">
-                                        <td>
-                                            <button class="btn btn-primary btn-sm btn-block minMatrix"
-                                                    th:text="${current.group}"
-                                                    type="submit"></button>
-                                        </td>
-                                        <td th:text="${current.remainsShop}"></td>
-                                        <td th:text="${current.remainsPhone}"></td>
-                                        <td th:text="${current.sale1}"></td>
-                                        <td th:text="${current.sale6}"></td>
-                                        <td th:text="${current.order}"></td>
-                                        <td th:text="${current.remainsCash1}"></td>
-                                        <td th:text="${current.remainsCash2}"></td>
-                                       </span>
-                                    </tr>
-
-                                    <tr th:each="currents:${current.all}" class="hide_minMatrix">
-                                        <td th:text="${currents.nomenclature}"></td>
-                                        <td th:text="${currents.remainsShop}"></td>
-                                        <td th:text="${currents.remainsPhone}"></td>
-                                        <td th:text="${currents.sale1}"></td>
-                                        <td th:text="${currents.sale6}"></td>
-                                        <td > <input name="" id="" class="changeCoverBook" th:value="${currents.order}"></td>
-                                        <td th:text="${currents.remainsCash1}"></td>
-                                        <td th:text="${currents.remainsCash2}"></td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
+                        </table>
+                    </div>
                     </div>
                     <div class="col">
 
@@ -712,11 +716,11 @@
 
                 </div>
                 <div class="row">
-                    <div class="row-1">
-                        <div class="container-sm themed-container text-center">
+                    <div class="row">
+
                             <div class="table_OrderRecommendations">
-                                <table class="table-responsive table-hover">
-                                    <thead class="table-dark table-hover">
+                                <table class="table table-hover">
+                                    <thead>
                                     <tr>
                                         <th>МОДЕЛЬ</th>
                                         <th>ОСТАТОК ТЕЛ</th>
@@ -745,7 +749,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <div class="row mb-3 text-center">

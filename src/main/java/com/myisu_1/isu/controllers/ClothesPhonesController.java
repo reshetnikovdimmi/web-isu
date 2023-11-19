@@ -2,10 +2,14 @@ package com.myisu_1.isu.controllers;
 
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.exporte.ExselFileExporteClotingPhone;
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionImei;
+import com.myisu_1.isu.exporte.ExselFileExporteDistributionPhones;
 import com.myisu_1.isu.service.ClothesPhonesServise;
 import com.myisu_1.isu.service.ClothingMatchingServise;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,29 +52,11 @@ public class ClothesPhonesController {
 
     }
 
-    @RequestMapping(value = "/remainsCashGlass/{models}", method = RequestMethod.GET)
+    @PostMapping("/DistributionClothes")
+    private ResponseEntity<OrderRecommendations> distribution(@RequestBody OrderRecommendations OR) {
 
-    private String remainsCashGlass(@PathVariable("models") String models, Model model) {
 
-        model.addAttribute("RemainsCash", clothesPhonesServise.remainsCash(models));
-
-        return "ClothesPhones::remainsCashGlass";
-    }
-    @RequestMapping(value = "/remainsCashCase/{models}", method = RequestMethod.GET)
-
-    private String remainsCashCase(@PathVariable("models") String models, Model model) {
-
-        model.addAttribute("RemainsCash", clothesPhonesServise.remainsCash(models));
-
-        return "ClothesPhones::remainsCashCase";
-    }
-    @RequestMapping(value = "/remainsCashCoverBook/{models}", method = RequestMethod.GET)
-
-    private String remainsCashCoverBook(@PathVariable("models") String models, Model model) {
-
-        model.addAttribute("RemainsCash", clothesPhonesServise.remainsCash(models));
-
-        return "ClothesPhones::remainsCashCoverBook";
+        return new ResponseEntity<>(clothesPhonesServise.distribution(OR), HttpStatus.OK);
     }
 
 
@@ -86,7 +72,7 @@ public class ClothesPhonesController {
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition","attachment; filename=DistributionClotingPhone.xlsx");
 
-        ByteArrayInputStream inputStream = ExselFileExporteClotingPhone.exportClotingPhone(clothesPhonesServise.exselFileExporteClotingPhone());
+        ByteArrayInputStream inputStream = ExselFileExporteDistributionPhones.exportPrisePromoFile(clothesPhonesServise.exselFileExporteClotingPhone());
 
         IOUtils.copy(inputStream, response.getOutputStream());
 
