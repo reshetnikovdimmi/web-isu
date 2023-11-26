@@ -1,5 +1,6 @@
 package com.myisu_1.isu.service;
 
+
 import com.myisu_1.isu.dto.OrderRecommendations;
 import com.myisu_1.isu.models.distribution.AnalysisDistribution;
 import com.myisu_1.isu.repo.ClothesForPhonesRepositoriy;
@@ -7,16 +8,16 @@ import com.myisu_1.isu.repo.ClothingMatchingTableRepositoriy;
 import com.myisu_1.isu.repo.PhoneRepositoriy;
 import com.myisu_1.isu.repo.PostRepositoriy;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -53,12 +54,41 @@ public class ClothesPhonesServise extends AnalysisDistribution {
         remainsCashGroup(clothingMatchingTableRepositoriy.getGroupViewSim());
         remainsNomenclatureSach(clothingMatchingTableRepositoriy.getNameRainbows());
         indicatorsPhoneShopGroup(clothingMatchingTableRepositoriy.getDistributionModelDISTINCT(), null);
-
         distributionPhone(clothingMatchingTableRepositoriy.getGroupViewSim());
-
         return or;
     }
 
+    @Override
+    public void remainsNomenclatureSach(List<String> all) {
+        List<OrderRecommendations> remain = new ArrayList<>();
+        List<OrderRecommendations> rem = null;
+        for (String o : all) {
+
+         rem = remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(0)) || r.getShop().equals(warehouse.get(1)) && r.getNomenclature().equals(o)).collect(Collectors.toList());
+        }
+        assert rem != null;
+
+        for (OrderRecommendations o:rem){
+            OrderRecommendations dto = new OrderRecommendations();
+               if (o.getShop().equals(warehouse.get(0))) {
+                   dto.setNomenclature(o.getNomenclature());
+                   dto.setRemainsCash1(o.getRemainsShop());
+                   dto.setGroup(o.getGroup());
+                   dto.setView(o.getView());
+               }
+               if (o.getShop().equals(warehouse.get(1))) {
+                   dto.setNomenclature(o.getNomenclature());
+                   dto.setRemainsCash2(o.getRemainsShop());
+                   dto.setGroup(o.getGroup());
+                   dto.setView(o.getView());
+               }
+               remain.add(dto);
+           }
+
+
+
+        or.setIndicatorPhoneSach(remain.stream().filter(r -> r.getGroup() != null).collect(Collectors.toList()));
+    }
 
     public OrderRecommendations remainsGroupShop() {
 
