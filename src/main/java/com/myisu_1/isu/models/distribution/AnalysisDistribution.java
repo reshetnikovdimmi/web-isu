@@ -45,32 +45,26 @@ public abstract class AnalysisDistribution {
 
     public void remainsNomenclatureSach(List<String> all) {
         List<OrderRecommendations> remain = new ArrayList<>();
-        List<OrderRecommendations> rem = null;
+
         for (String o : all) {
 
-            rem = remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(0)) || r.getShop().equals(warehouse.get(1)) && r.getNomenclature().equals(o)).collect(Collectors.toList());
-        }
-        assert rem != null;
-
-        for (OrderRecommendations o:rem){
             OrderRecommendations dto = new OrderRecommendations();
-            if (o.getShop().equals(warehouse.get(0))) {
-                dto.setNomenclature(o.getNomenclature());
-                dto.setRemainsCash1(o.getRemainsShop());
-                dto.setGroup(o.getGroup());
-                dto.setView(o.getView());
+            OrderRecommendations rem = remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(0)) && r.getNomenclature().equals(o)).findAny().orElse(null);
+            OrderRecommendations rem1 = remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(1)) && r.getNomenclature().equals(o)).findAny().orElse(null);
+            if (rem != null) {
+                dto.setNomenclature(rem.getNomenclature());
+                dto.setRemainsCash1(rem.getRemainsShop());
+                dto.setGroup(rem.getGroup());
             }
-            if (o.getShop().equals(warehouse.get(1))) {
-                dto.setNomenclature(o.getNomenclature());
-                dto.setRemainsCash2(o.getRemainsShop());
-                dto.setGroup(o.getGroup());
-                dto.setView(o.getView());
+            if (rem1 != null) {
+                dto.setNomenclature(rem1.getNomenclature());
+                dto.setRemainsCash2(rem1.getRemainsShop());
+                dto.setGroup(rem1.getGroup());
             }
             remain.add(dto);
         }
 
-
-        or.setIndicatorPhoneSach(remain);
+        or.setIndicatorPhoneSach(remain.stream().filter(r -> r.getGroup() != null).collect(Collectors.toList()));
     }
 
     public void indicatorsPhoneShopGroup(List<String> group, List<OrderRecommendations> remainMatrixList) {

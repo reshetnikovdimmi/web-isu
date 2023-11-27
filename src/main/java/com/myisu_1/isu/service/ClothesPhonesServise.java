@@ -58,7 +58,37 @@ public class ClothesPhonesServise extends AnalysisDistribution {
         return or;
     }
 
+    @Override
+    public void remainsNomenclatureSach(List<String> all) {
+        List<OrderRecommendations> remain = new ArrayList<>();
+        List<OrderRecommendations> rem = null;
+        for (String o : all) {
 
+            rem = remainsNomenclature.stream().filter(r -> r.getShop().equals(warehouse.get(0)) || r.getShop().equals(warehouse.get(1)) && r.getNomenclature().equals(o)).collect(Collectors.toList());
+        }
+        rem.forEach(System.out::println);
+        assert rem != null;
+
+        for (OrderRecommendations o:rem){
+            OrderRecommendations dto = new OrderRecommendations();
+            if (o.getShop().equals(warehouse.get(0))) {
+                dto.setNomenclature(o.getNomenclature());
+                dto.setRemainsCash1(o.getRemainsShop());
+                dto.setGroup(o.getGroup());
+                dto.setView(o.getView());
+            }
+            if (o.getShop().equals(warehouse.get(1))) {
+                dto.setNomenclature(o.getNomenclature());
+                dto.setRemainsCash2(o.getRemainsShop());
+                dto.setGroup(o.getGroup());
+                dto.setView(o.getView());
+            }
+            remain.add(dto);
+        }
+
+
+        or.setIndicatorPhoneSach(remain);
+    }
 
     public OrderRecommendations remainsGroupShop() {
 
